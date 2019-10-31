@@ -8,21 +8,53 @@
         Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged">
     <Grid x:Name="grid">
         <Canvas x:Name="canvas">
-            <Path x:Name="board" Fill="#FFEDDF5F" Stroke="Black" StrokeThickness="1" Stretch="Fill" Width="575" Canvas.Left="10" Canvas.Top="10" Height="388">
+            <Path x:Name="board" Fill="#FFEDDF5F" Stroke="Black" StrokeThickness="1" Stretch="Fill" Width="575" Canvas.Left="75" Canvas.Top="23.02" Height="388" Panel.ZIndex="100">
                 <Path.Data>
                     <RectangleGeometry Rect="50,50,125,125" />
                 </Path.Data>
             </Path>
 
-            <!-- Draws a diagonal line from (10,10) to (50,50). -->
-            <Line
-                X1="10" Y1="10"
-                X2="50" Y2="50"
-                Stroke="Black"
-                StrokeThickness="4" />
-
-            <!-- Draws a diagonal line from (10,10) to (50,50)
-       and moves it 100 pixels to the right. -->
+            <Line x:Name="verticalLine0"></Line>
+            <Line x:Name="verticalLine1"></Line>
+            <Line x:Name="verticalLine2"></Line>
+            <Line x:Name="verticalLine3"></Line>
+            <Line x:Name="verticalLine4"></Line>
+            <Line x:Name="verticalLine5"></Line>
+            <Line x:Name="verticalLine6"></Line>
+            <Line x:Name="verticalLine7"></Line>
+            <Line x:Name="verticalLine8"></Line>
+            <Line x:Name="verticalLine9"></Line>
+            <Line x:Name="verticalLine10"></Line>
+            <Line x:Name="verticalLine11"></Line>
+            <Line x:Name="verticalLine12"></Line>
+            <Line x:Name="verticalLine13"></Line>
+            <Line x:Name="verticalLine14"></Line>
+            <Line x:Name="verticalLine15"></Line>
+            <Line x:Name="verticalLine16"></Line>
+            <Line x:Name="verticalLine17"></Line>
+            <Line x:Name="verticalLine18"></Line>
+            <Line x:Name="verticalLine19"></Line>
+            <Line x:Name="horizontalLine0"></Line>
+            <Line x:Name="horizontalLine1"></Line>
+            <Line x:Name="horizontalLine2"></Line>
+            <Line x:Name="horizontalLine3"></Line>
+            <Line x:Name="horizontalLine4"></Line>
+            <Line x:Name="horizontalLine5"></Line>
+            <Line x:Name="horizontalLine6"></Line>
+            <Line x:Name="horizontalLine7"></Line>
+            <Line x:Name="horizontalLine8"></Line>
+            <Line x:Name="horizontalLine9"></Line>
+            <Line x:Name="horizontalLine10"></Line>
+            <Line x:Name="horizontalLine11"></Line>
+            <Line x:Name="horizontalLine12"></Line>
+            <Line x:Name="horizontalLine13"></Line>
+            <Line x:Name="horizontalLine14"></Line>
+            <Line x:Name="horizontalLine15"></Line>
+            <Line x:Name="horizontalLine16"></Line>
+            <Line x:Name="horizontalLine17"></Line>
+            <Line x:Name="horizontalLine18"></Line>
+            <Line x:Name="horizontalLine19"></Line>
+            <!--
             <Line
                 X1="10" Y1="10"
                 X2="50" Y2="50"
@@ -38,12 +70,12 @@
                 </Line.Stroke>
             </Line>
 
-            <!-- Draws a horizontal line from (10,60) to (150,60). -->
             <Line
                  X1="10" Y1="60"
                  X2="150" Y2="60"
                  Stroke="Black"
                  StrokeThickness="4"/>
+            -->
 
         </Canvas>
     </Grid>
