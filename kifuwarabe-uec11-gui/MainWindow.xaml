@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kifuwarabe_uec11_gui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged">
+        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded" Initialized="Window_Initialized">
     <Grid x:Name="grid">
         <Canvas x:Name="canvas">
             <Path x:Name="board" Fill="#FFEDDF5F" Stroke="Black" StrokeThickness="1" Stretch="Fill" Width="575" Canvas.Left="75" Canvas.Top="23.02" Height="388" Panel.ZIndex="100">
@@ -54,29 +54,6 @@
             <Line x:Name="horizontalLine17"></Line>
             <Line x:Name="horizontalLine18"></Line>
             <Line x:Name="horizontalLine19"></Line>
-            <!--
-            <Line
-                X1="10" Y1="10"
-                X2="50" Y2="50"
-                StrokeThickness="4"
-                Canvas.Left="100">
-                <Line.Stroke>
-                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                        <RadialGradientBrush.GradientStops>
-                            <GradientStop Color="Red" Offset="0" />
-                            <GradientStop Color="Blue" Offset="0.25" />
-                        </RadialGradientBrush.GradientStops>
-                    </RadialGradientBrush>
-                </Line.Stroke>
-            </Line>
-
-            <Line
-                 X1="10" Y1="60"
-                 X2="150" Y2="60"
-                 Stroke="Black"
-                 StrokeThickness="4"/>
-            -->
-
         </Canvas>
     </Grid>
 </Window>
