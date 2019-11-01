@@ -13,6 +13,13 @@
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// 内部状態。
+        /// </summary>
+        private State State { get; set; }
+
+        private List<Line> VerticalLines { get; set; }
+        private List<Line> HorizontalLines { get; set; }
         private List<Ellipse> Stones { get; set; }
         private List<Label> RowLabels { get; set; }
         private List<Label> ColumnLabels { get; set; }
@@ -30,6 +37,9 @@
 
         public MainWindow()
         {
+            this.State = new State();
+            this.VerticalLines = new List<Line>();
+            this.HorizontalLines = new List<Line>();
             this.Stones = new List<Ellipse>();
             this.RowLabels = new List<Label>();
             this.ColumnLabels = new List<Label>();
@@ -66,85 +76,37 @@
             var columnInterval = board.Width / BoardDiv;
             var rowInterval = board.Height / BoardDiv;
 
-            // タテ線20本☆（＾～＾）
-            var verticalLines = new List<Line>() {
-                verticalLine0,
-                verticalLine1,
-                verticalLine2,
-                verticalLine3,
-                verticalLine4,
-                verticalLine5,
-                verticalLine6,
-                verticalLine7,
-                verticalLine8,
-                verticalLine9,
-                verticalLine10,
-                verticalLine11,
-                verticalLine12,
-                verticalLine13,
-                verticalLine14,
-                verticalLine15,
-                verticalLine16,
-                verticalLine17,
-                verticalLine18,
-                verticalLine19,
-            };
-            // ヨコ線20本☆（＾～＾）
-            var horizontalLines = new List<Line>() {
-                horizontalLine0,
-                horizontalLine1,
-                horizontalLine2,
-                horizontalLine3,
-                horizontalLine4,
-                horizontalLine5,
-                horizontalLine6,
-                horizontalLine7,
-                horizontalLine8,
-                horizontalLine9,
-                horizontalLine10,
-                horizontalLine11,
-                horizontalLine12,
-                horizontalLine13,
-                horizontalLine14,
-                horizontalLine15,
-                horizontalLine16,
-                horizontalLine17,
-                horizontalLine18,
-                horizontalLine19,
-            };
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < 19; column++)
             {
-                var verticalLine = verticalLines[column];
-                Canvas.SetLeft(verticalLine, 0);
-                Canvas.SetTop(verticalLine, 0);
-                verticalLine.Width = grid.RenderSize.Width;
-                verticalLine.Height = grid.RenderSize.Height;
-                verticalLine.Stroke = Brushes.Black;
-                verticalLine.StrokeThickness = 1.5;
-                Panel.SetZIndex(verticalLine, 110);
+                var line = this.VerticalLines[column];
+                Canvas.SetLeft(line, 0);
+                Canvas.SetTop(line, 0);
+                line.Width = grid.RenderSize.Width;
+                line.Height = grid.RenderSize.Height;
+                line.StrokeThickness = 1.5;
+                Panel.SetZIndex(line, 110);
                 // 盤の幅を20で割ろうぜ☆（＾～＾）
-                verticalLine.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
-                verticalLine.Y1 = boardTop + board.Height * 0.05;
-                verticalLine.X2 = verticalLine.X1;
-                verticalLine.Y2 = verticalLine.Y1 + rowInterval * 18;
+                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
+                line.Y1 = boardTop + board.Height * 0.05;
+                line.X2 = line.X1;
+                line.Y2 = line.Y1 + rowInterval * 18;
             }
             // ヨコ線をタテに並べるぜ☆（＾～＾）
             for (var row = 0; row < 19; row++)
             {
-                var horizontalLine = horizontalLines[row];
-                Canvas.SetLeft(horizontalLine, 0);
-                Canvas.SetTop(horizontalLine, 0);
-                horizontalLine.Width = grid.RenderSize.Width;
-                horizontalLine.Height = grid.RenderSize.Height;
-                horizontalLine.Stroke = Brushes.Black;
-                horizontalLine.StrokeThickness = 1.5;
-                Panel.SetZIndex(horizontalLine, 110);
-                // 盤の幅を20で割ろうぜ☆（＾～＾）
-                horizontalLine.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
-                horizontalLine.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
-                horizontalLine.X2 = horizontalLine.X1 + columnInterval * 18;
-                horizontalLine.Y2 = horizontalLine.Y1;
+                var line = this.HorizontalLines[row];
+                Canvas.SetLeft(line, 0);
+                Canvas.SetTop(line, 0);
+                line.Width = grid.RenderSize.Width;
+                line.Height = grid.RenderSize.Height;
+                line.StrokeThickness = 1.5;
+                Panel.SetZIndex(line, 110);
+                // 盤☆（＾～＾）
+                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
+                line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
+                line.X2 = line.X1 + columnInterval * 18;
+                line.Y2 = line.Y1;
             }
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
@@ -158,7 +120,7 @@
                 stone.Width = board.Width / BoardDiv * 0.8;
                 stone.Height = board.Height / BoardDiv * 0.8;
                 stone.StrokeThickness = 1.5;
-                // 盤の幅を21で割ろうぜ☆（＾～＾）
+                // 盤☆（＾～＾）
                 Canvas.SetLeft(stone, boardLeft + paddingLeft - stone.Width / 2 + columnInterval * column);
                 Canvas.SetTop(stone, boardTop + paddingTop - stone.Height / 2 + rowInterval * row);
             }
@@ -172,11 +134,11 @@
                 label.Width = columnInterval * 1.8;
                 label.Height = rowInterval * 1.8;
                 // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
-                Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * (column + SignLen));
+                Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
                 Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * 19);
             }
 
-            // 行の符号を描こうぜ☆（＾～＾）？
+            // 行の番号を描こうぜ☆（＾～＾）？
             for (var row = 0; row < 19; row++)
             {
                 var label = this.RowLabels[row];
@@ -188,10 +150,26 @@
                 Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
                 Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
             }
+
+            // 何手目か表示しようぜ☆（＾～＾）？
+            {
+                ply.FontSize = columnInterval;
+                ply.Content = $"{State.Ply}手目";
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // テスト
+            Trace.WriteLine($"A19 = {CellSignParser.ToIndex("A19")}");
+            Trace.WriteLine($"B19 = {CellSignParser.ToIndex("B19")}");
+            Trace.WriteLine($"S1 = {CellSignParser.ToIndex("S1")}");
+            Trace.WriteLine($"T1 = {CellSignParser.ToIndex("T1")}");
+
+            Trace.WriteLine($"a19 = {CellSignParser.ToIndex("a19")}");
+            Trace.WriteLine($"b19 = {CellSignParser.ToIndex("b19")}");
+            Trace.WriteLine($"s1 = {CellSignParser.ToIndex("s1")}");
+            Trace.WriteLine($"t1 = {CellSignParser.ToIndex("t1")}");
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -203,6 +181,55 @@
             // センターを求めようぜ☆（＾～＾）
             var centerX = grid.RenderSize.Width / 2;
             var centerY = grid.RenderSize.Height / 2;
+
+            // 盤☆（＾～＾）
+            var boardLeft = centerX - shortenEdge / 2;
+            var boardTop = centerY - shortenEdge / 2;
+            var columnInterval = board.Width / BoardDiv;
+            var rowInterval = board.Height / BoardDiv;
+
+            // タテ線をヨコに並べるぜ☆（＾～＾）
+            for (var column = 0; column < 19; column++)
+            {
+                var line = new Line();
+                line.Name = $"verticalLine{column}";
+                Canvas.SetLeft(line, 0);
+                Canvas.SetTop(line, 0);
+                line.Width = grid.RenderSize.Width;
+                line.Height = grid.RenderSize.Height;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 1.5;
+                Panel.SetZIndex(line, 110);
+                // 盤の幅を20で割ろうぜ☆（＾～＾）
+                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
+                line.Y1 = boardTop + board.Height * 0.05;
+                line.X2 = line.X1;
+                line.Y2 = line.Y1 + rowInterval * 18;
+
+                this.VerticalLines.Add(line);
+                canvas.Children.Add(line);
+            }
+            // ヨコ線をタテに並べるぜ☆（＾～＾）
+            for (var row = 0; row < 19; row++)
+            {
+                var line = new Line();
+                line.Name = $"horizontalLine{row}";
+                Canvas.SetLeft(line, 0);
+                Canvas.SetTop(line, 0);
+                line.Width = grid.RenderSize.Width;
+                line.Height = grid.RenderSize.Height;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 1.5;
+                Panel.SetZIndex(line, 110);
+                // 盤☆（＾～＾）
+                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
+                line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
+                line.X2 = line.X1 + columnInterval * 18;
+                line.Y2 = line.Y1;
+
+                this.HorizontalLines.Add(line);
+                canvas.Children.Add(line);
+            }
 
             // 石を描こうぜ☆（＾～＾）？
             for (var i = 0; i < 361; i++)
@@ -240,7 +267,7 @@
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
                 Panel.SetZIndex(label, 130);
-                label.Content = (char)(65 + (column<8?column:column+1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
+                label.Content = (char)(65 + (column < 8 ? column : column + 1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
                 this.ColumnLabels.Add(label);
                 canvas.Children.Add(label);
             }
@@ -252,7 +279,7 @@
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
                 Panel.SetZIndex(label, 130);
-                if (9<number)
+                if (9 < number)
                 {
                     label.Content = number;
                 }
@@ -263,6 +290,11 @@
                 }
                 this.RowLabels.Add(label);
                 canvas.Children.Add(label);
+            }
+
+            // 何手目か表示しようぜ☆（＾～＾）？
+            {
+                ply.Foreground = new SolidColorBrush(Color.FromArgb(196, 0, 0, 0));
             }
         }
     }

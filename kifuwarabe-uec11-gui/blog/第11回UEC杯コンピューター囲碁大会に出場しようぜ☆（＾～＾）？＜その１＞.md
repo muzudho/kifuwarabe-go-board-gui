@@ -335,5 +335,177 @@ WPFに　配列は無いのかだぜ☆？　３６１個も　石のタグ　�
 「　↑とりあえず　丸は描けそうだな☆
 線の交点の上に　うまく置けるかどうか計算だな☆」
 
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　なんか　また眠くなってきた……☆」
+
+（うつらうつら）
+
+**ゴンッ！**
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　起きろ　お父ん☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　石の大きさは、線の間隔の９掛けでいいだろ……☆」
+
+![20191101wpf2.png](https://crieit.now.sh/upload_images/c8af4bb8678c6dc1d2935720446cb9ed5dbc1fc07bf05.png)
+
+
+```
+            // 石を描こうぜ☆（＾～＾）？
+            {
+                stone0.Width = board.Width / 21 * 0.9;
+                stone0.Height = board.Height / 21 * 0.9;
+                stone0.Stroke = Brushes.Black;
+                stone0.StrokeThickness = 1.5;
+                Panel.SetZIndex(stone0, 120);
+                stone0.Fill = Brushes.White;
+                // 盤の幅を21で割ろうぜ☆（＾～＾）
+                Canvas.SetLeft(stone0, boardLeft + board.Width * 0.05 - stone0.Width / 2);
+                Canvas.SetTop(stone0, boardTop + board.Height * 0.05 - stone0.Height / 2);
+            }
+```
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　こういう計算は楽勝か☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　売れなかったゲームの数だけ書いてきたぜ☆
+ゲームで儲けるより　サラリーマンになった方が確実に稼げるぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　３６１個のＸＭＬタグを書きなさい」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　Microsoft社は何も疑問に思わないのだろうか……、
+なんか　オブジェクトを new できたりしないのかだぜ☆？」
+
+
+# 2019-11-01 21:00頃
+
+
+```
+        <Canvas x:Name="canvas">
+            <Ellipse x:Name="stone0" />
+        </Canvas>
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　Ellipse を new して、 Canvas に Add できたら　いいんだがなぁ☆」
+
+![20191101wpf3.png](https://crieit.now.sh/upload_images/1241b91fa04993147478bd4b6ba2aabd5dbc21bb09f56.png)
+
+
+```
+            // 石を描こうぜ☆（＾～＾）？
+            {
+                var stone = new Ellipse();
+                stone.Width = board.Width / 21 * 0.9;
+                stone.Height = board.Height / 21 * 0.9;
+                stone.Stroke = Brushes.White;
+                stone.StrokeThickness = 1.5;
+                Panel.SetZIndex(stone, 120);
+                stone.Fill = Brushes.Black;
+                // 盤の幅を21で割ろうぜ☆（＾～＾）
+                Canvas.SetLeft(stone, boardLeft + board.Width * 0.05 - stone0.Width / 2 + board.Width / 21 * 1);
+                Canvas.SetTop(stone, boardTop + board.Height * 0.05 - stone0.Height / 2);
+                canvas.Children.Add(stone);
+            }
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑置けはした……☆　が、ウィンドウをリサイズするたびに増えてしまう……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　えらいこっちゃ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　`.Initialize` とか、 `.OnLoad` とか、それっぽい名前のイベント・ハンドラーは無いの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　じゃあ `Loaded` に書いてみるかだぜ☆
+それより　コーヒー　飲もうぜ☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　コーヒー☆？」
+
+![20191101wpf4.png](https://crieit.now.sh/upload_images/ee0f2682b288c068a10a13e45744f0735dbc298607978.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑うっ、目が錯覚を☆！　そして２０路盤なんじゃないか　これ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　オブジェクトの生成は、 `.Initialize` の方に書くか……☆
+こういう　何はどこに書いたらいいのか　さっぱり　分からんよな☆」
+
+![20191101wpf5.png](https://crieit.now.sh/upload_images/243eb5e5bd8fbb0f7bfd6eb2f6fd53cd5dbc2c5fddf47.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　乱数で色をぶちまければ　それっぽいぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　盤はできても、石をどこに置くのか　指示を飛ばすのが　めんどうなのよね。
+テキストボックスを置くのか、マウスでクリックするのか」
+
+# 2019-11-01 22:00頃
+
+
+input.txt
+
+
+```
+&clear
+.
+```
+
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　30秒ごとに　input.txt　ファイルを読み込めだぜ☆
+最後の空行に　ドット `.` を打ち込んだら　実行だぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　変わったこと　すんのな☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　その前に　盤に符号打たないの？　１とか　Ａとか」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　そういえば　無いな☆」
+
+
+[Label クラス](https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.controls.label?view=netcore-3.0)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑なんだか　分からんこと　書いてるなあ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　サンプルは、
+コピーして、
+貼るのよ！」
+
+![20191101wpf6.png](https://crieit.now.sh/upload_images/3b6a61bd045b895cc1c4e814309847d35dbc3563d2eec.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑文字が切れるのは　なぜ☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　`.Width`、 `.Height` と、 `.FontSize` をいじり回せだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　FontSize の単位が分からんよな☆」
+
+![20191101wpf7.png](https://crieit.now.sh/upload_images/07d56d5eea595fffe5f0523d5f79dc8d5dbc38e7ee96e.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　トライ＆エラーで　想像に近づけていってるんだが、タイポグラフィーの調整は　むずかしいぜ☆」
+
+![20191101wpf8.png](https://crieit.now.sh/upload_images/699657f80fb9578db1d90c353b189bc75dbc3b7111009.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　フォントが正方形じゃないから　合わせるのは無理☆　てきとうで☆」
+
+# 2019-11-01 23:00頃
 
 ＜書き換え＞
