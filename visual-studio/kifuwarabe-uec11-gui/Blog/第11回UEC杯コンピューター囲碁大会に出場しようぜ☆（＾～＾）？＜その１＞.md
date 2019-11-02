@@ -937,5 +937,327 @@ MainWindows.xaml.cs:
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
 「　↑ざっくり書くなら　こうかだぜ☆？」
 
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　読み込んだ入力を　ログに書き出せだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　`.ReadToEnd()` は 1文字ずつ取っている気がする……、仕組みが分からんが☆
+行ごとに取れないのかだぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　いや、文字列を foreach文で回すと１文字ずつ取ってしまうのか……☆」
+
+
+```
+            // UIスレッドで動くタイマー☆（＾～＾）
+            {
+                this.DispatchTimer = new DispatcherTimer();
+                this.DispatchTimer.Start();
+                this.DispatchTimer.Interval = TimeSpan.FromSeconds(5);
+                this.DispatchTimer.Tick += (s, e) =>
+                {
+                    var text = this.InputTextReader.ReadToEnd();
+                    Trace.WriteLine($"Text            | {text}");
+
+                    this.CommunicationLogWriter.WriteLine(text);
+                    this.CommunicationLogWriter.Flush();
+
+                    foreach (var line in text.Split(Environment.NewLine))
+                    {
+                        Trace.WriteLine($"Read            | {line}");
+                    }
+                };
+            }
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑じゃあ　こうしてみる☆」
+
+![20191102wpf12.png](https://crieit.now.sh/upload_images/fd662594c8e648dc12ff5c866c2cedce5dbd43ee3a6b4.png)
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　ログ書き出しに変な文字付いてない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　多分 BOM かと思うが、バイナリ・エディターで開いてみてくれだぜ☆」
+
+[Binary Editor BZ](https://forest.watch.impress.co.jp/library/software/binaryeditbz/)
+[UTF-8のBOM付き・BOM無しの違いと確認方法](https://uxmilk.jp/48923)
+
+![20191102wpf13.png](https://crieit.now.sh/upload_images/afd8642632ba3b2e8d03a615b4d266325dbd45796ad40.png)
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　これ　どうやって使うの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　BOM だったら `EF BB BF` というデータがあるはずだぜ☆
+ちなみに `0d 0a` は Windows の改行☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　先頭に `EF BB BF` があるわよ。　それ以外のところにも　`EF BB BF` があるわよ」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　じゃあ　このファイルは　BOM付きのUTF　だぜ☆
+先頭のBOMだけ無視されるが、途中に出てくるBOM は文字化けするだろう☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　BOM無しのUTFで保存してくれだぜ☆」
+
+[BOM無しのUTF-8でテキストファイルに書き込む](https://dobon.net/vb/dotnet/file/writeutf8withoutbom.html)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑エンコーディングを指定してはいけないのか……☆」
+
+
+# 2019-11-02 18:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　よし、BOMは直した☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　じゃあ命令を　プログラミングしてくれだぜ☆
+これは　別個のプロジェクトを立てた方がいいだろう☆
+プロジェクト名は　`kifuwarabe-uec11-gui-api`　とか　どうだぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　長い名前だな……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　プロジェクトを別に立てると　めんどいんで　しばらく　ネームスペースを `kifuwarabe_uec11_gui.API` にして使うぜ☆」
+
+# 2019-11-02 19:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　ここでお前らに　パーサーの書き方を　教えてやろう☆」
+
+
+MainWindow.xaml.cs:
+
+
+```
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // テスト
+            Trace.WriteLine($"A19             | {CellAddress.Parse("A19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"B19             | {CellAddress.Parse("B19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"S1              | {CellAddress.Parse("S1", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"T1              | {CellAddress.Parse("T1", 0).Item1?.ToDisplay()}");
+
+            Trace.WriteLine($"a19             | {CellAddress.Parse("a19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"b19             | {CellAddress.Parse("b19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"s1              | {CellAddress.Parse("s1", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"t1              | {CellAddress.Parse("t1", 0).Item1?.ToDisplay()}");
+        }
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑テストは MSTest などを使って Assert で書くべきなんだが、めんどくさかったんで　ひとまず　Trace で出力ウィンドウに出すことにする☆」
+
+
+CellAddress.cs
+
+
+```
+namespace kifuwarabe_uec11_gui.API
+{
+    /// <summary>
+    /// セル番地☆（＾～＾） A1 とか T19 みたいなやつだぜ☆（＾～＾）
+    /// </summary>
+    public class CellAddress
+    {
+        public ColumnAddress ColumnAddress { get; set; }
+        public RowAddress RowAddress { get; set; }
+
+        public CellAddress(ColumnAddress columnAddress, RowAddress rowAddress)
+        {
+            this.ColumnAddress = columnAddress;
+            this.RowAddress = rowAddress;
+        }
+
+        public static (CellAddress, int) Parse(string text, int start)
+        {
+            ColumnAddress columnAddress;
+            var next = 0;
+            {
+                (columnAddress, next) = ColumnAddress.Parse(text, start);
+                if (columnAddress == null)
+                {
+                    // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                    return (null, start);
+                }
+            }
+
+            // 列はマッチ☆（＾～＾）
+
+            RowAddress rowAddress;
+            {
+                (rowAddress, next) = RowAddress.Parse(text, next);
+                if (rowAddress == null)
+                {
+                    // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                    return (null, start);
+                }
+            }
+
+            // 列と行の両方マッチ☆（＾～＾）
+            return (new CellAddress(columnAddress, rowAddress), next);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay()}";
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑セルは、列アドレスと、行アドレスの２つで　できている☆」
+
+
+ColumnAddress.cs
+
+
+```
+using System.Globalization;
+
+namespace kifuwarabe_uec11_gui.API
+{
+    /// <summary>
+    /// 列アドレスだぜ☆（＾～＾） A ～ T で、 I が欠番だな☆（＾～＾）
+    /// </summary>
+    public class ColumnAddress
+    {
+        private int Number { get; set; }
+
+        public ColumnAddress(int number)
+        {
+            this.Number = number;
+        }
+
+        public static (ColumnAddress, int) Parse(string text, int start)
+        {
+            if (text == null || text.Length < start + 1)
+            {
+                return (null, start);
+            }
+
+            // 最初の1文字はアルファベット。
+            var column = ((char)text[start]) - 65; // 65はAsciiCodeのA。97はa。
+            if (32 <= column)
+            {
+                // 小文字から大文字へ変換。
+                column -= 32;
+            }
+
+            // コンピューター囲碁では I は抜く慣習。
+            if (8 <= column)
+            {
+                column--;
+            }
+
+            return (new ColumnAddress(column), start + 1);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
+            return ((char)(65 + (this.Number < 8 ? this.Number : this.Number + 1))).ToString(CultureInfo.CurrentCulture);
+        }
+    }
+}
+```
+
+
+RowAddress.cs:
+
+
+```
+namespace kifuwarabe_uec11_gui.API
+{
+    using System;
+    using System.Globalization;
+
+    /// <summary>
+    /// 行番号だぜ☆（＾～＾）　コンピューターチェスの国際式では　一番下が１行目だぜ☆（＾～＾）
+    /// </summary>
+    public class RowAddress
+    {
+        private int Number { get; set; }
+
+        public RowAddress(int number)
+        {
+            this.Number = number;
+        }
+
+        public static (RowAddress, int) Parse(string text, int start)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            var row = 0;
+            {
+                if (int.TryParse(text[start].ToString(CultureInfo.CurrentCulture), out int outRow))
+                {
+                    row = outRow;
+
+                    // 先頭桁目は確定☆（＾～＾）
+                    start++;
+                }
+                else
+                {
+                    // 1文字もヒットしなかった場合☆（＾～＾）
+                    return (null, start);
+                }
+            }
+
+            if (start < text.Length)
+            {
+                if (int.TryParse(text[start].ToString(CultureInfo.CurrentCulture), out int outRow))
+                {
+                    row *= 10;
+                    row += outRow;
+
+                    // 先頭から2桁目は確定☆（＾～＾）
+                    start++;
+                }
+            }
+
+            // 1文字以上のヒットがある場合☆（＾～＾）
+            return (new RowAddress(row), start);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            return this.Number.ToString(CultureInfo.CurrentCulture);
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑こんな風に　部分に分解してパースする☆
+パーサーのライブラリを使えば　便利かもしれないが、ルールを覚えるのがめんどくさいので　自作する☆」
+
+
+
 
 ＜書き換え＞

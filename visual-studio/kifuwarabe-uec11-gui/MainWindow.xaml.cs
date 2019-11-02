@@ -8,6 +8,7 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
+    using kifuwarabe_uec11_gui.API;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -177,15 +178,15 @@
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // テスト
-            Trace.WriteLine($"A19 = {CellSignParser.ToIndex("A19")}");
-            Trace.WriteLine($"B19 = {CellSignParser.ToIndex("B19")}");
-            Trace.WriteLine($"S1 = {CellSignParser.ToIndex("S1")}");
-            Trace.WriteLine($"T1 = {CellSignParser.ToIndex("T1")}");
+            Trace.WriteLine($"A19             | {CellAddress.Parse("A19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"B19             | {CellAddress.Parse("B19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"S1              | {CellAddress.Parse("S1", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"T1              | {CellAddress.Parse("T1", 0).Item1?.ToDisplay()}");
 
-            Trace.WriteLine($"a19 = {CellSignParser.ToIndex("a19")}");
-            Trace.WriteLine($"b19 = {CellSignParser.ToIndex("b19")}");
-            Trace.WriteLine($"s1 = {CellSignParser.ToIndex("s1")}");
-            Trace.WriteLine($"t1 = {CellSignParser.ToIndex("t1")}");
+            Trace.WriteLine($"a19             | {CellAddress.Parse("a19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"b19             | {CellAddress.Parse("b19", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"s1              | {CellAddress.Parse("s1", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"t1              | {CellAddress.Parse("t1", 0).Item1?.ToDisplay()}");
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
