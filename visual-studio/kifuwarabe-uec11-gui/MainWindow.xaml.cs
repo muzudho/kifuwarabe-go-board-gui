@@ -193,7 +193,11 @@
             Trace.WriteLine($"s1              | {CellAddress.Parse("s1", 0).Item1?.ToDisplay()}");
             Trace.WriteLine($"t1              | {CellAddress.Parse("t1", 0).Item1?.ToDisplay()}");
 
-            Trace.WriteLine($"black a19 k10 t1| {BlackInstruction.Parse("black a19 k10 t1", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"black a19 k10 t1| {ColorInstructionParameter.Parse("black a19 k10 t1", 5).Item1?.ToDisplay()}");
+            Trace.WriteLine($"white a19 k10 t1| {ColorInstructionParameter.Parse("white a19 k10 t1", 5).Item1?.ToDisplay()}");
+            Trace.WriteLine($"space a19 k10 t1| {ColorInstructionParameter.Parse("space a19 k10 t1", 5).Item1?.ToDisplay()}");
+
+            Trace.WriteLine($"black a19 k10 t1| {Word.Parse("black a19 k10 t1", 0).Item1?.ToDisplay()}");
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -218,14 +222,41 @@
                 this.DispatchTimer.Tick += (s, e) =>
                 {
                     var text = this.InputTextReader.ReadToEnd();
-                    Trace.WriteLine($"Text            | {text}");
 
-                    this.CommunicationLogWriter.WriteLine(text);
-                    this.CommunicationLogWriter.Flush();
-
-                    foreach (var line in text.Split(Environment.NewLine))
+                    // 空行は無視☆（＾～＾）
+                    if (!string.IsNullOrWhiteSpace(text))
                     {
-                        Trace.WriteLine($"Read            | {line}");
+                        Trace.WriteLine($"Text            | {text}");
+
+                        this.CommunicationLogWriter.WriteLine(text);
+                        this.CommunicationLogWriter.Flush();
+
+                        foreach (var line in text.Split(Environment.NewLine))
+                        {
+                            Trace.WriteLine($"Read            | {line}");
+
+                            var (word, next) = Word.Parse(line, 0);
+                            if (word != null)
+                            {
+                                switch (word.Text)
+                                {
+                                    case "black": // thru
+                                    case "white": // thru
+                                    case "space":
+                                        ColorInstructionParameter cip;
+                                        (cip, next) = ColorInstructionParameter.Parse(line, next);
+                                        if (cip == null)
+                                        {
+                                            Trace.WriteLine($"Error           | {line}");
+                                        }
+                                        else
+                                        {
+                                            Trace.WriteLine($"Test            | {word.Text} {cip.ToDisplay()}");
+                                        }
+                                        break;
+                                }
+                            }
+                        }
                     }
                 };
             }

@@ -1,40 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 
 namespace kifuwarabe_uec11_gui.API
 {
     /// <summary>
-    /// black命令☆（＾～＾）
-    /// `black k10 k11 k12` みたいにして黒石を置いていこうぜ☆（＾～＾）
+    /// black命令などの引数の部分☆（＾～＾）
+    /// つまり `black k10 k11 k12` の中の `k10 k11 k12` をパースするぜ☆（＾～＾）
+    /// だから white 命令にも使い回せるぜ☆（＾～＾）
     /// </summary>
-    public class BlackInstruction
+    public class ColorInstructionParameter
     {
         /// <summary>
         /// セル番地のリスト☆（＾～＾）
         /// </summary>
         public List<CellAddress> CellAddressList { get; private set; }
 
-        public BlackInstruction(List<CellAddress> cellAddressList)
+        public ColorInstructionParameter(List<CellAddress> cellAddressList)
         {
             this.CellAddressList = cellAddressList;
         }
 
-        public static (BlackInstruction, int) Parse(string text, int start)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        public static (ColorInstructionParameter, int) Parse(string text, int start)
         {
             var cellAddressList = new List<CellAddress>();
             var next = start;
 
-            ExactlyKeyword black;
-            {
-                (black, next) = ExactlyKeyword.Parse("black", text, next);
-                if (black == null)
-                {
-                    // 非マッチ☆（＾～＾）
-                    return (null, start);
-                }
-            }
-
-            // あとはリスト☆（＾～＾）
+            // リスト☆（＾～＾）最初のスペースは読み飛ばすぜ☆（＾～＾）
             for (; ; )
             {
                 WhiteSpace whiteSpace;
@@ -63,7 +59,7 @@ namespace kifuwarabe_uec11_gui.API
 
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new BlackInstruction(cellAddressList), next);
+            return (new ColorInstructionParameter(cellAddressList), next);
         }
 
         /// <summary>
