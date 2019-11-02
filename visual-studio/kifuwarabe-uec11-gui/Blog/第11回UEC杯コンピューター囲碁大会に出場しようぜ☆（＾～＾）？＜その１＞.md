@@ -756,4 +756,186 @@ namespace kifuwarabe_uec11_gui
 # 2019-11-02 11:00頃
 
 
+InputTextReader:
+
+
+```
+namespace kifuwarabe_uec11_gui
+{
+    using System;
+    using System.IO;
+    using System.Text;
+
+    /// <summary>
+    /// `input.txt` の読取☆（＾～＾）
+    /// </summary>
+    public sealed class InputTextReader : IDisposable
+    {
+        private StreamReader StreamReader { get; set; }
+
+        public InputTextReader(string file)
+        {
+            this.StreamReader = new StreamReader(file, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 行読込。
+        /// </summary>
+        /// <returns>読み込んだ行、またはヌル。</returns>
+        public string ReadLine()
+        {
+            return this.StreamReader.ReadLine();
+        }
+
+        /// <summary>
+        /// 破棄。
+        /// </summary>
+        public void Dispose()
+        {
+            this.StreamReader?.Close();
+            this.StreamReader = null;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑パーサー機能も付けるかは　あとで考えようぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　WPF にタイマー機能は付けれるの？」
+
+[タイマにより一定時間間隔で処理を行うには？（WPFタイマ編）](https://www.atmarkit.co.jp/ait/articles/1812/12/news014.html)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑UIスレッドで動くタイマーがあるらしいぜ☆　精度はそんなもんでいいだろ☆」
+
+# 2019-11-02 17:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　なんか　いろいろなことがあって　１７時だぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+**いらいら☆！**
+
+![20191102wpf11.png](https://crieit.now.sh/upload_images/b206a20a7a99c6977693ea55cc7170d05dbd391758723.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　ファイルをロックせずに開かないとな☆」
+
+
+[ファイルにロックをかける方法とロックをかけない方法](https://matome.naver.jp/odai/2145956877524917701)
+
+
+InputTextReader.cs:
+
+
+```
+namespace kifuwarabe_uec11_gui
+{
+    using System;
+    using System.IO;
+    using System.Text;
+
+    /// <summary>
+    /// `input.txt` の読取☆（＾～＾）
+    /// TODO `input.txt` ファイルが必要☆（＾～＾）
+    /// ファイルにロックを掛けずに開くことが重要☆（＾～＾）
+    /// </summary>
+    public sealed class InputTextReader : IDisposable
+    {
+        /// <summary>
+        /// 読込用ファイル・ストリーム☆（＾～＾）
+        /// </summary>
+        private FileStream FileStreamR { get; set; }
+
+        /// <summary>
+        /// 読込用ストリーム・リーダー☆（＾～＾）
+        /// </summary>
+        private StreamReader StreamReader { get; set; }
+
+        /// <summary>
+        /// ファイル名☆（＾～＾）
+        /// </summary>
+        private string File { get; set; }
+
+        public InputTextReader(string file)
+        {
+            this.File = file;
+            this.FileStreamR = new System.IO.FileStream(
+                file,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.ReadWrite);
+            this.StreamReader = new System.IO.StreamReader(this.FileStreamR, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// ファイル全部読み込む。
+        /// </summary>
+        /// <returns>読み込んだ行、またはヌル。</returns>
+        public string ReadToEnd()
+        {
+            var text = this.StreamReader.ReadToEnd();
+
+            // ファイルの先頭に読込位置を戻す。
+            this.FileStreamR.Position = 0;
+
+            // 書込み用ストリーム☆（＾～＾）
+            using (var writer = new StreamWriter(this.File, false, Encoding.UTF8))
+            {
+                // ファイルを空にするぜ☆（＾～＾）
+                writer.Write("");
+                writer.Flush();
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// 破棄。
+        /// </summary>
+        public void Dispose()
+        {
+            this.FileStreamR?.Close();
+            this.FileStreamR = null;
+
+            this.StreamReader?.Close();
+            this.StreamReader = null;
+        }
+    }
+}
+```
+
+
+MainWindows.xaml.cs:
+
+
+```
+        private void Window_Initialized(object sender, System.EventArgs e)
+        {
+            // 中略
+
+            // UIスレッドで動くタイマー☆（＾～＾）
+            {
+                this.DispatchTimer = new DispatcherTimer();
+                this.DispatchTimer.Start();
+                this.DispatchTimer.Interval = TimeSpan.FromSeconds(5);
+                this.DispatchTimer.Tick += (s, e) =>
+                {
+                    var line = this.InputTextReader.ReadToEnd();
+                    Trace.WriteLine($"Read            | {line}");
+                };
+            }
+            
+            // 中略
+        }
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑ざっくり書くなら　こうかだぜ☆？」
+
+
 ＜書き換え＞

@@ -10,6 +10,9 @@
     /// </summary>
     public sealed class CommunicationLogWriter : IDisposable
     {
+        /// <summary>
+        /// 書込み用ストリーム☆（＾～＾）
+        /// </summary>
         private StreamWriter StreamWriter { get; set; }
 
         public CommunicationLogWriter(string file)

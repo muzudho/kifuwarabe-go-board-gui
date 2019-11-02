@@ -7,6 +7,7 @@
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
+    using System.Windows.Threading;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,6 +23,11 @@
         /// 入力を読み取るやつ☆（＾～＾）
         /// </summary>
         private InputTextReader InputTextReader { get; set; }
+
+        /// <summary>
+        /// UIスレッドで動くタイマー☆（＾～＾）
+        /// </summary>
+        private DispatcherTimer DispatchTimer { get; set; }
 
         /// <summary>
         /// 内部状態。
@@ -194,6 +200,26 @@
             // 入力を読み取るやつ☆（＾～＾）
             {
                 this.InputTextReader = new InputTextReader("input.txt");
+            }
+
+            // UIスレッドで動くタイマー☆（＾～＾）
+            {
+                this.DispatchTimer = new DispatcherTimer();
+                this.DispatchTimer.Start();
+                this.DispatchTimer.Interval = TimeSpan.FromSeconds(5);
+                this.DispatchTimer.Tick += (s, e) =>
+                {
+                    var text = this.InputTextReader.ReadToEnd();
+                    Trace.WriteLine($"Text            | {text}");
+
+                    this.CommunicationLogWriter.WriteLine(text);
+                    this.CommunicationLogWriter.Flush();
+
+                    foreach (var line in text.Split(Environment.NewLine))
+                    {
+                        Trace.WriteLine($"Read            | {line}");
+                    }
+                };
             }
 
             // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
