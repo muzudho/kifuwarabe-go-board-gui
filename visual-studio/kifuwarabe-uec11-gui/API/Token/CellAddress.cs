@@ -5,8 +5,8 @@
     /// </summary>
     public class CellAddress
     {
-        public ColumnAddress ColumnAddress { get; set; }
-        public RowAddress RowAddress { get; set; }
+        public ColumnAddress ColumnAddress { get; private set; }
+        public RowAddress RowAddress { get; private set; }
 
         public CellAddress(ColumnAddress columnAddress, RowAddress rowAddress)
         {

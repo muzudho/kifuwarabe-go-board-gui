@@ -178,6 +178,11 @@
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // テスト
+            Trace.WriteLine($"black           | {ExactlyKeyword.Parse("black", "black", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"white           | {ExactlyKeyword.Parse("white", "white", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"start           | {ExactlyKeyword.Parse("start", "start", 0).Item1?.ToDisplay()}");
+            Trace.WriteLine($"[     ]         | [{WhiteSpace.Parse("     ", 0).Item1?.ToDisplay()}]");
+
             Trace.WriteLine($"A19             | {CellAddress.Parse("A19", 0).Item1?.ToDisplay()}");
             Trace.WriteLine($"B19             | {CellAddress.Parse("B19", 0).Item1?.ToDisplay()}");
             Trace.WriteLine($"S1              | {CellAddress.Parse("S1", 0).Item1?.ToDisplay()}");
@@ -187,6 +192,8 @@
             Trace.WriteLine($"b19             | {CellAddress.Parse("b19", 0).Item1?.ToDisplay()}");
             Trace.WriteLine($"s1              | {CellAddress.Parse("s1", 0).Item1?.ToDisplay()}");
             Trace.WriteLine($"t1              | {CellAddress.Parse("t1", 0).Item1?.ToDisplay()}");
+
+            Trace.WriteLine($"black a19 k10 t1| {BlackInstruction.Parse("black a19 k10 t1", 0).Item1?.ToDisplay()}");
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
