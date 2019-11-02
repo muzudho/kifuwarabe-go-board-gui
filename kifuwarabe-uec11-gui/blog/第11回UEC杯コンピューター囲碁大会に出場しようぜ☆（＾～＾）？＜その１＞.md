@@ -508,4 +508,252 @@ input.txt
 
 # 2019-11-01 23:00頃
 
+![20191101wpf9.png](https://crieit.now.sh/upload_images/dbf0093cc02dd96080ce314e04419d635dbc3f18a5358.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　でも　ちまちま　合わせる……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　もういいだろ☆！」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　符号は `A1` なの？ `1A` なの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　GNUGO では `A1` だったかな……☆？　x, y の並びだな☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　foreach ループで回すなら A19, B19, C19… みたいな順になるの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　そこは 0, 1, 2 … でいいのでは……☆
+配列に入れて高速化しようぜ☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　早く K10 に打ちたいぜ☆！」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　それは連珠な☆」
+
+
+input.txt:
+
+
+```
+K10
+.
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　黒、白　の順に交互に打つので　色を指定する必要は無いだろう……☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　何手目か画面に表示しましょう！」
+
+![20191101wpf10.png](https://crieit.now.sh/upload_images/f200c7a151714ceee914f8c1b2fc5fa15dbc448f49cac.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　めんどくさいんで　半透明で　端っこに出しとけばいいだろ……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　`A19` を 0、 `B19` を 1……、と変換するパーサーを作っておきたいな☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　寝ろ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　そういうパーサー、前に作ったんじゃない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　多分昔のは Rust言語なんだぜ☆　Ｃ＃言語で　ぱぱっと書いてしまおう……☆」
+
+
+```
+namespace kifuwarabe_uec11_gui
+{
+    using System;
+    using System.Globalization;
+
+    /// <summary>
+    /// 盤の符号のパーサー。
+    /// </summary>
+    public static class CellSignParser
+    {
+        /// <summary>
+        /// `A19` を 0、 `B19` を 1、…。
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static int ToIndex(string text)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            // 最初の1文字はアルファベット。
+            var column = ((char)text[0]) - 65; // 65はAsciiCodeのA。97はa。コンピューター囲碁では I は抜く慣習。
+            if (32 <= column)
+            {
+                // 小文字から大文字へ変換。
+                column -= 32;
+            }
+
+            if (8 <= column)
+            {
+                column--;
+            }
+
+            var row = 0;
+            if (int.TryParse(text[1].ToString(CultureInfo.CurrentCulture), out int outRow1))
+            {
+                row = outRow1;
+            }
+
+            if (2 < text.Length)
+            {
+                row *= 10;
+                if (int.TryParse(text[2].ToString(CultureInfo.CurrentCulture), out int outRow2))
+                {
+                    row += outRow2;
+                }
+            }
+
+            return (19-row)*19+column;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　これぐらい　いい加減でいいだろ……☆　きょうは終わり☆」
+
+# 2019-11-02 10:00頃
+
+
+input.txt:
+
+
+```
+&set k10 b
+&set k10 w
+&set k10 .
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　石を置く命令文は　`&set`　でいいかだぜ☆？
+列の符号は　小文字でも OK とするぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　`&` を打鍵するの、 Shiftキーを押さなくちゃいけなくて　めんどくさくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　日本語キーボードだと　一番打ちやすい記号は `;` なんだが、 `.ini` ファイルのコメントみたいで　嫌だしな……☆」
+
+
+```
+put b to k10.
+put w to k10.
+put s to k10.
+```
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　石を置くのなら　こうなのでは☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　構文に凝ると　パーサーのメンテナンスするの大変だからな☆」
+
+```
+black j10 m10 n10
+white k10 o10 p10
+space L10 q10 r10
+go.
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　繰り返し入力のしやすさを加味すると　色でまとめた方が　いいかだぜ☆？
+`go.` と書くと　ファイルの内容は空っぽになって `input.log` に移るとしようぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　じゃあ　これで進めてみようぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　C#のロガーは　何を使うの？
+エラーと、 `input.log` は分けるの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　ファイルを　追加書き込みモードで開けっぱなしにするかだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　インプットのログだけ取るのかだぜ？
+アウトプットもログを取らないと　前後関係が分からないのでは？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　じゃあ `communication.log`　に名称変更☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　ログの書き出しは　非同期でやるの？　同期でやるの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　同期でやらないと、ログは読めたもんじゃないぜ☆」
+
+
+```
+namespace kifuwarabe_uec11_gui
+{
+    using System;
+    using System.IO;
+    using System.Text;
+
+    /// <summary>
+    /// 特に通信ログを書き込むことを想定したロガー。
+    /// </summary>
+    public sealed class CommunicationLogWriter : IDisposable
+    {
+        private StreamWriter StreamWriter { get; set; }
+
+        public CommunicationLogWriter(string file)
+        {
+            // 追加書き込みモードでファイルを開きます。
+            this.StreamWriter = new StreamWriter(file, true, Encoding.UTF8);
+        }
+
+        public void WriteLine(string text)
+        {
+            this.StreamWriter.WriteLine(text);
+        }
+
+        public void Flush()
+        {
+            this.StreamWriter.Flush();
+        }
+
+        /// <summary>
+        /// 破棄。
+        /// </summary>
+        public void Dispose()
+        {
+            this.StreamWriter?.Close();
+            this.StreamWriter = null;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑なんの捻りもなく書けば　こうだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　ラッピングしている意味は何だぜ☆？　直接 `StreamWriter` でいいのでは☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　In/Out の区別を付けるメソッドとか　あとでほしくなるかも知らん☆」
+
+# 2019-11-02 11:00頃
+
+
 ＜書き換え＞

@@ -14,6 +14,16 @@
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// 通信ログを書き込むやつ☆（＾～＾）
+        /// </summary>
+        private CommunicationLogWriter CommunicationLogWriter { get; set; }
+
+        /// <summary>
+        /// 入力を読み取るやつ☆（＾～＾）
+        /// </summary>
+        private InputTextReader InputTextReader { get; set; }
+
+        /// <summary>
         /// 内部状態。
         /// </summary>
         private State State { get; set; }
@@ -174,6 +184,18 @@
 
         private void Window_Initialized(object sender, System.EventArgs e)
         {
+            // 通信ログを書き込むやつ☆（＾～＾）
+            {
+                this.CommunicationLogWriter = new CommunicationLogWriter("communication.log");
+                this.CommunicationLogWriter.WriteLine("テスト書込み☆（＾～＾）");
+                this.CommunicationLogWriter.Flush();
+            }
+
+            // 入力を読み取るやつ☆（＾～＾）
+            {
+                this.InputTextReader = new InputTextReader("input.txt");
+            }
+
             // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
             // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）
             var shortenEdge = System.Math.Min(grid.RenderSize.Width, grid.RenderSize.Height) * 0.95;
