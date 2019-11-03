@@ -20,7 +20,169 @@
                 Fill="Red"
                 Panel.ZIndex="125"
                 />
+
+            <Border
+                Panel.ZIndex="510"
+                BorderThickness="1"
+                BorderBrush="Black"
+                Canvas.Top="0"
+                CornerRadius="60"
+                >
+                <Ellipse
+                    x:Name="plyRect"
+                    Width="60"
+                    Height="60"
+                    Opacity="0.7"
+                    >
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#f6f7f8" Offset="0.0" />
+                            <GradientStop Color="Black" Offset="0.3" />
+                            <GradientStop Color="Green" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <Label
+                x:Name="plyLabel"
+                Panel.ZIndex="520"
+                Canvas.Top="10"
+                Width="60"
+                HorizontalContentAlignment="Left"
+                Foreground="White"
+                >手目</Label>
+            <Label
+                x:Name="plyNumber"
+                Panel.ZIndex="520"
+                Canvas.Top="25"
+                Width="60"
+                HorizontalContentAlignment="Right"
+                Foreground="White"
+                >999</Label>
+
+
+            <Border
+                Panel.ZIndex="510"
+                BorderThickness="1"
+                BorderBrush="#FF000000"
+                Canvas.Top="60"
+                CornerRadius="60"
+                >
+                <Ellipse
+                    x:Name="blackAgehamaRect"
+                    Panel.ZIndex="510"
+                    Width="60"
+                    Height="60"
+                    Opacity="0.7"
+                    >
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#f6f7f8" Offset="0.0" />
+                            <GradientStop Color="Black" Offset="0.3" />
+                            <GradientStop Color="Green" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <Label
+                x:Name="blackAgehamaLabel"
+                Panel.ZIndex="520"
+                Canvas.Top="70"
+                Width="60"
+                HorizontalContentAlignment="Left"
+                Foreground="White"
+                >黒アゲハマ</Label>
+            <Label
+                x:Name="blackAgehamaNumber"
+                Panel.ZIndex="520"
+                Canvas.Top="85"
+                Width="60"
+                HorizontalContentAlignment="Right"
+                Foreground="White"
+                >999</Label>
+
+            <Border
+                Panel.ZIndex="510"
+                BorderThickness="1"
+                BorderBrush="#FF000000"
+                Canvas.Top="120"
+                CornerRadius="60"
+                >
+                <Ellipse
+                    x:Name="whiteAgehamaRect"
+                    Panel.ZIndex="510"
+                    Width="60"
+                    Height="60"
+                    Opacity="0.7"
+                    >
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="Silver" Offset="0.0" />
+                            <GradientStop Color="White" Offset="0.1" />
+                            <GradientStop Color="#f6f7f8" Offset="0.3" />
+                            <GradientStop Color="Gray" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <Label
+                x:Name="whiteAgehamaLabel"
+                Panel.ZIndex="520"
+                Canvas.Top="130"
+                Width="60"
+                HorizontalContentAlignment="Left"
+                Foreground="Black"
+                >白アゲハマ</Label>
+            <Label
+                x:Name="whiteAgehamaNumber"
+                Panel.ZIndex="520"
+                Canvas.Top="145"
+                Width="60"
+                HorizontalContentAlignment="Right"
+                Foreground="Black"
+                >999</Label>
+
+            <Border
+                Panel.ZIndex="510"
+                BorderThickness="1"
+                BorderBrush="#FF000000"
+                Canvas.Top="180"
+                CornerRadius="60"
+                >
+                <Ellipse
+                    x:Name="komiRect"
+                    Panel.ZIndex="510"
+                    Width="60"
+                    Height="60"
+                    Opacity="0.7"
+                    >
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="Silver" Offset="0.0" />
+                            <GradientStop Color="White" Offset="0.1" />
+                            <GradientStop Color="#f6f7f8" Offset="0.3" />
+                            <GradientStop Color="Gray" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <Label
+                x:Name="komiLabel"
+                Panel.ZIndex="520"
+                Canvas.Top="190"
+                Width="60"
+                HorizontalContentAlignment="Left"
+                Foreground="Black"
+                >コミ</Label>
+            <Label
+                x:Name="komiNumber"
+                Panel.ZIndex="520"
+                Canvas.Top="205"
+                Width="60"
+                HorizontalContentAlignment="Right"
+                Foreground="Black"
+                >99.5</Label>
+
         </Canvas>
-        <Label x:Name="ply">0手目</Label>
     </Grid>
 </Window>

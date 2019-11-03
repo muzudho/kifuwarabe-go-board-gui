@@ -200,8 +200,8 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                mainWindow.ply.FontSize = columnInterval;
-                mainWindow.ply.Content = $"{mainWindow.State.Ply}手目";
+                // mainWindow.plyLabel.FontSize = columnInterval;
+                mainWindow.plyNumber.Content = $"{mainWindow.State.Ply}";
             }
         }
 
@@ -422,11 +422,6 @@
                 }
                 this.RowLabels.Add(label);
                 canvas.Children.Add(label);
-            }
-
-            // 何手目か表示しようぜ☆（＾～＾）？
-            {
-                ply.Foreground = new SolidColorBrush(Color.FromArgb(196, 0, 0, 0));
             }
         }
 

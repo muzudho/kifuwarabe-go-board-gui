@@ -522,4 +522,63 @@ black o18:r15
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
 「　くそっ☆！」
 
+# 2019-11-03 22:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　黒白　交互に置いて　手数を進めてくれるコマンドが欲しいよな☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　`Play` コマンドでいいんじゃないの？！
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　禁じ手や、石を取るルールを組み込むのは　まだ　むずかしいんで……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　大会の１か月前に　のんびり　している☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　最後に着手した石の上に　赤い四角　を置くぐらいは　したいな……☆」
+
+# 2019-11-03 23:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　画面の再描画処理の　うまい方法が分からん……☆　雑に書き進めるか……☆」
+
+![20191103wpf26.png](https://crieit.now.sh/upload_images/dead39bb81da0f4f71725a779ece63195dbee086116ba.png)
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　`set agehama 10` コマンドも作ってしまったらどうだぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　あんたら何で GUI 作ってんのよ！　さっさと　思考部　作りなさいよ！」
+
+[How to: Paint an Area with a Linear Gradient](https://docs.microsoft.com/ja-jp/dotnet/framework/wpf/graphics-multimedia/how-to-paint-an-area-with-a-linear-gradient)
+[WPFで画像の周囲に境界線を付けるにはどうすればよいですか。](https://codeday.me/jp/qa/20190125/168395.html)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑Xaml があれば　ゲーム画面　簡単に作れるんじゃないのか……☆
+グラデーションを描く方法も調べよう……☆」
+
+![20191103wpf27.png](https://crieit.now.sh/upload_images/ac2ed908dc0d6b61bd73700e1200b17d5dbeeab224ae7.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑簡単に　角丸の欄が描ける☆　もっと調整すれば　かっこよく　なりそう☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　連珠、囲碁というより　麻雀のＵＩっぽくないか☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　長方形にするから　麻雀牌っぽくなるのよ！　丸にしなさい、
+ちっがーう！　GUI に凝るのは　沼なのよ！」
+
+# 2019-11-04 00:00頃
+
+![20191103wpf28.png](https://crieit.now.sh/upload_images/fa6cfd68c075357cfcf44fa411d0ce5e5dbeef87ed5a0.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑こりゃ　面白いぜ☆！」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　寝ればいいのに……☆」
+
 ＜書きかけ＞
