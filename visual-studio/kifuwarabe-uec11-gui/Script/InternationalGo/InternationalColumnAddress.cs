@@ -24,7 +24,12 @@
             var (columnAddress, next) = ColumnAddress.Parse(text, start);
 
             // 国際式の囲碁では I は抜く慣習☆（＾～＾）
-            if (8 <= columnAddress.Number)
+            if (8 == columnAddress.Number)
+            {
+                // 不一致☆（＾～＾）
+                return (null, start);
+            }
+            else if (8 < columnAddress.Number)
             {
                 columnAddress = new ColumnAddress(columnAddress.Number - 1);
             }

@@ -9,6 +9,8 @@
     /// `k7:i9` なら `k7 j7 i7 k8 j8 i8 k9 j9 i9` な☆（＾～＾）　あっ、国際式のコンピューター囲碁に I列 は無いのだった☆（＾～＾）
     /// ただし要素をデータとして持ったらメモリを圧迫するんで、持たないぜ☆（＾～＾）
     /// 
+    /// また、 `k10` は `k10:k10` の省略形として認めるぜ☆（＾～＾）
+    /// 
     /// 無理に継承するより、無関係な別オブジェクトとして作った方が混乱がないぜ☆（＾～＾）
     /// このオブジェクトは、Excel式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
     /// </summary>
@@ -41,7 +43,10 @@
             if (colon == null)
             {
                 // 構文不一致☆（＾～＾）
-                return (null, start);
+
+                // ここまで一致していれば、短縮形として確定するぜ☆（＾～＾）
+                // 例えば `k10` は、 `k10:k10` と一致したと判定するんだぜ☆（＾～＾）
+                return (new InternationalCellRange(startsCellAddress, startsCellAddress), next);
             }
 
             InternationalCellAddress endsCellAddress;

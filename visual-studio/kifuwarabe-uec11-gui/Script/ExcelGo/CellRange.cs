@@ -11,6 +11,8 @@
     /// `k7:i9` なら `k7 j7 i7 k8 j8 i8 k9 j9 i9` な☆（＾～＾）
     /// ただし要素をデータとして持ったらメモリを圧迫するんで、持たないぜ☆（＾～＾）
     /// 
+    /// また、 `k10` は `k10:k10` の省略形として認めるぜ☆（＾～＾）
+    /// 
     /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
     /// </summary>
     public class CellRange
@@ -42,14 +44,17 @@
             if (colon == null)
             {
                 // 構文不一致☆（＾～＾）
-                return (null, start);
+
+                // ここまで一致していれば、短縮形として確定するぜ☆（＾～＾）
+                // 例えば `k10` は、 `k10:k10` と一致したと判定するんだぜ☆（＾～＾）
+                return (new CellRange(startsCellAddress, startsCellAddress), next);
             }
 
             CellAddress endsCellAddress;
             (endsCellAddress, next) = CellAddress.Parse(text, next);
             if (endsCellAddress == null)
             {
-                // 構文不一致☆（＾～＾）
+                // 構文不一致☆（＾～＾）コロンが付いていて尻切れトンボなら不一致、諦めろだぜ☆（＾～＾）
                 return (null, start);
             }
             // Trace.WriteLine($"endsCellAddress | {endsCellAddress.ToDisplay()}");
