@@ -8,17 +8,19 @@
     /// black命令などの引数の部分☆（＾～＾）
     /// つまり `black k10 k11 k12` の中の `k10 k11 k12` をパースするぜ☆（＾～＾）
     /// だから white 命令にも使い回せるぜ☆（＾～＾）
+    /// 
+    /// `black m10 n1:n3 o11` のような混合型にも対応させようぜ☆（＾～＾）
     /// </summary>
     public class ColorInstructionArgument
     {
         /// <summary>
-        /// セル番地のリスト☆（＾～＾）
+        /// セル範囲のリスト☆（＾～＾）
         /// </summary>
-        public List<CellAddress> CellAddressList { get; private set; }
+        public List<CellRange> CellRanges { get; private set; }
 
-        public ColorInstructionArgument(List<CellAddress> cellAddressList)
+        public ColorInstructionArgument(List<CellRange> cellRanges)
         {
-            this.CellAddressList = cellAddressList;
+            this.CellRanges = cellRanges;
         }
 
         /// <summary>
@@ -29,7 +31,7 @@
         /// <returns></returns>
         public static (ColorInstructionArgument, int) Parse(string text, int start)
         {
-            var cellAddressList = new List<CellAddress>();
+            var cellRanges = new List<CellRange>();
             var next = start;
 
             // リスト☆（＾～＾）最初のスペースは読み飛ばすぜ☆（＾～＾）
@@ -45,10 +47,10 @@
                     }
                 }
 
-                CellAddress cellAddress;
+                CellRange cellRange;
                 {
-                    (cellAddress, next) = CellAddress.Parse(text, next);
-                    if (cellAddress == null)
+                    (cellRange, next) = CellRange.Parse(text, next);
+                    if (cellRange == null)
                     {
                         // おわり☆（＾～＾）
                         break;
@@ -56,12 +58,12 @@
                 }
 
                 // マッチ☆（＾～＾）
-                cellAddressList.Add(cellAddress);
+                cellRanges.Add(cellRange);
             }
 
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new ColorInstructionArgument(cellAddressList), next);
+            return (new ColorInstructionArgument(cellRanges), next);
         }
 
         /// <summary>
@@ -72,9 +74,9 @@
         {
             // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
             var tokens = new List<string>();
-            foreach (var cellAddress in this.CellAddressList)
+            foreach (var cellRange in this.CellRanges)
             {
-                tokens.Add(cellAddress.ToDisplay());
+                tokens.Add(cellRange.ToDisplay());
             }
 
             return $"{string.Join(' ', tokens)}";

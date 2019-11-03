@@ -44,7 +44,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public virtual string ToDisplay()
         {
             return ((char)(65 + this.Number)).ToString(CultureInfo.CurrentCulture);
         }

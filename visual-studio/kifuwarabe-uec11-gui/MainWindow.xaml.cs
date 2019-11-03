@@ -10,6 +10,7 @@
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.Script;
     using KifuwarabeUec11Gui.Script.InternationalGo;
+    using KifuwarabeUec11Gui.Script.Translator;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -221,30 +222,33 @@
                                 case "black": // thru
                                 case "white": // thru
                                 case "space":
-                                    var ciArg = (ColorInstructionArgument)instruction.Argument;
-                                    foreach (var cellAddr in ciArg.CellAddressList)
+                                    var args = (ColorInstructionArgument)instruction.Argument;
+                                    foreach (var cellRange in args.CellRanges)
                                     {
-                                        var index = cellAddr.ToIndex();
-                                        var stone = this.Stones[index];
-                                        switch (instruction.Command)
-                                        {
-                                            case "black": // thru
-                                                // 黒石にするぜ☆（＾～＾）
-                                                stone.Fill = Brushes.White;
-                                                stone.Stroke = Brushes.Black;
-                                                break;
-                                            case "white": // thru
-                                                // 白石にするぜ☆（＾～＾）
-                                                stone.Fill = Brushes.Black;
-                                                stone.Stroke = Brushes.White;
-                                                break;
-                                            case "space":
-                                                // 画面外に出すことで非表示にするぜ☆（＾～＾）
-                                                Canvas.SetLeft(stone, - stone.Width);
-                                                Canvas.SetTop(stone, -stone.Height);
-                                                break;
-                                        }
+                                        var indexes = ExcelToInternational.ConvertCellRange(cellRange).ToIndexes();
 
+                                        foreach (var index in indexes)
+                                        {
+                                            var stone = this.Stones[index];
+                                            switch (instruction.Command)
+                                            {
+                                                case "black": // thru
+                                                              // 黒石にするぜ☆（＾～＾）
+                                                    stone.Fill = Brushes.White;
+                                                    stone.Stroke = Brushes.Black;
+                                                    break;
+                                                case "white": // thru
+                                                              // 白石にするぜ☆（＾～＾）
+                                                    stone.Fill = Brushes.Black;
+                                                    stone.Stroke = Brushes.White;
+                                                    break;
+                                                case "space":
+                                                    // 画面外に出すことで非表示にするぜ☆（＾～＾）
+                                                    Canvas.SetLeft(stone, -stone.Width);
+                                                    Canvas.SetTop(stone, -stone.Height);
+                                                    break;
+                                            }
+                                        }
                                     }
                                     break;
                             }

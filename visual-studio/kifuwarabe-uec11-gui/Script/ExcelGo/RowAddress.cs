@@ -60,7 +60,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public virtual string ToDisplay()
         {
             return this.Number.ToString(CultureInfo.CurrentCulture);
         }

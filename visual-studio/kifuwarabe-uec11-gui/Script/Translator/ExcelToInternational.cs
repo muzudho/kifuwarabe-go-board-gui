@@ -4,50 +4,50 @@
     using KifuwarabeUec11Gui.Script.ExcelGo;
     using KifuwarabeUec11Gui.Script.InternationalGo;
 
-    public static class InternationalToExcel
+    public static class ExcelToInternational
     {
-        public static CellRange ConvertCellRange(InternationalCellRange cellRange)
+        public static InternationalCellRange ConvertCellRange(CellRange cellRange)
         {
             if (cellRange == null)
             {
                 throw new ArgumentNullException(nameof(cellRange));
             }
 
-            return new CellRange(
+            return new InternationalCellRange(
                 ConvertCellAddress(cellRange.StartsCellAddress),
                 ConvertCellAddress(cellRange.EndsCellAddress));
         }
 
-        public static CellAddress ConvertCellAddress(InternationalCellAddress cellAddress)
+        public static InternationalCellAddress ConvertCellAddress(CellAddress cellAddress)
         {
             if (cellAddress == null)
             {
                 throw new ArgumentNullException(nameof(cellAddress));
             }
 
-            return new CellAddress(
+            return new InternationalCellAddress(
                     ConvertRowAddress(cellAddress.RowAddress),
                     ConvertColumnAddress(cellAddress.ColumnAddress));
         }
 
-        public static ColumnAddress ConvertColumnAddress(InternationalColumnAddress columnAddress)
+        public static InternationalColumnAddress ConvertColumnAddress(ColumnAddress columnAddress)
         {
             if (columnAddress==null)
             {
                 throw new ArgumentNullException(nameof(columnAddress));
             }
 
-            return new ColumnAddress(columnAddress.Number);
+            return new InternationalColumnAddress(columnAddress.Number);
         }
 
-        public static RowAddress ConvertRowAddress(InternationalRowAddress rowAddress)
+        public static InternationalRowAddress ConvertRowAddress(RowAddress rowAddress)
         {
             if (rowAddress == null)
             {
                 throw new ArgumentNullException(nameof(rowAddress));
             }
 
-            return new RowAddress(rowAddress.Number);
+            return new InternationalRowAddress(rowAddress.Number);
         }
     }
 }

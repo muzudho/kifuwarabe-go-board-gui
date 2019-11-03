@@ -1,6 +1,9 @@
 namespace UnitTestProject1
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
     using KifuwarabeUec11Gui.Script;
     using KifuwarabeUec11Gui.Script.InternationalGo;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,6 +11,25 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        /// <summary>
+        /// ŠÈ’P‚ÈÀs™iO`Oj
+        /// </summary>
+        [TestMethod]
+        public void Test1()
+        {
+            /*
+            // ŠÈ’P‚ÈÀs™iO`Oj
+            var builder = new StringBuilder();
+            builder.Append("[");
+            for (int i=0; i<100; i++)
+            {
+                builder.Append($"{i},");
+            }
+            builder.Append("]");
+            Trace.WriteLine(builder.ToString());
+            */
+        }
+
         /// <summary>
         /// ’PŒêŠ®‘Sˆê’v‚ÌƒeƒXƒg™iO`Oj
         /// </summary>
@@ -126,6 +148,9 @@ namespace UnitTestProject1
             Assert.AreEqual("C7:E9", InternationalCellRange.Parse("c7:e9", 0).Item1?.ToDisplay());
             Assert.AreEqual("E9:C7", InternationalCellRange.Parse("e9:c7", 0).Item1?.ToDisplay());
 
+            // ’Zk•\‹L™iO`Oj
+            Assert.AreEqual("F5", InternationalCellRange.Parse("F5:F5", 0).Item1?.ToDisplay());
+
             {
                 var signs = new List<string>();
 
@@ -158,6 +183,9 @@ namespace UnitTestProject1
             Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5).Item1?.ToDisplay());
             Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white b19 k2 s1", 5).Item1?.ToDisplay());
             Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space c19 k3 r1", 5).Item1?.ToDisplay());
+
+            // ¬‡Œ^™iO`Oj
+            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space a2:b1 c4:d3 e5", 5).Item1?.ToDisplay());
         }
     }
 }

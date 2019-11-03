@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
 
     public delegate void IndexCallback(int index);
@@ -77,8 +78,25 @@
             // Trace.WriteLine($"Edges           | width={widthEdges} height={heightEdges}");
 
             // 向きを作ろうぜ☆（＾～＾） -1 とか 1 を作ってるんだぜ☆（＾～＾）
-            var horizontalDirection = horizontalLength / widthEdges;
-            var verticalDirection = verticalLength / heightEdges;
+            int horizontalDirection;
+            if (widthEdges==0)
+            {
+                horizontalDirection = 1;
+            }
+            else
+            {
+                horizontalDirection = horizontalLength / widthEdges;
+            }
+
+            int verticalDirection;
+            if (heightEdges == 0)
+            {
+                verticalDirection = 1;
+            }
+            else
+            {
+                verticalDirection = verticalLength / heightEdges;
+            }
             // Trace.WriteLine($"Direction       | horizontal={horizontalDirection} vertical={verticalDirection}");
 
             for (int verticalZoom = 0; verticalZoom < heightEdges + 1; verticalZoom += 1)
@@ -94,13 +112,33 @@
             }
         }
 
+        public HashSet<int> ToIndexes()
+        {
+            var hash = new HashSet<int>();
+
+            Foreach((index)=>
+            {
+                hash.Add(index);
+            });
+
+            return hash;
+        }
+
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.StartsCellAddress.ToDisplay()}:{this.EndsCellAddress.ToDisplay()}";
+            var starts = this.StartsCellAddress.ToDisplay();
+            var ends = this.EndsCellAddress.ToDisplay();
+
+            if (starts == ends)
+            {
+                return $"{starts}";
+            }
+
+            return $"{starts}:{ends}";
         }
     }
 }

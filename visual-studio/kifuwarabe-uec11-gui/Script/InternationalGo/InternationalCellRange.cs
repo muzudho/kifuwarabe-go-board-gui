@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Script.InternationalGo
 {
+    using System.Collections.Generic;
     using KifuwarabeUec11Gui.Script.ExcelGo;
     using KifuwarabeUec11Gui.Script.Translator;
 
@@ -70,13 +71,33 @@
             cellRange.Foreach(callback);
         }
 
+        public HashSet<int> ToIndexes()
+        {
+            var hash = new HashSet<int>();
+
+            Foreach((index) =>
+            {
+                hash.Add(index);
+            });
+
+            return hash;
+        }
+
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.StartsCellAddress.ToDisplay()}:{this.EndsCellAddress.ToDisplay()}";
+            var starts = this.StartsCellAddress.ToDisplay();
+            var ends = this.EndsCellAddress.ToDisplay();
+
+            if (starts == ends)
+            {
+                return $"{starts}";
+            }
+
+            return $"{starts}:{ends}";
         }
     }
 }

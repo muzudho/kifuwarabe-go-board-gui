@@ -50,11 +50,6 @@
             return rowNumber * 19 + columnNumber;
         }
 
-        public int ToIndex()
-        {
-            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
-        }
-
         public static CellAddress FromIndex(int rowNumber, int columnNumber)
         {
             return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
@@ -65,6 +60,11 @@
             var rowNumber = index / 19;
             var columnNumber = index % 19;
             return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
+        }
+
+        public int ToIndex()
+        {
+            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
         }
 
         /// <summary>

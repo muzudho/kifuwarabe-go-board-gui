@@ -51,11 +51,6 @@
             return InternationalRowAddress.ToIndex(rowNumber) * 19 + columnNumber;
         }
 
-        public int ToIndex()
-        {
-            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
-        }
-
         public static InternationalCellAddress FromIndex(int rowNumber, int columnNumber)
         {
             return new InternationalCellAddress(new InternationalRowAddress(rowNumber), new InternationalColumnAddress(columnNumber));
@@ -66,6 +61,11 @@
             var rowNumber = index / 19;
             var columnNumber = index % 19;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumber), new InternationalColumnAddress(columnNumber));
+        }
+
+        public int ToIndex()
+        {
+            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
         }
 
         /// <summary>

@@ -7,19 +7,16 @@
     /// 国際囲碁の列表記☆（＾～＾）
     /// I列が欠番☆（＾～＾）
     /// 
-    /// 無理に継承するより、無関係な別オブジェクトとして作った方が混乱がないぜ☆（＾～＾）
     /// このオブジェクトは、Excel式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
     /// </summary>
-    public class InternationalColumnAddress
+    public class InternationalColumnAddress : ColumnAddress
     {
-        public int Number { get; private set; }
-
         public InternationalColumnAddress(int columnNumber)
+            : base(columnNumber)
         {
-            this.Number = columnNumber;
         }
 
-        public static (InternationalColumnAddress, int) Parse(string text, int start)
+        public new static (InternationalColumnAddress, int) Parse(string text, int start)
         {
             var (columnAddress, next) = ColumnAddress.Parse(text, start);
 
@@ -41,7 +38,7 @@
         /// デバッグ表示用☆（＾～＾）国際式囲碁盤表記☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public override string ToDisplay()
         {
             // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
             var number = 65 + (this.Number < 8 ? this.Number : this.Number + 1);
