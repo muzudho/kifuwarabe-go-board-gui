@@ -1,16 +1,16 @@
-﻿using KifuwarabeUec11Gui.Script.ExcelGo;
+﻿using KifuwarabeUec11Gui.Script.ZShaped;
 
 namespace KifuwarabeUec11Gui.Script.InternationalGo
 {
     /// <summary>
     /// 国際囲碁のセル番地表記☆（＾～＾）
     /// 
-    /// このオブジェクトは、Excel式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
+    /// このオブジェクトは、Z字方向式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
     /// </summary>
     public class InternationalCellAddress : CellAddress
     {
         public InternationalCellAddress(InternationalRowAddress rowAddress, InternationalColumnAddress columnAddress)
-            :base(rowAddress, columnAddress)
+            : base(rowAddress, columnAddress)
         {
         }
 
@@ -43,26 +43,34 @@ namespace KifuwarabeUec11Gui.Script.InternationalGo
             return (new InternationalCellAddress(rowAddress, columnAddress), next);
         }
 
-        public new static int ToIndex(int rowNumber, int columnNumber)
+        /// <summary>
+        /// 盤の上下をひっくり返すぜ☆（＾～＾）
+        /// </summary>
+        /// <param name="rowNumberO0"></param>
+        /// <param name="columnNumberO0"></param>
+        /// <returns></returns>
+        public new static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return InternationalRowAddress.ToIndex(rowNumber) * 19 + columnNumber;
+            return (ScriptDocument.RowLastO0 - rowNumberO0) * ScriptDocument.BoardSize + columnNumberO0;
         }
 
+        /*
         public new static InternationalCellAddress FromIndex(int rowNumber, int columnNumber)
         {
             return new InternationalCellAddress(new InternationalRowAddress(rowNumber), new InternationalColumnAddress(columnNumber));
         }
+        */
 
-        public new static InternationalCellAddress FromIndex(int index)
+        public new static InternationalCellAddress FromIndex(int indexO0)
         {
-            var rowNumber = index / 19;
-            var columnNumber = index % 19;
-            return new InternationalCellAddress(new InternationalRowAddress(rowNumber), new InternationalColumnAddress(columnNumber));
+            var rowNumberO0 = indexO0 / ScriptDocument.BoardSize;
+            var columnNumberO0 = indexO0 % ScriptDocument.BoardSize;
+            return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 
         public override int ToIndex()
         {
-            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
+            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0);
         }
 
         /// <summary>

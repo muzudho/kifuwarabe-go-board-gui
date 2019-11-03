@@ -1,13 +1,13 @@
 ﻿namespace KifuwarabeUec11Gui.Script.InternationalGo
 {
-    using KifuwarabeUec11Gui.Script.ExcelGo;
+    using KifuwarabeUec11Gui.Script.ZShaped;
     using KifuwarabeUec11Gui.Script.Translator;
 
     /// <summary>
     /// 入力時と、出力時だけ 国際式囲碁の盤の表示に合わせろだぜ☆（＾～＾）
-    /// 内部は Excel式だぜ☆（＾～＾）
+    /// 内部は Z字方向式だぜ☆（＾～＾）
     /// 
-    /// このオブジェクトは、Excel式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
+    /// このオブジェクトは、Z字方向式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
     /// </summary>
     public class InternationalCellRange : CellRange
     {
@@ -58,8 +58,8 @@
         /// <returns></returns>
         public override string ToDisplay()
         {
-            var starts = ExcelToInternational.ConvertCellAddress(this.StartsCellAddress).ToDisplay();
-            var ends = ExcelToInternational.ConvertCellAddress(this.EndsCellAddress).ToDisplay();
+            var starts = ZShapedToInternational.ConvertCellAddress(this.StartsCellAddress).ToDisplay();
+            var ends = ZShapedToInternational.ConvertCellAddress(this.EndsCellAddress).ToDisplay();
 
             if (starts == ends)
             {

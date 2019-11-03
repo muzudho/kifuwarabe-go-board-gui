@@ -1,13 +1,13 @@
 ﻿namespace KifuwarabeUec11Gui.Script.InternationalGo
 {
     using System.Globalization;
-    using KifuwarabeUec11Gui.Script.ExcelGo;
+    using KifuwarabeUec11Gui.Script.ZShaped;
 
     /// <summary>
     /// 国際囲碁の列表記☆（＾～＾）
     /// I列が欠番☆（＾～＾）
     /// 
-    /// このオブジェクトは、Excel式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
+    /// このオブジェクトは、Z字方向式で使い回せるものは　どんどん使い回せだぜ☆（＾～＾）
     /// </summary>
     public class InternationalColumnAddress : ColumnAddress
     {
@@ -21,17 +21,17 @@
             var (columnAddress, next) = ColumnAddress.Parse(text, start);
 
             // 国際式の囲碁では I は抜く慣習☆（＾～＾）
-            if (8 == columnAddress.Number)
+            if (8 == columnAddress.NumberO0)
             {
                 // 不一致☆（＾～＾）
                 return (null, start);
             }
-            else if (8 < columnAddress.Number)
+            else if (8 < columnAddress.NumberO0)
             {
-                columnAddress = new ColumnAddress(columnAddress.Number - 1);
+                columnAddress = new ColumnAddress(columnAddress.NumberO0 - 1);
             }
 
-            return (new InternationalColumnAddress(columnAddress.Number), next);
+            return (new InternationalColumnAddress(columnAddress.NumberO0), next);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@
         public override string ToDisplay()
         {
             // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
-            var number = 65 + (this.Number < 8 ? this.Number : this.Number + 1);
+            var number = 65 + (this.NumberO0 < 8 ? this.NumberO0 : this.NumberO0 + 1);
             return ((char)number).ToString(CultureInfo.CurrentCulture);
         }
     }

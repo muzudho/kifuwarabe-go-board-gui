@@ -1,11 +1,12 @@
 ﻿namespace KifuwarabeUec11Gui.Script.Translator
 {
     using System;
-    using KifuwarabeUec11Gui.Script.ExcelGo;
+    using KifuwarabeUec11Gui.Script.ZShaped;
     using KifuwarabeUec11Gui.Script.InternationalGo;
 
-    public static class InternationalToExcel
+    public static class InternationalToZShaped
     {
+        /*
         public static CellRange ConvertCellRange(InternationalCellRange cellRange)
         {
             if (cellRange == null)
@@ -37,7 +38,7 @@
                 throw new ArgumentNullException(nameof(columnAddress));
             }
 
-            return new ColumnAddress(columnAddress.Number);
+            return new ColumnAddress(columnAddress.NumberO0);
         }
 
         public static RowAddress ConvertRowAddress(InternationalRowAddress rowAddress)
@@ -47,7 +48,8 @@
                 throw new ArgumentNullException(nameof(rowAddress));
             }
 
-            return new RowAddress(rowAddress.Number);
+            return new RowAddress(rowAddress.NumberO0);
         }
+        */
     }
 }

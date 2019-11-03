@@ -1,11 +1,20 @@
 ﻿namespace KifuwarabeUec11Gui.Script.Translator
 {
     using System;
-    using KifuwarabeUec11Gui.Script.ExcelGo;
+    using KifuwarabeUec11Gui.Script.ZShaped;
     using KifuwarabeUec11Gui.Script.InternationalGo;
 
-    public static class ExcelToInternational
+    public static class ZShapedToInternational
     {
+        public static int ConvertIndex(int indexO0)
+        {
+            var zShapedRowO0 = indexO0 / ScriptDocument.BoardSize;
+            var zShapedColumnO0 = indexO0 % ScriptDocument.BoardSize;
+
+            return (ScriptDocument.RowLastO0 - zShapedRowO0) + zShapedColumnO0;
+        }
+
+        /*
         public static InternationalCellRange ConvertCellRange(CellRange cellRange)
         {
             if (cellRange == null)
@@ -17,6 +26,7 @@
                 ConvertCellAddress(cellRange.StartsCellAddress),
                 ConvertCellAddress(cellRange.EndsCellAddress));
         }
+        */
 
         public static InternationalCellAddress ConvertCellAddress(CellAddress cellAddress)
         {
@@ -32,12 +42,12 @@
 
         public static InternationalColumnAddress ConvertColumnAddress(ColumnAddress columnAddress)
         {
-            if (columnAddress==null)
+            if (columnAddress == null)
             {
                 throw new ArgumentNullException(nameof(columnAddress));
             }
 
-            return new InternationalColumnAddress(columnAddress.Number);
+            return new InternationalColumnAddress(columnAddress.NumberO0);
         }
 
         public static InternationalRowAddress ConvertRowAddress(RowAddress rowAddress)
@@ -47,7 +57,7 @@
                 throw new ArgumentNullException(nameof(rowAddress));
             }
 
-            return new InternationalRowAddress(rowAddress.Number);
+            return new InternationalRowAddress(rowAddress.NumberO0);
         }
     }
 }

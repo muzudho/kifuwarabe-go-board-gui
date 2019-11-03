@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
+﻿namespace KifuwarabeUec11Gui.Script.ZShaped
 {
     using System;
     using System.Globalization;
@@ -10,11 +10,14 @@
     /// </summary>
     public class RowAddress
     {
-        public int Number { get; private set; }
+        /// <summary>
+        /// 0から始まる（Origin 0）列番号☆（＾～＾）
+        /// </summary>
+        public int NumberO0 { get; private set; }
 
-        public RowAddress(int number)
+        public RowAddress(int numberO0)
         {
-            this.Number = number;
+            this.NumberO0 = numberO0;
         }
 
         public static (RowAddress, int) Parse(string text, int start)
@@ -24,11 +27,12 @@
                 throw new ArgumentNullException(nameof(text));
             }
 
-            var row = 0;
+            // 入出力時では行番号は 1 から（1 Origin）持つぜ☆（＾～＾）
+            var rowO1 = 0;
             {
                 if (int.TryParse(text[start].ToString(CultureInfo.CurrentCulture), out int outRow))
                 {
-                    row = outRow;
+                    rowO1 = outRow;
 
                     // 先頭桁目は確定☆（＾～＾）
                     start++;
@@ -44,8 +48,8 @@
             {
                 if (int.TryParse(text[start].ToString(CultureInfo.CurrentCulture), out int outRow))
                 {
-                    row *= 10;
-                    row += outRow;
+                    rowO1 *= 10;
+                    rowO1 += outRow;
 
                     // 先頭から2桁目は確定☆（＾～＾）
                     start++;
@@ -53,7 +57,8 @@
             }
 
             // 1文字以上のヒットがある場合☆（＾～＾）
-            return (new RowAddress(row), start);
+            // 内部的には行番号は 0 から持つぜ☆（＾～＾）
+            return (new RowAddress(rowO1 - 1), start);
         }
 
         /// <summary>
@@ -62,7 +67,8 @@
         /// <returns></returns>
         public virtual string ToDisplay()
         {
-            return this.Number.ToString(CultureInfo.CurrentCulture);
+            // 入出力時では行番号は 1 から（1 Origin）持つぜ☆（＾～＾）
+            return (this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

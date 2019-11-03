@@ -1,7 +1,7 @@
-﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
+﻿namespace KifuwarabeUec11Gui.Script.ZShaped
 {
     /// <summary>
-    /// Excel式セル番地☆（＾～＾） A1 とか T19 みたいなやつだぜ☆（＾～＾）左上端が A1 ☆（＾～＾）
+    /// Z字方向式セル番地☆（＾～＾） A1 とか T19 みたいなやつだぜ☆（＾～＾）左上端が A1 ☆（＾～＾）
     /// 
     /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
     /// </summary>
@@ -45,26 +45,28 @@
             return (new CellAddress(rowAddress, columnAddress), next);
         }
 
-        public static int ToIndex(int rowNumber, int columnNumber)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return rowNumber * 19 + columnNumber;
+            return rowNumberO0 * ScriptDocument.BoardSize + columnNumberO0;
         }
 
+        /*
         public static CellAddress FromIndex(int rowNumber, int columnNumber)
         {
             return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
         }
+        */
 
-        public static CellAddress FromIndex(int index)
+        public static CellAddress FromIndex(int indexO0)
         {
-            var rowNumber = index / 19;
-            var columnNumber = index % 19;
-            return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
+            var rowNumberO0 = indexO0 / ScriptDocument.BoardSize;
+            var columnNumberO0 = indexO0 % ScriptDocument.BoardSize;
+            return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
         public virtual int ToIndex()
         {
-            return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
+            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0);
         }
 
         /// <summary>

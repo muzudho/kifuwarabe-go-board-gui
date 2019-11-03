@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Script
 {
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Script.ExcelGo;
+    using KifuwarabeUec11Gui.Script.ZShaped;
 
 
     /// <summary>

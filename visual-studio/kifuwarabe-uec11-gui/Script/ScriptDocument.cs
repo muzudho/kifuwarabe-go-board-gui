@@ -6,6 +6,16 @@
 
     public class ScriptDocument
     {
+        /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public static int RowLastO0 => 18;
+
+        /// <summary>
+        /// 19路盤☆（＾～＾）
+        /// </summary>
+        public static int BoardSize => 19;
+
         public List<Instruction> Instructions { get; private set; }
 
         public ScriptDocument(List<Instruction> instructions)

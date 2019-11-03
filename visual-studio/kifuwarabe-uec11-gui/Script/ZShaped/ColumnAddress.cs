@@ -1,23 +1,26 @@
-﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
+﻿namespace KifuwarabeUec11Gui.Script.ZShaped
 {
     using System.Globalization;
 
     /// <summary>
-    /// Excel式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）
+    /// Z字方向式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）
     /// 
     /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
     /// </summary>
     public class ColumnAddress
     {
-        public int Number { get; private set; }
+        /// <summary>
+        /// 0から始まる（Origin 0）列番号☆（＾～＾）
+        /// </summary>
+        public int NumberO0 { get; private set; }
 
-        public ColumnAddress(int number)
+        public ColumnAddress(int numberO0)
         {
-            this.Number = number;
+            this.NumberO0 = numberO0;
         }
 
         /// <summary>
-        /// Excel表記の列番号をパースするぜ☆（＾～＾）
+        /// Z字方向式表記の列番号をパースするぜ☆（＾～＾）
         /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
@@ -46,7 +49,8 @@
         /// <returns></returns>
         public virtual string ToDisplay()
         {
-            return ((char)(65 + this.Number)).ToString(CultureInfo.CurrentCulture);
+            // 65はAsciiCodeのA。97はa。
+            return ((char)(65 + this.NumberO0)).ToString(CultureInfo.CurrentCulture);
         }
     }
 }
