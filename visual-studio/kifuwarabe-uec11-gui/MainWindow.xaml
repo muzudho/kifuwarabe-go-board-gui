@@ -21,167 +21,383 @@
                 Panel.ZIndex="125"
                 />
 
-            <Border
+            <Canvas
+                x:Name="plyCanvas"
                 Panel.ZIndex="510"
-                BorderThickness="1"
-                BorderBrush="Black"
-                Canvas.Top="0"
-                CornerRadius="60"
+                Canvas.Right="80" Top="10" Width="60" Height="60"
                 >
-                <Ellipse
-                    x:Name="plyRect"
-                    Width="60"
-                    Height="60"
-                    Opacity="0.7"
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
-                    <Ellipse.Fill>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#f6f7f8" Offset="0.0" />
-                            <GradientStop Color="Black" Offset="0.3" />
-                            <GradientStop Color="Green" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Border>
-            <Label
-                x:Name="plyLabel"
-                Panel.ZIndex="520"
-                Canvas.Top="10"
-                Width="60"
-                HorizontalContentAlignment="Left"
-                Foreground="White"
-                >手目</Label>
-            <Label
-                x:Name="plyNumber"
-                Panel.ZIndex="520"
-                Canvas.Top="25"
-                Width="60"
-                HorizontalContentAlignment="Right"
-                Foreground="White"
-                >999</Label>
+                    <Ellipse
+                        x:Name="plyRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="plyLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >手目</Label>
+                <Label
+                    x:Name="plyNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >999</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="lastMoveCanvas"
+                Panel.ZIndex="510"
+                Canvas.Right="10" Top="10" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="lastMoveRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="lastMoveLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >着手</Label>
+                <Label
+                    x:Name="lastMoveNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >Z99</Label>
+            </Canvas>
+
+            
+            
+            
+            <Canvas
+                x:Name="blackNameCanvas"
+                Panel.ZIndex="510"
+                Canvas.Right="10" Canvas.Bottom="150" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="blackNameRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="blackNameLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >名前</Label>
+                <Label
+                    x:Name="blackNameNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >Aaaaaaaa</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="blackTimeCanvas"
+                Panel.ZIndex="510"
+                Canvas.Right="10" Canvas.Bottom="80" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="blackTimeRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="blackTimeLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >残り時間</Label>
+                <Label
+                    x:Name="blackTimeNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >99:59</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="blackAgehamaCanvas"
+                Panel.ZIndex="510"
+                Canvas.Right="10" Canvas.Bottom="10" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="blackAgehamaRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="blackAgehamaLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >黒アゲハマ</Label>
+                <Label
+                    x:Name="blackAgehamaNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >999</Label>
+            </Canvas>
 
 
-            <Border
-                Panel.ZIndex="510"
-                BorderThickness="1"
-                BorderBrush="#FF000000"
-                Canvas.Top="60"
-                CornerRadius="60"
-                >
-                <Ellipse
-                    x:Name="blackAgehamaRect"
-                    Panel.ZIndex="510"
-                    Width="60"
-                    Height="60"
-                    Opacity="0.7"
-                    >
-                    <Ellipse.Fill>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#f6f7f8" Offset="0.0" />
-                            <GradientStop Color="Black" Offset="0.3" />
-                            <GradientStop Color="Green" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Border>
-            <Label
-                x:Name="blackAgehamaLabel"
-                Panel.ZIndex="520"
-                Canvas.Top="70"
-                Width="60"
-                HorizontalContentAlignment="Left"
-                Foreground="White"
-                >黒アゲハマ</Label>
-            <Label
-                x:Name="blackAgehamaNumber"
-                Panel.ZIndex="520"
-                Canvas.Top="85"
-                Width="60"
-                HorizontalContentAlignment="Right"
-                Foreground="White"
-                >999</Label>
 
-            <Border
+            <Canvas
+                x:Name="whiteNameCanvas"
                 Panel.ZIndex="510"
-                BorderThickness="1"
-                BorderBrush="#FF000000"
-                Canvas.Top="120"
-                CornerRadius="60"
+                Left="10" Top="10" Width="60" Height="60"
                 >
-                <Ellipse
-                    x:Name="whiteAgehamaRect"
-                    Panel.ZIndex="510"
-                    Width="60"
-                    Height="60"
-                    Opacity="0.7"
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
-                    <Ellipse.Fill>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="Silver" Offset="0.0" />
-                            <GradientStop Color="White" Offset="0.1" />
-                            <GradientStop Color="#f6f7f8" Offset="0.3" />
-                            <GradientStop Color="Gray" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Border>
-            <Label
-                x:Name="whiteAgehamaLabel"
-                Panel.ZIndex="520"
-                Canvas.Top="130"
-                Width="60"
-                HorizontalContentAlignment="Left"
-                Foreground="Black"
-                >白アゲハマ</Label>
-            <Label
-                x:Name="whiteAgehamaNumber"
-                Panel.ZIndex="520"
-                Canvas.Top="145"
-                Width="60"
-                HorizontalContentAlignment="Right"
-                Foreground="Black"
-                >999</Label>
+                    <Ellipse
+                        x:Name="whiteNameRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="Silver" Offset="0.0" />
+                                <GradientStop Color="White" Offset="0.1" />
+                                <GradientStop Color="#f6f7f8" Offset="0.3" />
+                                <GradientStop Color="Gray" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="whiteNameLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="Black"
+                    >名前</Label>
+                <Label
+                    x:Name="whiteNameNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="Black"
+                    >Bbbbbbbb</Label>
+            </Canvas>
 
-            <Border
+            <Canvas
+                x:Name="whiteTimeCanvas"
                 Panel.ZIndex="510"
-                BorderThickness="1"
-                BorderBrush="#FF000000"
-                Canvas.Top="180"
-                CornerRadius="60"
+                Left="10" Top="80" Width="60" Height="60"
                 >
-                <Ellipse
-                    x:Name="komiRect"
-                    Panel.ZIndex="510"
-                    Width="60"
-                    Height="60"
-                    Opacity="0.7"
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
-                    <Ellipse.Fill>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="Silver" Offset="0.0" />
-                            <GradientStop Color="White" Offset="0.1" />
-                            <GradientStop Color="#f6f7f8" Offset="0.3" />
-                            <GradientStop Color="Gray" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Border>
-            <Label
-                x:Name="komiLabel"
-                Panel.ZIndex="520"
-                Canvas.Top="190"
-                Width="60"
-                HorizontalContentAlignment="Left"
-                Foreground="Black"
-                >コミ</Label>
-            <Label
-                x:Name="komiNumber"
-                Panel.ZIndex="520"
-                Canvas.Top="205"
-                Width="60"
-                HorizontalContentAlignment="Right"
-                Foreground="Black"
-                >99.5</Label>
+                    <Ellipse
+                        x:Name="whiteTimeRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="Silver" Offset="0.0" />
+                                <GradientStop Color="White" Offset="0.1" />
+                                <GradientStop Color="#f6f7f8" Offset="0.3" />
+                                <GradientStop Color="Gray" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="whiteTimeLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="Black"
+                    >残り時間</Label>
+                <Label
+                    x:Name="whiteTimeNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="Black"
+                    >99:59</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="whiteAgehamaCanvas"
+                Panel.ZIndex="510"
+                Left="10" Top="150" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="whiteAgehamaRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="Silver" Offset="0.0" />
+                                <GradientStop Color="White" Offset="0.1" />
+                                <GradientStop Color="#f6f7f8" Offset="0.3" />
+                                <GradientStop Color="Gray" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="whiteAgehamaLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="Black"
+                    >白アゲハマ</Label>
+                <Label
+                    x:Name="whiteAgehamaNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="Black"
+                    >999</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="komiCanvas"
+                Panel.ZIndex="510"
+                Left="10" Top="220" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        x:Name="komiRect"
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="Silver" Offset="0.0" />
+                                <GradientStop Color="White" Offset="0.1" />
+                                <GradientStop Color="#f6f7f8" Offset="0.3" />
+                                <GradientStop Color="Gray" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="komiLabel"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="Black"
+                    >コミ</Label>
+                <Label
+                    x:Name="komiNumber"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="Black"
+                    >99.5</Label>
+            </Canvas>
 
         </Canvas>
     </Grid>
