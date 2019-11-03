@@ -44,6 +44,17 @@ namespace UnitTestProject1
         }
 
         /// <summary>
+        /// プロパティ値の設定をテスト☆（＾～＾）
+        /// </summary>
+        [TestMethod]
+        public void TestSetsInstructionArgumentTest()
+        {
+            Assert.AreEqual("b-name = Kifuwarabe", SetsInstructionArgument.Parse("set b-name = Kifuwarabe", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-time = 10:00", SetsInstructionArgument.Parse("set  b-time  =  10:00  ", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-hama = ", SetsInstructionArgument.Parse("set b-hama =", 3).Item1?.ToDisplay());
+        }
+
+        /// <summary>
         /// 国際式囲碁のセル番地表記をテスト☆（＾～＾）
         /// </summary>
         [TestMethod]
@@ -237,9 +248,9 @@ namespace UnitTestProject1
                 {
                     cellRange.Foreach((indexO0, r, c) =>
                     {
-                         var cellAddress = CellAddress.FromIndex(indexO0);
-                         msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex()}");
-                         signs.Add(cellAddress.ToDisplay());
+                        var cellAddress = CellAddress.FromIndex(indexO0);
+                        msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex()}");
+                        signs.Add(cellAddress.ToDisplay());
                     });
 
                     Assert.AreEqual("H7 I7 J7 H8 I8 J8 H9 I9 J9", string.Join(' ', signs), msg.ToString());
@@ -451,6 +462,8 @@ namespace UnitTestProject1
 
             // 最初にマッチする単語のテスト☆（＾～＾）
             Assert.AreEqual("black", Word.Parse("black a19 k10 t1", 0).Item1?.ToDisplay());
+
+            Assert.AreEqual("Hello, world", WordUpToDelimiter.Parse("!", "Hello, world!", 0).Item1?.ToDisplay());
         }
     }
 }

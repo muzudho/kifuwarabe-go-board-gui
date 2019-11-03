@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using KifuwarabeUec11Gui.Script.InternationalGo;
 
     public class ScriptDocument
     {
@@ -42,24 +43,41 @@
             {
                 Trace.WriteLine($"Read            | {line}");
 
-                var (word, next) = Word.Parse(line, 0);
-                if (word != null)
+                var (commandName, next) = Word.Parse(line, 0);
+                if (commandName != null)
                 {
-                    switch (word.Text)
+                    switch (commandName.Text)
                     {
+                        case "set":
+                            {
+                                SetsInstructionArgument argument;
+                                (argument, next) = SetsInstructionArgument.Parse(line, next);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
+                            }
+                            break;
+
                         case "black": // thru
                         case "white": // thru
                         case "space":
-                            ColorInstructionArgument argument;
-                            (argument, next) = ColorInstructionArgument.Parse(line, next);
-                            if (argument == null)
                             {
-                                Trace.WriteLine($"Error           | {line}");
-                            }
-                            else
-                            {
-                                // Trace.WriteLine($"Test            | {word.Text} {argument.ToDisplay()}");
-                                instructions.Add(new Instruction(word.Text, argument));
+                                ColorInstructionArgument argument;
+                                (argument, next) = ColorInstructionArgument.Parse(line, next);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    // Trace.WriteLine($"Test            | {word.Text} {argument.ToDisplay()}");
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
                             }
                             break;
                     }

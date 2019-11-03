@@ -581,4 +581,61 @@ black o18:r15
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
 「　寝ればいいのに……☆」
 
+```
+Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑親要素の Canvas と同じ幅にするには　こう書くみたいだが、 CSS に慣れてると、めんどくさいな☆」
+
+# 2019-11-04 01:00頃
+
+![20191103wpf29.png](https://crieit.now.sh/upload_images/3f7216c8c97b26cd8e3706cebf625da25dbefe0118dbb.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑Xamlを使うスキルが上がってきた……☆」
+
+
+```
+set ply 0
+set move Z99
+set b-name Aaaaaaaa
+set b-time 99:59
+set b-hama 999
+set w-name Bbbbbbbb
+set w-time 99:59
+set w-hama 999
+set komi 99.5
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑こんな感じのコマンドを用意すれば　いい感じじゃないか☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　名前が　半角スペース区切り　だったりしたときの取り扱いが　めんどくさくない？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　名前と値を `=` （イコール）で区切ってはどうか☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　古くは `.ini` ファイル、Java なら `.properties` ファイルが　そんなんだったよな☆」
+
+```
+set ply = 0
+set move = Z99
+set b-name = Aaaaaaaa
+set b-time = 99:59
+set b-hama = 999
+set w-name = Bbbbbbbb
+set w-time = 99:59
+set w-hama = 999
+set komi = 99.5
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑こういうフォーマットなら　楽そうだ……☆　やってみるかだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　寝ろ☆」
+
 ＜書きかけ＞

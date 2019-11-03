@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
@@ -201,7 +202,7 @@
             // 何手目か表示しようぜ☆（＾～＾）？
             {
                 // mainWindow.plyLabel.FontSize = columnInterval;
-                mainWindow.plyNumber.Content = $"{mainWindow.State.Ply}";
+                mainWindow.plyValue.Content = $"{mainWindow.State.Ply}";
             }
         }
 
@@ -250,48 +251,112 @@
                         {
                             switch (instruction.Command)
                             {
+                                case "set":
+                                    {
+                                        // プロパティ☆（＾～＾）
+                                        var prop = (SetsInstructionArgument)instruction.Argument;
+                                        switch (prop.Name)
+                                        {
+                                            case "ply":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        this.State.Ply = outValue;
+                                                        plyValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
+                                                    }
+                                                }
+                                                break;
+                                            case "move":
+                                                {
+                                                    var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0);
+                                                    if (cellAddress != null)
+                                                    {
+                                                        this.State.LastMoveIndex = cellAddress.ToIndex();
+                                                        lastMoveValue.Content = cellAddress.ToDisplay();
+                                                    }
+                                                }
+                                                break;
+                                            case "b-name":
+                                                this.State.BlackName = prop.Value;
+                                                blackNameValue.Content = prop.Value;
+                                                break;
+                                            case "b-time":
+                                                this.State.BlackTime = prop.Value;
+                                                blackTimeValue.Content = prop.Value;
+                                                break;
+                                            case "b-hama":
+                                                this.State.BlackHama = prop.Value;
+                                                blackAgehamaValue.Content = prop.Value;
+                                                break;
+                                            case "w-name":
+                                                this.State.WhiteName = prop.Value;
+                                                whiteNameValue.Content = prop.Value;
+                                                break;
+                                            case "w-time":
+                                                this.State.WhiteTime = prop.Value;
+                                                whiteTimeValue.Content = prop.Value;
+                                                break;
+                                            case "w-hama":
+                                                this.State.WhiteHama = prop.Value;
+                                                whiteAgehamaValue.Content = prop.Value;
+                                                break;
+                                            case "komi":
+                                                {
+                                                    if (double.TryParse(prop.Value, out double outValue))
+                                                    {
+                                                        this.State.Komi = outValue;
+                                                        komiValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
+                                                    }
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+
                                 case "black": // thru
                                 case "white": // thru
                                 case "space":
-                                    var instArgs = (ColorInstructionArgument)instruction.Argument;
-                                    foreach (var cellRange in instArgs.CellRanges)
                                     {
-                                        // 内部的には Z字方向式 で持っている☆（＾～＾）
-                                        var zShapedIndexes = cellRange.ToIndexes();
-
-                                        foreach (var zShapedIndex in zShapedIndexes)
+                                        var instArgs = (ColorInstructionArgument)instruction.Argument;
+                                        foreach (var cellRange in instArgs.CellRanges)
                                         {
-                                            // Trace.WriteLine($"zShapedIndex={zShapedIndex}");
+                                            // 内部的には Z字方向式 で持っている☆（＾～＾）
+                                            var zShapedIndexes = cellRange.ToIndexes();
 
-                                            // 内部的な操作では、上下を逆さにしなくていい☆（＾～＾）
-                                            var stone = this.Stones[zShapedIndex];
-                                            switch (instruction.Command)
+                                            foreach (var zShapedIndex in zShapedIndexes)
                                             {
-                                                case "black": // thru
-                                                              // 黒石にするぜ☆（＾～＾）
-                                                    stone.Fill = Brushes.Black;
-                                                    stone.Stroke = Brushes.White;
-                                                    stone.Visibility = Visibility.Visible;
+                                                // Trace.WriteLine($"zShapedIndex={zShapedIndex}");
 
-                                                    // 最後の着手点☆（＾～＾）
-                                                    this.State.LastMoveIndex = zShapedIndex;
+                                                // 内部的な操作では、上下を逆さにしなくていい☆（＾～＾）
+                                                var stone = this.Stones[zShapedIndex];
+                                                switch (instruction.Command)
+                                                {
+                                                    case "black": // thru
+                                                                  // 黒石にするぜ☆（＾～＾）
+                                                        stone.Fill = Brushes.Black;
+                                                        stone.Stroke = Brushes.White;
+                                                        stone.Visibility = Visibility.Visible;
 
-                                                    break;
+                                                        // 最後の着手点☆（＾～＾）
+                                                        this.State.LastMoveIndex = zShapedIndex;
 
-                                                case "white": // thru
-                                                              // 白石にするぜ☆（＾～＾）
-                                                    stone.Fill = Brushes.White;
-                                                    stone.Stroke = Brushes.Black;
-                                                    stone.Visibility = Visibility.Visible;
+                                                        break;
 
-                                                    // 最後の着手点☆（＾～＾）
-                                                    this.State.LastMoveIndex = zShapedIndex;
+                                                    case "white": // thru
+                                                                  // 白石にするぜ☆（＾～＾）
+                                                        stone.Fill = Brushes.White;
+                                                        stone.Stroke = Brushes.Black;
+                                                        stone.Visibility = Visibility.Visible;
 
-                                                    break;
+                                                        // 最後の着手点☆（＾～＾）
+                                                        this.State.LastMoveIndex = zShapedIndex;
 
-                                                case "space":
-                                                    stone.Visibility = Visibility.Hidden;
-                                                    break;
+                                                        break;
+
+                                                    case "space":
+                                                        stone.Visibility = Visibility.Hidden;
+                                                        break;
+                                                }
                                             }
                                         }
                                     }

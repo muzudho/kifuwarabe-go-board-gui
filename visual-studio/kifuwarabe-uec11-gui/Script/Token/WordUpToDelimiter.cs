@@ -1,40 +1,35 @@
 ﻿namespace KifuwarabeUec11Gui.Script
 {
-    using System.Text.RegularExpressions;
+    using System;
 
     /// <summary>
-    /// 次の空白までの文字列☆（＾～＾）
+    /// 区切り記号までの単語☆（＾～＾）
     /// </summary>
-    public class Word
+    public class WordUpToDelimiter
     {
-        /// <summary>
-        /// 英語がいうところの、単語☆（＾～＾）
-        /// </summary>
-        private static Regex regex = new Regex("(\\w+)", RegexOptions.Compiled);
-
         /// <summary>
         /// マッチングした文字☆（＾～＾）
         /// </summary>
         public string Text { get; private set; }
 
-        public Word(string text)
+        public WordUpToDelimiter(string text)
         {
             this.Text = text;
         }
 
-        public static (Word, int) Parse(string text, int start)
+        public static (WordUpToDelimiter, int) Parse(string delimiter, string text, int start)
         {
-            if (text == null || text.Length <= start)
+            if (delimiter == null || text == null || text.Length <= start)
             {
                 return (null, start);
             }
 
-            var m = regex.Match(text.Substring(start));
-            if (m.Success)
+            var next = text.IndexOf(delimiter, start, StringComparison.Ordinal);
+            if (-1 < next)
             {
                 // 一致。
-                var word = m.Groups[1].Value;
-                return (new Word(word), start + word.Length);
+                var word = text.Substring(start, next - start);
+                return (new WordUpToDelimiter(word), next);
             }
 
             return (null, start);

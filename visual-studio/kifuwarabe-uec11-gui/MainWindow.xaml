@@ -47,14 +47,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="plyLabel"
+                    x:Name="plyName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >手目</Label>
                 <Label
-                    x:Name="plyNumber"
+                    x:Name="plyValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -88,14 +88,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="lastMoveLabel"
+                    x:Name="lastMoveName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >着手</Label>
                 <Label
-                    x:Name="lastMoveNumber"
+                    x:Name="lastMoveValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -132,14 +132,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackNameLabel"
+                    x:Name="blackNameName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >名前</Label>
                 <Label
-                    x:Name="blackNameNumber"
+                    x:Name="blackNameValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -173,14 +173,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackTimeLabel"
+                    x:Name="blackTimeName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >残り時間</Label>
                 <Label
-                    x:Name="blackTimeNumber"
+                    x:Name="blackTimeValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -214,14 +214,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackAgehamaLabel"
+                    x:Name="blackAgehamaName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >黒アゲハマ</Label>
                 <Label
-                    x:Name="blackAgehamaNumber"
+                    x:Name="blackAgehamaValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -258,14 +258,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteNameLabel"
+                    x:Name="whiteNameName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >名前</Label>
                 <Label
-                    x:Name="whiteNameNumber"
+                    x:Name="whiteNameValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -300,14 +300,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteTimeLabel"
+                    x:Name="whiteTimeName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >残り時間</Label>
                 <Label
-                    x:Name="whiteTimeNumber"
+                    x:Name="whiteTimeValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -342,14 +342,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteAgehamaLabel"
+                    x:Name="whiteAgehamaName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >白アゲハマ</Label>
                 <Label
-                    x:Name="whiteAgehamaNumber"
+                    x:Name="whiteAgehamaValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -384,14 +384,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="komiLabel"
+                    x:Name="komiName"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >コミ</Label>
                 <Label
-                    x:Name="komiNumber"
+                    x:Name="komiValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"

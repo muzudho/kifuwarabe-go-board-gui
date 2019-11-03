@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>kifuwarabe_uec11_gui</RootNamespace>
+    <RootNamespace>KifuwarabeUec11Gui</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
