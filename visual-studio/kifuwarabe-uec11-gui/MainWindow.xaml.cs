@@ -309,6 +309,20 @@
                                                     }
                                                 }
                                                 break;
+                                            case "comment":
+                                                this.State.Comment = prop.Value;
+
+                                                // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                                                // (1) 垂直タブ は消す。
+                                                // (2) \\ は 垂直タブ にする☆
+                                                // (3) \n は 改行コード にする☆
+                                                // (4) 垂直タブは \ にする☆
+                                                var temp = prop.Value.Replace("\v", "", StringComparison.Ordinal);
+                                                temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
+                                                temp = temp.Replace("\\n", "\n", StringComparison.Ordinal);
+                                                temp = temp.Replace("\v", "\\", StringComparison.Ordinal);
+                                                commentValue.Content = temp;
+                                                break;
                                         }
                                     }
                                     break;

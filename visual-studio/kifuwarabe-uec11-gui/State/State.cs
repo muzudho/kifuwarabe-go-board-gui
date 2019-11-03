@@ -52,6 +52,12 @@
         /// </summary>
         public double Komi { get; set; }
 
+        /// <summary>
+        /// コメント☆（＾～＾）画面にメッセージを表示するぜ☆（＾～＾）
+        /// 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
+        /// </summary>
+        public string Comment { get; set; }
+
         public State()
         {
             this.LastMoveIndex = -1;
@@ -61,6 +67,7 @@
             this.WhiteName = string.Empty;
             this.WhiteTime = string.Empty;
             this.WhiteHama = string.Empty;
+            this.Comment = string.Empty;
         }
     }
 }

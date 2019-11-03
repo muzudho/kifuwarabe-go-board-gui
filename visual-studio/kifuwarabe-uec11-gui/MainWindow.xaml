@@ -103,9 +103,9 @@
                     >Z99</Label>
             </Canvas>
 
-            
-            
-            
+
+
+
             <Canvas
                 x:Name="blackNameCanvas"
                 Panel.ZIndex="510"
@@ -399,6 +399,24 @@
                     >99.5</Label>
             </Canvas>
 
+        </Canvas>
+
+        <Canvas
+            x:Name="comment"
+            Panel.ZIndex="520"
+            Left="0" Top="0"
+            Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+            Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+            >
+            <Label
+                x:Name="commentValue"
+                Canvas.Bottom="0"
+                Canvas.Left="0"
+                Width="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
+                Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
+                Foreground="White"
+                VerticalContentAlignment="Bottom"
+                />
         </Canvas>
     </Grid>
 </Window>
