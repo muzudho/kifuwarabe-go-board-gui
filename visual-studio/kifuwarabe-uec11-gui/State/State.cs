@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_uec11_gui
+﻿namespace KifuwarabeUec11Gui
 {
     /// <summary>
     /// 内部状態。

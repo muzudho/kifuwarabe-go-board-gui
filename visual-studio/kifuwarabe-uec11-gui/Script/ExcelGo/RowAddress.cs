@@ -1,14 +1,16 @@
-﻿namespace kifuwarabe_uec11_gui.API
+﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
 {
     using System;
     using System.Globalization;
 
     /// <summary>
-    /// 行番号だぜ☆（＾～＾）　コンピューターチェスの国際式では　一番下が１行目だぜ☆（＾～＾）
+    /// 行番号だぜ☆（＾～＾）
+    /// 
+    /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
     /// </summary>
     public class RowAddress
     {
-        private int Number { get; set; }
+        public int Number { get; private set; }
 
         public RowAddress(int number)
         {

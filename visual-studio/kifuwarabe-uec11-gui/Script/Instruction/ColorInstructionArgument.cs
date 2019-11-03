@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
-
-namespace kifuwarabe_uec11_gui.API
+﻿namespace KifuwarabeUec11Gui.Script
 {
+    using System.Collections.Generic;
+    using KifuwarabeUec11Gui.Script.ExcelGo;
+
+
     /// <summary>
     /// black命令などの引数の部分☆（＾～＾）
     /// つまり `black k10 k11 k12` の中の `k10 k11 k12` をパースするぜ☆（＾～＾）
     /// だから white 命令にも使い回せるぜ☆（＾～＾）
     /// </summary>
-    public class ColorInstructionParameter
+    public class ColorInstructionArgument
     {
         /// <summary>
         /// セル番地のリスト☆（＾～＾）
         /// </summary>
         public List<CellAddress> CellAddressList { get; private set; }
 
-        public ColorInstructionParameter(List<CellAddress> cellAddressList)
+        public ColorInstructionArgument(List<CellAddress> cellAddressList)
         {
             this.CellAddressList = cellAddressList;
         }
@@ -25,7 +27,7 @@ namespace kifuwarabe_uec11_gui.API
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColorInstructionParameter, int) Parse(string text, int start)
+        public static (ColorInstructionArgument, int) Parse(string text, int start)
         {
             var cellAddressList = new List<CellAddress>();
             var next = start;
@@ -59,7 +61,7 @@ namespace kifuwarabe_uec11_gui.API
 
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new ColorInstructionParameter(cellAddressList), next);
+            return (new ColorInstructionArgument(cellAddressList), next);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace kifuwarabe_uec11_gui.API
+﻿namespace KifuwarabeUec11Gui.Script
 {
     using System;
 

@@ -1,19 +1,27 @@
-﻿using System.Globalization;
-
-namespace kifuwarabe_uec11_gui.API
+﻿namespace KifuwarabeUec11Gui.Script.ExcelGo
 {
+    using System.Globalization;
+
     /// <summary>
-    /// 列アドレスだぜ☆（＾～＾） A ～ T で、 I が欠番だな☆（＾～＾）
+    /// Excel式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）
+    /// 
+    /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
     /// </summary>
     public class ColumnAddress
     {
-        private int Number { get; set; }
+        public int Number { get; private set; }
 
         public ColumnAddress(int number)
         {
             this.Number = number;
         }
 
+        /// <summary>
+        /// Excel表記の列番号をパースするぜ☆（＾～＾）
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
         public static (ColumnAddress, int) Parse(string text, int start)
         {
             if (text == null || text.Length < start + 1)
@@ -29,12 +37,6 @@ namespace kifuwarabe_uec11_gui.API
                 column -= 32;
             }
 
-            // コンピューター囲碁では I は抜く慣習。
-            if (8 <= column)
-            {
-                column--;
-            }
-
             return (new ColumnAddress(column), start + 1);
         }
 
@@ -44,8 +46,7 @@ namespace kifuwarabe_uec11_gui.API
         /// <returns></returns>
         public string ToDisplay()
         {
-            // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
-            return ((char)(65 + (this.Number < 8 ? this.Number : this.Number + 1))).ToString(CultureInfo.CurrentCulture);
+            return ((char)(65 + this.Number)).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

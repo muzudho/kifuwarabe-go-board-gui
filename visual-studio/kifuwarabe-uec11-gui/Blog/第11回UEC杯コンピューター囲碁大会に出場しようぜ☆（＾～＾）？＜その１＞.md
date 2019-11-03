@@ -1026,7 +1026,7 @@ MainWindows.xaml.cs:
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
 「　プロジェクトを別に立てると　めんどいんで　しばらく　ネームスペースを `kifuwarabe_uec11_gui.API` にして使うぜ☆」
 
-# 2019-11-02 19:00頃
+# 2019-11-02 19:00 ～ 20:00頃
 
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
 「　ここでお前らに　パーサーの書き方を　教えてやろう☆」
@@ -1067,8 +1067,8 @@ namespace kifuwarabe_uec11_gui.API
     /// </summary>
     public class CellAddress
     {
-        public ColumnAddress ColumnAddress { get; set; }
-        public RowAddress RowAddress { get; set; }
+        public ColumnAddress ColumnAddress { get; private set; }
+        public RowAddress RowAddress { get; private set; }
 
         public CellAddress(ColumnAddress columnAddress, RowAddress rowAddress)
         {
@@ -1104,6 +1104,11 @@ namespace kifuwarabe_uec11_gui.API
             // 列と行の両方マッチ☆（＾～＾）
             return (new CellAddress(columnAddress, rowAddress), next);
         }
+        
+        public int ToIndex()
+        {
+            return (19 - this.RowAddress.Number) * 19 + this.ColumnAddress.Number;
+        }
 
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
@@ -1135,7 +1140,7 @@ namespace kifuwarabe_uec11_gui.API
     /// </summary>
     public class ColumnAddress
     {
-        private int Number { get; set; }
+        public int Number { get; private set; }
 
         public ColumnAddress(int number)
         {
@@ -1194,7 +1199,7 @@ namespace kifuwarabe_uec11_gui.API
     /// </summary>
     public class RowAddress
     {
-        private int Number { get; set; }
+        public int Number { get; private set; }
 
         public RowAddress(int number)
         {
@@ -1258,6 +1263,511 @@ namespace kifuwarabe_uec11_gui.API
 パーサーのライブラリを使えば　便利かもしれないが、ルールを覚えるのがめんどくさいので　自作する☆」
 
 
+ExactlyKeyword.cs:
 
 
-＜書き換え＞
+```
+namespace kifuwarabe_uec11_gui.API
+{
+    using System;
+
+    /// <summary>
+    /// キーワードの完全一致☆（＾～＾）
+    /// </summary>
+    public class ExactlyKeyword
+    {
+        /// <summary>
+        /// キーワード☆（＾～＾）
+        /// </summary>
+        private string Word { get; set; }
+
+        public ExactlyKeyword(string word)
+        {
+            this.Word = word;
+        }
+
+        public static (ExactlyKeyword, int) Parse(string word, string text, int start)
+        {
+            if (word == null || text == null || text.Length < start + word.Length)
+            {
+                return (null, start);
+            }
+
+            if (text.Substring(start).StartsWith(word, StringComparison.Ordinal))
+            {
+                // 一致。
+                return (new ExactlyKeyword(word), start + word.Length);
+            }
+
+            return (null, start);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            return this.Word;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑ `black` や `space` のマッチングも使用感を　同じにしておくぜ☆」
+
+
+WhiteSpaces.cs:
+
+
+```
+namespace kifuwarabe_uec11_gui.API
+{
+    using System.Text.RegularExpressions;
+
+    /// <summary>
+    /// １個以上の空白☆（＾～＾）
+    /// </summary>
+    public class WhiteSpace
+    {
+        private static Regex regex = new Regex("(\\s+)", RegexOptions.Compiled);
+
+        /// <summary>
+        /// マッチングした文字☆（＾～＾）
+        /// </summary>
+        public string Text { get; private set; }
+
+        public WhiteSpace(string text)
+        {
+            this.Text = text;
+        }
+
+        public static (WhiteSpace, int) Parse(string text, int start)
+        {
+            if (text == null || text.Length <= start)
+            {
+                return (null, start);
+            }
+
+            var m = regex.Match(text.Substring(start));
+            if (m.Success)
+            {
+                // 一致。
+                var whiteSpaces = m.Groups[1].Value;
+                return (new WhiteSpace(whiteSpaces), start + whiteSpaces.Length);
+            }
+
+            return (null, start);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            return this.Text;
+        }
+    }
+}
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑ 空白にも対応☆」
+
+# 2019-11-02 21:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　飯も食った……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　また　コーヒーか☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　それで☆」
+
+
+BlackInstruction.cs:
+
+
+```
+using System.Collections.Generic;
+using System.Text;
+
+namespace kifuwarabe_uec11_gui.API
+{
+    /// <summary>
+    /// black命令☆（＾～＾）
+    /// `black k10 k11 k12` みたいにして黒石を置いていこうぜ☆（＾～＾）
+    /// </summary>
+    public class BlackInstruction
+    {
+        /// <summary>
+        /// セル番地のリスト☆（＾～＾）
+        /// </summary>
+        public List<CellAddress> CellAddressList { get; private set; }
+
+        public BlackInstruction(List<CellAddress> cellAddressList)
+        {
+            this.CellAddressList = cellAddressList;
+        }
+
+        public static (BlackInstruction, int) Parse(string text, int start)
+        {
+            var cellAddressList = new List<CellAddress>();
+            var next = start;
+
+            ExactlyKeyword black;
+            {
+                (black, next) = ExactlyKeyword.Parse("black", text, next);
+                if (black == null)
+                {
+                    // 非マッチ☆（＾～＾）
+                    return (null, start);
+                }
+            }
+
+            // あとはリスト☆（＾～＾）
+            for (; ; )
+            {
+                WhiteSpace whiteSpace;
+                {
+                    (whiteSpace, next) = WhiteSpace.Parse(text, next);
+                    if (whiteSpace == null)
+                    {
+                        // おわり☆（＾～＾）
+                        break;
+                    }
+                }
+
+                CellAddress cellAddress;
+                {
+                    (cellAddress, next) = CellAddress.Parse(text, next);
+                    if (cellAddress == null)
+                    {
+                        // おわり☆（＾～＾）
+                        break;
+                    }
+                }
+
+                // マッチ☆（＾～＾）
+                cellAddressList.Add(cellAddress);
+            }
+
+
+            // 列と行の両方マッチ☆（＾～＾）
+            return (new BlackInstruction(cellAddressList), next);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
+            var tokens = new List<string>();
+            foreach (var cellAddress in this.CellAddressList)
+            {
+                tokens.Add(cellAddress.ToDisplay());
+            }
+
+            return $"{string.Join(' ', tokens)}";
+        }
+    }
+}
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+（ず　ず　ずい　ずいっ　びゃー）　＃　熱いコーヒーをすする音
+「　ぶぇぇ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　命令文を読み取れるようになったのなら、
+`input.txt` ファイルを読み込んだ結果は 命令文オブジェクトをリストに入れて返せばいいんじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　そこは２ステップに分けてやろうぜ☆？」
+
+# 2019-11-02 22:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　タイム・スタンプなんか　タイトルにしても　コーディングはそんなに進まん☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　その行が　何命令か　判定しないと、パーサーも当てれなくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　行の先頭のトークンを取得してから　パーサーを選ぶのが実用的かだぜ☆？」
+
+
+Word.cs:
+
+
+```
+namespace kifuwarabe_uec11_gui.API
+{
+    using System;
+    using System.Text.RegularExpressions;
+
+    /// <summary>
+    /// 次の空白までの文字列☆（＾～＾）
+    /// </summary>
+    public class Word
+    {
+        /// <summary>
+        /// 英語がいうところの、単語☆（＾～＾）
+        /// </summary>
+        private static Regex regex = new Regex("(\\w+)", RegexOptions.Compiled);
+
+        /// <summary>
+        /// マッチングした文字☆（＾～＾）
+        /// </summary>
+        public string Text { get; private set; }
+
+        public Word(string text)
+        {
+            this.Text = text;
+        }
+
+        public static (Word, int) Parse(string text, int start)
+        {
+            if (text == null || text.Length <= start)
+            {
+                return (null, start);
+            }
+
+            var m = regex.Match(text.Substring(start));
+            if (m.Success)
+            {
+                // 一致。
+                var word = m.Groups[1].Value;
+                return (new Word(word), start + word.Length);
+            }
+
+            return (null, start);
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplay()
+        {
+            return this.Text;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑単語を取れるようにして……☆」
+
+
+```
+                this.DispatchTimer.Tick += (s, e) =>
+                {
+                    var text = this.InputTextReader.ReadToEnd();
+
+                    // 空行は無視☆（＾～＾）
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        Trace.WriteLine($"Text            | {text}");
+
+                        this.CommunicationLogWriter.WriteLine(text);
+                        this.CommunicationLogWriter.Flush();
+
+                        foreach (var line in text.Split(Environment.NewLine))
+                        {
+                            Trace.WriteLine($"Read            | {line}");
+
+                            var (word, next) = Word.Parse(line, 0);
+                            if (word != null)
+                            {
+                                switch (word.Text)
+                                {
+                                    case "black": // thru
+                                    case "white": // thru
+                                    case "space":
+                                        ColorInstructionParameter cip;
+                                        (cip, next) = ColorInstructionParameter.Parse(line, next);
+                                        if (cip == null)
+                                        {
+                                            Trace.WriteLine($"Error           | {line}");
+                                        }
+                                        else
+                                        {
+                                            Trace.WriteLine($"Test            | {word.Text} {cip.ToDisplay()}");
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                };
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑コマンド名をまず取って、次に引数をパースする感じに変更だぜ☆
+コマンド名と　引数の間のスペースも読み飛ばすように　パーサーを変更☆　詳しくは Git hub を見ろだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　ネーム・スペースを `kifuwarabe_uec11_gui.API` から `kifuwarabe_uec11_gui.Script` にリネームしよう……☆
+感覚的に☆」
+
+# 2019-11-02 23:00頃
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　スクリーン・ショットを乗せなさいよ！
+ソースコードばっかで　つまんないのよ！」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　ソースコード載ってたら　おもんないのかだぜ……☆」
+
+Instruction.cs:
+
+```
+namespace kifuwarabe_uec11_gui.Script
+{
+    /// <summary>
+    /// 命令。
+    /// </summary>
+    public class Instruction
+    {
+        public string Command { get; private set; }
+        public object Argument { get; private set; }
+
+        public Instruction(string command, object argument)
+        {
+            this.Command = command;
+            this.Argument = argument;
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑パースし終わったら、こういうオブジェクトに変換していこうぜ☆」
+
+
+Window_Initialized:
+
+
+```
+                this.DispatchTimer.Tick += (s, e) =>
+                {
+                    var text = this.InputTextReader.ReadToEnd();
+
+                    // 空行は無視☆（＾～＾）
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        Trace.WriteLine($"Text            | {text}");
+                        this.CommunicationLogWriter.WriteLine(text);
+                        this.CommunicationLogWriter.Flush();
+                    }
+
+                    var scriptDocument = ScriptDocument.Parse(text);
+                    if (scriptDocument != null)
+                    {
+                        // TODO:
+                    }
+                };
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑こう書き直して……☆」
+
+
+ScriptDocument.cs:
+
+
+```
+namespace kifuwarabe_uec11_gui.Script
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    public class ScriptDocument
+    {
+        public List<Instruction> Instructions { get; private set; }
+
+        public ScriptDocument(List<Instruction> instructions)
+        {
+            this.Instructions = instructions;
+        }
+
+        public static ScriptDocument Parse(string text)
+        {
+            // 空行は無視☆（＾～＾）
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return null;
+            }
+
+            var instructions = new List<Instruction>();
+
+            foreach (var line in text.Split(Environment.NewLine))
+            {
+                Trace.WriteLine($"Read            | {line}");
+
+                var (word, next) = Word.Parse(line, 0);
+                if (word != null)
+                {
+                    switch (word.Text)
+                    {
+                        case "black": // thru
+                        case "white": // thru
+                        case "space":
+                            ColorInstructionArgument argument;
+                            (argument, next) = ColorInstructionArgument.Parse(line, next);
+                            if (argument == null)
+                            {
+                                Trace.WriteLine($"Error           | {line}");
+                            }
+                            else
+                            {
+                                // Trace.WriteLine($"Test            | {word.Text} {argument.ToDisplay()}");
+                                instructions.Add(new Instruction(word.Text, argument));
+                            }
+                            break;
+                    }
+                }
+            }
+
+            return new ScriptDocument(instructions);
+        }
+    }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　↑こうだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbac701eeafd.gif)
+「　お父んがソースコード　ばんばん貼るから　ブログが重くなってきた……☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbac7809e902.gif)
+「　命令を受け取ったら、それを画面に反映するコードがいるわよ？」
+
+![20191102wpf14.png](https://crieit.now.sh/upload_images/7487f291fd4fb8a944624c9799e6fb705dbd977696d34.png)
+
+input.text:
+
+```
+black a19 k10 t1
+white a19 k10 t1
+space a19 k10 t1
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbac5db642bd.gif)
+「　こんな感じかだぜ☆　明日はもっと調整、今日はここまで☆（＾～＾）！」
+
+＜次回につづく＞
