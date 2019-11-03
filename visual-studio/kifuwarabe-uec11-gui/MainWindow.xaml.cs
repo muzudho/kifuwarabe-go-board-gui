@@ -199,7 +199,10 @@
             {
                 this.DispatchTimer = new DispatcherTimer();
                 this.DispatchTimer.Start();
-                this.DispatchTimer.Interval = TimeSpan.FromSeconds(5);
+
+                // 5秒置きでも長い感じ☆（＾～＾）
+                this.DispatchTimer.Interval = TimeSpan.FromSeconds(3);
+
                 this.DispatchTimer.Tick += (s, e) =>
                 {
                     var text = this.InputTextReader.ReadToEnd();
@@ -222,33 +225,39 @@
                                 case "black": // thru
                                 case "white": // thru
                                 case "space":
-                                    var args = (ColorInstructionArgument)instruction.Argument;
-                                    foreach (var cellRange in args.CellRanges)
+                                    var instArgs = (ColorInstructionArgument)instruction.Argument;
+                                    foreach (var cellRange in instArgs.CellRanges)
                                     {
                                         // 内部的には Z字方向式 で持っている☆（＾～＾）
                                         var zShapedIndexes = cellRange.ToIndexes();
 
                                         foreach (var zShapedIndex in zShapedIndexes)
                                         {
-                                            // 上下を逆さにするぜ☆（＾～＾）
-                                            var internationalGoIndex = ZShapedToInternational.ConvertIndex(zShapedIndex);
-                                            var stone = this.Stones[internationalGoIndex];
+                                            Trace.WriteLine($"zShapedIndex={zShapedIndex}");
+
+                                            // 内部的な操作では、上下を逆さにしなくていい☆（＾～＾）
+                                            var stone = this.Stones[zShapedIndex];
                                             switch (instruction.Command)
                                             {
                                                 case "black": // thru
                                                               // 黒石にするぜ☆（＾～＾）
-                                                    stone.Fill = Brushes.White;
-                                                    stone.Stroke = Brushes.Black;
+                                                    stone.Fill = Brushes.Black;
+                                                    stone.Stroke = Brushes.White;
+                                                    stone.Visibility = Visibility.Visible;
                                                     break;
                                                 case "white": // thru
                                                               // 白石にするぜ☆（＾～＾）
-                                                    stone.Fill = Brushes.Black;
-                                                    stone.Stroke = Brushes.White;
+                                                    stone.Fill = Brushes.White;
+                                                    stone.Stroke = Brushes.Black;
+                                                    stone.Visibility = Visibility.Visible;
                                                     break;
                                                 case "space":
+                                                    stone.Visibility = Visibility.Hidden;
+                                                    /*
                                                     // 画面外に出すことで非表示にするぜ☆（＾～＾）
                                                     Canvas.SetLeft(stone, -stone.Width);
                                                     Canvas.SetTop(stone, -stone.Height);
+                                                    */
                                                     break;
                                             }
                                         }

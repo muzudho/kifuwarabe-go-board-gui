@@ -279,6 +279,9 @@ black k10:k10 a7:b10 m12:m12 e1:e13 f17:f17
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
 「　きふわらべ　が始まっているな☆」
 
+
+Excel like:
+
 |Row|Index|Column|Index|
 |---|---|---|---|
 |0|0|A|0|
@@ -289,19 +292,234 @@ black k10:k10 a7:b10 m12:m12 e1:e13 f17:f17
 |5|95|F|5|
 |6|114|G|6|
 |7|133|H|7|
-|8|152|J|8|
-|9|171|K|9|
-|10|190|L|10|
-|11|209|M|11|
-|12|228|N|12|
-|13|247|O|13|
-|14|266|P|14|
-|15|285|Q|15|
-|16|304|R|16|
-|17|323|S|17|
-|18|342|T|18|
+|8|152|I|8|
+|9|171|J|9|
+|10|190|K|10|
+|11|209|L|11|
+|12|228|M|12|
+|13|247|N|13|
+|14|266|O|14|
+|15|285|P|15|
+|16|304|Q|16|
+|17|323|R|17|
+|18|342|S|18|
+
 
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
 「　↑何だぜ　この表は☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　がっつり　テストしようぜ☆？」
+
+# 2019-11-03 19:00頃
+
+![20191103wpf20b1.png](https://crieit.now.sh/upload_images/21b227e0037be04b5027b136593316ae5dbea79ab8098.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑static関数を使うと　継承した子クラスでも　ここだけ継承せず　親のメソッド使う　みたいになるのか☆
+static 外そ……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　さっきの表は Excel式 の盤で、国際式囲碁だと　行が　ひっくり返るのかだぜ☆」
+
+International go:
+
+|Row|Index|Column|Index|
+|---|---|---|---|
+|0|342|A|0|
+|1|323|B|1|
+|2|304|C|2|
+|3|285|D|3|
+|4|266|E|4|
+|5|247|F|5|
+|6|228|G|6|
+|7|209|H|7|
+|8|190|J|8|
+|9|171|K|9|
+|10|152|L|10|
+|11|133|M|11|
+|12|114|N|12|
+|13|95|O|13|
+|14|76|P|14|
+|15|57|Q|15|
+|16|38|R|16|
+|17|19|S|17|
+|18|0|T|18|
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　じゃあ　書いたテスト　間違ってるだろ☆」
+
+# 2019-11-03 20:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　上下を　ひっくり返し過ぎているのかも知れない☆
+見直そうぜ☆」
+
+# 2019-11-03 20:30頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　１つ気づいたことがあるぜ☆　`H7`　は 7 行目だが、 0 で始まる行数で数えると 6 だぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　はい、はい！　何年プログラムやってんの？！」
+
+
+Can be read in Z-Shaped:
+
+
+```
+|Row |Index|Column|Index|
+|----|---|---|---|
+| "1"|  0|A| 0|
+| "2"| 19|B| 1|
+| "3"| 38|C| 2|
+| "4"| 57|D| 3|
+| "5"| 76|E| 4|
+| "6"| 95|F| 5|
+| "7"|114|G| 6|
+| "8"|133|H| 7|
+| "9"|152|I| 8|
+|"10"|171|J| 9|
+|"11"|190|K|10|
+|"12"|209|L|11|
+|"13"|228|M|12|
+|"14"|247|N|13|
+|"15"|266|O|14|
+|"16"|285|P|15|
+|"17"|304|Q|16|
+|"18"|323|R|17|
+|"19"|342|S|18|
+```
+
+
+International Go:
+
+
+```
+|Row |Index|Column|Index|
+|----|---|---|---|
+| "1"|342|A| 0|
+| "2"|323|B| 1|
+| "3"|304|C| 2|
+| "4"|285|D| 3|
+| "5"|266|E| 4|
+| "6"|247|F| 5|
+| "7"|228|G| 6|
+| "8"|209|H| 7|
+| "9"|190|J| 8|
+|"10"|171|K| 9|
+|"11"|152|L|10|
+|"12"|133|M|11|
+|"13"|114|N|12|
+|"14"| 95|O|13|
+|"15"| 76|P|14|
+|"16"| 57|Q|15|
+|"17"| 38|R|16|
+|"18"| 19|S|17|
+|"19"|  0|T|18|
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　こう表記しなおそう☆」
+
+
+```
+reversedRow = 19 - row
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑あと、行番号をひっくり返すとき　こう書けばいいかと思っていたんだが……☆」
+
+
+```
+reversedRow = 18 - row
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑0 から始まるので こうなのでは☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　はい、はい、はい！　何年プログラムやってんの？！
+マジック・ナンバーも　定数にしてしまいなさい！」
+
+# 2019-11-03 21:00頃
+
+![20191103wpf21.png](https://crieit.now.sh/upload_images/01b1667496d7fa4f496e5eaef81498c95dbec433ad684.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑３回目ぐらいの挑戦だぜ☆」
+
+![20191103wpf21b1.png](https://crieit.now.sh/upload_images/d97039187eeddf99bb6120517b5cdc335dbec44e798b3.png)
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　↑変わりないわね」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　お父ん☆　手こずるなら　囲碁プログラミングで　手こずろうぜ☆？
+パーサーに時間費やしても　何にもならないぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　何にもなれた人に尊敬できる人物はいない☆　何にもならないところを進めるのは　わたしだぜ☆」
+
+![20191103wpf22.png](https://crieit.now.sh/upload_images/a34827bd4c44068587d888539957416c5dbec603649da.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑４回目ぐらいの挑戦だぜ☆
+内部的には　テキスト読みと同じく　Z字方向にインデックスが振られている☆
+内部的な計算で　上下ひっくり返すのは　要らないかもしれない☆　処理を省いてみたぜ☆」
+
+![20191103wpf22b1.png](https://crieit.now.sh/upload_images/c31e8d456a999b66ab5fe702be166b935dbec65375837.png)
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　うーん☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　うーん？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　うーん☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　あー、わかったぜ☆
+コマンドを読み取るパーサーが　Z字方向式　を使っている☆　これを　国際囲碁式　に変えよう☆」
+
+![20191103wpf23.png](https://crieit.now.sh/upload_images/7ff6393f04e81909ef30a072f1d3bedb5dbec8ec535ae.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑５回目ぐらいの挑戦だぜ☆」
+
+![20191103wpf23b1.png](https://crieit.now.sh/upload_images/f40317c387327dde67545c20684b96d85dbec9f701cbc.png)
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　で、いつになったら　囲碁プログラミングを始めるんだぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　これで　囲碁の盤面は　作れるようになったのかしら？！
+
+![20191103wpf24.png](https://crieit.now.sh/upload_images/1496f4917c7ef08daed10e6761fa559a5dbecf19d8e64.png)
+
+input.txt
+
+```
+space a19:t1
+white e15:p5
+white c13:d7
+white f16:n16
+white g4:n4
+white q13:r8
+black g13:j11
+black m14:o10
+black f7:k7
+black j6:n6
+black e18:f15
+black o18:r15
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑コマンドライン形式の　お絵描きソフトが完成した☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　くそっ☆！」
 
 ＜書きかけ＞
