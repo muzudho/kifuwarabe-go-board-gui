@@ -13,6 +13,13 @@
                     <RectangleGeometry Rect="50,50,125,125" />
                 </Path.Data>
             </Path>
+            <Rectangle
+                x:Name="lastMove"
+                Width="10"
+                Height="10"
+                Fill="Red"
+                Panel.ZIndex="125"
+                />
         </Canvas>
         <Label x:Name="ply">0手目</Label>
     </Grid>

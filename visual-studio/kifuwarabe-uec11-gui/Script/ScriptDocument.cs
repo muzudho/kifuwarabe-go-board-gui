@@ -16,6 +16,11 @@
         /// </summary>
         public static int BoardSize => 19;
 
+        /// <summary>
+        /// 石を置ける場所の数☆（＾～＾）
+        /// </summary>
+        public static int CellCount => BoardSize * BoardSize;
+
         public List<Instruction> Instructions { get; private set; }
 
         public ScriptDocument(List<Instruction> instructions)

@@ -71,7 +71,15 @@
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var window = (Window)sender;
+            RepaintWindow((MainWindow)sender);
+        }
+
+        private static void RepaintWindow(MainWindow mainWindow)
+        {
+            var grid = mainWindow.grid;
+            var board = mainWindow.board;
+            var lastMove = mainWindow.lastMove;
+
             // Trace.WriteLine($"サイズチェンジ 横幅={window.Width} 縦幅={window.Height} グリッド {grid.RenderSize.Width}, {grid.RenderSize.Height}");
 
             // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
@@ -98,7 +106,7 @@
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < ScriptDocument.BoardSize; column++)
             {
-                var line = this.VerticalLines[column];
+                var line = mainWindow.VerticalLines[column];
                 Canvas.SetLeft(line, 0);
                 Canvas.SetTop(line, 0);
                 line.Width = grid.RenderSize.Width;
@@ -114,7 +122,7 @@
             // ヨコ線をタテに並べるぜ☆（＾～＾）
             for (var row = 0; row < ScriptDocument.BoardSize; row++)
             {
-                var line = this.HorizontalLines[row];
+                var line = mainWindow.HorizontalLines[row];
                 Canvas.SetLeft(line, 0);
                 Canvas.SetTop(line, 0);
                 line.Width = grid.RenderSize.Width;
@@ -130,24 +138,44 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < 361; i++)
+            for (var i = 0; i < ScriptDocument.CellCount; i++)
             {
-                var stone = this.Stones[i];
-                var row = i / ScriptDocument.BoardSize;
-                var column = i % ScriptDocument.BoardSize + SignLen;
+                var stone = mainWindow.Stones[i];
+                PutAnythingOnNode(mainWindow, i, (left, top) =>
+                {
+                    stone.Width = board.Width / BoardDiv * 0.8;
+                    stone.Height = board.Height / BoardDiv * 0.8;
 
-                stone.Width = board.Width / BoardDiv * 0.8;
-                stone.Height = board.Height / BoardDiv * 0.8;
-                stone.StrokeThickness = 1.5;
-                // 盤☆（＾～＾）
-                Canvas.SetLeft(stone, boardLeft + paddingLeft - stone.Width / 2 + columnInterval * column);
-                Canvas.SetTop(stone, boardTop + paddingTop - stone.Height / 2 + rowInterval * row);
+                    Canvas.SetLeft(stone, left - stone.Width / 2);
+                    Canvas.SetTop(stone, top - stone.Height / 2);
+                });
+            }
+
+            // 最後の着手点を描こうぜ☆（＾～＾）？
+            Trace.WriteLine($"this.State.LastMoveIndex | {mainWindow.State.LastMoveIndex}");
+            if (-1 < mainWindow.State.LastMoveIndex)
+            {
+                lastMove.Visibility = Visibility.Visible;
+                PutAnythingOnNode(mainWindow, mainWindow.State.LastMoveIndex, (left, top) =>
+                {
+                    Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
+
+                    lastMove.Width = board.Width / BoardDiv * 0.4;
+                    lastMove.Height = board.Height / BoardDiv * 0.4;
+
+                    Canvas.SetLeft(lastMove, left - lastMove.Width / 2);
+                    Canvas.SetTop(lastMove, top - lastMove.Height / 2);
+                });
+            }
+            else
+            {
+                // TODO lastMove.Visibility = Visibility.Hidden;
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
             for (var column = 0; column < ScriptDocument.BoardSize; column++)
             {
-                var label = this.ColumnLabels[column];
+                var label = mainWindow.ColumnLabels[column];
 
                 label.FontSize = columnInterval * 0.9;
                 label.Width = columnInterval * 1.8;
@@ -160,7 +188,7 @@
             // 行の番号を描こうぜ☆（＾～＾）？
             for (var row = 0; row < ScriptDocument.BoardSize; row++)
             {
-                var label = this.RowLabels[row];
+                var label = mainWindow.RowLabels[row];
 
                 label.FontSize = columnInterval * 0.9;
                 label.Width = columnInterval * 1.8;
@@ -172,8 +200,8 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                ply.FontSize = columnInterval;
-                ply.Content = $"{State.Ply}手目";
+                mainWindow.ply.FontSize = columnInterval;
+                mainWindow.ply.Content = $"{mainWindow.State.Ply}手目";
             }
         }
 
@@ -233,7 +261,7 @@
 
                                         foreach (var zShapedIndex in zShapedIndexes)
                                         {
-                                            Trace.WriteLine($"zShapedIndex={zShapedIndex}");
+                                            // Trace.WriteLine($"zShapedIndex={zShapedIndex}");
 
                                             // 内部的な操作では、上下を逆さにしなくていい☆（＾～＾）
                                             var stone = this.Stones[zShapedIndex];
@@ -244,20 +272,25 @@
                                                     stone.Fill = Brushes.Black;
                                                     stone.Stroke = Brushes.White;
                                                     stone.Visibility = Visibility.Visible;
+
+                                                    // 最後の着手点☆（＾～＾）
+                                                    this.State.LastMoveIndex = zShapedIndex;
+
                                                     break;
+
                                                 case "white": // thru
                                                               // 白石にするぜ☆（＾～＾）
                                                     stone.Fill = Brushes.White;
                                                     stone.Stroke = Brushes.Black;
                                                     stone.Visibility = Visibility.Visible;
+
+                                                    // 最後の着手点☆（＾～＾）
+                                                    this.State.LastMoveIndex = zShapedIndex;
+
                                                     break;
+
                                                 case "space":
                                                     stone.Visibility = Visibility.Hidden;
-                                                    /*
-                                                    // 画面外に出すことで非表示にするぜ☆（＾～＾）
-                                                    Canvas.SetLeft(stone, -stone.Width);
-                                                    Canvas.SetTop(stone, -stone.Height);
-                                                    */
                                                     break;
                                             }
                                         }
@@ -267,6 +300,7 @@
                         }
 
                         // 画面の再描画をしようぜ☆（＾～＾）
+                        RepaintWindow(this);
                         this.InvalidateVisual();
                     }
                 };
@@ -330,7 +364,7 @@
             }
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < 361; i++)
+            for (var i = 0; i < ScriptDocument.CellCount; i++)
             {
                 var row = i / ScriptDocument.BoardSize;
                 var column = i % ScriptDocument.BoardSize;
@@ -394,6 +428,38 @@
             {
                 ply.Foreground = new SolidColorBrush(Color.FromArgb(196, 0, 0, 0));
             }
+        }
+
+        private delegate void NodeCallback(double left, double top);
+
+        /// <summary>
+        /// 碁盤の線上の交点に何か置くぜ☆（＾～＾）
+        /// 石１個置くたびに再計算するのは　無駄な気もするが、GUIでは、コーディングの楽さ優先だぜ☆（＾～＾）
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        /// <param name="index"></param>
+        private static void PutAnythingOnNode(MainWindow mainWindow, int index, NodeCallback stoneCallback)
+        {
+            // 盤☆（＾～＾）
+            var board = mainWindow.board;
+            var grid = mainWindow.grid;
+            var centerX = grid.RenderSize.Width / 2;
+            var centerY = grid.RenderSize.Height / 2;
+
+            // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
+            // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）
+            var shortenEdge = System.Math.Min(grid.RenderSize.Width, grid.RenderSize.Height) * 0.95;
+            var boardLeft = centerX - shortenEdge / 2;
+            var boardTop = centerY - shortenEdge / 2;
+            var paddingLeft = board.Width * 0.05;
+            var paddingTop = board.Height * 0.05;
+            var columnInterval = board.Width / BoardDiv;
+            var rowInterval = board.Height / BoardDiv;
+            var row = index / ScriptDocument.BoardSize;
+            var column = index % ScriptDocument.BoardSize + SignLen;
+            var left = boardLeft + paddingLeft + columnInterval * column;
+            var top = boardTop + paddingTop + rowInterval * row;
+            stoneCallback(left, top);
         }
     }
 }
