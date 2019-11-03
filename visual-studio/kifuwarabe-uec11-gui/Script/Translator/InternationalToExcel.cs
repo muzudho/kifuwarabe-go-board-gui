@@ -14,8 +14,8 @@
             }
 
             return new CellRange(
-                ConvertCellAddress(cellRange.StartsCellAddress),
-                ConvertCellAddress(cellRange.EndsCellAddress));
+                ConvertCellAddress((InternationalCellAddress)cellRange.StartsCellAddress),
+                ConvertCellAddress((InternationalCellAddress)cellRange.EndsCellAddress));
         }
 
         public static CellAddress ConvertCellAddress(InternationalCellAddress cellAddress)
@@ -26,8 +26,8 @@
             }
 
             return new CellAddress(
-                    ConvertRowAddress(cellAddress.RowAddress),
-                    ConvertColumnAddress(cellAddress.ColumnAddress));
+                    ConvertRowAddress((InternationalRowAddress)cellAddress.RowAddress),
+                    ConvertColumnAddress((InternationalColumnAddress)cellAddress.ColumnAddress));
         }
 
         public static ColumnAddress ConvertColumnAddress(InternationalColumnAddress columnAddress)

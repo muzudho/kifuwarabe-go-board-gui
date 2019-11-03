@@ -128,7 +128,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public virtual string ToDisplay()
         {
             var starts = this.StartsCellAddress.ToDisplay();
             var ends = this.EndsCellAddress.ToDisplay();

@@ -62,7 +62,7 @@
             return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
         }
 
-        public int ToIndex()
+        public virtual int ToIndex()
         {
             return ToIndex(this.RowAddress.Number, this.ColumnAddress.Number);
         }
@@ -71,7 +71,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public virtual string ToDisplay()
         {
             return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay()}";
         }
