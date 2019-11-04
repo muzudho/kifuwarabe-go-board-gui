@@ -51,7 +51,7 @@
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
         private List<Ellipse> Stones { get; set; }
-        private List<Ellipse> Stars { get; set; }
+        public List<Ellipse> Stars { get; private set; }
         private List<Label> RowLabels { get; set; }
         private List<Label> ColumnLabels { get; set; }
         private Random Random { get; set; }
@@ -112,7 +112,7 @@
             // 盤☆（＾～＾）
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
-            Trace.WriteLine($"board ({boardLeft}, {boardTop})");
+            // Trace.WriteLine($"board ({boardLeft}, {boardTop})");
             Canvas.SetLeft(board, boardLeft);
             Canvas.SetTop(board, boardTop);
             board.Width = shortenEdge;
@@ -123,102 +123,121 @@
             var rowInterval = board.Height / mainWindow.BoardModel.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < mainWindow.BoardModel.ColumnSize; column++)
+            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var line = mainWindow.VerticalLines[column];
-                Canvas.SetLeft(line, 0);
-                Canvas.SetTop(line, 0);
-                line.Width = grid.RenderSize.Width;
-                line.Height = grid.RenderSize.Height;
-                line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, (int)ZOrder.Line);
-                // 盤の幅を20で割ろうぜ☆（＾～＾）
-                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
-                line.Y1 = boardTop + board.Height * 0.05;
-                line.X2 = line.X1;
-                line.Y2 = line.Y1 + rowInterval * 18;
+                if (column < mainWindow.BoardModel.ColumnSize)
+                {
+                    line.Visibility = Visibility.Visible;
+                    Canvas.SetLeft(line, 0);
+                    Canvas.SetTop(line, 0);
+                    line.Width = grid.RenderSize.Width;
+                    line.Height = grid.RenderSize.Height;
+                    line.StrokeThickness = 1.5;
+                    Panel.SetZIndex(line, (int)ZOrder.Line);
+                    // 盤☆（＾～＾）
+                    line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
+                    line.Y1 = boardTop + board.Height * 0.05;
+                    line.X2 = line.X1;
+                    line.Y2 = line.Y1 + rowInterval * mainWindow.BoardModel.GetRowLastO0();
+                }
+                else
+                {
+                    line.Visibility = Visibility.Hidden;
+                }
             }
 
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < mainWindow.BoardModel.RowSize; row++)
+            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var line = mainWindow.HorizontalLines[row];
-                Canvas.SetLeft(line, 0);
-                Canvas.SetTop(line, 0);
-                line.Width = grid.RenderSize.Width;
-                line.Height = grid.RenderSize.Height;
-                line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, (int)ZOrder.Line);
-                // 盤☆（＾～＾）
-                line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
-                line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
-                line.X2 = line.X1 + columnInterval * 18;
-                line.Y2 = line.Y1;
+                if (row < mainWindow.BoardModel.RowSize)
+                {
+                    Canvas.SetLeft(line, 0);
+                    Canvas.SetTop(line, 0);
+                    line.Width = grid.RenderSize.Width;
+                    line.Height = grid.RenderSize.Height;
+                    line.StrokeThickness = 1.5;
+                    Panel.SetZIndex(line, (int)ZOrder.Line);
+                    // 盤☆（＾～＾）
+                    line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
+                    line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
+                    line.X2 = line.X1 + columnInterval * mainWindow.BoardModel.GetColumnLastO0();
+                    line.Y2 = line.Y1;
+                }
+                else
+                {
+                    line.Visibility = Visibility.Hidden;
+                }
             }
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
-            var starSigns = new string[] { "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4" };
-            for (var i = 0; i < 9; i++)
-            {
-                var star = mainWindow.Stars[i];
-                var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0, mainWindow.BoardModel);
-                if (internationalCellAddress != null)
-                {
-                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(mainWindow.BoardModel), (left, top) =>
-                    {
-                        // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                        star.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.3;
-                        star.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.3;
-
-                        Canvas.SetLeft(star, left - star.Width / 2);
-                        Canvas.SetTop(star, top - star.Height / 2);
-                    });
-                }
-            }
+            StarController.Repaint(mainWindow.BoardModel, mainWindow);
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < mainWindow.BoardModel.GetCellCount(); i++)
+            for (var i = 0; i < HyperParameter.MaxCellCount; i++)
             {
                 var stone = mainWindow.Stones[i];
-                PutAnythingOnNode(mainWindow, i, (left, top) =>
+                if (i < mainWindow.BoardModel.GetCellCount())
                 {
-                    // 大きさ☆（＾～＾）
-                    stone.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.8;
-                    stone.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.8;
+                    PutAnythingOnNode(mainWindow, i, (left, top) =>
+                    {
+                        // 大きさ☆（＾～＾）
+                        stone.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.8;
+                        stone.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.8;
 
-                    Canvas.SetLeft(stone, left - stone.Width / 2);
-                    Canvas.SetTop(stone, top - stone.Height / 2);
-                });
+                        Canvas.SetLeft(stone, left - stone.Width / 2);
+                        Canvas.SetTop(stone, top - stone.Height / 2);
+                    });
+                }
+                else
+                {
+                    StoneController.ChangeColorToSpace(mainWindow.BoardModel, mainWindow, i);
+                }
             }
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
             LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < mainWindow.BoardModel.ColumnSize; column++)
+            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = mainWindow.ColumnLabels[column];
-
-                label.FontSize = columnInterval * 0.9;
-                label.Width = columnInterval * 1.8;
-                label.Height = rowInterval * 1.8;
-                // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
-                Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
-                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * mainWindow.BoardModel.RowSize);
+                if (column < mainWindow.BoardModel.ColumnSize)
+                {
+                    label.Visibility = Visibility.Visible;
+                    label.FontSize = columnInterval * 0.9;
+                    label.Width = columnInterval * 1.8;
+                    label.Height = rowInterval * 1.8;
+                    // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
+                    Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
+                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * mainWindow.BoardModel.RowSize);
+                }
+                else
+                {
+                    label.Visibility = Visibility.Hidden;
+                }
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < mainWindow.BoardModel.RowSize; row++)
+            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var label = mainWindow.RowLabels[row];
-
-                label.FontSize = columnInterval * 0.9;
-                label.Width = columnInterval * 1.8;
-                label.Height = rowInterval * 1.8;
-                // 盤の幅を21で割ろうぜ☆（＾～＾）
-                Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
-                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
+                if (row < mainWindow.BoardModel.RowSize)
+                {
+                    label.Visibility = Visibility.Visible;
+                    label.FontSize = columnInterval * 0.9;
+                    label.Width = columnInterval * 1.8;
+                    label.Height = rowInterval * 1.8;
+                    // 盤の幅を21で割ろうぜ☆（＾～＾）
+                    Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
+                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
+                }
+                else
+                {
+                    label.Visibility = Visibility.Hidden;
+                }
             }
 
             // 何手目か表示しようぜ☆（＾～＾）？
@@ -416,7 +435,7 @@
                                             foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 黒石にするぜ☆（＾～＾）
-                                                BoardController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
+                                                StoneController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
 
                                                 // 最後の着手点☆（＾～＾）
                                                 LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
@@ -434,7 +453,7 @@
                                             foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 白石にするぜ☆（＾～＾）
-                                                BoardController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
+                                                StoneController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
 
                                                 // 最後の着手点☆（＾～＾）
                                                 LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
@@ -452,7 +471,7 @@
                                             foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 石を取り除くぜ☆（＾～＾）
-                                                BoardController.ChangeColorToSpace(this.BoardModel, this, zShapedIndex);
+                                                StoneController.ChangeColorToSpace(this.BoardModel, this, zShapedIndex);
                                             }
                                         }
                                     }
@@ -493,7 +512,7 @@
             var rowInterval = board.Height / this.BoardModel.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < BoardModel.ColumnSize; column++)
+            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var line = new Line();
                 line.Name = $"verticalLine{column}";
@@ -515,7 +534,7 @@
             }
 
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < BoardModel.RowSize; row++)
+            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var line = new Line();
                 line.Name = $"horizontalLine{row}";
@@ -537,29 +556,10 @@
             }
 
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
-            for (var i = 0; i < 9; i++)
-            {
-                var row = i / BoardModel.ColumnSize;
-                var column = i % BoardModel.ColumnSize;
-
-                var star = new Ellipse();
-                star.Name = $"star{i}";
-                star.Width = 1;
-                star.Height = 1;
-                Panel.SetZIndex(star, (int)ZOrder.Star);
-
-                // 黒丸で☆（＾～＾）
-                star.Fill = Brushes.Black;
-
-                // 盤☆（＾～＾）
-                Canvas.SetLeft(star, 0);
-                Canvas.SetTop(star, 0);
-                this.Stars.Add(star);
-                canvas.Children.Add(star);
-            }
+            StarController.Initialize(this.BoardModel, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            for (var i = 0; i < BoardModel.GetCellCount(); i++)
+            for (var i = 0; i < HyperParameter.MaxCellCount; i++)
             {
                 var row = i / BoardModel.ColumnSize;
                 var column = i % BoardModel.ColumnSize;
@@ -584,7 +584,7 @@
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < BoardModel.ColumnSize; column++)
+            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
@@ -595,7 +595,7 @@
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < BoardModel.RowSize; row++)
+            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var number = BoardModel.RowSize - row;
                 var label = new Label();

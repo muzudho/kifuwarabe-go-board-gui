@@ -6,12 +6,12 @@
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
-    /// 盤を操作するぜ☆（＾～＾）
+    /// 石を操作するぜ☆（＾～＾）
     /// 
     /// こっちを設定して、あっちを設定して、また　こっちに戻ってきて設定して、というような
     /// 無限ループしないようにセットするのもコントローラーのメリットだぜ☆（＾～＾）
     /// </summary>
-    public static class BoardController
+    public static class StoneController
     {
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）

@@ -58,6 +58,14 @@
         }
 
         /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public int GetColumnLastO0()
+        {
+            return ColumnSize - 1;
+        }
+
+        /// <summary>
         /// 石を置ける場所の数☆（＾～＾）
         /// </summary>
         public int GetCellCount()
