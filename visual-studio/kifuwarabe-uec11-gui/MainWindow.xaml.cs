@@ -290,12 +290,7 @@
                                                     var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0);
                                                     if (cellAddress != null)
                                                     {
-                                                        // インデックスは Z字式 で出てくるぜ☆（＾～＾）
-                                                        // Trace.WriteLine($"Move            | cellAddress.ToIndex() = {cellAddress.ToIndex()}");
-                                                        // Trace.WriteLine($"Move            | Convert = {ZShapedToInternational.ConvertIndex(cellAddress.ToIndex())}");
-                                                        // 上下逆にひっくり返そうぜ☆（＾～＾）
-                                                        this.State.LastMoveIndex = ZShapedToInternational.ConvertIndex(cellAddress.ToIndex());
-                                                        lastMoveValue.Content = cellAddress.ToDisplay();
+                                                        LastMoveMarkerController.SetAddress(this.State, this, cellAddress);
                                                     }
                                                 }
                                                 break;
@@ -376,7 +371,7 @@
                                                 BoardController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
 
                                                 // 最後の着手点☆（＾～＾）
-                                                this.State.LastMoveIndex = zShapedIndex;
+                                                LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
                                             }
                                         }
                                     }
@@ -394,7 +389,7 @@
                                                 BoardController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
 
                                                 // 最後の着手点☆（＾～＾）
-                                                this.State.LastMoveIndex = zShapedIndex;
+                                                LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
                                             }
                                         }
                                     }

@@ -18,7 +18,8 @@
             this.Stones = new List<Stone>();
             for (int i=0; i<InputScriptDocument.CellCount; i++)
             {
-                this.Stones.Add(Stone.Black);
+                // 初期値は 空点 で☆（＾～＾）
+                this.Stones.Add(Stone.None);
             }
         }
 

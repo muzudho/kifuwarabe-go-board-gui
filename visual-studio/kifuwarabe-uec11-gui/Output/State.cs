@@ -17,6 +17,7 @@
 
         /// <summary>
         /// 最後の着手点。
+        /// 内部的には Z字式のインデックスで持つぜ☆（＾～＾）
         /// </summary>
         public int LastMoveIndex { get; set; }
 

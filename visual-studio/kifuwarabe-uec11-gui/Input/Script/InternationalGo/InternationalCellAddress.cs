@@ -54,10 +54,10 @@
             return (InputScriptDocument.RowLastO0 - rowNumberO0) * InputScriptDocument.BoardSize + columnNumberO0;
         }
 
-        public new static InternationalCellAddress FromIndex(int indexO0)
+        public new static InternationalCellAddress FromIndex(int zShapedIndexO0)
         {
-            var rowNumberO0 = indexO0 / InputScriptDocument.BoardSize;
-            var columnNumberO0 = indexO0 % InputScriptDocument.BoardSize;
+            var rowNumberO0 = zShapedIndexO0 / InputScriptDocument.BoardSize;
+            var columnNumberO0 = zShapedIndexO0 % InputScriptDocument.BoardSize;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 
