@@ -13,17 +13,16 @@
                     <RectangleGeometry Rect="50,50,125,125" />
                 </Path.Data>
             </Path>
+            
             <Rectangle
                 x:Name="lastMoveMarker"
-                Width="10"
-                Height="10"
+                Width="8"
+                Height="8"
                 Fill="Red"
-                Panel.ZIndex="125"
                 />
 
             <Canvas
                 x:Name="plyCanvas"
-                Panel.ZIndex="510"
                 Canvas.Right="80" Top="10" Width="60" Height="60"
                 >
                 <Border
@@ -64,7 +63,6 @@
 
             <Canvas
                 x:Name="lastMoveCanvas"
-                Panel.ZIndex="510"
                 Canvas.Right="10" Top="10" Width="60" Height="60"
                 >
                 <Border
@@ -108,7 +106,6 @@
 
             <Canvas
                 x:Name="blackNameCanvas"
-                Panel.ZIndex="510"
                 Canvas.Right="10" Canvas.Bottom="150" Width="60" Height="60"
                 >
                 <Border
@@ -149,7 +146,6 @@
 
             <Canvas
                 x:Name="blackTimeCanvas"
-                Panel.ZIndex="510"
                 Canvas.Right="10" Canvas.Bottom="80" Width="60" Height="60"
                 >
                 <Border
@@ -190,7 +186,6 @@
 
             <Canvas
                 x:Name="blackAgehamaCanvas"
-                Panel.ZIndex="510"
                 Canvas.Right="10" Canvas.Bottom="10" Width="60" Height="60"
                 >
                 <Border
@@ -233,7 +228,6 @@
 
             <Canvas
                 x:Name="whiteNameCanvas"
-                Panel.ZIndex="510"
                 Left="10" Top="10" Width="60" Height="60"
                 >
                 <Border
@@ -275,7 +269,6 @@
 
             <Canvas
                 x:Name="whiteTimeCanvas"
-                Panel.ZIndex="510"
                 Left="10" Top="80" Width="60" Height="60"
                 >
                 <Border
@@ -317,7 +310,6 @@
 
             <Canvas
                 x:Name="whiteAgehamaCanvas"
-                Panel.ZIndex="510"
                 Left="10" Top="150" Width="60" Height="60"
                 >
                 <Border
@@ -359,7 +351,6 @@
 
             <Canvas
                 x:Name="komiCanvas"
-                Panel.ZIndex="510"
                 Left="10" Top="220" Width="60" Height="60"
                 >
                 <Border
@@ -402,14 +393,13 @@
         </Canvas>
 
         <Canvas
-            x:Name="comment"
-            Panel.ZIndex="520"
+            x:Name="infoCanvas"
             Left="0" Top="0"
             Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
             Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
             >
             <Label
-                x:Name="commentValue"
+                x:Name="infoValue"
                 Canvas.Bottom="0"
                 Canvas.Left="0"
                 Width="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"

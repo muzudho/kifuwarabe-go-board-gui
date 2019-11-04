@@ -136,7 +136,7 @@
                 line.Width = grid.RenderSize.Width;
                 line.Height = grid.RenderSize.Height;
                 line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, 110);
+                Panel.SetZIndex(line, (int)ZOrder.Line);
                 // 盤の幅を20で割ろうぜ☆（＾～＾）
                 line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
                 line.Y1 = boardTop + board.Height * 0.05;
@@ -153,7 +153,7 @@
                 line.Width = grid.RenderSize.Width;
                 line.Height = grid.RenderSize.Height;
                 line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, 110);
+                Panel.SetZIndex(line, (int)ZOrder.Line);
                 // 盤☆（＾～＾）
                 line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
                 line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
@@ -293,7 +293,7 @@
                                         var args = (InfoInstructionArgument)instruction.Argument;
 
                                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                        commentValue.Content = SoluteNewline(args.Text);
+                                        infoValue.Content = SoluteNewline(args.Text);
                                     }
                                     break;
 
@@ -369,7 +369,7 @@
                                                 this.State.Info = prop.Value;
 
                                                 // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                                commentValue.Content = SoluteNewline(prop.Value);
+                                                infoValue.Content = SoluteNewline(prop.Value);
                                                 break;
 
                                             case "interval-msec":
@@ -482,7 +482,7 @@
                 line.Height = grid.RenderSize.Height;
                 line.Stroke = Brushes.Black;
                 line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, 110);
+                // Panel.SetZIndex(line, (int)ZOrder.Line);
                 // 盤の幅を20で割ろうぜ☆（＾～＾）
                 line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
                 line.Y1 = boardTop + board.Height * 0.05;
@@ -503,7 +503,7 @@
                 line.Height = grid.RenderSize.Height;
                 line.Stroke = Brushes.Black;
                 line.StrokeThickness = 1.5;
-                Panel.SetZIndex(line, 110);
+                // Panel.SetZIndex(line, (int)ZOrder.Line);
                 // 盤☆（＾～＾）
                 line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
                 line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
@@ -524,14 +524,10 @@
                 star.Name = $"star{i}";
                 star.Width = 1;
                 star.Height = 1;
-                // star.StrokeThickness = 1.0;
-                // stone.Visibility = Visibility.Hidden;
-                // Panel.SetZIndex(stone, 115);
-                Panel.SetZIndex(star, 9115);
+                Panel.SetZIndex(star, (int)ZOrder.Star);
 
                 // 黒丸で☆（＾～＾）
                 star.Fill = Brushes.Black;
-                // stone.Stroke = Brushes.Black;
 
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(star, 0);
@@ -552,7 +548,7 @@
                 stone.Height = 10;
                 stone.StrokeThickness = 1.5;
                 stone.Visibility = Visibility.Hidden;
-                Panel.SetZIndex(stone, 120);
+                Panel.SetZIndex(stone, (int)ZOrder.Stone);
 
                 // とりあえず黒石にして作っておこうぜ☆（＾～＾）
                 stone.Fill = Brushes.Black;
@@ -570,7 +566,7 @@
             {
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
-                Panel.SetZIndex(label, 130);
+                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
                 label.Content = (char)(65 + (column < 8 ? column : column + 1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
                 this.ColumnLabels.Add(label);
                 canvas.Children.Add(label);
@@ -582,7 +578,7 @@
                 var number = InputScriptDocument.BoardSize - row;
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
-                Panel.SetZIndex(label, 130);
+                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
                 if (9 < number)
                 {
                     label.Content = number;
@@ -594,6 +590,23 @@
                 }
                 this.RowLabels.Add(label);
                 canvas.Children.Add(label);
+            }
+
+            // 着手のマーカー☆（＾～＾）
+            Panel.SetZIndex(lastMoveMarker, (int)ZOrder.MoveMarker);
+
+            // UI表示物☆（＾～＾）
+            {
+                Panel.SetZIndex(plyCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(lastMoveCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(blackNameCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(blackTimeCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(blackAgehamaCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(whiteNameCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(whiteTimeCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(whiteAgehamaCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(komiCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(infoCanvas, (int)ZOrder.InfoCanvas);                
             }
         }
 
