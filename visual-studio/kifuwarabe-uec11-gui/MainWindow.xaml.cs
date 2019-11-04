@@ -204,24 +204,7 @@
             ColumnNumberController.Repaint(mainWindow.BoardModel, mainWindow);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
-            {
-                var label = mainWindow.RowLabels[row];
-                if (row < mainWindow.BoardModel.RowSize)
-                {
-                    label.Visibility = Visibility.Visible;
-                    label.FontSize = columnInterval * 0.9;
-                    label.Width = columnInterval * 1.8;
-                    label.Height = rowInterval * 1.8;
-                    // 盤の幅を21で割ろうぜ☆（＾～＾）
-                    Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
-                }
-                else
-                {
-                    label.Visibility = Visibility.Hidden;
-                }
-            }
+            RowNumberController.Repaint(mainWindow.BoardModel, mainWindow);
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
@@ -570,24 +553,7 @@
             ColumnNumberController.Initialize(this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
-            {
-                var number = BoardModel.RowSize - row;
-                var label = new Label();
-                label.Name = $"rowLabel{number}";
-                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                if (9 < number)
-                {
-                    label.Content = number;
-                }
-                else
-                {
-                    // 文字位置の調整がうまく行かないので勘で調整☆（＾～＾）
-                    label.Content = $"  {number}";
-                }
-                this.RowLabels.Add(label);
-                canvas.Children.Add(label);
-            }
+            RowNumberController.Initialize(this.BoardModel, this);
 
             // 着手のマーカー☆（＾～＾）
             Panel.SetZIndex(lastMoveMarker, (int)ZOrder.MoveMarker);

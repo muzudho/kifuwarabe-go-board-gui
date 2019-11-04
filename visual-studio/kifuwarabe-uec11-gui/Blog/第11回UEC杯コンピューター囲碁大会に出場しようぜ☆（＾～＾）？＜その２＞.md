@@ -960,5 +960,72 @@ ToJson():
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
 「　よし、描けたぜ☆」
 
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　４路減らせば　１５道盤　もできるな☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　そんなん大変だぜ☆　１９路盤　と思って　カッチリ作ってるんだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　じゃあ　諦めるのが　賢い判断なのか……☆
+コンピューター囲碁大会までの　時間もないしな☆」
+
+# 2019-11-04 21:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+（カタ　カタ　カタ　カタ　カタ　カタ　カタ　カタ　カタ　カタ） ＃　キータイピングの音。
+
+![20191104wpf36.png](https://crieit.now.sh/upload_images/d0f23ae5e66d23f7105844200ae5fe745dc01b9078bbb.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑例えば　１９で決め打ちしているところは　変化に付いてこれない☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　あちゃー☆」
+
+# 2019-11-04 22:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　焼きそばウマー☆」
+
+# 2019-11-04 23:00頃
+
+![20191104wpf37.png](https://crieit.now.sh/upload_images/51035985cca2466490b136e3884131775dc030e9f1376.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　原点を合わせるのが　むずかしいぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　5 を引けばいいだけじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　19 が起点になっている時点で　ややこしさ　が加わっていく☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　バグを直すために　バグの上で正しく動くおかしなコードを書くのは　止めなさい」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　0 を起点に作り直すぜ☆」
+
+![20191104wpf38.png](https://crieit.now.sh/upload_images/11b876b1e15711dd9e74eb497b19d8b55dc032cba24d0.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　I列がないのって、囲碁だけ☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　さあ……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　連珠は　列が　小文字だぜ☆！　ｉ列がある☆！」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　囲碁を中心に作るから　そんなことになるのよ！」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　連珠には　アゲハマも　コミも邪魔だなあ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　見ないことにしてくれだぜ☆
+コンピューター囲碁大会が　迫ってるんで☆」
 
 ＜書きかけ＞
