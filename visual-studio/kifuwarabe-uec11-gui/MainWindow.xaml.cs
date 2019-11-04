@@ -183,7 +183,7 @@
             }
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < mainWindow.BoardModel.CellCount; i++)
+            for (var i = 0; i < mainWindow.BoardModel.GetCellCount(); i++)
             {
                 var stone = mainWindow.Stones[i];
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
@@ -538,7 +538,7 @@
             }
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            for (var i = 0; i < BoardModel.CellCount; i++)
+            for (var i = 0; i < BoardModel.GetCellCount(); i++)
             {
                 var row = i / BoardModel.ColumnSize;
                 var column = i % BoardModel.ColumnSize;

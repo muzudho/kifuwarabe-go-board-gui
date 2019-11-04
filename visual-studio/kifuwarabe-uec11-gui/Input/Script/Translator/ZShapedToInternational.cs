@@ -16,7 +16,7 @@
             var zShapedRowO0 = zShapedIndexO0 / model.ColumnSize;
             var zShapedColumnO0 = zShapedIndexO0 % model.ColumnSize;
 
-            return (model.RowLastO0 - zShapedRowO0) * model.ColumnSize + zShapedColumnO0;
+            return (model.GetRowLastO0() - zShapedRowO0) * model.ColumnSize + zShapedColumnO0;
         }
 
         /*

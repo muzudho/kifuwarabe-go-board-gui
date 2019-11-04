@@ -1,4 +1,5 @@
-﻿using KifuwarabeUec11Gui.Output;
+﻿using System;
+using KifuwarabeUec11Gui.Output;
 
 namespace KifuwarabeUec11Gui.InputScript
 {
@@ -49,11 +50,21 @@ namespace KifuwarabeUec11Gui.InputScript
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0, BoardModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             return rowNumberO0 * model.ColumnSize + columnNumberO0;
         }
 
         public static CellAddress FromIndex(int indexO0, BoardModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             var rowNumberO0 = indexO0 / model.ColumnSize;
             var columnNumberO0 = indexO0 % model.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));

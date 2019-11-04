@@ -28,7 +28,7 @@
             var (rowAddress, next) = RowAddress.Parse(text, start, model);
 
             // 内部的には Z字方向式表記で持つ☆（＾～＾）
-            return (new InternationalRowAddress(model.RowLastO0 - rowAddress.NumberO0), next);
+            return (new InternationalRowAddress(model.GetRowLastO0() - rowAddress.NumberO0), next);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
             }
 
             // 上下をひっくり返して 1 を足す☆（＾ｑ＾）
-            return (model.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
+            return (model.GetRowLastO0() - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

@@ -29,6 +29,9 @@
             // option.WriteIndented = true;
             // インデントすると、 1, 1, 1, 1, …みたいなのが縦長に３６１行も出るので止めようぜ☆（＾～＾）？
 
+            // 読取専用の項目は　無視しようぜ☆（＾～＾）と思ったら全部消えた……☆（＾～＾）
+            // option.IgnoreReadOnlyProperties = true;
+
             return JsonSerializer.Serialize(this,option);
         }
     }

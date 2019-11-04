@@ -58,11 +58,16 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return (model.RowLastO0 - rowNumberO0) * model.ColumnSize + columnNumberO0;
+            return (model.GetRowLastO0() - rowNumberO0) * model.ColumnSize + columnNumberO0;
         }
 
         public new static InternationalCellAddress FromIndex(int zShapedIndexO0, BoardModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             var rowNumberO0 = zShapedIndexO0 / model.ColumnSize;
             var columnNumberO0 = zShapedIndexO0 % model.ColumnSize;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
