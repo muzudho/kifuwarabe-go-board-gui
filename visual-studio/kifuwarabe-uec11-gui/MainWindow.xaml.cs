@@ -52,8 +52,8 @@
         private List<Line> HorizontalLines { get; set; }
         private List<Ellipse> Stones { get; set; }
         public List<Ellipse> Stars { get; private set; }
-        private List<Label> RowLabels { get; set; }
-        private List<Label> ColumnLabels { get; set; }
+        public List<Label> RowLabels { get; private set; }
+        public List<Label> ColumnLabels { get; private set; }
         private Random Random { get; set; }
 
         /// <summary>
@@ -201,24 +201,7 @@
             LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
-            {
-                var label = mainWindow.ColumnLabels[column];
-                if (column < mainWindow.BoardModel.ColumnSize)
-                {
-                    label.Visibility = Visibility.Visible;
-                    label.FontSize = columnInterval * 0.9;
-                    label.Width = columnInterval * 1.8;
-                    label.Height = rowInterval * 1.8;
-                    // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
-                    Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * mainWindow.BoardModel.RowSize);
-                }
-                else
-                {
-                    label.Visibility = Visibility.Hidden;
-                }
-            }
+            ColumnNumberController.Repaint(mainWindow.BoardModel, mainWindow);
 
             // 行の番号を描こうぜ☆（＾～＾）？
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
@@ -584,15 +567,7 @@
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
-            {
-                var label = new Label();
-                label.Name = $"columnLabel{column + 1}";
-                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                label.Content = (char)(65 + (column < 8 ? column : column + 1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
-                this.ColumnLabels.Add(label);
-                canvas.Children.Add(label);
-            }
+            ColumnNumberController.Initialize(this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
