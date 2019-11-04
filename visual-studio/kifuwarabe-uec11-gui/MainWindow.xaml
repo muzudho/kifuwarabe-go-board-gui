@@ -14,7 +14,7 @@
                 </Path.Data>
             </Path>
             <Rectangle
-                x:Name="lastMove"
+                x:Name="lastMoveMarker"
                 Width="10"
                 Height="10"
                 Fill="Red"

@@ -11,6 +11,7 @@
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
+    using KifuwarabeUec11Gui.InputScript.Translator;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
@@ -58,7 +59,7 @@
         /// <summary>
         /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
         /// </summary>
-        private static int BoardDiv = 21;
+        public static int BoardDiv => 21;
 
         /// <summary>
         /// 符号の1列☆（＾～＾）
@@ -96,7 +97,7 @@
         {
             var grid = mainWindow.grid;
             var board = mainWindow.board;
-            var lastMove = mainWindow.lastMove;
+            var lastMoveMarker = mainWindow.lastMoveMarker;
 
             // Trace.WriteLine($"サイズチェンジ 横幅={window.Width} 縦幅={window.Height} グリッド {grid.RenderSize.Width}, {grid.RenderSize.Height}");
 
@@ -170,25 +171,7 @@
             }
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            Trace.WriteLine($"this.State.LastMoveIndex | {mainWindow.State.LastMoveIndex}");
-            if (-1 < mainWindow.State.LastMoveIndex)
-            {
-                lastMove.Visibility = Visibility.Visible;
-                PutAnythingOnNode(mainWindow, mainWindow.State.LastMoveIndex, (left, top) =>
-                {
-                    Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
-
-                    lastMove.Width = board.Width / BoardDiv * 0.4;
-                    lastMove.Height = board.Height / BoardDiv * 0.4;
-
-                    Canvas.SetLeft(lastMove, left - lastMove.Width / 2);
-                    Canvas.SetTop(lastMove, top - lastMove.Height / 2);
-                });
-            }
-            else
-            {
-                // TODO lastMove.Visibility = Visibility.Hidden;
-            }
+            LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
 
             // 列の符号を描こうぜ☆（＾～＾）？
             for (var column = 0; column < InputScriptDocument.BoardSize; column++)
@@ -307,7 +290,11 @@
                                                     var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0);
                                                     if (cellAddress != null)
                                                     {
-                                                        this.State.LastMoveIndex = cellAddress.ToIndex();
+                                                        // インデックスは Z字式 で出てくるぜ☆（＾～＾）
+                                                        // Trace.WriteLine($"Move            | cellAddress.ToIndex() = {cellAddress.ToIndex()}");
+                                                        // Trace.WriteLine($"Move            | Convert = {ZShapedToInternational.ConvertIndex(cellAddress.ToIndex())}");
+                                                        // 上下逆にひっくり返そうぜ☆（＾～＾）
+                                                        this.State.LastMoveIndex = ZShapedToInternational.ConvertIndex(cellAddress.ToIndex());
                                                         lastMoveValue.Content = cellAddress.ToDisplay();
                                                     }
                                                 }
@@ -589,7 +576,7 @@
             return temp;
         }
 
-        private delegate void NodeCallback(double left, double top);
+        public delegate void NodeCallback(double left, double top);
 
         /// <summary>
         /// 碁盤の線上の交点に何か置くぜ☆（＾～＾）
@@ -597,8 +584,18 @@
         /// </summary>
         /// <param name="mainWindow"></param>
         /// <param name="index"></param>
-        private static void PutAnythingOnNode(MainWindow mainWindow, int index, NodeCallback stoneCallback)
+        public static void PutAnythingOnNode(MainWindow mainWindow, int index, NodeCallback stoneCallback)
         {
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException(nameof(mainWindow));
+            }
+
+            if (stoneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(stoneCallback));
+            }
+
             // 盤☆（＾～＾）
             var board = mainWindow.board;
             var grid = mainWindow.grid;
