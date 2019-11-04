@@ -12,3 +12,10 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 ```
 
 [Script API](./doc/script-api.md)
+
+
+# Output JSON
+
+コマンドを全部 GUI が処理すると最後に `./output.json` を出力する☆（＾～＾） 仕様は 決まってないぜ☆（＾～＾）実装の気分☆（＾～＾）
+
+[Sample](./doc/sample/output.json)
