@@ -128,7 +128,7 @@
             var rowInterval = board.Height / BoardDiv;
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < InputScriptDocument.ColumnSize; column++)
+            for (var column = 0; column < BoardModel.ColumnSize; column++)
             {
                 var line = mainWindow.VerticalLines[column];
                 Canvas.SetLeft(line, 0);
@@ -145,7 +145,7 @@
             }
 
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < InputScriptDocument.RowSize; row++)
+            for (var row = 0; row < BoardModel.RowSize; row++)
             {
                 var line = mainWindow.HorizontalLines[row];
                 Canvas.SetLeft(line, 0);
@@ -183,7 +183,7 @@
             }
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < InputScriptDocument.CellCount; i++)
+            for (var i = 0; i < BoardModel.CellCount; i++)
             {
                 var stone = mainWindow.Stones[i];
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
@@ -201,7 +201,7 @@
             LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < InputScriptDocument.ColumnSize; column++)
+            for (var column = 0; column < BoardModel.ColumnSize; column++)
             {
                 var label = mainWindow.ColumnLabels[column];
 
@@ -210,11 +210,11 @@
                 label.Height = rowInterval * 1.8;
                 // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                 Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
-                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * InputScriptDocument.RowSize);
+                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * BoardModel.RowSize);
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < InputScriptDocument.RowSize; row++)
+            for (var row = 0; row < BoardModel.RowSize; row++)
             {
                 var label = mainWindow.RowLabels[row];
 
@@ -472,7 +472,7 @@
             var rowInterval = board.Height / BoardDiv;
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < InputScriptDocument.ColumnSize; column++)
+            for (var column = 0; column < BoardModel.ColumnSize; column++)
             {
                 var line = new Line();
                 line.Name = $"verticalLine{column}";
@@ -494,7 +494,7 @@
             }
 
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < InputScriptDocument.RowSize; row++)
+            for (var row = 0; row < BoardModel.RowSize; row++)
             {
                 var line = new Line();
                 line.Name = $"horizontalLine{row}";
@@ -518,8 +518,8 @@
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
             for (var i = 0; i < 9; i++)
             {
-                var row = i / InputScriptDocument.ColumnSize;
-                var column = i % InputScriptDocument.ColumnSize;
+                var row = i / BoardModel.ColumnSize;
+                var column = i % BoardModel.ColumnSize;
 
                 var star = new Ellipse();
                 star.Name = $"star{i}";
@@ -538,10 +538,10 @@
             }
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            for (var i = 0; i < InputScriptDocument.CellCount; i++)
+            for (var i = 0; i < BoardModel.CellCount; i++)
             {
-                var row = i / InputScriptDocument.ColumnSize;
-                var column = i % InputScriptDocument.ColumnSize;
+                var row = i / BoardModel.ColumnSize;
+                var column = i % BoardModel.ColumnSize;
 
                 var stone = new Ellipse();
                 stone.Name = $"stone{i}";
@@ -563,7 +563,7 @@
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < InputScriptDocument.ColumnSize; column++)
+            for (var column = 0; column < BoardModel.ColumnSize; column++)
             {
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
@@ -574,9 +574,9 @@
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < InputScriptDocument.RowSize; row++)
+            for (var row = 0; row < BoardModel.RowSize; row++)
             {
-                var number = InputScriptDocument.RowSize - row;
+                var number = BoardModel.RowSize - row;
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
@@ -662,8 +662,8 @@
             var paddingTop = board.Height * 0.05;
             var columnInterval = board.Width / BoardDiv;
             var rowInterval = board.Height / BoardDiv;
-            var row = index / InputScriptDocument.ColumnSize;
-            var column = index % InputScriptDocument.ColumnSize + SignLen;
+            var row = index / BoardModel.ColumnSize;
+            var column = index % BoardModel.ColumnSize + SignLen;
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);

@@ -5,6 +5,7 @@ namespace UnitTestProject1
     using System.Text;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
+    using KifuwarabeUec11Gui.Output;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -32,9 +33,9 @@ namespace UnitTestProject1
             // ŠÈ’P‚ÈÀs™iO`Oj
             var builder = new StringBuilder();
             builder.Append("[");
-            for (int i = 0; i < InputScriptDocument.ColumnSize; i++)
+            for (int i = 0; i < BoardModel.ColumnSize; i++)
             {
-                builder.Append($"{i * InputScriptDocument.ColumnSize},");
+                builder.Append($"{i * BoardModel.ColumnSize},");
             }
             builder.Append("]");
             Trace.WriteLine(builder.ToString());

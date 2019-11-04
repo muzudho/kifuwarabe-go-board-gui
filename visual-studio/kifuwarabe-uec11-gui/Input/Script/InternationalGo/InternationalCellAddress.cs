@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript.InternationalGo
 {
     using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// 国際囲碁のセル番地表記☆（＾～＾）
@@ -51,13 +52,13 @@
         /// <returns></returns>
         public new static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return (InputScriptDocument.RowLastO0 - rowNumberO0) * InputScriptDocument.ColumnSize + columnNumberO0;
+            return (BoardModel.RowLastO0 - rowNumberO0) * BoardModel.ColumnSize + columnNumberO0;
         }
 
         public new static InternationalCellAddress FromIndex(int zShapedIndexO0)
         {
-            var rowNumberO0 = zShapedIndexO0 / InputScriptDocument.ColumnSize;
-            var columnNumberO0 = zShapedIndexO0 % InputScriptDocument.ColumnSize;
+            var rowNumberO0 = zShapedIndexO0 / BoardModel.ColumnSize;
+            var columnNumberO0 = zShapedIndexO0 % BoardModel.ColumnSize;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 

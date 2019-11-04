@@ -2,6 +2,7 @@
 {
     using System.Globalization;
     using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// 国際囲碁の行番号表記☆（＾～＾）
@@ -21,7 +22,7 @@
             var (rowAddress, next) = RowAddress.Parse(text, start);
 
             // 内部的には Z字方向式表記で持つ☆（＾～＾）
-            return (new InternationalRowAddress(InputScriptDocument.RowLastO0 - rowAddress.NumberO0), next);
+            return (new InternationalRowAddress(BoardModel.RowLastO0 - rowAddress.NumberO0), next);
         }
 
         /// <summary>
@@ -31,7 +32,7 @@
         public override string ToDisplay()
         {
             // 上下をひっくり返して 1 を足す☆（＾ｑ＾）
-            return (InputScriptDocument.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
+            return (BoardModel.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

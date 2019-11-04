@@ -1,4 +1,6 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿using KifuwarabeUec11Gui.Output;
+
+namespace KifuwarabeUec11Gui.InputScript
 {
     /// <summary>
     /// Z字方向式セル番地☆（＾～＾） A1 とか T19 みたいなやつだぜ☆（＾～＾）左上端が A1 ☆（＾～＾）
@@ -47,7 +49,7 @@
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return rowNumberO0 * InputScriptDocument.ColumnSize + columnNumberO0;
+            return rowNumberO0 * BoardModel.ColumnSize + columnNumberO0;
         }
 
         /*
@@ -59,8 +61,8 @@
 
         public static CellAddress FromIndex(int indexO0)
         {
-            var rowNumberO0 = indexO0 / InputScriptDocument.ColumnSize;
-            var columnNumberO0 = indexO0 % InputScriptDocument.ColumnSize;
+            var rowNumberO0 = indexO0 / BoardModel.ColumnSize;
+            var columnNumberO0 = indexO0 % BoardModel.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 

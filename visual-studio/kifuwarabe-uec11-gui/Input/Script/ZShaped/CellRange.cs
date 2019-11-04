@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using KifuwarabeUec11Gui.Output;
 
     public delegate void IndexCallback(int index, int rowXXX, int columnXXX); // XXX
 
@@ -104,7 +105,7 @@
                 {
                     var rowNumberO0 = this.StartsCellAddress.RowAddress.NumberO0 + verticalZoom * verticalDirection;
                     var columnNumberO0 = this.StartsCellAddress.ColumnAddress.NumberO0 + horizontalZoom * horizontalDirection;
-                    var index = rowNumberO0 * InputScriptDocument.ColumnSize + columnNumberO0;
+                    var index = rowNumberO0 * BoardModel.ColumnSize + columnNumberO0;
                     // Trace.WriteLine($"Index           | sr={this.StartsCellAddress.RowAddress.Number} vz={verticalZoom} row={rowNumber} | sc={this.StartsCellAddress.ColumnAddress.Number} hz={horizontalZoom} col={columnNumber} | index={index}.");
                     callback(index, rowNumberO0, columnNumberO0);
                 }

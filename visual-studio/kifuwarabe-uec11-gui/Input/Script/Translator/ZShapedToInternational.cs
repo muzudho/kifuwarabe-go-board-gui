@@ -2,15 +2,16 @@
 {
     using System;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
+    using KifuwarabeUec11Gui.Output;
 
     public static class ZShapedToInternational
     {
         public static int ConvertIndex(int zShapedIndexO0)
         {
-            var zShapedRowO0 = zShapedIndexO0 / InputScriptDocument.ColumnSize;
-            var zShapedColumnO0 = zShapedIndexO0 % InputScriptDocument.ColumnSize;
+            var zShapedRowO0 = zShapedIndexO0 / BoardModel.ColumnSize;
+            var zShapedColumnO0 = zShapedIndexO0 % BoardModel.ColumnSize;
 
-            return (InputScriptDocument.RowLastO0 - zShapedRowO0) * InputScriptDocument.ColumnSize + zShapedColumnO0;
+            return (BoardModel.RowLastO0 - zShapedRowO0) * BoardModel.ColumnSize + zShapedColumnO0;
         }
 
         /*
