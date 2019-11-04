@@ -9,8 +9,9 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeUec11Gui.Script;
-    using KifuwarabeUec11Gui.Script.InternationalGo;
+    using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.InputScript.InternationalGo;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,9 +24,9 @@
         private CommunicationLogWriter CommunicationLogWriter { get; set; }
 
         /// <summary>
-        /// GUI出力 を書き込むやつ☆（＾～＾）
+        /// GUI出力 を書き込むファイルの名前だぜ☆（＾～＾）
         /// </summary>
-        private OutputJsonWriter OutputJsonWriter { get; set; }
+        private string OutputJsonName => "./output.json";
 
         /// <summary>
         /// 入力を読み取るやつ☆（＾～＾）
@@ -41,6 +42,11 @@
         /// 内部状態。
         /// </summary>
         private State State { get; set; }
+
+        /// <summary>
+        /// 盤の状態☆（＾～＾）
+        /// </summary>
+        private BoardModel BoardModel { get; set; }
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
@@ -62,6 +68,8 @@
         public MainWindow()
         {
             this.State = new State();
+            this.BoardModel = new BoardModel();
+
             this.VerticalLines = new List<Line>();
             this.HorizontalLines = new List<Line>();
             this.Stones = new List<Ellipse>();
@@ -72,6 +80,11 @@
             this.Random = new Random(0);
 
             InitializeComponent();
+        }
+
+        public Ellipse GetStone(int zShapedIndex)
+        {
+            return this.Stones[zShapedIndex];
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -219,15 +232,8 @@
             // 通信ログを書き込むやつ☆（＾～＾）
             {
                 this.CommunicationLogWriter = new CommunicationLogWriter("communication.log");
-                this.CommunicationLogWriter.WriteLine("テスト書込み☆（＾～＾）");
+                this.CommunicationLogWriter.WriteLine("> I am a KifuwarabeUEC11Gui!");
                 this.CommunicationLogWriter.Flush();
-            }
-
-            // GUI出力 を書き込むやつ☆（＾～＾）
-            {
-                this.OutputJsonWriter = new OutputJsonWriter("output.json");
-                this.OutputJsonWriter.WriteLine(new OutputJsonDocument(this.State).ToJson());
-                this.OutputJsonWriter.Flush();
             }
 
             // 入力を読み取るやつ☆（＾～＾）
@@ -371,50 +377,52 @@
                                     }
                                     break;
 
-                                case "black": // thru
-                                case "white": // thru
+                                case "black":
+                                    {
+                                        var args = (ColorInstructionArgument)instruction.Argument;
+                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                        foreach (var cellRange in args.CellRanges)
+                                        {
+                                            foreach (var zShapedIndex in cellRange.ToIndexes())
+                                            {
+                                                // 黒石にするぜ☆（＾～＾）
+                                                BoardController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
+
+                                                // 最後の着手点☆（＾～＾）
+                                                this.State.LastMoveIndex = zShapedIndex;
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                                case "white":
+                                    {
+                                        var args = (ColorInstructionArgument)instruction.Argument;
+                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                        foreach (var cellRange in args.CellRanges)
+                                        {
+                                            foreach (var zShapedIndex in cellRange.ToIndexes())
+                                            {
+                                                // 白石にするぜ☆（＾～＾）
+                                                BoardController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
+
+                                                // 最後の着手点☆（＾～＾）
+                                                this.State.LastMoveIndex = zShapedIndex;
+                                            }
+                                        }
+                                    }
+                                    break;
+
                                 case "space":
                                     {
-                                        var instArgs = (ColorInstructionArgument)instruction.Argument;
-                                        foreach (var cellRange in instArgs.CellRanges)
+                                        var args = (ColorInstructionArgument)instruction.Argument;
+                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                        foreach (var cellRange in args.CellRanges)
                                         {
-                                            // 内部的には Z字方向式 で持っている☆（＾～＾）
-                                            var zShapedIndexes = cellRange.ToIndexes();
-
-                                            foreach (var zShapedIndex in zShapedIndexes)
+                                            foreach (var zShapedIndex in cellRange.ToIndexes())
                                             {
-                                                // Trace.WriteLine($"zShapedIndex={zShapedIndex}");
-
-                                                // 内部的な操作では、上下を逆さにしなくていい☆（＾～＾）
-                                                var stone = this.Stones[zShapedIndex];
-                                                switch (instruction.Command)
-                                                {
-                                                    case "black": // thru
-                                                                  // 黒石にするぜ☆（＾～＾）
-                                                        stone.Fill = Brushes.Black;
-                                                        stone.Stroke = Brushes.White;
-                                                        stone.Visibility = Visibility.Visible;
-
-                                                        // 最後の着手点☆（＾～＾）
-                                                        this.State.LastMoveIndex = zShapedIndex;
-
-                                                        break;
-
-                                                    case "white": // thru
-                                                                  // 白石にするぜ☆（＾～＾）
-                                                        stone.Fill = Brushes.White;
-                                                        stone.Stroke = Brushes.Black;
-                                                        stone.Visibility = Visibility.Visible;
-
-                                                        // 最後の着手点☆（＾～＾）
-                                                        this.State.LastMoveIndex = zShapedIndex;
-
-                                                        break;
-
-                                                    case "space":
-                                                        stone.Visibility = Visibility.Hidden;
-                                                        break;
-                                                }
+                                                // 石を取り除くぜ☆（＾～＾）
+                                                BoardController.ChangeColorToSpace(this.BoardModel, this, zShapedIndex);
                                             }
                                         }
                                     }
@@ -422,9 +430,19 @@
                             }
                         }
 
-                        // 画面の再描画をしようぜ☆（＾～＾）
-                        RepaintWindow(this);
-                        this.InvalidateVisual();
+                        // 全ての入力に対応したぜ☆（＾～＾）！
+                        {
+                            // GUI出力 を書き込むやつ☆（＾～＾）
+                            // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
+                            // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
+                            using (var outputJsonWriter = new OutputJsonWriter("output.json")) {
+                                outputJsonWriter.WriteLine(new OutputJsonDocument(this.BoardModel, this.State).ToJson());
+                                outputJsonWriter.Flush();
+                            }
+                            // 画面の再描画をしようぜ☆（＾～＾）
+                            RepaintWindow(this);
+                            this.InvalidateVisual();
+                        }
                     }
                 };
             }
@@ -486,7 +504,7 @@
                 canvas.Children.Add(line);
             }
 
-            // 石を描こうぜ☆（＾～＾）？
+            // 黒石を描いて非表示にして持っておこう☆（＾～＾）？
             for (var i = 0; i < InputScriptDocument.CellCount; i++)
             {
                 var row = i / InputScriptDocument.BoardSize;
@@ -497,18 +515,25 @@
                 stone.Width = 10;
                 stone.Height = 10;
                 stone.StrokeThickness = 1.5;
+                stone.Visibility = Visibility.Hidden;
                 Panel.SetZIndex(stone, 120);
+
+                /*
+                // とりあえず黒石にして作っておこうぜ☆（＾～＾）
                 // カラー
                 if (this.Random.Next(0, 2) == 0)
                 {
-                    stone.Fill = Brushes.Black;
-                    stone.Stroke = Brushes.White;
+                */
+                stone.Fill = Brushes.Black;
+                stone.Stroke = Brushes.White;
+                /*
                 }
                 else
                 {
                     stone.Fill = Brushes.White;
                     stone.Stroke = Brushes.Black;
                 }
+                */
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(stone, 0);
                 Canvas.SetTop(stone, 0);

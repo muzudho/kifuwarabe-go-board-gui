@@ -1,12 +1,10 @@
 namespace UnitTestProject1
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text;
-    using KifuwarabeUec11Gui.Script;
-    using KifuwarabeUec11Gui.Script.ZShaped;
-    using KifuwarabeUec11Gui.Script.InternationalGo;
+    using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
