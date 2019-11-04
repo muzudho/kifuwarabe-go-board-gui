@@ -34,6 +34,22 @@
         public List<Stone> Stones { get; private set; }
 
         /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetRowDiv()
+        {
+            return RowSize + MainWindow.SignLen + 1;
+        }
+
+        /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetColumnDiv()
+        {
+            return ColumnSize + MainWindow.SignLen + 1;
+        }
+
+        /// <summary>
         /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
         /// </summary>
         public int GetRowLastO0()

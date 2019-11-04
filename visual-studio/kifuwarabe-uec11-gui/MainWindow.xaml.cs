@@ -57,14 +57,9 @@
         private Random Random { get; set; }
 
         /// <summary>
-        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
-        /// </summary>
-        public static int BoardDiv => 21;
-
-        /// <summary>
         /// 符号の1列☆（＾～＾）
         /// </summary>
-        private static int SignLen => 1;
+        public static int SignLen => 1;
 
         public MainWindow()
         {
@@ -124,8 +119,8 @@
             board.Height = shortenEdge;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / BoardDiv;
-            var rowInterval = board.Height / BoardDiv;
+            var columnInterval = board.Width / mainWindow.BoardModel.GetColumnDiv();
+            var rowInterval = board.Height / mainWindow.BoardModel.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < mainWindow.BoardModel.ColumnSize; column++)
@@ -168,13 +163,13 @@
             {
                 var star = mainWindow.Stars[i];
                 var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0, mainWindow.BoardModel);
-                if (internationalCellAddress!=null)
+                if (internationalCellAddress != null)
                 {
-                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(mainWindow.BoardModel), (left, top)=>
+                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(mainWindow.BoardModel), (left, top) =>
                     {
                         // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                        star.Width = board.Width / BoardDiv * 0.3;
-                        star.Height = board.Height / BoardDiv * 0.3;
+                        star.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.3;
+                        star.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.3;
 
                         Canvas.SetLeft(star, left - star.Width / 2);
                         Canvas.SetTop(star, top - star.Height / 2);
@@ -189,8 +184,8 @@
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
                 {
                     // 大きさ☆（＾～＾）
-                    stone.Width = board.Width / BoardDiv * 0.8;
-                    stone.Height = board.Height / BoardDiv * 0.8;
+                    stone.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.8;
+                    stone.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.8;
 
                     Canvas.SetLeft(stone, left - stone.Width / 2);
                     Canvas.SetTop(stone, top - stone.Height / 2);
@@ -303,6 +298,32 @@
                                         var prop = (SetsInstructionArgument)instruction.Argument;
                                         switch (prop.Name)
                                         {
+                                            case "row-size":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                                        {
+                                                            this.BoardModel.RowSize = outValue;
+                                                        }
+                                                    }
+                                                }
+                                                break;
+
+                                            case "column-size":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                                        {
+                                                            this.BoardModel.ColumnSize = outValue;
+                                                        }
+                                                    }
+                                                }
+                                                break;
+
                                             case "ply":
                                                 {
                                                     if (int.TryParse(prop.Value, out int outValue))
@@ -468,8 +489,8 @@
             // 盤☆（＾～＾）
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
-            var columnInterval = board.Width / BoardDiv;
-            var rowInterval = board.Height / BoardDiv;
+            var columnInterval = board.Width / this.BoardModel.GetColumnDiv();
+            var rowInterval = board.Height / this.BoardModel.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < BoardModel.ColumnSize; column++)
@@ -607,7 +628,7 @@
                 Panel.SetZIndex(whiteTimeCanvas, (int)ZOrder.UI);
                 Panel.SetZIndex(whiteAgehamaCanvas, (int)ZOrder.UI);
                 Panel.SetZIndex(komiCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(infoCanvas, (int)ZOrder.InfoCanvas);                
+                Panel.SetZIndex(infoCanvas, (int)ZOrder.InfoCanvas);
             }
         }
 
@@ -660,8 +681,8 @@
             var boardTop = centerY - shortenEdge / 2;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / BoardDiv;
-            var rowInterval = board.Height / BoardDiv;
+            var columnInterval = board.Width / mainWindow.BoardModel.GetColumnDiv();
+            var rowInterval = board.Height / mainWindow.BoardModel.GetRowDiv();
             var row = index / mainWindow.BoardModel.ColumnSize;
             var column = index % mainWindow.BoardModel.ColumnSize + SignLen;
             var left = boardLeft + paddingLeft + columnInterval * column;
