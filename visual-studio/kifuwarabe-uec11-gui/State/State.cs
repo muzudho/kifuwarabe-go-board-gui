@@ -30,7 +30,7 @@
         /// 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
         /// でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
         /// </summary>
-        public string BlackHama { get; set; }
+        public int BlackHama { get; set; }
 
         /// <summary>
         /// 白の選手名。
@@ -45,7 +45,7 @@
         /// <summary>
         /// 白のアゲハマ。
         /// </summary>
-        public string WhiteHama { get; set; }
+        public int WhiteHama { get; set; }
 
         /// <summary>
         /// 白のコミ。
@@ -53,21 +53,19 @@
         public double Komi { get; set; }
 
         /// <summary>
-        /// コメント☆（＾～＾）画面にメッセージを表示するぜ☆（＾～＾）
+        /// GUIの画面上にメッセージを表示するぜ☆（＾～＾）
         /// 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
         /// </summary>
-        public string Comment { get; set; }
+        public string Info { get; set; }
 
         public State()
         {
             this.LastMoveIndex = -1;
             this.BlackName = string.Empty;
             this.BlackTime = string.Empty;
-            this.BlackHama = string.Empty;
             this.WhiteName = string.Empty;
             this.WhiteTime = string.Empty;
-            this.WhiteHama = string.Empty;
-            this.Comment = string.Empty;
+            this.Info = string.Empty;
         }
     }
 }

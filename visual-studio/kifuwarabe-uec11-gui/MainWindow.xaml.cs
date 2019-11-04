@@ -285,8 +285,13 @@
                                                 blackTimeValue.Content = prop.Value;
                                                 break;
                                             case "b-hama":
-                                                this.State.BlackHama = prop.Value;
-                                                blackAgehamaValue.Content = prop.Value;
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        this.State.BlackHama = outValue;
+                                                        blackAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
+                                                    }
+                                                }
                                                 break;
                                             case "w-name":
                                                 this.State.WhiteName = prop.Value;
@@ -297,8 +302,13 @@
                                                 whiteTimeValue.Content = prop.Value;
                                                 break;
                                             case "w-hama":
-                                                this.State.WhiteHama = prop.Value;
-                                                whiteAgehamaValue.Content = prop.Value;
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        this.State.WhiteHama = outValue;
+                                                        whiteAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
+                                                    }
+                                                }
                                                 break;
                                             case "komi":
                                                 {
@@ -309,8 +319,9 @@
                                                     }
                                                 }
                                                 break;
-                                            case "comment":
-                                                this.State.Comment = prop.Value;
+
+                                            case "info":
+                                                this.State.Info = prop.Value;
 
                                                 // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                                                 // (1) 垂直タブ は消す。
