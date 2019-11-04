@@ -251,6 +251,18 @@
                         {
                             switch (instruction.Command)
                             {
+                                case "info":
+                                    {
+                                        // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
+
+                                        // プロパティ☆（＾～＾）
+                                        var args = (InfoInstructionArgument)instruction.Argument;
+
+                                        // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                                        commentValue.Content = SoluteNewline(args.Text);
+                                    }
+                                    break;
+
                                 case "set":
                                     {
                                         // プロパティ☆（＾～＾）
@@ -324,15 +336,7 @@
                                                 this.State.Info = prop.Value;
 
                                                 // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                                // (1) 垂直タブ は消す。
-                                                // (2) \\ は 垂直タブ にする☆
-                                                // (3) \n は 改行コード にする☆
-                                                // (4) 垂直タブは \ にする☆
-                                                var temp = prop.Value.Replace("\v", "", StringComparison.Ordinal);
-                                                temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
-                                                temp = temp.Replace("\\n", "\n", StringComparison.Ordinal);
-                                                temp = temp.Replace("\v", "\\", StringComparison.Ordinal);
-                                                commentValue.Content = temp;
+                                                commentValue.Content = SoluteNewline(prop.Value);
                                                 break;
                                         }
                                     }
@@ -513,6 +517,22 @@
                 this.RowLabels.Add(label);
                 canvas.Children.Add(label);
             }
+        }
+
+        /// <summary>
+        /// 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+        /// (1) 垂直タブ は消す。
+        /// (2) \\ は 垂直タブ にする☆
+        /// (3) \n は 改行コード にする☆
+        /// (4) 垂直タブは \ にする☆
+        /// </summary>
+        private static string SoluteNewline(string text)
+        {
+            var temp = text.Replace("\v", "", StringComparison.Ordinal);
+            temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
+            temp = temp.Replace("\\n", "\n", StringComparison.Ordinal);
+            temp = temp.Replace("\v", "\\", StringComparison.Ordinal);
+            return temp;
         }
 
         private delegate void NodeCallback(double left, double top);

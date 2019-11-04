@@ -63,6 +63,21 @@
                 {
                     switch (commandName.Text)
                     {
+                        case "info":
+                            {
+                                InfoInstructionArgument argument;
+                                (argument, next) = InfoInstructionArgument.Parse(line, next);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
+                            }
+                            break;
+
                         case "set":
                             {
                                 SetsInstructionArgument argument;
