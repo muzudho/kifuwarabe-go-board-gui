@@ -5,7 +5,10 @@
     using System.Diagnostics;
     using KifuwarabeUec11Gui.Script.InternationalGo;
 
-    public class ScriptDocument
+    /// <summary>
+    /// GUIへの入力スクリプトだぜ☆（＾～＾）
+    /// </summary>
+    public class InputScriptDocument
     {
         /// <summary>
         /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
@@ -24,12 +27,12 @@
 
         public List<Instruction> Instructions { get; private set; }
 
-        public ScriptDocument(List<Instruction> instructions)
+        public InputScriptDocument(List<Instruction> instructions)
         {
             this.Instructions = instructions;
         }
 
-        public static ScriptDocument Parse(string text)
+        public static InputScriptDocument Parse(string text)
         {
             // 空行は無視☆（＾～＾）
             if (string.IsNullOrWhiteSpace(text))
@@ -114,7 +117,7 @@
                 }
             }
 
-            return new ScriptDocument(instructions);
+            return new InputScriptDocument(instructions);
         }
     }
 }

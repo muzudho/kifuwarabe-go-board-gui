@@ -6,6 +6,11 @@
     public class State
     {
         /// <summary>
+        /// 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
+        /// </summary>
+        public int IntervalMsec { get; set; }
+
+        /// <summary>
         /// 何手目か。
         /// </summary>
         public int Ply { get; set; }
@@ -60,6 +65,9 @@
 
         public State()
         {
+            // 初期値は 2 秒☆（＾～＾）
+            this.IntervalMsec = 2000;
+
             this.LastMoveIndex = -1;
             this.BlackName = string.Empty;
             this.BlackTime = string.Empty;

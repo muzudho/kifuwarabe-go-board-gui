@@ -638,4 +638,222 @@ set komi = 99.5
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
 「　寝ろ☆」
 
+# 2019-11-04 02:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　コマンドラインの `set` の癖で、イコールを忘れてしまう……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　スペース区切りにすると　打鍵しやすいが、視認性が下がるだろ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　代入に `=` 記号を使うのは　いやらしくない？ `<-` にしましょうよ」
+
+```
+set ply <- 0
+set move <- Z99
+set b-name <- Aaaaaaaa
+set b-time <- 99:59
+set b-hama <- 999
+set w-name <- Bbbbbbbb
+set w-time <- 99:59
+set w-hama <- 999
+set komi <- 99.5
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑打鍵しにくい……☆ `=` で妥協しよう……☆」
+
+![20191103wpf30.png](https://crieit.now.sh/upload_images/1b13c2c8f4ba9dee9f5a57e598d81cb15dbf0e0d7dc32.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑set コマンドも実装だぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　自由なメッセージの表示欄も欲しくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　食いつくね☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　Label では改行ができないのか……☆ `\n`、 `&#10;`、 `<LineBreak/>`、 `&#xa;`、 `&#x0d;&#x0a;` どれもダメ☆」
+
+# 2019-11-04 03:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　TextBox でも改行ができないのか……☆ `\n`、`\r\n`、  `&#xa;`、 `&#xA;` どれもダメ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　改行は　廃止されたのだろうか☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　`\n`　がただの文字と判定されてしまっている☆
+わたしの方で 改行コードに置換してもいいが……☆」
+
+```
+        // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+        // (1) 垂直タブ は消す。
+        // (2) \\ は 垂直タブ にする☆
+        // (3) \n は 改行コード にする☆
+        // (4) 垂直タブは \ にする☆
+        var temp = prop.Value.Replace("\v", "", StringComparison.Ordinal);
+        temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
+        temp = temp.Replace("\\n", "\n", StringComparison.Ordinal);
+        temp = temp.Replace("\v", "\\", StringComparison.Ordinal);
+        commentValue.Content = temp;
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑垂直タブ `\v` をサクリファイス（犠牲）にすることで　改行がでけた……☆」
+
+![20191103wpf31.png](https://crieit.now.sh/upload_images/f20d8be91b79893f7a8bb2c6d9783b6c5dbf20247f931.png)
+
+input.txt:
+
+```
+set comment = aaa\nbbb\nccc
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑左下に　ちょこっと　テキスト表示できるようにしておいた……☆
+何らかの場面で助かるだろ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　勝ちとか、勝率とか comment で出せだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　原理的に コンピューター囲碁 の GUI は　できあがったんじゃないの？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　input.txt の読み込み中に こっちが書き込んだら そのあと input.txt の中身を空っぽにしようと保存してジャムるのがあるだろ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　output.txt が要るかだぜ☆ もう input.txt に書き込んでいいよ、というフラグにするやつ☆
+output.txt ファイルが存在する間は、 input.txt を読み込まないんだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　人間の操作で output.txt を削除するのは手間よ」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　`#` のコメント行 も作らないとな☆」
+
+# 2019-11-04 12:00頃
+
+[Script API](https://github.com/muzudho/kifuwarabe-uec11-gui/blob/master/doc/script-api.md)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑仕様書をまとめないと　分けわかんなくなってきた☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　`comment` が画面に表示されるって　違和感なくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　じゃあ　何だったらいいんだぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　`info` とかじゃないかしらねぇ？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　じゃあ　それで☆」
+
+# 2019-11-04 13:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　ドキュメント書くのも大変だぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　`set info = banana` は、シンタックス・シュガーとして `info banana` と書くこともできるようにしないか☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　したらいいじゃないの」
+
+# 2019-11-04 14:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　なんとか　ドキュメント　書けた……☆
+配るかだぜ☆」
+
+# 2019-11-04 15:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　ドキュメント　を細かく修正☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　この GUI は、盤面がどんな状況にあるのか　アウトプット　してくれないのかだぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　なるほど……☆ `output.txt` は　やっぱり欲しいかだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　`.txt` じゃなくて `.json` で返してよ」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　仕様の上方修正わらう☆」
+
+[How to serialize and deserialize JSON in .NET](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑ .NET Core 3.0 に標準で付いてくる JSON シリアライザーを使いたいよな☆」
+
+OutputJsonDocument.cs:
+
+```
+namespace KifuwarabeUec11Gui.Script
+{
+    using System.Text.Json;
+
+    /// <summary>
+    /// `output.json` をこれで作ろうぜ☆（＾～＾）
+    /// </summary>
+    public class OutputJsonDocument
+    {
+        public State State { get; private set; }
+
+        public OutputJsonDocument(State state)
+        {
+            this.State = state;
+        }
+
+        public string ToJson()
+        {
+            var option = new JsonSerializerOptions();
+
+            // JSON は JavaScript 由来だろ☆（＾～＾） JavaScript に合わせようぜ☆（＾～＾）
+            // camelCase
+            option.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+            // インデントしようぜ☆（＾～＾）
+            option.WriteIndented = true;
+
+            return JsonSerializer.Serialize(this,option);
+        }
+    }
+}
+```
+
+
+ToJson():
+
+
+```
+{
+  "state": {
+    "ply": 0,
+    "lastMoveIndex": -1,
+    "blackName": "",
+    "blackTime": "",
+    "blackHama": 0,
+    "whiteName": "",
+    "whiteTime": "",
+    "whiteHama": 0,
+    "komi": 0,
+    "info": ""
+  }
+}
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑こんな感じでコード量増やさずに　さくっと JSON を出力してくれるぜ☆」
+
 ＜書きかけ＞

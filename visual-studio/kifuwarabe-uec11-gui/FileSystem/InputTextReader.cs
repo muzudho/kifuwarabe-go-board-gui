@@ -44,21 +44,30 @@
         /// <returns>読み込んだ行、またはヌル。</returns>
         public string ReadToEnd()
         {
-            var text = this.StreamReader.ReadToEnd();
-
-            // ファイルの先頭に読込位置を戻す。
-            this.FileStreamR.Position = 0;
-
-            // 書込み用ストリーム☆（＾～＾）
-            // Encoding.UTF8 を指定すると BOM付きUTF8、無指定だと BOM無しUTF8 だぜ☆（＾～＾）
-            using (var writer = new StreamWriter(this.File, false))
+            try
             {
-                // ファイルを空にするぜ☆（＾～＾）
-                writer.Write("");
-                writer.Flush();
-            }
+                var text = this.StreamReader.ReadToEnd();
 
-            return text;
+                // ファイルの先頭に読込位置を戻す。
+                this.FileStreamR.Position = 0;
+
+                // 書込み用ストリーム☆（＾～＾）
+                // Encoding.UTF8 を指定すると BOM付きUTF8、無指定だと BOM無しUTF8 だぜ☆（＾～＾）
+                using (var writer = new StreamWriter(this.File, false))
+                {
+                    // ファイルを空にするぜ☆（＾～＾）
+                    writer.Write("");
+                    writer.Flush();
+                }
+
+                return text;
+            }
+            catch (System.IO.IOException)
+            {
+                // ファイルのロックにでも引っかかったんだろ☆（＾～＾）ミリ秒でアクセスを繰り返せば よくある☆（＾～＾）
+                // 無視するぜ☆（＾～＾）また次のループで読みにくるだろ☆（＾～＾）
+                return null;
+            }
         }
 
         /// <summary>

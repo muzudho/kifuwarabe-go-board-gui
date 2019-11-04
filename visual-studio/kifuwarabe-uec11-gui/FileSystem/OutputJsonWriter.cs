@@ -4,21 +4,21 @@
     using System.IO;
 
     /// <summary>
-    /// 特に通信ログを書き込むことを想定したロガー。
-    /// In/Out の区別を付けるメソッドとか　あとでほしくなるかも知らんからラッピングしておくぜ☆（＾～＾）
+    /// `output.txt` ファイル用のライター☆（＾～＾）
+    /// あとで何かほしくなるかも知らんからラッピングしておくぜ☆（＾～＾）
     /// </summary>
-    public sealed class CommunicationLogWriter : IDisposable
+    public sealed class OutputJsonWriter : IDisposable
     {
         /// <summary>
         /// 書込み用ストリーム☆（＾～＾）
         /// </summary>
         private StreamWriter StreamWriter { get; set; }
 
-        public CommunicationLogWriter(string file)
+        public OutputJsonWriter(string file)
         {
-            // 追加書き込みモードでファイルを開けるぜ☆（＾～＾）
+            // 上書きモードでファイルを開けるぜ☆（＾～＾）
             // Encoding.UTF8 を付けると BOM有り になってしまう☆（＾～＾）省略すれば BOM無し☆（＾～＾）
-            this.StreamWriter = new StreamWriter(file, true);
+            this.StreamWriter = new StreamWriter(file, false);
         }
 
         public void WriteLine(string text)

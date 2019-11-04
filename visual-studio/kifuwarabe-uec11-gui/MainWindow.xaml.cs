@@ -11,7 +11,6 @@
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.Script;
     using KifuwarabeUec11Gui.Script.InternationalGo;
-    using KifuwarabeUec11Gui.Script.Translator;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,9 +18,14 @@
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// 通信ログを書き込むやつ☆（＾～＾）
+        /// 通信ログ を書き込むやつ☆（＾～＾）
         /// </summary>
         private CommunicationLogWriter CommunicationLogWriter { get; set; }
+
+        /// <summary>
+        /// GUI出力 を書き込むやつ☆（＾～＾）
+        /// </summary>
+        private OutputJsonWriter OutputJsonWriter { get; set; }
 
         /// <summary>
         /// 入力を読み取るやつ☆（＾～＾）
@@ -105,7 +109,7 @@
             var rowInterval = board.Height / BoardDiv;
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < ScriptDocument.BoardSize; column++)
+            for (var column = 0; column < InputScriptDocument.BoardSize; column++)
             {
                 var line = mainWindow.VerticalLines[column];
                 Canvas.SetLeft(line, 0);
@@ -121,7 +125,7 @@
                 line.Y2 = line.Y1 + rowInterval * 18;
             }
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < ScriptDocument.BoardSize; row++)
+            for (var row = 0; row < InputScriptDocument.BoardSize; row++)
             {
                 var line = mainWindow.HorizontalLines[row];
                 Canvas.SetLeft(line, 0);
@@ -139,7 +143,7 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < ScriptDocument.CellCount; i++)
+            for (var i = 0; i < InputScriptDocument.CellCount; i++)
             {
                 var stone = mainWindow.Stones[i];
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
@@ -174,7 +178,7 @@
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < ScriptDocument.BoardSize; column++)
+            for (var column = 0; column < InputScriptDocument.BoardSize; column++)
             {
                 var label = mainWindow.ColumnLabels[column];
 
@@ -183,11 +187,11 @@
                 label.Height = rowInterval * 1.8;
                 // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                 Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
-                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * ScriptDocument.BoardSize);
+                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * InputScriptDocument.BoardSize);
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < ScriptDocument.BoardSize; row++)
+            for (var row = 0; row < InputScriptDocument.BoardSize; row++)
             {
                 var label = mainWindow.RowLabels[row];
 
@@ -219,6 +223,13 @@
                 this.CommunicationLogWriter.Flush();
             }
 
+            // GUI出力 を書き込むやつ☆（＾～＾）
+            {
+                this.OutputJsonWriter = new OutputJsonWriter("output.json");
+                this.OutputJsonWriter.WriteLine(new OutputJsonDocument(this.State).ToJson());
+                this.OutputJsonWriter.Flush();
+            }
+
             // 入力を読み取るやつ☆（＾～＾）
             {
                 this.InputTextReader = new InputTextReader("input.txt");
@@ -229,8 +240,8 @@
                 this.DispatchTimer = new DispatcherTimer();
                 this.DispatchTimer.Start();
 
-                // 5秒置きでも長い感じ☆（＾～＾）
-                this.DispatchTimer.Interval = TimeSpan.FromSeconds(3);
+                // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
+                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.State.IntervalMsec);
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
@@ -244,7 +255,7 @@
                         this.CommunicationLogWriter.Flush();
                     }
 
-                    var scriptDocument = ScriptDocument.Parse(text);
+                    var scriptDocument = InputScriptDocument.Parse(text);
                     if (scriptDocument != null)
                     {
                         foreach (var instruction in scriptDocument.Instructions)
@@ -338,6 +349,17 @@
                                                 // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                                                 commentValue.Content = SoluteNewline(prop.Value);
                                                 break;
+
+                                            case "interval-msec":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        this.State.IntervalMsec = outValue;
+                                                        this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
+                                                        Trace.WriteLine($"interval-msec: {this.State.IntervalMsec}");
+                                                    }
+                                                }
+                                                break;
                                         }
                                     }
                                     break;
@@ -415,7 +437,7 @@
             var rowInterval = board.Height / BoardDiv;
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < ScriptDocument.BoardSize; column++)
+            for (var column = 0; column < InputScriptDocument.BoardSize; column++)
             {
                 var line = new Line();
                 line.Name = $"verticalLine{column}";
@@ -436,7 +458,7 @@
                 canvas.Children.Add(line);
             }
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < ScriptDocument.BoardSize; row++)
+            for (var row = 0; row < InputScriptDocument.BoardSize; row++)
             {
                 var line = new Line();
                 line.Name = $"horizontalLine{row}";
@@ -458,10 +480,10 @@
             }
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < ScriptDocument.CellCount; i++)
+            for (var i = 0; i < InputScriptDocument.CellCount; i++)
             {
-                var row = i / ScriptDocument.BoardSize;
-                var column = i % ScriptDocument.BoardSize;
+                var row = i / InputScriptDocument.BoardSize;
+                var column = i % InputScriptDocument.BoardSize;
 
                 var stone = new Ellipse();
                 stone.Name = $"stone{i}";
@@ -488,7 +510,7 @@
             }
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < ScriptDocument.BoardSize; column++)
+            for (var column = 0; column < InputScriptDocument.BoardSize; column++)
             {
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
@@ -499,9 +521,9 @@
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < ScriptDocument.BoardSize; row++)
+            for (var row = 0; row < InputScriptDocument.BoardSize; row++)
             {
-                var number = ScriptDocument.BoardSize - row;
+                var number = InputScriptDocument.BoardSize - row;
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
                 Panel.SetZIndex(label, 130);
@@ -560,8 +582,8 @@
             var paddingTop = board.Height * 0.05;
             var columnInterval = board.Width / BoardDiv;
             var rowInterval = board.Height / BoardDiv;
-            var row = index / ScriptDocument.BoardSize;
-            var column = index % ScriptDocument.BoardSize + SignLen;
+            var row = index / InputScriptDocument.BoardSize;
+            var column = index % InputScriptDocument.BoardSize + SignLen;
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);

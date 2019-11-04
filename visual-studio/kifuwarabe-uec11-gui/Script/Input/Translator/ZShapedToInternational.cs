@@ -8,10 +8,10 @@
     {
         public static int ConvertIndex(int indexO0)
         {
-            var zShapedRowO0 = indexO0 / ScriptDocument.BoardSize;
-            var zShapedColumnO0 = indexO0 % ScriptDocument.BoardSize;
+            var zShapedRowO0 = indexO0 / InputScriptDocument.BoardSize;
+            var zShapedColumnO0 = indexO0 % InputScriptDocument.BoardSize;
 
-            return (ScriptDocument.RowLastO0 - zShapedRowO0) + zShapedColumnO0;
+            return (InputScriptDocument.RowLastO0 - zShapedRowO0) + zShapedColumnO0;
         }
 
         /*

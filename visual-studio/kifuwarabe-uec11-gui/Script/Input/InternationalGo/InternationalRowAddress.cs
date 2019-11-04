@@ -21,7 +21,7 @@
             var (rowAddress, next) = RowAddress.Parse(text, start);
 
             // 内部的には Z字方向式表記で持つ☆（＾～＾）
-            return (new InternationalRowAddress(ScriptDocument.RowLastO0 - rowAddress.NumberO0), next);
+            return (new InternationalRowAddress(InputScriptDocument.RowLastO0 - rowAddress.NumberO0), next);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         public override string ToDisplay()
         {
             // 上下をひっくり返して 1 を足す☆（＾ｑ＾）
-            return (ScriptDocument.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
+            return (InputScriptDocument.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

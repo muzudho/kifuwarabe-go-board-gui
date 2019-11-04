@@ -34,9 +34,9 @@ namespace UnitTestProject1
             // ŠÈ’P‚ÈÀs™iO`Oj
             var builder = new StringBuilder();
             builder.Append("[");
-            for (int i = 0; i < ScriptDocument.BoardSize; i++)
+            for (int i = 0; i < InputScriptDocument.BoardSize; i++)
             {
-                builder.Append($"{i * ScriptDocument.BoardSize},");
+                builder.Append($"{i * InputScriptDocument.BoardSize},");
             }
             builder.Append("]");
             Trace.WriteLine(builder.ToString());

@@ -51,7 +51,7 @@ namespace KifuwarabeUec11Gui.Script.InternationalGo
         /// <returns></returns>
         public new static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return (ScriptDocument.RowLastO0 - rowNumberO0) * ScriptDocument.BoardSize + columnNumberO0;
+            return (InputScriptDocument.RowLastO0 - rowNumberO0) * InputScriptDocument.BoardSize + columnNumberO0;
         }
 
         /*
@@ -63,8 +63,8 @@ namespace KifuwarabeUec11Gui.Script.InternationalGo
 
         public new static InternationalCellAddress FromIndex(int indexO0)
         {
-            var rowNumberO0 = indexO0 / ScriptDocument.BoardSize;
-            var columnNumberO0 = indexO0 % ScriptDocument.BoardSize;
+            var rowNumberO0 = indexO0 / InputScriptDocument.BoardSize;
+            var columnNumberO0 = indexO0 % InputScriptDocument.BoardSize;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 

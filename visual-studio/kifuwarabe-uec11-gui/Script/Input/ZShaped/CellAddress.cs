@@ -47,7 +47,7 @@
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return rowNumberO0 * ScriptDocument.BoardSize + columnNumberO0;
+            return rowNumberO0 * InputScriptDocument.BoardSize + columnNumberO0;
         }
 
         /*
@@ -59,8 +59,8 @@
 
         public static CellAddress FromIndex(int indexO0)
         {
-            var rowNumberO0 = indexO0 / ScriptDocument.BoardSize;
-            var columnNumberO0 = indexO0 % ScriptDocument.BoardSize;
+            var rowNumberO0 = indexO0 / InputScriptDocument.BoardSize;
+            var columnNumberO0 = indexO0 % InputScriptDocument.BoardSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
