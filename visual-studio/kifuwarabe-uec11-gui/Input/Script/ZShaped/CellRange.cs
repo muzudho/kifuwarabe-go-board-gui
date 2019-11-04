@@ -63,7 +63,7 @@
             return (new CellRange(startsCellAddress, endsCellAddress), next);
         }
 
-        public void Foreach(IndexCallback callback)
+        public void Foreach(BoardModel model, IndexCallback callback)
         {
             // Trace.WriteLine($"Foreach         | {this.ToDisplay()} | sr={this.StartsCellAddress.RowAddress.ToDisplay()} sc={this.StartsCellAddress.ColumnAddress.ToDisplay()} er={this.EndsCellAddress.RowAddress.ToDisplay()} ec={this.EndsCellAddress.ColumnAddress.ToDisplay()}");
 
@@ -105,18 +105,18 @@
                 {
                     var rowNumberO0 = this.StartsCellAddress.RowAddress.NumberO0 + verticalZoom * verticalDirection;
                     var columnNumberO0 = this.StartsCellAddress.ColumnAddress.NumberO0 + horizontalZoom * horizontalDirection;
-                    var index = rowNumberO0 * BoardModel.ColumnSize + columnNumberO0;
+                    var index = rowNumberO0 * model.ColumnSize + columnNumberO0;
                     // Trace.WriteLine($"Index           | sr={this.StartsCellAddress.RowAddress.Number} vz={verticalZoom} row={rowNumber} | sc={this.StartsCellAddress.ColumnAddress.Number} hz={horizontalZoom} col={columnNumber} | index={index}.");
                     callback(index, rowNumberO0, columnNumberO0);
                 }
             }
         }
 
-        public HashSet<int> ToIndexes()
+        public HashSet<int> ToIndexes(BoardModel model)
         {
             var hash = new HashSet<int>();
 
-            Foreach((index, r, c)=>
+            Foreach(model, (index, r, c)=>
             {
                 hash.Add(index);
             });

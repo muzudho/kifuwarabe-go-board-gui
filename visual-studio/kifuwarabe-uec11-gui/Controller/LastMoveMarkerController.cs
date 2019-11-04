@@ -32,7 +32,7 @@
             model.LastMoveIndex = zShapedIndex;
 
             // 表示するときは 国際囲碁式 のように上下逆にひっくり返そうぜ☆（＾～＾）
-            view.lastMoveValue.Content = InternationalCellAddress.FromIndex(zShapedIndex).ToDisplay(view.BoardModel);
+            view.lastMoveValue.Content = InternationalCellAddress.FromIndex(zShapedIndex, view.BoardModel).ToDisplay(view.BoardModel);
         }
 
         public static void SetAddress(State model, MainWindow view, CellAddress cellAddress)

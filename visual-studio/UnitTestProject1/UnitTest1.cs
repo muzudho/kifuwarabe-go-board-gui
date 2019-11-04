@@ -17,6 +17,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test1()
         {
+            var boardModel = new BoardModel();
+
             /*
             // ä»íPÇ»é¿çsÅôÅiÅOÅ`ÅOÅj
             var builder = new StringBuilder();
@@ -33,9 +35,9 @@ namespace UnitTestProject1
             // ä»íPÇ»é¿çsÅôÅiÅOÅ`ÅOÅj
             var builder = new StringBuilder();
             builder.Append("[");
-            for (int i = 0; i < BoardModel.ColumnSize; i++)
+            for (int i = 0; i < boardModel.ColumnSize; i++)
             {
-                builder.Append($"{i * BoardModel.ColumnSize},");
+                builder.Append($"{i * boardModel.ColumnSize},");
             }
             builder.Append("]");
             Trace.WriteLine(builder.ToString());
@@ -110,7 +112,7 @@ namespace UnitTestProject1
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
                 // âEå®è„Ç™ÇËÅôÅiÅOÅ`ÅOÅj
-                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach((index, r, c) =>
+                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach(boardModel, (index, r, c) =>
                 {
                     indexes.Add(index);
                 });
@@ -123,7 +125,7 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach((index, r, c) =>
+                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach(boardModel, (index, r, c) =>
                 {
                     indexes.Add(index);
                 });
@@ -137,10 +139,10 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach((indexO0, r, c) =>
+                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach(boardModel, (indexO0, r, c) =>
                 {
                     var boardModel = new BoardModel();
-                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay(boardModel));
+                    signs.Add(InternationalCellAddress.FromIndex(indexO0, boardModel).ToDisplay(boardModel));
                 });
 
                 Assert.AreEqual("H7 J7 K7 H8 J8 K8 H9 J9 K9", string.Join(' ', signs));
@@ -150,10 +152,10 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach((indexO0, r, c) =>
+                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach(boardModel, (indexO0, r, c) =>
                 {
                     var boardModel = new BoardModel();
-                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay(boardModel));
+                    signs.Add(InternationalCellAddress.FromIndex(indexO0, boardModel).ToDisplay(boardModel));
                 });
 
                 Assert.AreEqual("K9 J9 H9 K8 J8 H8 K7 J7 H7", string.Join(' ', signs));
@@ -205,7 +207,7 @@ namespace UnitTestProject1
                 if (cellRange != null)
                 {
                     msg.AppendLine($"cellRange | {cellRange.ToDisplay(boardModel)}");
-                    cellRange.Foreach((index, r, c) =>
+                    cellRange.Foreach(boardModel, (index, r, c) =>
                     {
                         indexes.Add(index);
                         msg.AppendLine($"index={index} r={r} c={c}");
@@ -227,7 +229,7 @@ namespace UnitTestProject1
                 var (cellRange, next) = CellRange.Parse("j9:h7", 0, boardModel);
                 if (cellRange != null)
                 {
-                    cellRange.Foreach((index, r, c) =>
+                    cellRange.Foreach(boardModel, (index, r, c) =>
                     {
                         indexes.Add(index);
                         msg.AppendLine($"index={index} r={r} c={c}");
@@ -250,9 +252,9 @@ namespace UnitTestProject1
                 var (cellRange, next) = CellRange.Parse("h7:j9", 0, boardModel);
                 if (cellRange != null)
                 {
-                    cellRange.Foreach((indexO0, r, c) =>
+                    cellRange.Foreach(boardModel, (indexO0, r, c) =>
                     {
-                        var cellAddress = CellAddress.FromIndex(indexO0);
+                        var cellAddress = CellAddress.FromIndex(indexO0, boardModel);
                         msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex(boardModel)}");
                         signs.Add(cellAddress.ToDisplay(boardModel));
                     });
@@ -272,9 +274,9 @@ namespace UnitTestProject1
                 var (cellRange, next) = CellRange.Parse("j9:h7", 0, boardModel);
                 if (cellRange != null)
                 {
-                    cellRange.Foreach((indexO0, r, c) =>
+                    cellRange.Foreach(boardModel, (indexO0, r, c) =>
                     {
-                        var cellAddress = CellAddress.FromIndex(indexO0);
+                        var cellAddress = CellAddress.FromIndex(indexO0, boardModel);
                         msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex(boardModel)}");
                         signs.Add(cellAddress.ToDisplay(boardModel));
                     });

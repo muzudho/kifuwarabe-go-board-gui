@@ -49,20 +49,13 @@ namespace KifuwarabeUec11Gui.InputScript
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0, BoardModel model)
         {
-            return rowNumberO0 * BoardModel.ColumnSize + columnNumberO0;
+            return rowNumberO0 * model.ColumnSize + columnNumberO0;
         }
 
-        /*
-        public static CellAddress FromIndex(int rowNumber, int columnNumber)
+        public static CellAddress FromIndex(int indexO0, BoardModel model)
         {
-            return new CellAddress(new RowAddress(rowNumber), new ColumnAddress(columnNumber));
-        }
-        */
-
-        public static CellAddress FromIndex(int indexO0)
-        {
-            var rowNumberO0 = indexO0 / BoardModel.ColumnSize;
-            var columnNumberO0 = indexO0 % BoardModel.ColumnSize;
+            var rowNumberO0 = indexO0 / model.ColumnSize;
+            var columnNumberO0 = indexO0 % model.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 

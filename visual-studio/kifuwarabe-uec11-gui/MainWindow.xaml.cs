@@ -128,7 +128,7 @@
             var rowInterval = board.Height / BoardDiv;
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
-            for (var column = 0; column < BoardModel.ColumnSize; column++)
+            for (var column = 0; column < mainWindow.BoardModel.ColumnSize; column++)
             {
                 var line = mainWindow.VerticalLines[column];
                 Canvas.SetLeft(line, 0);
@@ -201,7 +201,7 @@
             LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            for (var column = 0; column < BoardModel.ColumnSize; column++)
+            for (var column = 0; column < mainWindow.BoardModel.ColumnSize; column++)
             {
                 var label = mainWindow.ColumnLabels[column];
 
@@ -392,7 +392,7 @@
                                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                         foreach (var cellRange in args.CellRanges)
                                         {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes())
+                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 黒石にするぜ☆（＾～＾）
                                                 BoardController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
@@ -410,7 +410,7 @@
                                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                         foreach (var cellRange in args.CellRanges)
                                         {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes())
+                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 白石にするぜ☆（＾～＾）
                                                 BoardController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
@@ -428,7 +428,7 @@
                                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                         foreach (var cellRange in args.CellRanges)
                                         {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes())
+                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
                                             {
                                                 // 石を取り除くぜ☆（＾～＾）
                                                 BoardController.ChangeColorToSpace(this.BoardModel, this, zShapedIndex);
@@ -662,8 +662,8 @@
             var paddingTop = board.Height * 0.05;
             var columnInterval = board.Width / BoardDiv;
             var rowInterval = board.Height / BoardDiv;
-            var row = index / BoardModel.ColumnSize;
-            var column = index % BoardModel.ColumnSize + SignLen;
+            var row = index / mainWindow.BoardModel.ColumnSize;
+            var column = index % mainWindow.BoardModel.ColumnSize + SignLen;
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);

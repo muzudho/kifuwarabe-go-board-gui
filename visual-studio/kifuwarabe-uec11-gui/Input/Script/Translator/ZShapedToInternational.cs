@@ -13,10 +13,10 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var zShapedRowO0 = zShapedIndexO0 / BoardModel.ColumnSize;
-            var zShapedColumnO0 = zShapedIndexO0 % BoardModel.ColumnSize;
+            var zShapedRowO0 = zShapedIndexO0 / model.ColumnSize;
+            var zShapedColumnO0 = zShapedIndexO0 % model.ColumnSize;
 
-            return (model.RowLastO0 - zShapedRowO0) * BoardModel.ColumnSize + zShapedColumnO0;
+            return (model.RowLastO0 - zShapedRowO0) * model.ColumnSize + zShapedColumnO0;
         }
 
         /*

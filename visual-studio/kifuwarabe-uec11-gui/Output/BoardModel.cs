@@ -16,7 +16,7 @@
         /// <summary>
         /// 19路盤☆（＾～＾）
         /// </summary>
-        public static int ColumnSize => 19;
+        public int ColumnSize => 19;
 
         /// <summary>
         /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
