@@ -172,9 +172,9 @@
                 {
                     MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(), (left, top)=>
                     {
-                        // 大きさ☆（＾～＾）
-                        star.Width = board.Width / BoardDiv * 0.4;
-                        star.Height = board.Height / BoardDiv * 0.4;
+                        // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
+                        star.Width = board.Width / BoardDiv * 0.3;
+                        star.Height = board.Height / BoardDiv * 0.3;
 
                         Canvas.SetLeft(star, left - star.Width / 2);
                         Canvas.SetTop(star, top - star.Height / 2);
