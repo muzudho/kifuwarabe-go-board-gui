@@ -953,4 +953,12 @@ ToJson():
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
 「　あっ、待てだぜ☆　盤にまだ　星　が書いてないぜ☆」
 
+# 2019-11-04 20:00頃
+
+![20191104wpf35.png](https://crieit.now.sh/upload_images/90b0846ffb60f7a637c1f6a1c631e72c5dc00b79ee7bb.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　よし、描けたぜ☆」
+
+
 ＜書きかけ＞

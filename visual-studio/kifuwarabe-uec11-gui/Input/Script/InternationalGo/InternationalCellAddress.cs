@@ -51,13 +51,13 @@
         /// <returns></returns>
         public new static int ToIndex(int rowNumberO0, int columnNumberO0)
         {
-            return (InputScriptDocument.RowLastO0 - rowNumberO0) * InputScriptDocument.BoardSize + columnNumberO0;
+            return (InputScriptDocument.RowLastO0 - rowNumberO0) * InputScriptDocument.ColumnSize + columnNumberO0;
         }
 
         public new static InternationalCellAddress FromIndex(int zShapedIndexO0)
         {
-            var rowNumberO0 = zShapedIndexO0 / InputScriptDocument.BoardSize;
-            var columnNumberO0 = zShapedIndexO0 % InputScriptDocument.BoardSize;
+            var rowNumberO0 = zShapedIndexO0 / InputScriptDocument.ColumnSize;
+            var columnNumberO0 = zShapedIndexO0 % InputScriptDocument.ColumnSize;
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 
