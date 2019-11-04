@@ -10,7 +10,7 @@
         /// <summary>
         /// 英語がいうところの、単語☆（＾～＾）
         /// </summary>
-        private static Regex regex = new Regex("(\\w+)", RegexOptions.Compiled);
+        private static Regex regex = new Regex("^(\\w+)", RegexOptions.Compiled);
 
         /// <summary>
         /// マッチングした文字☆（＾～＾）

@@ -10,7 +10,7 @@
         /// <summary>
         /// ホワイト・スペース☆（＾～＾）
         /// </summary>
-        private static Regex regex = new Regex("(\\s+)", RegexOptions.Compiled);
+        private static Regex regex = new Regex("^(\\s+)", RegexOptions.Compiled);
 
         /// <summary>
         /// マッチングした文字☆（＾～＾）

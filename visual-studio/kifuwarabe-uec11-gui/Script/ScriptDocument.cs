@@ -41,9 +41,24 @@
 
             foreach (var line in text.Split(Environment.NewLine))
             {
+                // 行頭のスペースは読み飛ばすぜ☆（＾～＾）
+                var (whiteSpace, next) = WhiteSpace.Parse(line, 0);
+
+                // 行頭が `#` なら、その行は読み飛ばせだぜ☆（＾～＾）
+                ExactlyKeyword commentSymbol;
+                (commentSymbol, next) = ExactlyKeyword.Parse("#", line, next);
+                if (commentSymbol != null)
+                {
+                    Trace.WriteLine($"Comment         | {line}");
+                    continue;
+                }
+
                 Trace.WriteLine($"Read            | {line}");
 
-                var (commandName, next) = Word.Parse(line, 0);
+                Word commandName;
+                (commandName, next) = Word.Parse(line, 0);
+                Trace.WriteLine($"Command         | {commandName?.Text}");
+
                 if (commandName != null)
                 {
                     switch (commandName.Text)
