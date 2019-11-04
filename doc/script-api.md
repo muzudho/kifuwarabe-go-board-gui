@@ -55,7 +55,7 @@ Escape sequence:
 |Typing|Description|
 |---|---|
 |\n|改行|
-|\\|\|
+|\\\\|\\|
 
 それ以外のエスケープ文字は全部無効☆（＾～＾）  
 
