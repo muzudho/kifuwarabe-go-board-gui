@@ -11,7 +11,6 @@
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
-    using KifuwarabeUec11Gui.InputScript.Translator;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
@@ -52,6 +51,7 @@
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
         private List<Ellipse> Stones { get; set; }
+        private List<Ellipse> Stars { get; set; }
         private List<Label> RowLabels { get; set; }
         private List<Label> ColumnLabels { get; set; }
         private Random Random { get; set; }
@@ -64,7 +64,7 @@
         /// <summary>
         /// 符号の1列☆（＾～＾）
         /// </summary>
-        private static int SignLen = 1;
+        private static int SignLen => 1;
 
         public MainWindow()
         {
@@ -74,6 +74,7 @@
             this.VerticalLines = new List<Line>();
             this.HorizontalLines = new List<Line>();
             this.Stones = new List<Ellipse>();
+            this.Stars = new List<Ellipse>();
             this.RowLabels = new List<Label>();
             this.ColumnLabels = new List<Label>();
 
@@ -93,6 +94,10 @@
             RepaintWindow((MainWindow)sender);
         }
 
+        /// <summary>
+        /// TODO リサイズしてないなら　設定しなおさなくていいものも　ここに書いてあるな☆（＾～＾）減らせそう☆（＾～＾）
+        /// </summary>
+        /// <param name="mainWindow"></param>
         private static void RepaintWindow(MainWindow mainWindow)
         {
             var grid = mainWindow.grid;
@@ -138,6 +143,7 @@
                 line.X2 = line.X1;
                 line.Y2 = line.Y1 + rowInterval * 18;
             }
+
             // ヨコ線をタテに並べるぜ☆（＾～＾）
             for (var row = 0; row < InputScriptDocument.BoardSize; row++)
             {
@@ -156,12 +162,33 @@
             }
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
+            // １９路盤の星を描こうぜ☆（＾～＾）？
+            var starSigns = new string[] { "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4" };
+            for (var i = 0; i < 9; i++)
+            {
+                var star = mainWindow.Stars[i];
+                var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0);
+                if (internationalCellAddress!=null)
+                {
+                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(), (left, top)=>
+                    {
+                        // 大きさ☆（＾～＾）
+                        star.Width = board.Width / BoardDiv * 0.4;
+                        star.Height = board.Height / BoardDiv * 0.4;
+
+                        Canvas.SetLeft(star, left - star.Width / 2);
+                        Canvas.SetTop(star, top - star.Height / 2);
+                    });
+                }
+            }
+
             // 石を描こうぜ☆（＾～＾）？
             for (var i = 0; i < InputScriptDocument.CellCount; i++)
             {
                 var stone = mainWindow.Stones[i];
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
                 {
+                    // 大きさ☆（＾～＾）
                     stone.Width = board.Width / BoardDiv * 0.8;
                     stone.Height = board.Height / BoardDiv * 0.8;
 
@@ -417,7 +444,8 @@
                             // GUI出力 を書き込むやつ☆（＾～＾）
                             // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
                             // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
-                            using (var outputJsonWriter = new OutputJsonWriter("output.json")) {
+                            using (var outputJsonWriter = new OutputJsonWriter("output.json"))
+                            {
                                 outputJsonWriter.WriteLine(new OutputJsonDocument(this.BoardModel, this.State).ToJson());
                                 outputJsonWriter.Flush();
                             }
@@ -486,7 +514,33 @@
                 canvas.Children.Add(line);
             }
 
-            // 黒石を描いて非表示にして持っておこう☆（＾～＾）？
+            // 星を９つ描いて持っておこうぜ☆（＾～＾）？
+            for (var i = 0; i < 9; i++)
+            {
+                var row = i / InputScriptDocument.BoardSize;
+                var column = i % InputScriptDocument.BoardSize;
+
+                var star = new Ellipse();
+                star.Name = $"star{i}";
+                star.Width = 1;
+                star.Height = 1;
+                // star.StrokeThickness = 1.0;
+                // stone.Visibility = Visibility.Hidden;
+                // Panel.SetZIndex(stone, 115);
+                Panel.SetZIndex(star, 9115);
+
+                // 黒丸で☆（＾～＾）
+                star.Fill = Brushes.Black;
+                // stone.Stroke = Brushes.Black;
+
+                // 盤☆（＾～＾）
+                Canvas.SetLeft(star, 0);
+                Canvas.SetTop(star, 0);
+                this.Stars.Add(star);
+                canvas.Children.Add(star);
+            }
+
+            // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
             for (var i = 0; i < InputScriptDocument.CellCount; i++)
             {
                 var row = i / InputScriptDocument.BoardSize;
@@ -500,22 +554,10 @@
                 stone.Visibility = Visibility.Hidden;
                 Panel.SetZIndex(stone, 120);
 
-                /*
                 // とりあえず黒石にして作っておこうぜ☆（＾～＾）
-                // カラー
-                if (this.Random.Next(0, 2) == 0)
-                {
-                */
                 stone.Fill = Brushes.Black;
                 stone.Stroke = Brushes.White;
-                /*
-                }
-                else
-                {
-                    stone.Fill = Brushes.White;
-                    stone.Stroke = Brushes.Black;
-                }
-                */
+
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(stone, 0);
                 Canvas.SetTop(stone, 0);

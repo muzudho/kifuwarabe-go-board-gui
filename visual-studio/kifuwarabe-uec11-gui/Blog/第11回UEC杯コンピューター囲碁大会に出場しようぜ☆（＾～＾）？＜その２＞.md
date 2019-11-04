@@ -856,4 +856,101 @@ ToJson():
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
 「　↑こんな感じでコード量増やさずに　さくっと JSON を出力してくれるぜ☆」
 
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　盤上の石は 配列で出すの？」
+
+# 2019-11-04 16:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　飯食った☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　こんな時間に……☆　コーヒーか☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　input.txt を読みにくる間隔をミリ秒で指定できる `interval-msec` と、
+アプリケーションを安全に終了する `exit` も欲しくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　じゃあ付けるかだぜ……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　付けた☆ すごいすんなりウィンドウ閉じるぜ☆」
+
+# 2019-11-04 17:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　画面上の 石に当たる楕円オブジェクトと、ゲーム・データとしての石の色と、
+それを同時に更新するプログラムの、ビュー・モデル・コントローラーの３つに分けるの大変☆」
+
+# 2019-11-04 18:00頃
+
+![20191104wpf33a1.png](https://crieit.now.sh/upload_images/2df8030b2c1b4f7e7e1f670df96bd4895dbff1887c498.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑石を配列として持つと 1, 1, 1, 1, …みたいなのが縦に３６１行もできてしまうんだが☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　じゃあインデントを止めろだぜ☆」
+
+![20191104wpf33a2.png](https://crieit.now.sh/upload_images/f490b0d0b22abe89d9a955011af5e1365dbff1cabe6fb.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑とほほ☆　整形は　勝手にやってくれだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　`output.json` はどんなタイミングで書きだされるの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　とりあえず、 `input.txt` を GUI に反映したタイミングだぜ☆」
+
+![20191104wpf34.png](https://crieit.now.sh/upload_images/24deac583a858b07a527c807f1a324505dbff458cbd6c.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　あっ、 `set move = D4` をすると `D16` に赤い四角が表示されるバグがあるぜ☆！」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　じゃあ直せ☆」
+
+# 2019-11-04 19:00頃
+
+```
+        public static int ConvertIndex(int zShapedIndexO0)
+        {
+            var zShapedRowO0 = zShapedIndexO0 / InputScriptDocument.BoardSize;
+            var zShapedColumnO0 = zShapedIndexO0 % InputScriptDocument.BoardSize;
+
+            return (InputScriptDocument.RowLastO0 - zShapedRowO0) + zShapedColumnO0;
+        }
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑バグ発見☆」
+
+
+```
+        public static int ConvertIndex(int zShapedIndexO0)
+        {
+            var zShapedRowO0 = zShapedIndexO0 / InputScriptDocument.BoardSize;
+            var zShapedColumnO0 = zShapedIndexO0 % InputScriptDocument.BoardSize;
+
+            return (InputScriptDocument.RowLastO0 - zShapedRowO0) * InputScriptDocument.BoardSize + zShapedColumnO0;
+        }
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　↑修正☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dbe2d6e24eb1.gif)
+「　単体テスト　足りてないわねぇ」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　その他のバグも修正だぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dbe2d3d81958.gif)
+「　囲碁のルールを入れてくれだぜ☆ `bestmove D4` で　やりたいんだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dbe2d1941edb.gif)
+「　あっ、待てだぜ☆　盤にまだ　星　が書いてないぜ☆」
+
 ＜書きかけ＞
