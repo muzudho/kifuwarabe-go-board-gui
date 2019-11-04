@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
+    using KifuwarabeUec11Gui.Output;
 
 
     /// <summary>
@@ -29,7 +30,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColorInstructionArgument, int) Parse(string text, int start)
+        public static (ColorInstructionArgument, int) Parse(string text, int start, BoardModel model)
         {
             var cellRanges = new List<InternationalCellRange>();
             var next = start;
@@ -49,7 +50,7 @@
 
                 InternationalCellRange cellRange;
                 {
-                    (cellRange, next) = InternationalCellRange.Parse(text, next);
+                    (cellRange, next) = InternationalCellRange.Parse(text, next, model);
                     if (cellRange == null)
                     {
                         // おわり☆（＾～＾）
@@ -70,13 +71,13 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public string ToDisplay(BoardModel model)
         {
             // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
             var tokens = new List<string>();
             foreach (var cellRange in this.CellRanges)
             {
-                tokens.Add(cellRange.ToDisplay());
+                tokens.Add(cellRange.ToDisplay(model));
             }
 
             return $"{string.Join(' ', tokens)}";

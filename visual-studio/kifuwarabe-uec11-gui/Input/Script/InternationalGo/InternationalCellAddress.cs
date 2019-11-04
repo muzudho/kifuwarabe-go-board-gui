@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript.InternationalGo
 {
+    using System;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Output;
 
@@ -15,7 +16,7 @@
         {
         }
 
-        public new static (InternationalCellAddress, int) Parse(string text, int start)
+        public new static (InternationalCellAddress, int) Parse(string text, int start, BoardModel model)
         {
             InternationalColumnAddress columnAddress;
             var next = 0;
@@ -32,7 +33,7 @@
 
             InternationalRowAddress rowAddress;
             {
-                (rowAddress, next) = InternationalRowAddress.Parse(text, next);
+                (rowAddress, next) = InternationalRowAddress.Parse(text, next, model);
                 if (rowAddress == null)
                 {
                     // 片方でもマッチしなければ、非マッチ☆（＾～＾）
@@ -50,9 +51,14 @@
         /// <param name="rowNumberO0"></param>
         /// <param name="columnNumberO0"></param>
         /// <returns></returns>
-        public new static int ToIndex(int rowNumberO0, int columnNumberO0)
+        public new static int ToIndex(int rowNumberO0, int columnNumberO0, BoardModel model)
         {
-            return (BoardModel.RowLastO0 - rowNumberO0) * BoardModel.ColumnSize + columnNumberO0;
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            return (model.RowLastO0 - rowNumberO0) * BoardModel.ColumnSize + columnNumberO0;
         }
 
         public new static InternationalCellAddress FromIndex(int zShapedIndexO0)
@@ -62,18 +68,18 @@
             return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
         }
 
-        public override int ToIndex()
+        public override int ToIndex(BoardModel model)
         {
-            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0);
+            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
 
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public override string ToDisplay()
+        public override string ToDisplay(BoardModel model)
         {
-            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay()}";
+            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay(model)}";
         }
     }
 }

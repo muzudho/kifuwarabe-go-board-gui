@@ -46,7 +46,7 @@
         /// <summary>
         /// 盤の状態☆（＾～＾）
         /// </summary>
-        private BoardModel BoardModel { get; set; }
+        public BoardModel BoardModel { get; private set; }
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
@@ -145,7 +145,7 @@
             }
 
             // ヨコ線をタテに並べるぜ☆（＾～＾）
-            for (var row = 0; row < BoardModel.RowSize; row++)
+            for (var row = 0; row < mainWindow.BoardModel.RowSize; row++)
             {
                 var line = mainWindow.HorizontalLines[row];
                 Canvas.SetLeft(line, 0);
@@ -167,10 +167,10 @@
             for (var i = 0; i < 9; i++)
             {
                 var star = mainWindow.Stars[i];
-                var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0);
+                var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0, mainWindow.BoardModel);
                 if (internationalCellAddress!=null)
                 {
-                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(), (left, top)=>
+                    MainWindow.PutAnythingOnNode(mainWindow, internationalCellAddress.ToIndex(mainWindow.BoardModel), (left, top)=>
                     {
                         // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
                         star.Width = board.Width / BoardDiv * 0.3;
@@ -183,7 +183,7 @@
             }
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < BoardModel.CellCount; i++)
+            for (var i = 0; i < mainWindow.BoardModel.CellCount; i++)
             {
                 var stone = mainWindow.Stones[i];
                 PutAnythingOnNode(mainWindow, i, (left, top) =>
@@ -210,11 +210,11 @@
                 label.Height = rowInterval * 1.8;
                 // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                 Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + SignLen));
-                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * BoardModel.RowSize);
+                Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * mainWindow.BoardModel.RowSize);
             }
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            for (var row = 0; row < BoardModel.RowSize; row++)
+            for (var row = 0; row < mainWindow.BoardModel.RowSize; row++)
             {
                 var label = mainWindow.RowLabels[row];
 
@@ -271,7 +271,7 @@
                         this.CommunicationLogWriter.Flush();
                     }
 
-                    var scriptDocument = InputScriptDocument.Parse(text);
+                    var scriptDocument = InputScriptDocument.Parse(text, this.BoardModel);
                     if (scriptDocument != null)
                     {
                         foreach (var instruction in scriptDocument.Instructions)
@@ -314,7 +314,7 @@
                                                 break;
                                             case "move":
                                                 {
-                                                    var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0);
+                                                    var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0, this.BoardModel);
                                                     if (cellAddress != null)
                                                     {
                                                         LastMoveMarkerController.SetAddress(this.State, this, cellAddress);

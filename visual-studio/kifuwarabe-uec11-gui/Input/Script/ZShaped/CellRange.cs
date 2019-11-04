@@ -27,12 +27,12 @@
             this.EndsCellAddress = endsCellAddress;
         }
 
-        public static (CellRange, int) Parse(string text, int start)
+        public static (CellRange, int) Parse(string text, int start, BoardModel model)
         {
             var next = start;
 
             CellAddress startsCellAddress;
-            (startsCellAddress, next) = CellAddress.Parse(text, next);
+            (startsCellAddress, next) = CellAddress.Parse(text, next, model);
             if (startsCellAddress == null)
             {
                 // 構文不一致☆（＾～＾）
@@ -52,7 +52,7 @@
             }
 
             CellAddress endsCellAddress;
-            (endsCellAddress, next) = CellAddress.Parse(text, next);
+            (endsCellAddress, next) = CellAddress.Parse(text, next, model);
             if (endsCellAddress == null)
             {
                 // 構文不一致☆（＾～＾）コロンが付いていて尻切れトンボなら不一致、諦めろだぜ☆（＾～＾）
@@ -128,10 +128,10 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay()
+        public virtual string ToDisplay(BoardModel model)
         {
-            var starts = this.StartsCellAddress.ToDisplay();
-            var ends = this.EndsCellAddress.ToDisplay();
+            var starts = this.StartsCellAddress.ToDisplay(model);
+            var ends = this.EndsCellAddress.ToDisplay(model);
 
             if (starts == ends)
             {

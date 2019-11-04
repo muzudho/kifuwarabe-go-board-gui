@@ -18,7 +18,7 @@ namespace KifuwarabeUec11Gui.InputScript
             this.ColumnAddress = columnAddress;
         }
 
-        public static (CellAddress, int) Parse(string text, int start)
+        public static (CellAddress, int) Parse(string text, int start, BoardModel model)
         {
             ColumnAddress columnAddress;
             var next = 0;
@@ -35,7 +35,7 @@ namespace KifuwarabeUec11Gui.InputScript
 
             RowAddress rowAddress;
             {
-                (rowAddress, next) = RowAddress.Parse(text, next);
+                (rowAddress, next) = RowAddress.Parse(text, next, model);
                 if (rowAddress == null)
                 {
                     // 片方でもマッチしなければ、非マッチ☆（＾～＾）
@@ -47,7 +47,7 @@ namespace KifuwarabeUec11Gui.InputScript
             return (new CellAddress(rowAddress, columnAddress), next);
         }
 
-        public static int ToIndex(int rowNumberO0, int columnNumberO0)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0, BoardModel model)
         {
             return rowNumberO0 * BoardModel.ColumnSize + columnNumberO0;
         }
@@ -66,18 +66,18 @@ namespace KifuwarabeUec11Gui.InputScript
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
-        public virtual int ToIndex()
+        public virtual int ToIndex(BoardModel model)
         {
-            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0);
+            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
 
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay()
+        public virtual string ToDisplay(BoardModel model)
         {
-            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay()}";
+            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay(model)}";
         }
     }
 }

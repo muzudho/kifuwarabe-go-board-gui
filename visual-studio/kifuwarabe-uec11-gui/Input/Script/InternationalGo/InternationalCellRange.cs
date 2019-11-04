@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript.InternationalGo
 {
     using KifuwarabeUec11Gui.InputScript.Translator;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// 入力時と、出力時だけ 国際式囲碁の盤の表示に合わせろだぜ☆（＾～＾）
@@ -15,12 +16,12 @@
         {
         }
 
-        public new static (InternationalCellRange, int) Parse(string text, int start)
+        public new static (InternationalCellRange, int) Parse(string text, int start, BoardModel model)
         {
             var next = start;
 
             InternationalCellAddress startsCellAddress;
-            (startsCellAddress, next) = InternationalCellAddress.Parse(text, next);
+            (startsCellAddress, next) = InternationalCellAddress.Parse(text, next, model);
             if (startsCellAddress == null)
             {
                 // 構文不一致☆（＾～＾）
@@ -40,7 +41,7 @@
             }
 
             InternationalCellAddress endsCellAddress;
-            (endsCellAddress, next) = InternationalCellAddress.Parse(text, next);
+            (endsCellAddress, next) = InternationalCellAddress.Parse(text, next, model);
             if (endsCellAddress == null)
             {
                 // 構文不一致☆（＾～＾）
@@ -55,10 +56,10 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public override string ToDisplay()
+        public override string ToDisplay(BoardModel model)
         {
-            var starts = ZShapedToInternational.ConvertCellAddress(this.StartsCellAddress).ToDisplay();
-            var ends = ZShapedToInternational.ConvertCellAddress(this.EndsCellAddress).ToDisplay();
+            var starts = ZShapedToInternational.ConvertCellAddress(this.StartsCellAddress).ToDisplay(model);
+            var ends = ZShapedToInternational.ConvertCellAddress(this.EndsCellAddress).ToDisplay(model);
 
             if (starts == ends)
             {

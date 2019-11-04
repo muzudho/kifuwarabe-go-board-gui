@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript.InternationalGo
 {
+    using System;
     using System.Globalization;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Output;
@@ -17,22 +18,32 @@
         {
         }
 
-        public new static (InternationalRowAddress, int) Parse(string text, int start)
+        public new static (InternationalRowAddress, int) Parse(string text, int start, BoardModel model)
         {
-            var (rowAddress, next) = RowAddress.Parse(text, start);
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var (rowAddress, next) = RowAddress.Parse(text, start, model);
 
             // 内部的には Z字方向式表記で持つ☆（＾～＾）
-            return (new InternationalRowAddress(BoardModel.RowLastO0 - rowAddress.NumberO0), next);
+            return (new InternationalRowAddress(model.RowLastO0 - rowAddress.NumberO0), next);
         }
 
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public override string ToDisplay()
+        public override string ToDisplay(BoardModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             // 上下をひっくり返して 1 を足す☆（＾ｑ＾）
-            return (BoardModel.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
+            return (model.RowLastO0 - this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);
         }
     }
 }

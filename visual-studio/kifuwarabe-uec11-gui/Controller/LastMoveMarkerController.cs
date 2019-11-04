@@ -32,7 +32,7 @@
             model.LastMoveIndex = zShapedIndex;
 
             // 表示するときは 国際囲碁式 のように上下逆にひっくり返そうぜ☆（＾～＾）
-            view.lastMoveValue.Content = InternationalCellAddress.FromIndex(zShapedIndex).ToDisplay();
+            view.lastMoveValue.Content = InternationalCellAddress.FromIndex(zShapedIndex).ToDisplay(view.BoardModel);
         }
 
         public static void SetAddress(State model, MainWindow view, CellAddress cellAddress)
@@ -56,8 +56,8 @@
             // Trace.WriteLine($"Move            | cellAddress.ToIndex() = {cellAddress.ToIndex()}");
             // Trace.WriteLine($"Move            | Convert = {ZShapedToInternational.ConvertIndex(cellAddress.ToIndex())}");
             // 上下逆にひっくり返そうぜ☆（＾～＾）
-            model.LastMoveIndex = ZShapedToInternational.ConvertIndex(cellAddress.ToIndex());
-            view.lastMoveValue.Content = cellAddress.ToDisplay();
+            model.LastMoveIndex = ZShapedToInternational.ConvertIndex(cellAddress.ToIndex(view.BoardModel), view.BoardModel);
+            view.lastMoveValue.Content = cellAddress.ToDisplay(view.BoardModel);
         }
 
         public static void Repaint(State model, MainWindow view)

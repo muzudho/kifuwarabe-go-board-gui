@@ -59,12 +59,13 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColorInstructionArgumentTest()
         {
-            Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5).Item1?.ToDisplay());
-            Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white b19 k2 s1", 5).Item1?.ToDisplay());
-            Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space c19 k3 r1", 5).Item1?.ToDisplay());
+            var boardModel = new BoardModel();
+            Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white b19 k2 s1", 5, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space c19 k3 r1", 5, boardModel).Item1?.ToDisplay(boardModel));
 
             // ç¨çáå^ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space a2:b1 c4:d3 e5", 5).Item1?.ToDisplay());
+            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space a2:b1 c4:d3 e5", 5, boardModel).Item1?.ToDisplay(boardModel));
         }
 
         /// <summary>
@@ -73,11 +74,12 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellRange()
         {
-            Assert.AreEqual("C7:E9", InternationalCellRange.Parse("c7:e9", 0).Item1?.ToDisplay());
-            Assert.AreEqual("E9:C7", InternationalCellRange.Parse("e9:c7", 0).Item1?.ToDisplay());
+            var boardModel = new BoardModel();
+            Assert.AreEqual("C7:E9", InternationalCellRange.Parse("c7:e9", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("E9:C7", InternationalCellRange.Parse("e9:c7", 0, boardModel).Item1?.ToDisplay(boardModel));
 
             // íZèkï\ãLÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("F5", InternationalCellRange.Parse("F5:F5", 0).Item1?.ToDisplay());
+            Assert.AreEqual("F5", InternationalCellRange.Parse("F5:F5", 0, boardModel).Item1?.ToDisplay(boardModel));
 
             // ì‡ïîÉCÉìÉfÉbÉNÉXÇ‡ämîFÅôÅiÅOÅ`ÅOÅj
             /*
@@ -108,7 +110,7 @@ namespace UnitTestProject1
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
                 // âEå®è„Ç™ÇËÅôÅiÅOÅ`ÅOÅj
-                InternationalCellRange.Parse("H7:K9", 0).Item1?.Foreach((index, r, c) =>
+                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach((index, r, c) =>
                 {
                     indexes.Add(index);
                 });
@@ -121,7 +123,7 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("K9:H7", 0).Item1?.Foreach((index, r, c) =>
+                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach((index, r, c) =>
                 {
                     indexes.Add(index);
                 });
@@ -135,9 +137,10 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("H7:K9", 0).Item1?.Foreach((indexO0, r, c) =>
+                InternationalCellRange.Parse("H7:K9", 0, boardModel).Item1?.Foreach((indexO0, r, c) =>
                 {
-                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay());
+                    var boardModel = new BoardModel();
+                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay(boardModel));
                 });
 
                 Assert.AreEqual("H7 J7 K7 H8 J8 K8 H9 J9 K9", string.Join(' ', signs));
@@ -147,9 +150,10 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                InternationalCellRange.Parse("K9:H7", 0).Item1?.Foreach((indexO0, r, c) =>
+                InternationalCellRange.Parse("K9:H7", 0, boardModel).Item1?.Foreach((indexO0, r, c) =>
                 {
-                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay());
+                    var boardModel = new BoardModel();
+                    signs.Add(InternationalCellAddress.FromIndex(indexO0).ToDisplay(boardModel));
                 });
 
                 Assert.AreEqual("K9 J9 H9 K8 J8 H8 K7 J7 H7", string.Join(' ', signs));
@@ -162,11 +166,12 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestZShapedCellRange()
         {
-            Assert.AreEqual("C7:E9", CellRange.Parse("c7:e9", 0).Item1?.ToDisplay());
-            Assert.AreEqual("E9:C7", CellRange.Parse("e9:c7", 0).Item1?.ToDisplay());
+            var boardModel = new BoardModel();
+            Assert.AreEqual("C7:E9", CellRange.Parse("c7:e9", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("E9:C7", CellRange.Parse("e9:c7", 0, boardModel).Item1?.ToDisplay(boardModel));
 
             // íZèkï\ãLÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("F5", CellRange.Parse("F5:F5", 0).Item1?.ToDisplay());
+            Assert.AreEqual("F5", CellRange.Parse("F5:F5", 0, boardModel).Item1?.ToDisplay(boardModel));
 
             // ì‡ïîÉCÉìÉfÉbÉNÉXÇ‡ämîFÅôÅiÅOÅ`ÅOÅj
             /*
@@ -196,10 +201,10 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 var msg = new StringBuilder();
-                var (cellRange, next) = CellRange.Parse("h7:j9", 0);
+                var (cellRange, next) = CellRange.Parse("h7:j9", 0, boardModel);
                 if (cellRange != null)
                 {
-                    msg.AppendLine($"cellRange | {cellRange.ToDisplay()}");
+                    msg.AppendLine($"cellRange | {cellRange.ToDisplay(boardModel)}");
                     cellRange.Foreach((index, r, c) =>
                     {
                         indexes.Add(index);
@@ -219,7 +224,7 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 var msg = new StringBuilder();
-                var (cellRange, next) = CellRange.Parse("j9:h7", 0);
+                var (cellRange, next) = CellRange.Parse("j9:h7", 0, boardModel);
                 if (cellRange != null)
                 {
                     cellRange.Foreach((index, r, c) =>
@@ -242,14 +247,14 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 var msg = new StringBuilder();
-                var (cellRange, next) = CellRange.Parse("h7:j9", 0);
+                var (cellRange, next) = CellRange.Parse("h7:j9", 0, boardModel);
                 if (cellRange != null)
                 {
                     cellRange.Foreach((indexO0, r, c) =>
                     {
                         var cellAddress = CellAddress.FromIndex(indexO0);
-                        msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex()}");
-                        signs.Add(cellAddress.ToDisplay());
+                        msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex(boardModel)}");
+                        signs.Add(cellAddress.ToDisplay(boardModel));
                     });
 
                     Assert.AreEqual("H7 I7 J7 H8 I8 J8 H9 I9 J9", string.Join(' ', signs), msg.ToString());
@@ -264,14 +269,14 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 var msg = new StringBuilder();
-                var (cellRange, next) = CellRange.Parse("j9:h7", 0);
+                var (cellRange, next) = CellRange.Parse("j9:h7", 0, boardModel);
                 if (cellRange != null)
                 {
                     cellRange.Foreach((indexO0, r, c) =>
                     {
                         var cellAddress = CellAddress.FromIndex(indexO0);
-                        msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex()}");
-                        signs.Add(cellAddress.ToDisplay());
+                        msg.AppendLine($"indexO0={indexO0} {cellAddress.ToIndex(boardModel)}");
+                        signs.Add(cellAddress.ToDisplay(boardModel));
                     });
 
                     Assert.AreEqual("J9 I9 H9 J8 I8 H8 J7 I7 H7", string.Join(' ', signs), msg.ToString());
@@ -289,31 +294,32 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellAddress()
         {
-            Assert.AreEqual("A1", InternationalCellAddress.Parse("A1", 0).Item1?.ToDisplay());
-            Assert.AreEqual("B2", InternationalCellAddress.Parse("B2", 0).Item1?.ToDisplay());
-            Assert.AreEqual("C3", InternationalCellAddress.Parse("C3", 0).Item1?.ToDisplay());
-            Assert.AreEqual("D4", InternationalCellAddress.Parse("D4", 0).Item1?.ToDisplay());
-            Assert.AreEqual("E5", InternationalCellAddress.Parse("E5", 0).Item1?.ToDisplay());
-            Assert.AreEqual("F6", InternationalCellAddress.Parse("F6", 0).Item1?.ToDisplay());
-            Assert.AreEqual("G7", InternationalCellAddress.Parse("G7", 0).Item1?.ToDisplay());
-            Assert.AreEqual("H8", InternationalCellAddress.Parse("H8", 0).Item1?.ToDisplay());
-            Assert.AreEqual("J9", InternationalCellAddress.Parse("J9", 0).Item1?.ToDisplay());
-            Assert.AreEqual("K10", InternationalCellAddress.Parse("K10", 0).Item1?.ToDisplay());
-            Assert.AreEqual("L11", InternationalCellAddress.Parse("L11", 0).Item1?.ToDisplay());
-            Assert.AreEqual("M12", InternationalCellAddress.Parse("M12", 0).Item1?.ToDisplay());
-            Assert.AreEqual("N13", InternationalCellAddress.Parse("N13", 0).Item1?.ToDisplay());
-            Assert.AreEqual("O14", InternationalCellAddress.Parse("O14", 0).Item1?.ToDisplay());
-            Assert.AreEqual("P15", InternationalCellAddress.Parse("P15", 0).Item1?.ToDisplay());
-            Assert.AreEqual("Q16", InternationalCellAddress.Parse("Q16", 0).Item1?.ToDisplay());
-            Assert.AreEqual("R17", InternationalCellAddress.Parse("R17", 0).Item1?.ToDisplay());
-            Assert.AreEqual("S18", InternationalCellAddress.Parse("S18", 0).Item1?.ToDisplay());
-            Assert.AreEqual("T19", InternationalCellAddress.Parse("T19", 0).Item1?.ToDisplay());
+            var boardModel = new BoardModel();
+            Assert.AreEqual("A1", InternationalCellAddress.Parse("A1", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("B2", InternationalCellAddress.Parse("B2", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("C3", InternationalCellAddress.Parse("C3", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("D4", InternationalCellAddress.Parse("D4", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("E5", InternationalCellAddress.Parse("E5", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("F6", InternationalCellAddress.Parse("F6", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("G7", InternationalCellAddress.Parse("G7", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("H8", InternationalCellAddress.Parse("H8", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("J9", InternationalCellAddress.Parse("J9", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("K10", InternationalCellAddress.Parse("K10", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("L11", InternationalCellAddress.Parse("L11", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("M12", InternationalCellAddress.Parse("M12", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("N13", InternationalCellAddress.Parse("N13", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("O14", InternationalCellAddress.Parse("O14", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("P15", InternationalCellAddress.Parse("P15", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("Q16", InternationalCellAddress.Parse("Q16", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("R17", InternationalCellAddress.Parse("R17", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("S18", InternationalCellAddress.Parse("S18", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("T19", InternationalCellAddress.Parse("T19", 0, boardModel).Item1?.ToDisplay(boardModel));
 
             // è¨ï∂éöÇÕÅAëÂï∂éöÇ…ïœä∑ÅB
-            Assert.AreEqual("A19", InternationalCellAddress.Parse("a19", 0).Item1?.ToDisplay());
-            Assert.AreEqual("B19", InternationalCellAddress.Parse("b19", 0).Item1?.ToDisplay());
-            Assert.AreEqual("S19", InternationalCellAddress.Parse("s19", 0).Item1?.ToDisplay());
-            Assert.AreEqual("T19", InternationalCellAddress.Parse("t19", 0).Item1?.ToDisplay());
+            Assert.AreEqual("A19", InternationalCellAddress.Parse("a19", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("B19", InternationalCellAddress.Parse("b19", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("S19", InternationalCellAddress.Parse("s19", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("T19", InternationalCellAddress.Parse("t19", 0, boardModel).Item1?.ToDisplay(boardModel));
         }
 
         /// <summary>
@@ -353,47 +359,49 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalRowAddress()
         {
+            var boardModel = new BoardModel();
+
             // ÉCÉìÉfÉbÉNÉXämîFÅôÅiÅOÅ`ÅOÅjì‡ïîìIÇ…ÇÕçsî‘çÜÇÕÅ@Ç–Ç¡Ç≠ÇËï‘Ç¡ÇƒÇ¢ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(18, InternationalRowAddress.Parse("1", 0).Item1?.NumberO0);
-            Assert.AreEqual(17, InternationalRowAddress.Parse("2", 0).Item1?.NumberO0);
-            Assert.AreEqual(16, InternationalRowAddress.Parse("3", 0).Item1?.NumberO0);
-            Assert.AreEqual(15, InternationalRowAddress.Parse("1234", 3).Item1?.NumberO0);
-            Assert.AreEqual(14, InternationalRowAddress.Parse("12345", 4).Item1?.NumberO0);
-            Assert.AreEqual(13, InternationalRowAddress.Parse("123456", 5).Item1?.NumberO0);
-            Assert.AreEqual(12, InternationalRowAddress.Parse("7", 0).Item1?.NumberO0);
-            Assert.AreEqual(11, InternationalRowAddress.Parse("8", 0).Item1?.NumberO0);
-            Assert.AreEqual(10, InternationalRowAddress.Parse("9", 0).Item1?.NumberO0);
-            Assert.AreEqual(9, InternationalRowAddress.Parse("10", 0).Item1?.NumberO0);
-            Assert.AreEqual(8, InternationalRowAddress.Parse("11", 0).Item1?.NumberO0);
-            Assert.AreEqual(7, InternationalRowAddress.Parse("12", 0).Item1?.NumberO0);
-            Assert.AreEqual(6, InternationalRowAddress.Parse("12345678901213", 12).Item1?.NumberO0);
-            Assert.AreEqual(5, InternationalRowAddress.Parse("123456789012314", 13).Item1?.NumberO0);
-            Assert.AreEqual(4, InternationalRowAddress.Parse("1234567890123415", 14).Item1?.NumberO0);
-            Assert.AreEqual(3, InternationalRowAddress.Parse("16", 0).Item1?.NumberO0);
-            Assert.AreEqual(2, InternationalRowAddress.Parse("17", 0).Item1?.NumberO0);
-            Assert.AreEqual(1, InternationalRowAddress.Parse("18", 0).Item1?.NumberO0);
-            Assert.AreEqual(0, InternationalRowAddress.Parse("19", 0).Item1?.NumberO0);
+            Assert.AreEqual(18, InternationalRowAddress.Parse("1", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(17, InternationalRowAddress.Parse("2", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(16, InternationalRowAddress.Parse("3", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(15, InternationalRowAddress.Parse("1234", 3, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(14, InternationalRowAddress.Parse("12345", 4, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(13, InternationalRowAddress.Parse("123456", 5, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(12, InternationalRowAddress.Parse("7", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(11, InternationalRowAddress.Parse("8", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(10, InternationalRowAddress.Parse("9", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(9, InternationalRowAddress.Parse("10", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(8, InternationalRowAddress.Parse("11", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(7, InternationalRowAddress.Parse("12", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(6, InternationalRowAddress.Parse("12345678901213", 12, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(5, InternationalRowAddress.Parse("123456789012314", 13, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(4, InternationalRowAddress.Parse("1234567890123415", 14, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(3, InternationalRowAddress.Parse("16", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(2, InternationalRowAddress.Parse("17", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(1, InternationalRowAddress.Parse("18", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(0, InternationalRowAddress.Parse("19", 0, boardModel).Item1?.NumberO0);
 
             // ï\ãLämîFÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("1", InternationalRowAddress.Parse("1", 0).Item1?.ToDisplay());
-            Assert.AreEqual("2", InternationalRowAddress.Parse("2", 0).Item1?.ToDisplay());
-            Assert.AreEqual("3", InternationalRowAddress.Parse("3", 0).Item1?.ToDisplay());
-            Assert.AreEqual("4", InternationalRowAddress.Parse("1234", 3).Item1?.ToDisplay());
-            Assert.AreEqual("5", InternationalRowAddress.Parse("12345", 4).Item1?.ToDisplay());
-            Assert.AreEqual("6", InternationalRowAddress.Parse("123456", 5).Item1?.ToDisplay());
-            Assert.AreEqual("7", InternationalRowAddress.Parse("7", 0).Item1?.ToDisplay());
-            Assert.AreEqual("8", InternationalRowAddress.Parse("8", 0).Item1?.ToDisplay());
-            Assert.AreEqual("9", InternationalRowAddress.Parse("9", 0).Item1?.ToDisplay());
-            Assert.AreEqual("10", InternationalRowAddress.Parse("10", 0).Item1?.ToDisplay());
-            Assert.AreEqual("11", InternationalRowAddress.Parse("11", 0).Item1?.ToDisplay());
-            Assert.AreEqual("12", InternationalRowAddress.Parse("12", 0).Item1?.ToDisplay());
-            Assert.AreEqual("13", InternationalRowAddress.Parse("12345678901213", 12).Item1?.ToDisplay());
-            Assert.AreEqual("14", InternationalRowAddress.Parse("123456789012314", 13).Item1?.ToDisplay());
-            Assert.AreEqual("15", InternationalRowAddress.Parse("1234567890123415", 14).Item1?.ToDisplay());
-            Assert.AreEqual("16", InternationalRowAddress.Parse("16", 0).Item1?.ToDisplay());
-            Assert.AreEqual("17", InternationalRowAddress.Parse("17", 0).Item1?.ToDisplay());
-            Assert.AreEqual("18", InternationalRowAddress.Parse("18", 0).Item1?.ToDisplay());
-            Assert.AreEqual("19", InternationalRowAddress.Parse("19", 0).Item1?.ToDisplay());
+            Assert.AreEqual("1", InternationalRowAddress.Parse("1", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("2", InternationalRowAddress.Parse("2", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("3", InternationalRowAddress.Parse("3", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("4", InternationalRowAddress.Parse("1234", 3, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("5", InternationalRowAddress.Parse("12345", 4, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("6", InternationalRowAddress.Parse("123456", 5, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("7", InternationalRowAddress.Parse("7", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("8", InternationalRowAddress.Parse("8", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("9", InternationalRowAddress.Parse("9", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("10", InternationalRowAddress.Parse("10", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("11", InternationalRowAddress.Parse("11", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("12", InternationalRowAddress.Parse("12", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("13", InternationalRowAddress.Parse("12345678901213", 12, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("14", InternationalRowAddress.Parse("123456789012314", 13, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("15", InternationalRowAddress.Parse("1234567890123415", 14, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("16", InternationalRowAddress.Parse("16", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("17", InternationalRowAddress.Parse("17", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("18", InternationalRowAddress.Parse("18", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("19", InternationalRowAddress.Parse("19", 0, boardModel).Item1?.ToDisplay(boardModel));
         }
 
         /// <summary>
@@ -402,47 +410,49 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestZShapedRowAddress()
         {
+            var boardModel = new BoardModel();
+
             // ÉCÉìÉfÉbÉNÉXämîFÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(0, RowAddress.Parse("1", 0).Item1?.NumberO0);
-            Assert.AreEqual(1, RowAddress.Parse("2", 0).Item1?.NumberO0);
-            Assert.AreEqual(2, RowAddress.Parse("3", 0).Item1?.NumberO0);
-            Assert.AreEqual(3, RowAddress.Parse("1234", 3).Item1?.NumberO0);
-            Assert.AreEqual(4, RowAddress.Parse("12345", 4).Item1?.NumberO0);
-            Assert.AreEqual(5, RowAddress.Parse("123456", 5).Item1?.NumberO0);
-            Assert.AreEqual(6, RowAddress.Parse("7", 0).Item1?.NumberO0);
-            Assert.AreEqual(7, RowAddress.Parse("8", 0).Item1?.NumberO0);
-            Assert.AreEqual(8, RowAddress.Parse("9", 0).Item1?.NumberO0);
-            Assert.AreEqual(9, RowAddress.Parse("10", 0).Item1?.NumberO0);
-            Assert.AreEqual(10, RowAddress.Parse("11", 0).Item1?.NumberO0);
-            Assert.AreEqual(11, RowAddress.Parse("12", 0).Item1?.NumberO0);
-            Assert.AreEqual(12, RowAddress.Parse("12345678901213", 12).Item1?.NumberO0);
-            Assert.AreEqual(13, RowAddress.Parse("123456789012314", 13).Item1?.NumberO0);
-            Assert.AreEqual(14, RowAddress.Parse("1234567890123415", 14).Item1?.NumberO0);
-            Assert.AreEqual(15, RowAddress.Parse("16", 0).Item1?.NumberO0);
-            Assert.AreEqual(16, RowAddress.Parse("17", 0).Item1?.NumberO0);
-            Assert.AreEqual(17, RowAddress.Parse("18", 0).Item1?.NumberO0);
-            Assert.AreEqual(18, RowAddress.Parse("19", 0).Item1?.NumberO0);
+            Assert.AreEqual(0, RowAddress.Parse("1", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(1, RowAddress.Parse("2", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(2, RowAddress.Parse("3", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(3, RowAddress.Parse("1234", 3, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(4, RowAddress.Parse("12345", 4, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(5, RowAddress.Parse("123456", 5, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(6, RowAddress.Parse("7", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(7, RowAddress.Parse("8", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(8, RowAddress.Parse("9", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(9, RowAddress.Parse("10", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(10, RowAddress.Parse("11", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(11, RowAddress.Parse("12", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(12, RowAddress.Parse("12345678901213", 12, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(13, RowAddress.Parse("123456789012314", 13, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(14, RowAddress.Parse("1234567890123415", 14, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(15, RowAddress.Parse("16", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(16, RowAddress.Parse("17", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(17, RowAddress.Parse("18", 0, boardModel).Item1?.NumberO0);
+            Assert.AreEqual(18, RowAddress.Parse("19", 0, boardModel).Item1?.NumberO0);
 
             // ï\ãLämîFÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("1", RowAddress.Parse("1", 0).Item1?.ToDisplay());
-            Assert.AreEqual("2", RowAddress.Parse("2", 0).Item1?.ToDisplay());
-            Assert.AreEqual("3", RowAddress.Parse("3", 0).Item1?.ToDisplay());
-            Assert.AreEqual("4", RowAddress.Parse("1234", 3).Item1?.ToDisplay());
-            Assert.AreEqual("5", RowAddress.Parse("12345", 4).Item1?.ToDisplay());
-            Assert.AreEqual("6", RowAddress.Parse("123456", 5).Item1?.ToDisplay());
-            Assert.AreEqual("7", RowAddress.Parse("7", 0).Item1?.ToDisplay());
-            Assert.AreEqual("8", RowAddress.Parse("8", 0).Item1?.ToDisplay());
-            Assert.AreEqual("9", RowAddress.Parse("9", 0).Item1?.ToDisplay());
-            Assert.AreEqual("10", RowAddress.Parse("10", 0).Item1?.ToDisplay());
-            Assert.AreEqual("11", RowAddress.Parse("11", 0).Item1?.ToDisplay());
-            Assert.AreEqual("12", RowAddress.Parse("12", 0).Item1?.ToDisplay());
-            Assert.AreEqual("13", RowAddress.Parse("12345678901213", 12).Item1?.ToDisplay());
-            Assert.AreEqual("14", RowAddress.Parse("123456789012314", 13).Item1?.ToDisplay());
-            Assert.AreEqual("15", RowAddress.Parse("1234567890123415", 14).Item1?.ToDisplay());
-            Assert.AreEqual("16", RowAddress.Parse("16", 0).Item1?.ToDisplay());
-            Assert.AreEqual("17", RowAddress.Parse("17", 0).Item1?.ToDisplay());
-            Assert.AreEqual("18", RowAddress.Parse("18", 0).Item1?.ToDisplay());
-            Assert.AreEqual("19", RowAddress.Parse("19", 0).Item1?.ToDisplay());
+            Assert.AreEqual("1", RowAddress.Parse("1", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("2", RowAddress.Parse("2", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("3", RowAddress.Parse("3", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("4", RowAddress.Parse("1234", 3, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("5", RowAddress.Parse("12345", 4, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("6", RowAddress.Parse("123456", 5, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("7", RowAddress.Parse("7", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("8", RowAddress.Parse("8", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("9", RowAddress.Parse("9", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("10", RowAddress.Parse("10", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("11", RowAddress.Parse("11", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("12", RowAddress.Parse("12", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("13", RowAddress.Parse("12345678901213", 12, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("14", RowAddress.Parse("123456789012314", 13, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("15", RowAddress.Parse("1234567890123415", 14, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("16", RowAddress.Parse("16", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("17", RowAddress.Parse("17", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("18", RowAddress.Parse("18", 0, boardModel).Item1?.ToDisplay(boardModel));
+            Assert.AreEqual("19", RowAddress.Parse("19", 0, boardModel).Item1?.ToDisplay(boardModel));
         }
 
         /// <summary>

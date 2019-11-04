@@ -6,12 +6,17 @@
 
     public static class ZShapedToInternational
     {
-        public static int ConvertIndex(int zShapedIndexO0)
+        public static int ConvertIndex(int zShapedIndexO0, BoardModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             var zShapedRowO0 = zShapedIndexO0 / BoardModel.ColumnSize;
             var zShapedColumnO0 = zShapedIndexO0 % BoardModel.ColumnSize;
 
-            return (BoardModel.RowLastO0 - zShapedRowO0) * BoardModel.ColumnSize + zShapedColumnO0;
+            return (model.RowLastO0 - zShapedRowO0) * BoardModel.ColumnSize + zShapedColumnO0;
         }
 
         /*

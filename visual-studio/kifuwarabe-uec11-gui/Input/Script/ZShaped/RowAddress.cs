@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// 行番号だぜ☆（＾～＾）
@@ -20,7 +21,7 @@
             this.NumberO0 = numberO0;
         }
 
-        public static (RowAddress, int) Parse(string text, int start)
+        public static (RowAddress, int) Parse(string text, int start, BoardModel model)
         {
             if (text == null)
             {
@@ -65,7 +66,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay()
+        public virtual string ToDisplay(BoardModel model)
         {
             // 入出力時では行番号は 1 から（1 Origin）持つぜ☆（＾～＾）
             return (this.NumberO0 + 1).ToString(CultureInfo.CurrentCulture);

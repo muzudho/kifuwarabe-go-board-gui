@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// GUIへの入力スクリプトだぜ☆（＾～＾）
@@ -16,7 +17,7 @@
             this.Instructions = instructions;
         }
 
-        public static InputScriptDocument Parse(string text)
+        public static InputScriptDocument Parse(string text, BoardModel model)
         {
             // 空行は無視☆（＾～＾）
             if (string.IsNullOrWhiteSpace(text))
@@ -89,7 +90,7 @@
                         case "space":
                             {
                                 ColorInstructionArgument argument;
-                                (argument, next) = ColorInstructionArgument.Parse(line, next);
+                                (argument, next) = ColorInstructionArgument.Parse(line, next, model);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
