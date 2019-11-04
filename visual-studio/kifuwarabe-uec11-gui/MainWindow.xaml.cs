@@ -262,6 +262,13 @@
                         {
                             switch (instruction.Command)
                             {
+                                case "exit":
+                                    {
+                                        // このアプリケーションを終了します。
+                                        System.Windows.Application.Current.Shutdown();
+                                    }
+                                    break;
+
                                 case "info":
                                     {
                                         // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）

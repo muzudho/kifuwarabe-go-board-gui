@@ -66,6 +66,10 @@
                 {
                     switch (commandName.Text)
                     {
+                        case "exit":
+                            instructions.Add(new Instruction(commandName.Text, null));
+                            break;
+
                         case "info":
                             {
                                 InfoInstructionArgument argument;
