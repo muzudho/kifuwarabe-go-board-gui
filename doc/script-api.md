@@ -139,7 +139,9 @@ widget w-hama.visible = false
 widget komi vsible = false
 ```
 
-ウィジェットには以下のようなものがあるぜ☆（＾～＾）
+ウィジェットには、キャンバス型と、個別型の　２種類があるぜ☆（＾～＾）
+
+キャンバス型:
 
 |Name|Description|
 |---|---|
@@ -152,6 +154,18 @@ widget komi vsible = false
 |w-time|白の持ち時間|
 |w-hama|白のアゲハマ|
 |komi|白のコミ|
+
+キャンバス型は `visible` を設定できるぜ☆（＾～＾）
+
+
+個別型:
+
+|---|---|
+|row-numbers|行番号☆（＾～＾）|
+|column-numbers|列番号☆（＾～＾）|
+|stars|盤上の星☆（＾～＾）|
+
+個別型の使い方は　サンプルを探して見てくれだぜ☆（＾～＾）
 
 
 # 連珠盤に変える例
@@ -173,7 +187,7 @@ widget w-hama.visible = false
 widget komi.visible = false
 ```
 
-今はまだ　分けないと　うまくいかないぜ☆（＾～＾）
+今はまだ　盤の設定と、指し手は　２回に分けて送らないと　うまく反映されないぜ☆（＾～＾）
 
 ```
 black h8
