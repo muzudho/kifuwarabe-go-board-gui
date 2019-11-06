@@ -167,9 +167,15 @@ set row-size = 15
 set column-size = 15
 widget row-numbers.value = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 widget column-numbers.value = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
+widget stars.value = "d4", "l4", "h8", "d12", "l12"
 widget b-hama.visible = false
 widget w-hama.visible = false
 widget komi.visible = false
+```
+
+今はまだ　分けないと　うまくいかないぜ☆（＾～＾）
+
+```
 black h8
 white h9
 black i10

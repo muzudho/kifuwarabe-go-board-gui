@@ -30,7 +30,12 @@
             {
                 "A", "B", "C", "D", "E", "F", "G", "H", "J", "K",
                 "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-            }; ;
+            };
+
+            this.StarCellAddresses = new List<string>()
+            {
+                 "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
+            };
         }
 
         /// <summary>
@@ -61,6 +66,11 @@
         /// 各列番号☆（＾～＾）
         /// </summary>
         public List<string> ColumnNumbers { get; private set; }
+
+        /// <summary>
+        /// 星の番地☆（＾～＾）
+        /// </summary>
+        public List<string> StarCellAddresses { get; private set; }
 
         /// <summary>
         /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
@@ -131,6 +141,11 @@
         public void SetColumnNumbers(List<string> columnNumbers)
         {
             this.ColumnNumbers = columnNumbers;
+        }
+
+        public void SetStarCellAddresses(List<string> cellAddresses)
+        {
+            this.StarCellAddresses = cellAddresses;
         }
     }
 }

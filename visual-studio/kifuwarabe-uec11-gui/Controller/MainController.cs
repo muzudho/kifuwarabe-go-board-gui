@@ -276,6 +276,10 @@
                                     case "column-numbers":
                                         ChangeColumnNumbers(args, boardModel);
                                         break;
+
+                                    case "stars":
+                                        ChangeStars(args, boardModel);
+                                        break;
                                 }
                             }
                             break;
@@ -337,6 +341,27 @@
                     }
 
                     model.SetColumnNumbers(new List<string>(columns));
+                    break;
+            }
+        }
+
+        private static void ChangeStars(WidgetInstructionArgument args, BoardModel model)
+        {
+            switch (args.Property)
+            {
+                case "value":
+                    var cellAddresses = args.Value.Split(',');
+                    for (int i = 0; i < cellAddresses.Length; i++)
+                    {
+                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
+                        var token = cellAddresses[i].Trim();
+                        if (1 < token.Length)
+                        {
+                            cellAddresses[i] = token.Substring(1, token.Length - 2);
+                        }
+                    }
+
+                    model.SetStarCellAddresses(new List<string>(cellAddresses));
                     break;
             }
         }

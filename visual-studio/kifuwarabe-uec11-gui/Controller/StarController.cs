@@ -25,45 +25,13 @@
                 throw new ArgumentNullException(nameof(view));
             }
 
-            string[] starSigns;
-
-            if (model.RowSize == 19 && model.ColumnSize == 19)
-            {
-                // 19路盤。囲碁盤☆（＾～＾）
-                starSigns = new string[] { "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4" };
-            }
-            else if (model.RowSize == 15 && model.ColumnSize == 15)
-            {
-                // 15道盤。連珠盤☆（＾～＾）
-                starSigns = new string[] { "D4", "M4", "H8", "D12", "M12" };
-            }
-            else if (model.RowSize == 13 && model.ColumnSize == 13)
-            {
-                // 13路盤。囲碁盤☆（＾～＾）
-                starSigns = new string[] { "D4", "G7", "K4", "D10", "K10" };
-            }
-            else if (model.RowSize == 10 && model.ColumnSize == 10)
-            {
-                // 10路盤。将棋盤☆（＾～＾）
-                starSigns = new string[] { "D4", "G4", "D7", "G7" };
-            }
-            else if (model.RowSize == 9 && model.ColumnSize == 9)
-            {
-                // 9路盤。囲碁盤☆（＾～＾）
-                starSigns = new string[] { "E5" };
-            }
-            else
-            {                
-                starSigns = Array.Empty<string>();
-            }
-
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
                 var star = view.Stars[i];
-                if (i < starSigns.Length)
+                if (i < model.StarCellAddresses.Count)
                 {
                     star.Visibility = Visibility.Visible;
-                    var (cellAddress, next) = CellAddress.Parse(starSigns[i], 0, view.BoardModel);
+                    var (cellAddress, next) = CellAddress.Parse(model.StarCellAddresses[i], 0, view.BoardModel);
                     if (cellAddress != null)
                     {
                         MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(view.BoardModel), (left, top) =>
