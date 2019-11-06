@@ -102,6 +102,22 @@
                                 }
                             }
                             break;
+
+                        case "widget":
+                            {
+                                WidgetInstructionArgument argument;
+                                (argument, next) = WidgetInstructionArgument.Parse(line, next);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
+                            }
+                            break;
                     }
                 }
             }

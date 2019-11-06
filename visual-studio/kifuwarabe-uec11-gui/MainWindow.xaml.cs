@@ -21,7 +21,7 @@
         /// <summary>
         /// 通信ログ を書き込むやつ☆（＾～＾）
         /// </summary>
-        private CommunicationLogWriter CommunicationLogWriter { get; set; }
+        public CommunicationLogWriter CommunicationLogWriter { get; private set; }
 
         /// <summary>
         /// GUI出力 を書き込むファイルの名前だぜ☆（＾～＾）
@@ -31,17 +31,17 @@
         /// <summary>
         /// 入力を読み取るやつ☆（＾～＾）
         /// </summary>
-        private InputTextReader InputTextReader { get; set; }
+        public InputTextReader InputTextReader { get; private set; }
 
         /// <summary>
         /// UIスレッドで動くタイマー☆（＾～＾）
         /// </summary>
-        private DispatcherTimer DispatchTimer { get; set; }
+        public DispatcherTimer DispatchTimer { get; private set; }
 
         /// <summary>
         /// 内部状態。
         /// </summary>
-        private State State { get; set; }
+        public State State { get; private set; }
 
         /// <summary>
         /// 盤の状態☆（＾～＾）
@@ -86,18 +86,17 @@
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RepaintWindow((MainWindow)sender);
+            this.RepaintWindow();
         }
 
         /// <summary>
         /// TODO リサイズしてないなら　設定しなおさなくていいものも　ここに書いてあるな☆（＾～＾）減らせそう☆（＾～＾）
         /// </summary>
-        /// <param name="mainWindow"></param>
-        private static void RepaintWindow(MainWindow mainWindow)
+        public void RepaintWindow()
         {
-            var grid = mainWindow.grid;
-            var board = mainWindow.board;
-            var lastMoveMarker = mainWindow.lastMoveMarker;
+            var grid = this.grid;
+            var board = this.board;
+            var lastMoveMarker = this.lastMoveMarker;
 
             // Trace.WriteLine($"サイズチェンジ 横幅={window.Width} 縦幅={window.Height} グリッド {grid.RenderSize.Width}, {grid.RenderSize.Height}");
 
@@ -119,14 +118,14 @@
             board.Height = shortenEdge;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / mainWindow.BoardModel.GetColumnDiv();
-            var rowInterval = board.Height / mainWindow.BoardModel.GetRowDiv();
+            var columnInterval = board.Width / this.BoardModel.GetColumnDiv();
+            var rowInterval = board.Height / this.BoardModel.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
-                var line = mainWindow.VerticalLines[column];
-                if (column < mainWindow.BoardModel.ColumnSize)
+                var line = this.VerticalLines[column];
+                if (column < this.BoardModel.ColumnSize)
                 {
                     line.Visibility = Visibility.Visible;
                     Canvas.SetLeft(line, 0);
@@ -139,7 +138,7 @@
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
                     line.Y1 = boardTop + board.Height * 0.05;
                     line.X2 = line.X1;
-                    line.Y2 = line.Y1 + rowInterval * mainWindow.BoardModel.GetRowLastO0();
+                    line.Y2 = line.Y1 + rowInterval * this.BoardModel.GetRowLastO0();
                 }
                 else
                 {
@@ -150,8 +149,8 @@
             // ヨコ線をタテに並べるぜ☆（＾～＾）
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var line = mainWindow.HorizontalLines[row];
-                if (row < mainWindow.BoardModel.RowSize)
+                var line = this.HorizontalLines[row];
+                if (row < this.BoardModel.RowSize)
                 {
                     Canvas.SetLeft(line, 0);
                     Canvas.SetTop(line, 0);
@@ -162,7 +161,7 @@
                     // 盤☆（＾～＾）
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
                     line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
-                    line.X2 = line.X1 + columnInterval * mainWindow.BoardModel.GetColumnLastO0();
+                    line.X2 = line.X1 + columnInterval * this.BoardModel.GetColumnLastO0();
                     line.Y2 = line.Y1;
                 }
                 else
@@ -173,19 +172,19 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
-            StarController.Repaint(mainWindow.BoardModel, mainWindow);
+            StarController.Repaint(this.BoardModel, this);
 
             // 石を描こうぜ☆（＾～＾）？
             for (var i = 0; i < HyperParameter.MaxCellCount; i++)
             {
-                var stone = mainWindow.Stones[i];
-                if (i < mainWindow.BoardModel.GetCellCount())
+                var stone = this.Stones[i];
+                if (i < this.BoardModel.GetCellCount())
                 {
-                    PutAnythingOnNode(mainWindow, i, (left, top) =>
+                    PutAnythingOnNode(this, i, (left, top) =>
                     {
                         // 大きさ☆（＾～＾）
-                        stone.Width = board.Width / mainWindow.BoardModel.GetColumnDiv() * 0.8;
-                        stone.Height = board.Height / mainWindow.BoardModel.GetRowDiv() * 0.8;
+                        stone.Width = board.Width / this.BoardModel.GetColumnDiv() * 0.8;
+                        stone.Height = board.Height / this.BoardModel.GetRowDiv() * 0.8;
 
                         Canvas.SetLeft(stone, left - stone.Width / 2);
                         Canvas.SetTop(stone, top - stone.Height / 2);
@@ -193,23 +192,23 @@
                 }
                 else
                 {
-                    StoneController.ChangeColorToSpace(mainWindow.BoardModel, mainWindow, i);
+                    StoneController.ChangeColorToSpace(this.BoardModel, this, i);
                 }
             }
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            LastMoveMarkerController.Repaint(mainWindow.State, mainWindow);
+            LastMoveMarkerController.Repaint(this.State, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberController.Repaint(mainWindow.BoardModel, mainWindow);
+            ColumnNumberController.Repaint(this.BoardModel, this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberController.Repaint(mainWindow.BoardModel, mainWindow);
+            RowNumberController.Repaint(this.BoardModel, this);
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                // mainWindow.plyLabel.FontSize = columnInterval;
-                mainWindow.plyValue.Content = $"{mainWindow.State.Ply}";
+                // this.plyLabel.FontSize = columnInterval;
+                this.plyValue.Content = $"{this.State.Ply}";
             }
         }
 
@@ -241,225 +240,7 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
-                    var text = this.InputTextReader.ReadToEnd();
-
-                    // 空行は無視☆（＾～＾）
-                    if (!string.IsNullOrWhiteSpace(text))
-                    {
-                        Trace.WriteLine($"Text            | {text}");
-                        this.CommunicationLogWriter.WriteLine(text);
-                        this.CommunicationLogWriter.Flush();
-                    }
-
-                    var scriptDocument = InputScriptDocument.Parse(text, this.BoardModel);
-                    if (scriptDocument != null)
-                    {
-                        foreach (var instruction in scriptDocument.Instructions)
-                        {
-                            switch (instruction.Command)
-                            {
-                                case "exit":
-                                    {
-                                        // このアプリケーションを終了します。
-                                        System.Windows.Application.Current.Shutdown();
-                                    }
-                                    break;
-
-                                case "info":
-                                    {
-                                        // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
-
-                                        // プロパティ☆（＾～＾）
-                                        var args = (InfoInstructionArgument)instruction.Argument;
-
-                                        // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                        infoValue.Content = SoluteNewline(args.Text);
-                                    }
-                                    break;
-
-                                case "set":
-                                    {
-                                        // プロパティ☆（＾～＾）
-                                        var prop = (SetsInstructionArgument)instruction.Argument;
-                                        switch (prop.Name)
-                                        {
-                                            case "row-size":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
-                                                        {
-                                                            this.BoardModel.RowSize = outValue;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-
-                                            case "column-size":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
-                                                        {
-                                                            this.BoardModel.ColumnSize = outValue;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-
-                                            case "ply":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        this.State.Ply = outValue;
-                                                        plyValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                                    }
-                                                }
-                                                break;
-                                            case "move":
-                                                {
-                                                    var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0, this.BoardModel);
-                                                    if (cellAddress != null)
-                                                    {
-                                                        LastMoveMarkerController.SetAddress(this.State, this, cellAddress);
-                                                    }
-                                                }
-                                                break;
-                                            case "b-name":
-                                                this.State.BlackName = prop.Value;
-                                                blackNameValue.Content = prop.Value;
-                                                break;
-                                            case "b-time":
-                                                this.State.BlackTime = prop.Value;
-                                                blackTimeValue.Content = prop.Value;
-                                                break;
-                                            case "b-hama":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        this.State.BlackHama = outValue;
-                                                        blackAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                                    }
-                                                }
-                                                break;
-                                            case "w-name":
-                                                this.State.WhiteName = prop.Value;
-                                                whiteNameValue.Content = prop.Value;
-                                                break;
-                                            case "w-time":
-                                                this.State.WhiteTime = prop.Value;
-                                                whiteTimeValue.Content = prop.Value;
-                                                break;
-                                            case "w-hama":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        this.State.WhiteHama = outValue;
-                                                        whiteAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                                    }
-                                                }
-                                                break;
-                                            case "komi":
-                                                {
-                                                    if (double.TryParse(prop.Value, out double outValue))
-                                                    {
-                                                        this.State.Komi = outValue;
-                                                        komiValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                                    }
-                                                }
-                                                break;
-
-                                            case "info":
-                                                this.State.Info = prop.Value;
-
-                                                // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                                infoValue.Content = SoluteNewline(prop.Value);
-                                                break;
-
-                                            case "interval-msec":
-                                                {
-                                                    if (int.TryParse(prop.Value, out int outValue))
-                                                    {
-                                                        this.State.IntervalMsec = outValue;
-                                                        this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
-                                                        Trace.WriteLine($"interval-msec: {this.State.IntervalMsec}");
-                                                    }
-                                                }
-                                                break;
-                                        }
-                                    }
-                                    break;
-
-                                case "black":
-                                    {
-                                        var args = (ColorInstructionArgument)instruction.Argument;
-                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                        foreach (var cellRange in args.CellRanges)
-                                        {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
-                                            {
-                                                // 黒石にするぜ☆（＾～＾）
-                                                StoneController.ChangeColorToBlack(this.BoardModel, this, zShapedIndex);
-
-                                                // 最後の着手点☆（＾～＾）
-                                                LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
-                                            }
-                                        }
-                                    }
-                                    break;
-
-                                case "white":
-                                    {
-                                        var args = (ColorInstructionArgument)instruction.Argument;
-                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                        foreach (var cellRange in args.CellRanges)
-                                        {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
-                                            {
-                                                // 白石にするぜ☆（＾～＾）
-                                                StoneController.ChangeColorToWhite(this.BoardModel, this, zShapedIndex);
-
-                                                // 最後の着手点☆（＾～＾）
-                                                LastMoveMarkerController.SetIndex(this.State, this, zShapedIndex);
-                                            }
-                                        }
-                                    }
-                                    break;
-
-                                case "space":
-                                    {
-                                        var args = (ColorInstructionArgument)instruction.Argument;
-                                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                        foreach (var cellRange in args.CellRanges)
-                                        {
-                                            foreach (var zShapedIndex in cellRange.ToIndexes(this.BoardModel))
-                                            {
-                                                // 石を取り除くぜ☆（＾～＾）
-                                                StoneController.ChangeColorToSpace(this.BoardModel, this, zShapedIndex);
-                                            }
-                                        }
-                                    }
-                                    break;
-                            }
-                        }
-
-                        // 全ての入力に対応したぜ☆（＾～＾）！
-                        {
-                            // GUI出力 を書き込むやつ☆（＾～＾）
-                            // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
-                            // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
-                            using (var outputJsonWriter = new OutputJsonWriter("output.json"))
-                            {
-                                outputJsonWriter.WriteLine(new OutputJsonDocument(this.BoardModel, this.State).ToJson());
-                                outputJsonWriter.Flush();
-                            }
-                            // 画面の再描画をしようぜ☆（＾～＾）
-                            RepaintWindow(this);
-                            this.InvalidateVisual();
-                        }
-                    }
+                    MainController.Go(this);
                 };
             }
 
@@ -580,7 +361,7 @@
         /// (3) \n は 改行コード にする☆
         /// (4) 垂直タブは \ にする☆
         /// </summary>
-        private static string SoluteNewline(string text)
+        public static string SoluteNewline(string text)
         {
             var temp = text.Replace("\v", "", StringComparison.Ordinal);
             temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
