@@ -4,7 +4,7 @@
 このプログラムは何を書いているのか……という顔をしているお前らのために。
 
 
-# テキスト・ファイル通信という謎のシステム☆（＾～＾）
+# テキスト・ファイル入出力 という謎のシステム☆（＾～＾）
 
 ![screen-shot-1a1.png](./img/screen-shot-1a1.png)  
 ↑  
@@ -101,6 +101,7 @@ set name = value
 |row-size|int|行数☆（＾～＾） 0～19☆（＾～＾）|
 |column-size|int|列数☆（＾～＾） 0～19☆（＾～＾）|
 
+
 # 盤に石を置くなら `space`、 `black`、 `white` を使いこなせだぜ☆（＾～＾）
 
 
@@ -124,4 +125,30 @@ white A1 B2:D4 E5 F6:H8
 ```
 
 お絵描きができるな☆（＾～＾）
+
+
+# ウィジェットを非表示にしたいなら `widget` コマンドを使えだぜ☆（＾～＾）
+
+Example:
+
+```
+widget b-hama.visible = false
+widget w-hama.visible = false
+widget komi vsible = false
+```
+
+
+# 連珠盤に変える例
+
+初期状態は　囲碁盤　になっている☆（＾～＾） これを連珠盤にしたかったら こう書き替えろだぜ☆（＾～＾）
+
+Example:
+
+```
+set row-size = 15
+set column-size = 15
+widget b-hama.visible = false
+widget w-hama.visible = false
+widget komi.vsible = false
+```
 
