@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using KifuwarabeUec11Gui.Output;
 
 
@@ -17,9 +16,9 @@
         /// <summary>
         /// セル範囲のリスト☆（＾～＾）
         /// </summary>
-        public List<InternationalCellRange> CellRanges { get; private set; }
+        public List<CellRange> CellRanges { get; private set; }
 
-        public ColorInstructionArgument(List<InternationalCellRange> cellRanges)
+        public ColorInstructionArgument(List<CellRange> cellRanges)
         {
             this.CellRanges = cellRanges;
         }
@@ -32,7 +31,7 @@
         /// <returns></returns>
         public static (ColorInstructionArgument, int) Parse(string text, int start, BoardModel model)
         {
-            var cellRanges = new List<InternationalCellRange>();
+            var cellRanges = new List<CellRange>();
             var next = start;
 
             // リスト☆（＾～＾）最初のスペースは読み飛ばすぜ☆（＾～＾）
@@ -48,9 +47,9 @@
                     }
                 }
 
-                InternationalCellRange cellRange;
+                CellRange cellRange;
                 {
-                    (cellRange, next) = InternationalCellRange.Parse(text, next, model);
+                    (cellRange, next) = CellRange.Parse(text, next, model);
                     if (cellRange == null)
                     {
                         // おわり☆（＾～＾）

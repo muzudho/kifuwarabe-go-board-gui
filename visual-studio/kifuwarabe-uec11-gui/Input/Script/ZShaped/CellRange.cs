@@ -128,10 +128,10 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay(BoardModel model)
+        public string ToDisplay(BoardModel model)
         {
-            var starts = this.StartsCellAddress.ToDisplay(model);
-            var ends = this.EndsCellAddress.ToDisplay(model);
+            var starts = this.StartsCellAddress.ToDisplayTrimed(model);
+            var ends = this.EndsCellAddress.ToDisplayTrimed(model);
 
             if (starts == ends)
             {

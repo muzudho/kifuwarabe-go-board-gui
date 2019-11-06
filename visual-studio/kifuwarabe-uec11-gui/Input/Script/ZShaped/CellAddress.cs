@@ -1,8 +1,8 @@
-﻿using System;
-using KifuwarabeUec11Gui.Output;
-
-namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeUec11Gui.InputScript
 {
+    using System;
+    using KifuwarabeUec11Gui.Output;
+
     /// <summary>
     /// Z字方向式セル番地☆（＾～＾） A1 とか T19 みたいなやつだぜ☆（＾～＾）左上端が A1 ☆（＾～＾）
     /// 
@@ -79,9 +79,18 @@ namespace KifuwarabeUec11Gui.InputScript
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(BoardModel model)
+        public string ToDisplayNoTrim(BoardModel model)
         {
-            return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplay(model)}";
+            return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayNoTrim(model)}";
+        }
+
+        /// <summary>
+        /// デバッグ表示用☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
+        public string ToDisplayTrimed(BoardModel model)
+        {
+            return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayTrimed(model)}";
         }
     }
 }

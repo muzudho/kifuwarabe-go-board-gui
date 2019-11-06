@@ -2,15 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>

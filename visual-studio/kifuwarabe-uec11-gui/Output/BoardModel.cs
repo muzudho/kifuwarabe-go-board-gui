@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Output
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -18,12 +19,11 @@
                 this.Stones.Add(Stone.None);
             }
 
-            // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）
-            this.RowNumbers = new List<string>()
+            // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
+            this.SetRowNumbers(new List<string>()
             {
-                "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8", "  9", "10",
-                "11", "12", "13", "14", "15", "16", "17", "18", "19"
-            }; ;
+                "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+            });
 
             // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
             this.ColumnNumbers = new List<string>()
@@ -51,7 +51,11 @@
         /// <summary>
         /// 各行番号☆（＾～＾）
         /// </summary>
-        public List<string> RowNumbers { get; private set; }
+        public List<string> RowNumbersNoTrim { get; private set; }
+        /// <summary>
+        /// 各行番号☆（＾～＾）
+        /// </summary>
+        public List<string> RowNumbersTrimed { get; private set; }
 
         /// <summary>
         /// 各列番号☆（＾～＾）
@@ -105,7 +109,23 @@
 
         public void SetRowNumbers(List<string> rowNumbers)
         {
-            this.RowNumbers = rowNumbers;
+            if (rowNumbers == null)
+            {
+                throw new ArgumentNullException(nameof(rowNumbers));
+            }
+
+            this.RowNumbersNoTrim = rowNumbers;
+
+            // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
+            {
+                var array = this.RowNumbersNoTrim.ToArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = array[i].Trim();
+                }
+
+                this.RowNumbersTrimed = new List<string>(array);
+            }
         }
 
         public void SetColumnNumbers(List<string> columnNumbers)

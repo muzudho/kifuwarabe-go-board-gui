@@ -7,7 +7,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
@@ -106,7 +105,7 @@
                                         break;
                                     case "move":
                                         {
-                                            var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0, boardModel);
+                                            var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, boardModel);
                                             if (cellAddress != null)
                                             {
                                                 LastMoveMarkerController.SetAddress(view.State, view, cellAddress);

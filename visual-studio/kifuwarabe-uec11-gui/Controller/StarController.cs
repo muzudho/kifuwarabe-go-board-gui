@@ -5,8 +5,8 @@
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.InputScript;
 
     /// <summary>
     /// 星を操作するぜ☆（＾～＾）
@@ -63,10 +63,10 @@
                 if (i < starSigns.Length)
                 {
                     star.Visibility = Visibility.Visible;
-                    var (internationalCellAddress, next) = InternationalCellAddress.Parse(starSigns[i], 0, view.BoardModel);
-                    if (internationalCellAddress != null)
+                    var (cellAddress, next) = CellAddress.Parse(starSigns[i], 0, view.BoardModel);
+                    if (cellAddress != null)
                     {
-                        MainWindow.PutAnythingOnNode(view, internationalCellAddress.ToIndex(view.BoardModel), (left, top) =>
+                        MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(view.BoardModel), (left, top) =>
                         {
                             // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
                             star.Width = view.board.Width / view.BoardModel.GetColumnDiv() * 0.3;

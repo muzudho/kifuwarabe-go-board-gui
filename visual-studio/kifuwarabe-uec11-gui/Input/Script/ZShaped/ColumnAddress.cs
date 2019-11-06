@@ -29,7 +29,12 @@
         /// <returns></returns>
         public static (ColumnAddress, int) Parse(string text, int start, BoardModel model)
         {
-            if (text == null || text.Length < start + 1 || model == null)
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            if (text.Length < start + 1 || model == null)
             {
                 return (null, start);
             }

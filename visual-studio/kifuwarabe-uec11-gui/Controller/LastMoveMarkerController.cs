@@ -1,14 +1,9 @@
 ﻿namespace KifuwarabeUec11Gui
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Text;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.InputScript.InternationalGo;
-    using KifuwarabeUec11Gui.InputScript.Translator;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
@@ -31,8 +26,7 @@
             // 内部的には インデックスは Z字式 で持てだぜ☆（＾～＾）
             model.LastMoveIndex = zShapedIndex;
 
-            // 表示するときは 国際囲碁式 のように上下逆にひっくり返そうぜ☆（＾～＾）
-            view.lastMoveValue.Content = InternationalCellAddress.FromIndex(zShapedIndex, view.BoardModel).ToDisplay(view.BoardModel);
+            view.lastMoveValue.Content = CellAddress.FromIndex(zShapedIndex, view.BoardModel).ToDisplayTrimed(view.BoardModel);
         }
 
         public static void SetAddress(State model, MainWindow view, CellAddress cellAddress)
@@ -53,11 +47,8 @@
             }
 
             // インデックスは Z字式 で出てくるぜ☆（＾～＾）
-            // Trace.WriteLine($"Move            | cellAddress.ToIndex() = {cellAddress.ToIndex()}");
-            // Trace.WriteLine($"Move            | Convert = {ZShapedToInternational.ConvertIndex(cellAddress.ToIndex())}");
-            // 上下逆にひっくり返そうぜ☆（＾～＾）
-            model.LastMoveIndex = ZShapedToInternational.ConvertIndex(cellAddress.ToIndex(view.BoardModel), view.BoardModel);
-            view.lastMoveValue.Content = cellAddress.ToDisplay(view.BoardModel);
+            model.LastMoveIndex = cellAddress.ToIndex(view.BoardModel);
+            view.lastMoveValue.Content = cellAddress.ToDisplayTrimed(view.BoardModel);
         }
 
         public static void Repaint(State model, MainWindow view)
