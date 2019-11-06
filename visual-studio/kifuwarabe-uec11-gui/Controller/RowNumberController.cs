@@ -38,10 +38,17 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                if (row < view.BoardModel.RowSize)
+                if (model.RowNumbers.Count <= row || view.BoardModel.RowSize <= row)
+                {
+                    // 範囲外アクセス。
+                    var label = view.RowLabels[row];
+                    label.Visibility = Visibility.Hidden;
+                }
+                else
                 {
                     // 逆さにするぜ☆（＾～＾）
-                    var label = view.RowLabels[view.BoardModel.GetRowLastO0() - row];
+                    var label = view.RowLabels[row];
+                    label.Content = model.RowNumbers[row];
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
@@ -50,11 +57,6 @@
                     // 盤☆（＾～＾）
                     Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
                     Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
-                }
-                else
-                {
-                    var label = view.RowLabels[row];
-                    label.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -74,19 +76,9 @@
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var number = row + 1;
-                // var number = model.RowSize - row;
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                if (9 < number)
-                {
-                    label.Content = number;
-                }
-                else
-                {
-                    // 文字位置の調整がうまく行かないので勘で調整☆（＾～＾）
-                    label.Content = $"  {number}";
-                }
                 view.RowLabels.Add(label);
                 view.canvas.Children.Add(label);
             }

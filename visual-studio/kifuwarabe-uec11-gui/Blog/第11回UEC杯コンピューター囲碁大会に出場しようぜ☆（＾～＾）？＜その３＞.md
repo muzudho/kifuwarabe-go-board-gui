@@ -199,5 +199,72 @@ MainController.cs
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
 「　ドキュメントに説明を書き足せだぜ☆」
 
+![20191106wpf42.png](https://crieit.now.sh/upload_images/54aa987a4e3c0932d0c3422e727a98185dc2c24c5a9c7.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑これで　連珠盤　になっただろ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　`I列`　が無いぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　はぁ～あ☆（／＿＼）」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　行番号のウィジェットなんて　どうすればいいんだぜ☆？」
+
+```
+widget row-number.value = A,B,C,D,E,F,G,H,J,K,L,M,N,O,P
+```
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　↑こうじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　はぁ～あ☆（／＿＼）なんで国際囲碁は　特別仕様なんだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　カンマ区切りにするのか☆？　他のは　スペース区切りなのに☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　それぐらい　特別仕様　として認めるかだぜ☆」
+
+# 2019-11-06 22:00頃
+
+BoardModel.cs
+
+```
+        public BoardModel()
+        {
+            this.Stones = new List<Stone>();
+            for (int i = 0; i < this.GetCellCount(); i++)
+            {
+                // 初期値は 空点 で☆（＾～＾）
+                this.Stones.Add(Stone.None);
+            }
+
+            // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）
+            this.RowNumbers = new List<string>()
+            {
+                "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8", "  9", "10",
+                "11", "12", "13", "14", "15", "16", "17", "18", "19"
+            };
+
+            // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
+            this.ColumnNumbers = new List<string>()
+            {
+                "A", "B", "C", "D", "E", "F", "G", "H", "J", "K",
+                "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+            };
+        }
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　可変盤はつらいよな☆　こういう変更に対応する作りにしないといけない☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　位置調整のために　半角空白まで入れるなんて……☆　いつの時代だぜ☆」
+
+
 ＜書きかけ＞
 

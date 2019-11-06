@@ -64,6 +64,8 @@
         public MainWindow()
         {
             this.State = new State();
+
+            // 盤☆（＾～＾）
             this.BoardModel = new BoardModel();
 
             this.VerticalLines = new List<Line>();
@@ -240,7 +242,7 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
-                    MainController.Go(this);
+                    MainController.Go(this.BoardModel, this);
                 };
             }
 
@@ -363,6 +365,11 @@
         /// </summary>
         public static string SoluteNewline(string text)
         {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
             var temp = text.Replace("\v", "", StringComparison.Ordinal);
             temp = temp.Replace("\\\\", "\v", StringComparison.Ordinal);
             temp = temp.Replace("\\n", "\n", StringComparison.Ordinal);

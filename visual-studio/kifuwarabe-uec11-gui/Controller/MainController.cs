@@ -2,16 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
-    using System.Windows.Shapes;
-    using System.Windows.Threading;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.InputScript.InternationalGo;
     using KifuwarabeUec11Gui.Output;
@@ -21,8 +15,18 @@
     /// </summary>
     public static class MainController
     {
-        public static void Go(MainWindow view)
+        public static void Go(BoardModel boardModel, MainWindow view)
         {
+            if (null== boardModel)
+            {
+                throw new ArgumentNullException(nameof(boardModel));
+            }
+
+            if (null == view)
+            {
+                throw new ArgumentNullException(nameof(view));
+            }
+
             var text = view.InputTextReader.ReadToEnd();
 
             // 空行は無視☆（＾～＾）
@@ -33,7 +37,7 @@
                 view.CommunicationLogWriter.Flush();
             }
 
-            var scriptDocument = InputScriptDocument.Parse(text, view.BoardModel);
+            var scriptDocument = InputScriptDocument.Parse(text, boardModel);
             if (scriptDocument != null)
             {
                 foreach (var instruction in scriptDocument.Instructions)
@@ -72,7 +76,7 @@
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
                                                 if (0 < outValue && outValue < HyperParameter.MaxRowSize)
                                                 {
-                                                    view.BoardModel.RowSize = outValue;
+                                                    boardModel.RowSize = outValue;
                                                 }
                                             }
                                         }
@@ -85,7 +89,7 @@
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
                                                 if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
                                                 {
-                                                    view.BoardModel.ColumnSize = outValue;
+                                                    boardModel.ColumnSize = outValue;
                                                 }
                                             }
                                         }
@@ -102,7 +106,7 @@
                                         break;
                                     case "move":
                                         {
-                                            var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0, view.BoardModel);
+                                            var (cellAddress, next) = InternationalCellAddress.Parse(prop.Value, 0, boardModel);
                                             if (cellAddress != null)
                                             {
                                                 LastMoveMarkerController.SetAddress(view.State, view, cellAddress);
@@ -180,10 +184,10 @@
                                 // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                 foreach (var cellRange in args.CellRanges)
                                 {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(view.BoardModel))
+                                    foreach (var zShapedIndex in cellRange.ToIndexes(boardModel))
                                     {
                                         // 黒石にするぜ☆（＾～＾）
-                                        StoneController.ChangeColorToBlack(view.BoardModel, view, zShapedIndex);
+                                        StoneController.ChangeColorToBlack(boardModel, view, zShapedIndex);
 
                                         // 最後の着手点☆（＾～＾）
                                         LastMoveMarkerController.SetIndex(view.State, view, zShapedIndex);
@@ -198,10 +202,10 @@
                                 // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                 foreach (var cellRange in args.CellRanges)
                                 {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(view.BoardModel))
+                                    foreach (var zShapedIndex in cellRange.ToIndexes(boardModel))
                                     {
                                         // 白石にするぜ☆（＾～＾）
-                                        StoneController.ChangeColorToWhite(view.BoardModel, view, zShapedIndex);
+                                        StoneController.ChangeColorToWhite(boardModel, view, zShapedIndex);
 
                                         // 最後の着手点☆（＾～＾）
                                         LastMoveMarkerController.SetIndex(view.State, view, zShapedIndex);
@@ -216,10 +220,10 @@
                                 // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                                 foreach (var cellRange in args.CellRanges)
                                 {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(view.BoardModel))
+                                    foreach (var zShapedIndex in cellRange.ToIndexes(boardModel))
                                     {
                                         // 石を取り除くぜ☆（＾～＾）
-                                        StoneController.ChangeColorToSpace(view.BoardModel, view, zShapedIndex);
+                                        StoneController.ChangeColorToSpace(boardModel, view, zShapedIndex);
                                     }
                                 }
                             }
@@ -265,6 +269,14 @@
                                     case "komi":
                                         ChangeCanvasProperty(view.komiCanvas, args);
                                         break;
+
+                                    case "row-numbers":
+                                        ChangeRowNumbers(args, boardModel);
+                                        break;
+
+                                    case "column-numbers":
+                                        ChangeColumnNumbers(args, boardModel);
+                                        break;
                                 }
                             }
                             break;
@@ -278,13 +290,55 @@
                     // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
                     using (var outputJsonWriter = new OutputJsonWriter("output.json"))
                     {
-                        outputJsonWriter.WriteLine(new OutputJsonDocument(view.BoardModel, view.State).ToJson());
+                        outputJsonWriter.WriteLine(new OutputJsonDocument(boardModel, view.State).ToJson());
                         outputJsonWriter.Flush();
                     }
                     // 画面の再描画をしようぜ☆（＾～＾）
                     view.RepaintWindow();
                     view.InvalidateVisual();
                 }
+            }
+        }
+
+        private static void ChangeRowNumbers(WidgetInstructionArgument args, BoardModel model)
+        {
+            switch (args.Property)
+            {
+                case "value":
+                    var rows = args.Value.Split(',');
+                    for (int i = 0; i < rows.Length; i++)
+                    {
+                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
+                        var token = rows[i].Trim();
+                        if (1 < token.Length)
+                        {
+                            rows[i] = token.Substring(1, token.Length - 2);
+                        }
+                    }
+
+                    model.SetRowNumbers(new List<string>(rows));
+                    break;
+            }
+        }
+
+        private static void ChangeColumnNumbers(WidgetInstructionArgument args, BoardModel model)
+        {
+            switch (args.Property)
+            {
+                case "value":
+                    var columns = args.Value.Split(',');
+                    for (int i = 0; i < columns.Length; i++)
+                    {
+                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
+                        var token = columns[i].Trim();
+                        if (1 < token.Length)
+                        {
+                            columns[i] = token.Substring(1, token.Length - 2);
+                        }
+                    }
+
+                    model.SetColumnNumbers(new List<string>(columns));
+                    break;
             }
         }
 

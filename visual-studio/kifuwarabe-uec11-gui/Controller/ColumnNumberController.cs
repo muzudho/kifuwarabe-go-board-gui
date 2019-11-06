@@ -25,8 +25,15 @@
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = view.ColumnLabels[column];
-                if (column < view.BoardModel.ColumnSize)
+                if (model.ColumnNumbers.Count <= column || view.BoardModel.ColumnSize <= column)
                 {
+                    // 範囲外アクセス。
+                    label.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    label.Content = model.ColumnNumbers[column];
+
                     // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
                     // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）
                     var shortenEdge = System.Math.Min(view.grid.RenderSize.Width, view.grid.RenderSize.Height) * 0.95;
@@ -51,10 +58,6 @@
                     Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen));
                     Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * model.RowSize);
                 }
-                else
-                {
-                    label.Visibility = Visibility.Hidden;
-                }
             }
         }
 
@@ -70,7 +73,7 @@
                 var label = new Label();
                 label.Name = $"columnLabel{column + 1}";
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                label.Content = (char)(65 + (column < 8 ? column : column + 1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
+                // label.Content = (char)(65 + (column < 8 ? column : column + 1)); // 65はAsciiCodeのA。コンピューター囲碁では I は抜く慣習。
                 view.ColumnLabels.Add(label);
                 view.canvas.Children.Add(label);
             }

@@ -137,6 +137,20 @@ widget w-hama.visible = false
 widget komi vsible = false
 ```
 
+ウィジェットには以下のようなものがあるぜ☆（＾～＾）
+
+|Name|Description|
+|---|---|
+|ply|何手目|
+|move|最後の着手|
+|b-name|先手（黒番）の氏名|
+|b-time|黒の持ち時間|
+|b-hama|黒のアゲハマ|
+|w-name|後手（白番）の氏名|
+|w-time|白の持ち時間|
+|w-hama|白のアゲハマ|
+|komi|白のコミ|
+
 
 # 連珠盤に変える例
 
@@ -145,10 +159,17 @@ widget komi vsible = false
 Example:
 
 ```
+set b-name = Kifuwarabe
+set w-name = Warabemoti
 set row-size = 15
 set column-size = 15
+widget row-numbers.value = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+widget column-numbers.value = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
 widget b-hama.visible = false
 widget w-hama.visible = false
-widget komi.vsible = false
+widget komi.visible = false
+black h8
+white h9
+black i10
 ```
 
