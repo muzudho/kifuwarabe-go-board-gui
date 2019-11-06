@@ -45,14 +45,14 @@
                     ConvertColumnAddress(cellAddress.ColumnAddress));
         }
 
-        public static InternationalColumnAddress ConvertColumnAddress(ColumnAddress columnAddress)
+        public static ColumnAddress ConvertColumnAddress(ColumnAddress columnAddress)
         {
             if (columnAddress == null)
             {
                 throw new ArgumentNullException(nameof(columnAddress));
             }
 
-            return new InternationalColumnAddress(columnAddress.NumberO0);
+            return new ColumnAddress(columnAddress.NumberO0);
         }
 
         public static InternationalRowAddress ConvertRowAddress(RowAddress rowAddress)

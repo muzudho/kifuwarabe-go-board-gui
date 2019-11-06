@@ -24,7 +24,7 @@ namespace KifuwarabeUec11Gui.InputScript
             ColumnAddress columnAddress;
             var next = 0;
             {
-                (columnAddress, next) = ColumnAddress.Parse(text, start);
+                (columnAddress, next) = ColumnAddress.Parse(text, start, model);
                 if (columnAddress == null)
                 {
                     // 片方でもマッチしなければ、非マッチ☆（＾～＾）
@@ -70,7 +70,7 @@ namespace KifuwarabeUec11Gui.InputScript
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
-        public virtual int ToIndex(BoardModel model)
+        public int ToIndex(BoardModel model)
         {
             return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
@@ -79,9 +79,9 @@ namespace KifuwarabeUec11Gui.InputScript
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay(BoardModel model)
+        public string ToDisplay(BoardModel model)
         {
-            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay(model)}";
+            return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplay(model)}";
         }
     }
 }

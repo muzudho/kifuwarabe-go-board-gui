@@ -11,17 +11,17 @@
     /// </summary>
     public class InternationalCellAddress : CellAddress
     {
-        public InternationalCellAddress(InternationalRowAddress rowAddress, InternationalColumnAddress columnAddress)
+        public InternationalCellAddress(InternationalRowAddress rowAddress, ColumnAddress columnAddress)
             : base(rowAddress, columnAddress)
         {
         }
 
         public new static (InternationalCellAddress, int) Parse(string text, int start, BoardModel model)
         {
-            InternationalColumnAddress columnAddress;
+            ColumnAddress columnAddress;
             var next = 0;
             {
-                (columnAddress, next) = InternationalColumnAddress.Parse(text, start);
+                (columnAddress, next) = ColumnAddress.Parse(text, start, model);
                 if (columnAddress == null)
                 {
                     // 片方でもマッチしなければ、非マッチ☆（＾～＾）
@@ -70,21 +70,7 @@
 
             var rowNumberO0 = zShapedIndexO0 / model.ColumnSize;
             var columnNumberO0 = zShapedIndexO0 % model.ColumnSize;
-            return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new InternationalColumnAddress(columnNumberO0));
-        }
-
-        public override int ToIndex(BoardModel model)
-        {
-            return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
-        }
-
-        /// <summary>
-        /// デバッグ表示用☆（＾～＾）
-        /// </summary>
-        /// <returns></returns>
-        public override string ToDisplay(BoardModel model)
-        {
-            return $"{this.ColumnAddress.ToDisplay()}{this.RowAddress.ToDisplay(model)}";
+            return new InternationalCellAddress(new InternationalRowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
     }
 }

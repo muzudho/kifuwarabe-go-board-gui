@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using KifuwarabeUec11Gui.Output;
 
-    public delegate void IndexCallback(int index, int rowXXX, int columnXXX); // XXX
+    public delegate void IndexCallback(int index);
 
     /// <summary>
     /// セルの範囲指定だぜ☆（＾～＾）
@@ -107,7 +107,7 @@
                     var columnNumberO0 = this.StartsCellAddress.ColumnAddress.NumberO0 + horizontalZoom * horizontalDirection;
                     var index = rowNumberO0 * model.ColumnSize + columnNumberO0;
                     // Trace.WriteLine($"Index           | sr={this.StartsCellAddress.RowAddress.Number} vz={verticalZoom} row={rowNumber} | sc={this.StartsCellAddress.ColumnAddress.Number} hz={horizontalZoom} col={columnNumber} | index={index}.");
-                    callback(index, rowNumberO0, columnNumberO0);
+                    callback(index);
                 }
             }
         }
@@ -116,7 +116,7 @@
         {
             var hash = new HashSet<int>();
 
-            Foreach(model, (index, r, c)=>
+            Foreach(model, (index)=>
             {
                 hash.Add(index);
             });

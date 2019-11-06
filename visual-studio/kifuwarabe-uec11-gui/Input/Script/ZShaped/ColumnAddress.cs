@@ -1,6 +1,8 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
+    using System;
     using System.Globalization;
+    using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// Z字方向式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）
@@ -20,37 +22,49 @@
         }
 
         /// <summary>
-        /// Z字方向式表記の列番号をパースするぜ☆（＾～＾）
+        /// 列番号の文字をパースして数にするぜ☆（＾～＾）
         /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColumnAddress, int) Parse(string text, int start)
+        public static (ColumnAddress, int) Parse(string text, int start, BoardModel model)
         {
-            if (text == null || text.Length < start + 1)
+            if (text == null || text.Length < start + 1 || model == null)
             {
                 return (null, start);
             }
 
-            // 最初の1文字はアルファベット。
-            var column = ((char)text[start]) - 65; // 65はAsciiCodeのA。97はa。
-            if (32 <= column)
+            var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
+            var index = model.ColumnNumbers.IndexOf(oneChar);
+
+            if (index < 0)
             {
-                // 小文字から大文字へ変換。
-                column -= 32;
+                // 該当なし☆（＾～＾）
+                return (null, start);
             }
 
-            return (new ColumnAddress(column), start + 1);
+            return (new ColumnAddress(index), start + 1);
         }
 
         /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public virtual string ToDisplay()
+        public string ToDisplay(BoardModel model)
         {
-            // 65はAsciiCodeのA。97はa。
-            return ((char)(65 + this.NumberO0)).ToString(CultureInfo.CurrentCulture);
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (this.NumberO0 < 0 || model.ColumnNumbers.Count <= this.NumberO0)
+            {
+                return "#Error#";
+            }
+            else
+            {
+                return model.ColumnNumbers[this.NumberO0];
+            }
         }
     }
 }

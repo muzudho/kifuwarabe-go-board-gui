@@ -211,10 +211,10 @@ MainController.cs
 「　はぁ～あ☆（／＿＼）」
 
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
-「　行番号のウィジェットなんて　どうすればいいんだぜ☆？」
+「　列番号のウィジェットなんて　どうすればいいんだぜ☆？」
 
 ```
-widget row-number.value = A,B,C,D,E,F,G,H,J,K,L,M,N,O,P
+widget column-numbers.value = A,B,C,D,E,F,G,H,J,K,L,M,N,O,P
 ```
 
 ![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
@@ -264,6 +264,48 @@ BoardModel.cs
 
 ![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
 「　位置調整のために　半角空白まで入れるなんて……☆　いつの時代だぜ☆」
+
+```
+widget row-numbers.value = "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8", "  9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
+```
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　↑ダブルクォーテーションは必須だな☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　特別仕様が１個あるだけで　大変だぜ☆」
+
+```
+# 国際式の囲碁。19列。I列がない。
+widget row-numbers.value = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+widget column-numbers.value = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+
+# 連珠。15列。
+widget row-numbers.value = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+widget column-numbers.value = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　行番号は逆順に並べてくれだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　ぬぎぎぎぎ！」
+
+# 2019-11-06 23:00頃
+
+![20191106wpf43.png](https://crieit.now.sh/upload_images/52e38857b76530a8add7ffd387ba16d35dc2d3eb3dde2.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　表示は　連珠盤　に近づいてきたが、 `i11` という入力はできないぜ☆
+囲碁盤に i列 は無いからな☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　直せだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　列番号の表示は　ただのラベルだからな……☆　コマンド入力を　ラベルに対応づけるのは　むずかしいが
+やらなければ　入力で混乱する……☆」
+
 
 
 ＜書きかけ＞
