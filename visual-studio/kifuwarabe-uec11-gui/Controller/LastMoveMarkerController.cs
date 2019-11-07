@@ -11,6 +11,43 @@
     /// </summary>
     public static class LastMoveMarkerController
     {
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (view == null)
+            {
+                throw new ArgumentNullException(nameof(view));
+            }
+
+            // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
+            var lastMoveMarker = view.lastMoveMarker;
+
+            if (-1 < model.State.LastMoveIndex)
+            {
+                var board = view.board;
+
+                lastMoveMarker.Visibility = Visibility.Visible;
+                MainWindow.PutAnythingOnNode(view, model.State.LastMoveIndex, (left, top) =>
+                {
+                    // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
+
+                    lastMoveMarker.Width = board.Width / model.Board.GetColumnDiv() * 0.4;
+                    lastMoveMarker.Height = board.Height / model.Board.GetRowDiv() * 0.4;
+
+                    Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
+                    Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
+                });
+            }
+            else
+            {
+                lastMoveMarker.Visibility = Visibility.Hidden;
+            }
+        }
+
         public static void SetIndex(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
         {
             if (model == null)
@@ -49,43 +86,6 @@
             // インデックスは Z字式 で出てくるぜ☆（＾～＾）
             model.State.LastMoveIndex = cellAddress.ToIndex(model);
             view.lastMoveValue.Content = cellAddress.ToDisplayTrimed(model);
-        }
-
-        public static void Repaint(ApplicationObjectModel model, MainWindow view)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            if (view == null)
-            {
-                throw new ArgumentNullException(nameof(view));
-            }
-
-            // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
-            var lastMoveMarker = view.lastMoveMarker;
-
-            if (-1 < model.State.LastMoveIndex)
-            {
-                var board = view.board;
-
-                lastMoveMarker.Visibility = Visibility.Visible;
-                MainWindow.PutAnythingOnNode(view, model.State.LastMoveIndex, (left, top) =>
-                {
-                    // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
-
-                    lastMoveMarker.Width = board.Width / model.Board.GetColumnDiv() * 0.4;
-                    lastMoveMarker.Height = board.Height / model.Board.GetRowDiv() * 0.4;
-
-                    Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
-                    Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
-                });
-            }
-            else
-            {
-                lastMoveMarker.Visibility = Visibility.Hidden;
-            }
         }
     }
 }

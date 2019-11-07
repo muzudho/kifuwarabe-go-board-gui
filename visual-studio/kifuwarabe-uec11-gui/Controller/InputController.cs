@@ -12,11 +12,11 @@
     /// <summary>
     /// メイン・ウィンドウがでかくなるから　こっちへ切り離すぜ☆（＾～＾）
     /// </summary>
-    public static class MainController
+    public static class InputController
     {
         public static void Go(ApplicationObjectModel model, MainWindow view)
         {
-            if (null== model)
+            if (null == model)
             {
                 throw new ArgumentNullException(nameof(model));
             }
@@ -234,51 +234,51 @@
                                 switch (args.Name)
                                 {
                                     case "ply":
-                                        ChangeCanvasProperty(view.plyCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.plyCanvas, args);
                                         break;
 
                                     case "move":
-                                        ChangeCanvasProperty(view.lastMoveCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.lastMoveCanvas, args);
                                         break;
 
                                     case "b-name":
-                                        ChangeCanvasProperty(view.blackNameCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.blackNameCanvas, args);
                                         break;
 
                                     case "b-time":
-                                        ChangeCanvasProperty(view.blackTimeCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.blackTimeCanvas, args);
                                         break;
 
                                     case "b-hama":
-                                        ChangeCanvasProperty(view.blackAgehamaCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.blackAgehamaCanvas, args);
                                         break;
 
                                     case "w-name":
-                                        ChangeCanvasProperty(view.whiteNameCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.whiteNameCanvas, args);
                                         break;
 
                                     case "w-time":
-                                        ChangeCanvasProperty(view.whiteTimeCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.whiteTimeCanvas, args);
                                         break;
 
                                     case "w-hama":
-                                        ChangeCanvasProperty(view.whiteAgehamaCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.whiteAgehamaCanvas, args);
                                         break;
 
                                     case "komi":
-                                        ChangeCanvasProperty(view.komiCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(view.komiCanvas, args);
                                         break;
 
                                     case "row-numbers":
-                                        ChangeRowNumbers(args, model);
+                                        RowNumbersWidgetController.ChangeProperty(args, model);
                                         break;
 
                                     case "column-numbers":
-                                        ChangeColumnNumbers(args, model);
+                                        ColumnNumbersWidgetController.ChangeProperty(args, model);
                                         break;
 
                                     case "stars":
-                                        ChangeStars(args, model);
+                                        StarsWidgetController.ChangeProperty(args, model);
                                         break;
                                 }
                             }
@@ -295,7 +295,7 @@
                                 foreach (var columnChar in args.Columns)
                                 {
                                     // Trace.WriteLine($"Column          | Ch=[{columnChar}]");
-                                    if (length<=cellIndex)
+                                    if (length <= cellIndex)
                                     {
                                         break;
                                     }
@@ -340,94 +340,19 @@
                     // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
                     using (var outputJsonWriter = new OutputJsonWriter("output.json"))
                     {
-                        outputJsonWriter.WriteLine(model.ToJson());
+                        outputJsonWriter.WriteLine(view.Model.ToJson());
                         outputJsonWriter.Flush();
                     }
+
+                    // JSONを反映しようぜ☆（＾～＾）
+                    ColumnNumberController.Repaint(view.Model, view);
+                    RowNumberController.Repaint(view.Model, view);
+                    StarController.Repaint(view.Model, view);
+
                     // 画面の再描画をしようぜ☆（＾～＾）
                     view.RepaintWindow();
                     view.InvalidateVisual();
                 }
-            }
-        }
-
-        private static void ChangeRowNumbers(WidgetInstructionArgument args, ApplicationObjectModel model)
-        {
-            switch (args.Property)
-            {
-                case "value":
-                    var rows = args.Value.Split(',');
-                    for (int i = 0; i < rows.Length; i++)
-                    {
-                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
-                        var token = rows[i].Trim();
-                        if (1 < token.Length)
-                        {
-                            rows[i] = token.Substring(1, token.Length - 2);
-                        }
-                    }
-
-                    model.Board.SetRowNumbers(new List<string>(rows));
-                    break;
-            }
-        }
-
-        private static void ChangeColumnNumbers(WidgetInstructionArgument args, ApplicationObjectModel model)
-        {
-            switch (args.Property)
-            {
-                case "value":
-                    var columns = args.Value.Split(',');
-                    for (int i = 0; i < columns.Length; i++)
-                    {
-                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
-                        var token = columns[i].Trim();
-                        if (1 < token.Length)
-                        {
-                            columns[i] = token.Substring(1, token.Length - 2);
-                        }
-                    }
-
-                    model.Board.SetColumnNumbers(new List<string>(columns));
-                    break;
-            }
-        }
-
-        private static void ChangeStars(WidgetInstructionArgument args, ApplicationObjectModel model)
-        {
-            switch (args.Property)
-            {
-                case "value":
-                    var cellAddresses = args.Value.Split(',');
-                    for (int i = 0; i < cellAddresses.Length; i++)
-                    {
-                        // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
-                        var token = cellAddresses[i].Trim();
-                        if (1 < token.Length)
-                        {
-                            cellAddresses[i] = token.Substring(1, token.Length - 2);
-                        }
-                    }
-
-                    model.Board.SetStarCellAddresses(new List<string>(cellAddresses));
-                    break;
-            }
-        }
-
-        private static void ChangeCanvasProperty(Canvas canvas, WidgetInstructionArgument args)
-        {
-            switch (args.Property)
-            {
-                case "visible":
-                    switch (args.Value)
-                    {
-                        case "true":
-                            canvas.Visibility = Visibility.Visible;
-                            break;
-                        case "false":
-                            canvas.Visibility = Visibility.Hidden;
-                            break;
-                    }
-                    break;
             }
         }
     }

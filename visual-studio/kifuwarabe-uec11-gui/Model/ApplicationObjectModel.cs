@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
+    using System.Diagnostics;
     using System.Text.Json;
  
     /// <summary>
@@ -7,8 +8,8 @@
     /// </summary>
     public class ApplicationObjectModel
     {
-        public BoardModel Board { get; private set; }
-        public State State { get; private set; }
+        public BoardModel Board { get; set; }
+        public State State { get; set; }
 
         public ApplicationObjectModel()
         {
@@ -20,7 +21,20 @@
 
         public static ApplicationObjectModel Parse(string json)
         {
-            return JsonSerializer.Deserialize<ApplicationObjectModel>(json);
+            Trace.WriteLine($"json input      | {json}");
+
+            var option1 = new JsonSerializerOptions();
+            option1.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+            var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationObjectModel), option1) as ApplicationObjectModel;
+
+            {
+                var option2 = new JsonSerializerOptions();
+                option2.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                Trace.WriteLine($"json re         | {JsonSerializer.Serialize(newModel, option2)}");
+            }
+
+            return newModel;
         }
 
         public string ToJson()

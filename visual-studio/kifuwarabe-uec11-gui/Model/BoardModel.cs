@@ -51,7 +51,7 @@
         /// <summary>
         /// 置いている石☆（＾～＾）
         /// </summary>
-        public List<Stone> Stones { get; private set; }
+        public List<Stone> Stones { get; set; }
 
         /// <summary>
         /// 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
@@ -66,17 +66,17 @@
         /// <summary>
         /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
         /// </summary>
-        public List<string> RowNumbers { get; private set; }
+        public List<string> RowNumbers { get; set; }
 
         /// <summary>
         /// 各列番号☆（＾～＾）
         /// </summary>
-        public List<string> ColumnNumbers { get; private set; }
+        public List<string> ColumnNumbers { get; set; }
 
         /// <summary>
         /// 星の番地☆（＾～＾）
         /// </summary>
-        public List<string> StarCellAddresses { get; private set; }
+        public List<string> StarCellAddresses { get; set; }
 
         /// <summary>
         /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）

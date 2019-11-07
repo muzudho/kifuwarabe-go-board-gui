@@ -235,7 +235,7 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
-                    MainController.Go(this.Model, this);
+                    InputController.Go(this.Model, this);
                 };
             }
 
