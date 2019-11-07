@@ -348,6 +348,10 @@
                     ColumnNumberController.Repaint(view.Model, view);
                     RowNumberController.Repaint(view.Model, view);
                     StarController.Repaint(view.Model, view);
+                    for (int index = 0; index < HyperParameter.MaxCellCount; index++)
+                    {
+                        StoneController.Repaint(view.Model, view, index);
+                    }
 
                     // 画面の再描画をしようぜ☆（＾～＾）
                     view.RepaintWindow();

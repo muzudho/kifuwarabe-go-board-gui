@@ -13,6 +13,49 @@
     /// </summary>
     public static class StoneController
     {
+        public static void Repaint(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (view == null)
+            {
+                throw new ArgumentNullException(nameof(view));
+            }
+
+            // ビュー☆（＾～＾）
+            {
+                var stone = view.GetStone(zShapedIndex);
+
+                if (zShapedIndex < model.Board.Stones.Count)
+                {
+                    switch (model.Board.Stones[zShapedIndex])
+                    {
+                        case Stone.Black:
+                            stone.Fill = Brushes.Black;
+                            stone.Stroke = Brushes.White;
+                            stone.Visibility = Visibility.Visible;
+                            break;
+                        case Stone.White:
+                            stone.Fill = Brushes.White;
+                            stone.Stroke = Brushes.Black;
+                            stone.Visibility = Visibility.Visible;
+                            break;
+                        case Stone.None:
+                            stone.Visibility = Visibility.Hidden;
+                            break;
+                    }
+                }
+                else
+                {
+                    // 範囲外☆（＾～＾）
+                    stone.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
