@@ -118,6 +118,22 @@
                                 }
                             }
                             break;
+
+                        case "board":
+                            {
+                                BoardInstructionArgument argument;
+                                (argument, next) = BoardInstructionArgument.Parse(line, next, model);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
+                            }
+                            break;
                     }
                 }
             }

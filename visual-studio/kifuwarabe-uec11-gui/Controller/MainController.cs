@@ -283,6 +283,44 @@
                                 }
                             }
                             break;
+
+                        case "board":
+                            {
+                                var args = (BoardInstructionArgument)instruction.Argument;
+                                int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, boardModel);
+                                int length = cellIndex + boardModel.ColumnSize;
+                                // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
+
+                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                foreach (var columnChar in args.Columns)
+                                {
+                                    // Trace.WriteLine($"Column          | Ch=[{columnChar}]");
+                                    if (length<=cellIndex)
+                                    {
+                                        break;
+                                    }
+
+                                    switch (columnChar)
+                                    {
+                                        case 'b':
+                                            // 黒石にするぜ☆（＾～＾）
+                                            StoneController.ChangeColorToBlack(boardModel, view, cellIndex);
+                                            cellIndex++;
+                                            break;
+                                        case 'w':
+                                            // 白石にするぜ☆（＾～＾）
+                                            StoneController.ChangeColorToWhite(boardModel, view, cellIndex);
+                                            cellIndex++;
+                                            break;
+                                        case '.':
+                                            // 空点にするぜ☆（＾～＾）
+                                            StoneController.ChangeColorToSpace(boardModel, view, cellIndex);
+                                            cellIndex++;
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
                     }
                 }
 

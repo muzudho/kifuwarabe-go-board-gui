@@ -306,7 +306,44 @@ widget column-numbers.value = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 
 「　列番号の表示は　ただのラベルだからな……☆　コマンド入力を　ラベルに対応づけるのは　むずかしいが
 やらなければ　入力で混乱する……☆」
 
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　アルファベット１文字と、数字２文字　という構造なんだが……☆　こんなんエディットできないぜ☆」
 
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　その構造は保ってていいんじゃないの？」
+
+# 2019-11-06 24:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　内部も、入力系も、最初に国際式の囲碁をベースにしたのが　全部　ダメの原因だぜ……☆
+それをキャンセルして白紙状態に戻さないと　他に変換できないのが　無駄……☆」
+
+![20191106wpf44.png](https://crieit.now.sh/upload_images/5f0bd041a2a0a453c4f4230bfdeefb625dc2e6ca3f654.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑星の位置も、国際囲碁式なのか、連珠式なのか　どちらで指定するのか　はっきりさせないといけない☆」
+
+```
+# 国際式の囲碁。19路盤。I列がない。
+widget stars.value = "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
+
+# 13路盤
+widget stars.value = "D4", "G7", "K4", "D10", "K10"
+
+# 9路盤
+widget stars.value = "E5"
+
+# 10路盤。将棋盤☆（＾～＾）
+widget stars.value = "D4", "G4", "D7", "G7"
+
+# 連珠。15列。
+widget stars.value = "d4", "l4", "h8", "d12", "l12"
+```
+
+![20191106wpf45.png](https://crieit.now.sh/upload_images/b48bb78f9ec096b747143a7d099797575dc2ea59dddbe.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑連珠盤でけた☆　寝る☆（＾～＾）」
 
 ＜書きかけ＞
 

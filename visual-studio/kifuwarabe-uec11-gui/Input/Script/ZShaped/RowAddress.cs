@@ -1,14 +1,13 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using KifuwarabeUec11Gui.Output;
 
     /// <summary>
     /// 行番号だぜ☆（＾～＾）
     /// 
-    /// このオブジェクトは、国際式囲碁のことは知らなくていいように作れだぜ☆（＾～＾）
+    /// 実質、1～2桁の数字だぜ☆（＾～＾）
     /// </summary>
     public class RowAddress
     {
