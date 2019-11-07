@@ -105,7 +105,9 @@
                                             var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, model);
                                             if (cellAddress != null)
                                             {
-                                                LastMoveMarkerController.SetAddress(model, view, cellAddress);
+                                                var text1 = cellAddress.ToDisplayTrimed(model);
+                                                model.State.Move.Value = text1;
+                                                view.lastMoveValue.Content = text1;
                                             }
                                         }
                                         break;
@@ -118,13 +120,8 @@
                                         view.blackTimeValue.Content = prop.Value;
                                         break;
                                     case "b-hama":
-                                        {
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                model.State.BlackHama = outValue;
-                                                view.blackAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                            }
-                                        }
+                                        model.State.BlackHama.Value = prop.Value;
+                                        view.blackAgehamaValue.Content = prop.Value;
                                         break;
                                     case "w-name":
                                         model.State.WhiteName.Value = prop.Value;
@@ -135,22 +132,12 @@
                                         view.whiteTimeValue.Content = prop.Value;
                                         break;
                                     case "w-hama":
-                                        {
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                model.State.WhiteHama = outValue;
-                                                view.whiteAgehamaValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                            }
-                                        }
+                                        model.State.WhiteHama.Value = prop.Value;
+                                        view.whiteAgehamaValue.Content = prop.Value;
                                         break;
                                     case "komi":
-                                        {
-                                            if (double.TryParse(prop.Value, out double outValue))
-                                            {
-                                                model.State.Komi = outValue;
-                                                view.komiValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                            }
-                                        }
+                                        model.State.Komi.Value = prop.Value;
+                                        view.komiValue.Content = prop.Value;
                                         break;
 
                                     case "info":
@@ -186,7 +173,9 @@
                                         StoneController.ChangeColorToBlack(model, view, zShapedIndex);
 
                                         // 最後の着手点☆（＾～＾）
-                                        LastMoveMarkerController.SetIndex(model, view, zShapedIndex);
+                                        var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+                                        model.State.Move.Value = text1;
+                                        view.lastMoveValue.Content = text1;
                                     }
                                 }
                             }
@@ -204,7 +193,9 @@
                                         StoneController.ChangeColorToWhite(model, view, zShapedIndex);
 
                                         // 最後の着手点☆（＾～＾）
-                                        LastMoveMarkerController.SetIndex(model, view, zShapedIndex);
+                                        var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+                                        model.State.Move.Value = text1;
+                                        view.lastMoveValue.Content = text1;
                                     }
                                 }
                             }
@@ -231,51 +222,51 @@
                                 switch (args.Name)
                                 {
                                     case "ply":
-                                        CanvasWidgetController.ChangeProperty(view.plyCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.Ply, view.plyCanvas, args);
                                         break;
 
                                     case "move":
-                                        CanvasWidgetController.ChangeProperty(view.lastMoveCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.Move, view.lastMoveCanvas, args);
                                         break;
 
                                     case "b-name":
-                                        CanvasWidgetController.ChangeProperty(view.blackNameCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.BlackName, view.blackNameCanvas, args);
                                         break;
 
                                     case "b-time":
-                                        CanvasWidgetController.ChangeProperty(view.blackTimeCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.BlackTime, view.blackTimeCanvas, args);
                                         break;
 
                                     case "b-hama":
-                                        CanvasWidgetController.ChangeProperty(view.blackAgehamaCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.BlackHama, view.blackAgehamaCanvas, args);
                                         break;
 
                                     case "w-name":
-                                        CanvasWidgetController.ChangeProperty(view.whiteNameCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.WhiteName, view.whiteNameCanvas, args);
                                         break;
 
                                     case "w-time":
-                                        CanvasWidgetController.ChangeProperty(view.whiteTimeCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.WhiteTime, view.whiteTimeCanvas, args);
                                         break;
 
                                     case "w-hama":
-                                        CanvasWidgetController.ChangeProperty(view.whiteAgehamaCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.WhiteHama, view.whiteAgehamaCanvas, args);
                                         break;
 
                                     case "komi":
-                                        CanvasWidgetController.ChangeProperty(view.komiCanvas, args);
+                                        CanvasWidgetController.ChangeProperty(model.State.Komi, view.komiCanvas, args);
                                         break;
 
                                     case "row-numbers":
-                                        RowNumbersWidgetController.ChangeProperty(args, model);
+                                        RowNumbersWidgetController.ChangeProperty(model, args);
                                         break;
 
                                     case "column-numbers":
-                                        ColumnNumbersWidgetController.ChangeProperty(args, model);
+                                        ColumnNumbersWidgetController.ChangeProperty(model, args);
                                         break;
 
                                     case "stars":
-                                        StarsWidgetController.ChangeProperty(args, model);
+                                        StarsWidgetController.ChangeProperty(model, args);
                                         break;
                                 }
                             }

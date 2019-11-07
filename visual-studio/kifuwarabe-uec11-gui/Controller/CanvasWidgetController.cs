@@ -4,14 +4,20 @@
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.Model;
 
     public static class CanvasWidgetController
     {
-        public static void ChangeProperty(Canvas canvas, WidgetInstructionArgument args)
+        public static void ChangeProperty(CanvasWidgetModel model, Canvas view, WidgetInstructionArgument args)
         {
-            if (canvas == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(canvas));
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (view == null)
+            {
+                throw new ArgumentNullException(nameof(view));
             }
 
             if (args == null)
@@ -25,10 +31,12 @@
                     switch (args.Value)
                     {
                         case "true":
-                            canvas.Visibility = Visibility.Visible;
+                            model.Visible = true;
+                            view.Visibility = Visibility.Visible;
                             break;
                         case "false":
-                            canvas.Visibility = Visibility.Hidden;
+                            model.Visible = false;
+                            view.Visibility = Visibility.Hidden;
                             break;
                     }
                     break;

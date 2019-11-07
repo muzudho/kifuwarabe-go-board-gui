@@ -1,13 +1,24 @@
 ﻿namespace KifuwarabeUec11Gui
 {
+    using System;
     using System.Collections.Generic;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
     public static class ColumnNumbersWidgetController
     {
-        public static void ChangeProperty(WidgetInstructionArgument args, ApplicationObjectModel model)
+        public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
             switch (args.Property)
             {
                 case "value":

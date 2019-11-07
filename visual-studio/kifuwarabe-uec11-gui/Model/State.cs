@@ -13,49 +13,49 @@
         /// <summary>
         /// 何手目か。
         /// </summary>
-        public CanvasWidgetState Ply { get; set; }
+        public CanvasWidgetModel Ply { get; set; }
 
         /// <summary>
         /// 最後の着手点。
         /// </summary>
-        public CanvasWidgetState Move { get; set; }
+        public CanvasWidgetModel Move { get; set; }
 
         /// <summary>
         /// 黒の選手名。
         /// </summary>
-        public CanvasWidgetState BlackName { get; set; }
+        public CanvasWidgetModel BlackName { get; set; }
 
         /// <summary>
         /// 黒の残り時間。
         /// </summary>
-        public CanvasWidgetState BlackTime { get; set; }
+        public CanvasWidgetModel BlackTime { get; set; }
 
         /// <summary>
         /// 黒のアゲハマ。
         /// 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
         /// でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
         /// </summary>
-        public int BlackHama { get; set; }
+        public CanvasWidgetModel BlackHama { get; set; }
 
         /// <summary>
         /// 白の選手名。
         /// </summary>
-        public CanvasWidgetState WhiteName { get; set; }
+        public CanvasWidgetModel WhiteName { get; set; }
 
         /// <summary>
         /// 白の残り時間。
         /// </summary>
-        public CanvasWidgetState WhiteTime { get; set; }
+        public CanvasWidgetModel WhiteTime { get; set; }
 
         /// <summary>
         /// 白のアゲハマ。
         /// </summary>
-        public int WhiteHama { get; set; }
+        public CanvasWidgetModel WhiteHama { get; set; }
 
         /// <summary>
         /// 白のコミ。
         /// </summary>
-        public double Komi { get; set; }
+        public CanvasWidgetModel Komi { get; set; }
 
         /// <summary>
         /// GUIの画面上にメッセージを表示するぜ☆（＾～＾）
@@ -68,12 +68,15 @@
             // 初期値は 2 秒☆（＾～＾）
             this.IntervalMsec = 2000;
 
-            this.Ply = new CanvasWidgetState();
-            this.Move = new CanvasWidgetState();
-            this.BlackName = new CanvasWidgetState();
-            this.BlackTime = new CanvasWidgetState();
-            this.WhiteName = new CanvasWidgetState();
-            this.WhiteTime = new CanvasWidgetState();
+            this.Ply = new CanvasWidgetModel();
+            this.Move = new CanvasWidgetModel();
+            this.BlackName = new CanvasWidgetModel();
+            this.BlackTime = new CanvasWidgetModel();
+            this.BlackHama = new CanvasWidgetModel();
+            this.WhiteName = new CanvasWidgetModel();
+            this.WhiteTime = new CanvasWidgetModel();
+            this.WhiteHama = new CanvasWidgetModel();
+            this.Komi = new CanvasWidgetModel();
             this.Info = string.Empty;
         }
     }

@@ -7,7 +7,7 @@
 
     public static class StarsWidgetController
     {
-        public static void ChangeProperty(WidgetInstructionArgument args, ApplicationObjectModel model)
+        public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {
             if (args == null)
             {
