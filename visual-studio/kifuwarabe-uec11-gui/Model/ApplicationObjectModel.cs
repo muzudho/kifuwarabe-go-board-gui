@@ -18,6 +18,11 @@
             this.Board = new BoardModel();
         }
 
+        public static ApplicationObjectModel Parse(string json)
+        {
+            return JsonSerializer.Deserialize<ApplicationObjectModel>(json);
+        }
+
         public string ToJson()
         {
             var option = new JsonSerializerOptions();

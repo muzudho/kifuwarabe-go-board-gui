@@ -321,6 +321,15 @@
                                 }
                             }
                             break;
+
+                        case "JSON":
+                            {
+                                var args = (JsonInstructionArgument)instruction.Argument;
+                                Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
+
+                                view.SetModel(ApplicationObjectModel.Parse(args.Json));
+                            }
+                            break;
                     }
                 }
 

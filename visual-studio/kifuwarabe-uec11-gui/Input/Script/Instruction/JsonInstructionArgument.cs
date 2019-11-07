@@ -3,18 +3,18 @@
     using System;
 
     /// <summary>
-    /// `info I have a banana.` みたいなコマンド☆（＾～＾）
+    /// `JSON {ここにJSON}` みたいなコマンド☆（＾～＾）
     /// </summary>
-    public class InfoInstructionArgument
+    public class JsonInstructionArgument
     {
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string Text { get; private set; }
+        public string Json { get; private set; }
 
-        public InfoInstructionArgument(string text)
+        public JsonInstructionArgument(string text)
         {
-            this.Text = text;
+            this.Json = text;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (InfoInstructionArgument, int) Parse(string text, int start)
+        public static (JsonInstructionArgument, int) Parse(string text, int start)
         {
             if (text==null)
             {
@@ -36,7 +36,7 @@
             string value = text.Substring(next);
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new InfoInstructionArgument(value.Trim()), next);
+            return (new JsonInstructionArgument(value.Trim()), next);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.Text}";
+            return $"{this.Json}";
         }
     }
 }

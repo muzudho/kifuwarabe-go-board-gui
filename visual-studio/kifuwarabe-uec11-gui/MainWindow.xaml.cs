@@ -69,6 +69,11 @@
             InitializeComponent();
         }
 
+        public void SetModel(ApplicationObjectModel model)
+        {
+            this.Model = model;
+        }
+
         public Ellipse GetStone(int zShapedIndex)
         {
             return this.Stones[zShapedIndex];
