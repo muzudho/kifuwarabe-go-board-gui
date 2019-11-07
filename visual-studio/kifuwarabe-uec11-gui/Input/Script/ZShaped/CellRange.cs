@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     public delegate void IndexCallback(int index);
 

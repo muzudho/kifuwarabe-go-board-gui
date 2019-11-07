@@ -4,7 +4,7 @@ namespace UnitTestProject1
     using System.Diagnostics;
     using System.Text;
     using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

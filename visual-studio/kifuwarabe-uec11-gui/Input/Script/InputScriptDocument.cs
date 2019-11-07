@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// GUIへの入力スクリプトだぜ☆（＾～＾）

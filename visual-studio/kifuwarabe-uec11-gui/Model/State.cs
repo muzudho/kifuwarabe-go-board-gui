@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Output
+﻿namespace KifuwarabeUec11Gui.Model
 {
     /// <summary>
     /// 内部状態。

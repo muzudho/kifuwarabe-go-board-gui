@@ -3,7 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// 列番号☆（＾～＾）

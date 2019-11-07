@@ -4,7 +4,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// 最後の着手のマーカー☆（＾～＾）

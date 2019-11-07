@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// `board 19 .www.bbb...........` みたいなコマンドの引数☆（＾～＾）

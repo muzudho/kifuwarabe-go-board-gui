@@ -1,17 +1,16 @@
-﻿namespace KifuwarabeUec11Gui.Output
+﻿namespace KifuwarabeUec11Gui.Model
 {
     using System.Text.Json;
-    using KifuwarabeUec11Gui.Output;
-
+ 
     /// <summary>
     /// `output.json` をこれで作ろうぜ☆（＾～＾）
     /// </summary>
-    public class OutputJsonDocument
+    public class ApplicationObjectModel
     {
         public BoardModel Board { get; private set; }
         public State State { get; private set; }
 
-        public OutputJsonDocument(BoardModel board, State state)
+        public ApplicationObjectModel(BoardModel board, State state)
         {
             this.Board = board;
             this.State = state;

@@ -7,7 +7,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// メイン・ウィンドウがでかくなるから　こっちへ切り離すぜ☆（＾～＾）
@@ -331,7 +331,7 @@
                     // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
                     using (var outputJsonWriter = new OutputJsonWriter("output.json"))
                     {
-                        outputJsonWriter.WriteLine(new OutputJsonDocument(boardModel, view.State).ToJson());
+                        outputJsonWriter.WriteLine(new ApplicationObjectModel(boardModel, view.State).ToJson());
                         outputJsonWriter.Flush();
                     }
                     // 画面の再描画をしようぜ☆（＾～＾）

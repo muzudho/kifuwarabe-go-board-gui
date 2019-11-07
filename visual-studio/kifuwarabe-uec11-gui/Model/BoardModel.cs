@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Output
+﻿namespace KifuwarabeUec11Gui.Model
 {
     using System;
     using System.Collections.Generic;

@@ -5,7 +5,7 @@
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
     using KifuwarabeUec11Gui.InputScript;
 
     /// <summary>

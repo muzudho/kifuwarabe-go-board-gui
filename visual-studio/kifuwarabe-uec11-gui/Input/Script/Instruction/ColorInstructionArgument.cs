@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Output;
+    using KifuwarabeUec11Gui.Model;
 
 
     /// <summary>
