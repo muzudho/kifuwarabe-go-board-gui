@@ -54,13 +54,19 @@
         public List<Stone> Stones { get; private set; }
 
         /// <summary>
-        /// 各行番号☆（＾～＾）
+        /// 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
+        /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
         /// </summary>
-        public List<string> RowNumbersNoTrim { get; private set; }
+        private List<string> rowNumbersNoTrim;
+        public List<string> GetRowNumbersNoTrim()
+        {
+            return this.rowNumbersNoTrim;
+        }
+
         /// <summary>
-        /// 各行番号☆（＾～＾）
+        /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
         /// </summary>
-        public List<string> RowNumbersTrimed { get; private set; }
+        public List<string> RowNumbers { get; private set; }
 
         /// <summary>
         /// 各列番号☆（＾～＾）
@@ -124,17 +130,17 @@
                 throw new ArgumentNullException(nameof(rowNumbers));
             }
 
-            this.RowNumbersNoTrim = rowNumbers;
+            this.rowNumbersNoTrim = rowNumbers;
 
             // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
             {
-                var array = this.RowNumbersNoTrim.ToArray();
+                var array = this.GetRowNumbersNoTrim().ToArray();
                 for (int i = 0; i < array.Length; i++)
                 {
                     array[i] = array[i].Trim();
                 }
 
-                this.RowNumbersTrimed = new List<string>(array);
+                this.RowNumbers = new List<string>(array);
             }
         }
 

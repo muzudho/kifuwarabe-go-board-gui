@@ -168,6 +168,27 @@ widget komi vsible = false
 個別型の使い方は　サンプルを探して見てくれだぜ☆（＾～＾）
 
 
+# 盤面の入力☆（＾～＾）
+
+
+```
+board 19 bbbbbwwwww.....bbbb
+board 18 bbbbbwwwww.....bbbb
+board 17 bbbbbwwwww.....bbbb
+# 以下略☆（＾～＾）
+```
+
+
+１９行目に石を置くとき、 `board` コマンドを使っても置ける☆（＾～＾）
+
+
+|Char|Description|
+|---|---|
+|b|黒石|
+|w|白石|
+|.|空点|
+
+
 # 連珠盤に変える例
 
 初期状態は　囲碁盤　になっている☆（＾～＾） これを連珠盤にしたかったら こう書き替えろだぜ☆（＾～＾）
@@ -194,4 +215,6 @@ black h8
 white h9
 black i10
 ```
+
+
 

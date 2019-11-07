@@ -38,7 +38,7 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                if (model.RowNumbersNoTrim.Count <= row || view.BoardModel.RowSize <= row)
+                if (model.GetRowNumbersNoTrim().Count <= row || view.BoardModel.RowSize <= row)
                 {
                     // 範囲外アクセス。
                     var label = view.RowLabels[row];
@@ -47,7 +47,7 @@
                 else
                 {
                     var label = view.RowLabels[row];
-                    label.Content = model.RowNumbersNoTrim[row];
+                    label.Content = model.GetRowNumbersNoTrim()[row];
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
