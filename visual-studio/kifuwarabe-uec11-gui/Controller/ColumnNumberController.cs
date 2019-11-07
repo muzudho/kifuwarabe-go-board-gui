@@ -10,7 +10,7 @@
     /// </summary>
     public static class ColumnNumberController
     {
-        public static void Repaint(BoardModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
             if (model == null)
             {
@@ -25,14 +25,14 @@
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = view.ColumnLabels[column];
-                if (model.ColumnNumbers.Count <= column || view.BoardModel.ColumnSize <= column)
+                if (model.Board.ColumnNumbers.Count <= column || model.Board.ColumnSize <= column)
                 {
                     // 範囲外アクセス。
                     label.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    label.Content = model.ColumnNumbers[column];
+                    label.Content = model.Board.ColumnNumbers[column];
 
                     // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
                     // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）
@@ -47,8 +47,8 @@
                     var boardTop = centerY - shortenEdge / 2;
                     var paddingLeft = view.board.Width * 0.05;
                     var paddingTop = view.board.Height * 0.05;
-                    var columnInterval = view.board.Width / model.GetColumnDiv();
-                    var rowInterval = view.board.Height / model.GetRowDiv();
+                    var columnInterval = view.board.Width / model.Board.GetColumnDiv();
+                    var rowInterval = view.board.Height / model.Board.GetRowDiv();
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
@@ -56,7 +56,7 @@
                     label.Height = rowInterval * 1.8;
                     // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                     Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen));
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * model.RowSize);
+                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * model.Board.RowSize);
                 }
             }
         }

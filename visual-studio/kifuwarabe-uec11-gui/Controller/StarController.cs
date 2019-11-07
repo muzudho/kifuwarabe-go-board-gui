@@ -13,7 +13,7 @@
     /// </summary>
     public static class StarController
     {
-        public static void Repaint(BoardModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
             if (model == null)
             {
@@ -28,17 +28,17 @@
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
                 var star = view.Stars[i];
-                if (i < model.StarCellAddresses.Count)
+                if (i < model.Board.StarCellAddresses.Count)
                 {
                     star.Visibility = Visibility.Visible;
-                    var (cellAddress, next) = CellAddress.Parse(model.StarCellAddresses[i], 0, view.BoardModel);
+                    var (cellAddress, next) = CellAddress.Parse(model.Board.StarCellAddresses[i], 0, model);
                     if (cellAddress != null)
                     {
-                        MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(view.BoardModel), (left, top) =>
+                        MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(model), (left, top) =>
                         {
                             // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                            star.Width = view.board.Width / view.BoardModel.GetColumnDiv() * 0.3;
-                            star.Height = view.board.Height / view.BoardModel.GetRowDiv() * 0.3;
+                            star.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
+                            star.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
 
                             Canvas.SetLeft(star, left - star.Width / 2);
                             Canvas.SetTop(star, top - star.Height / 2);

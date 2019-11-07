@@ -10,10 +10,12 @@
         public BoardModel Board { get; private set; }
         public State State { get; private set; }
 
-        public ApplicationObjectModel(BoardModel board, State state)
+        public ApplicationObjectModel()
         {
-            this.Board = board;
-            this.State = state;
+            this.State = new State();
+
+            // 盤☆（＾～＾）
+            this.Board = new BoardModel();
         }
 
         public string ToJson()

@@ -16,7 +16,7 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeColorToBlack(BoardModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeColorToBlack(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
         {
             if (model == null)
             {
@@ -30,7 +30,7 @@
 
             // モデル☆（＾～＾）
             {
-                model.SetStone(zShapedIndex, Stone.Black);
+                model.Board.SetStone(zShapedIndex, Stone.Black);
             }
 
             // ビュー☆（＾～＾）
@@ -42,7 +42,7 @@
             }
         }
 
-        public static void ChangeColorToWhite(BoardModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeColorToWhite(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
         {
             if (model == null)
             {
@@ -56,7 +56,7 @@
 
             // モデル☆（＾～＾）
             {
-                model.SetStone(zShapedIndex, Stone.White);
+                model.Board.SetStone(zShapedIndex, Stone.White);
             }
 
             // ビュー☆（＾～＾）
@@ -68,7 +68,7 @@
             }
         }
 
-        public static void ChangeColorToSpace(BoardModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeColorToSpace(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
         {
             if (model == null)
             {
@@ -82,7 +82,7 @@
 
             // モデル☆（＾～＾）
             {
-                model.SetStone(zShapedIndex, Stone.None);
+                model.Board.SetStone(zShapedIndex, Stone.None);
             }
 
             // ビュー☆（＾～＾）

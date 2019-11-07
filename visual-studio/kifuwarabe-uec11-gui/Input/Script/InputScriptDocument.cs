@@ -17,7 +17,7 @@
             this.Instructions = instructions;
         }
 
-        public static InputScriptDocument Parse(string text, BoardModel model)
+        public static InputScriptDocument Parse(string text, ApplicationObjectModel model)
         {
             // 空行は無視☆（＾～＾）
             if (string.IsNullOrWhiteSpace(text))

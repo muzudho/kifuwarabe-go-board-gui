@@ -21,7 +21,7 @@
             this.NumberO0 = numberO0;
         }
 
-        public static (RowAddress, int) Parse(string text, int start, BoardModel model)
+        public static (RowAddress, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             if (text == null)
             {
@@ -65,7 +65,7 @@
             // 1文字以上のヒットがある場合☆（＾～＾）
 
             var oneChar = figures.ToString(CultureInfo.CurrentCulture);            
-            int index = model.RowNumbers.IndexOf(oneChar);
+            int index = model.Board.RowNumbers.IndexOf(oneChar);
 
             if (index < 0)
             {
@@ -81,20 +81,20 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(BoardModel model)
+        public string ToDisplayNoTrim(ApplicationObjectModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.GetRowNumbersNoTrim().Count <= this.NumberO0)
+            if (this.NumberO0 < 0 || model.Board.GetRowNumbersNoTrim().Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.GetRowNumbersNoTrim()[this.NumberO0];
+                return model.Board.GetRowNumbersNoTrim()[this.NumberO0];
             }
         }
 
@@ -102,20 +102,20 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(BoardModel model)
+        public string ToDisplayTrimed(ApplicationObjectModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.RowNumbers.Count <= this.NumberO0)
+            if (this.NumberO0 < 0 || model.Board.RowNumbers.Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.RowNumbers[this.NumberO0];
+                return model.Board.RowNumbers[this.NumberO0];
             }
         }
     }

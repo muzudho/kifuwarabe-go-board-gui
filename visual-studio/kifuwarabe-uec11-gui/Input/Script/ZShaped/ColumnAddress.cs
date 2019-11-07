@@ -27,7 +27,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColumnAddress, int) Parse(string text, int start, BoardModel model)
+        public static (ColumnAddress, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             if (text == null)
             {
@@ -40,7 +40,7 @@
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
-            var index = model.ColumnNumbers.IndexOf(oneChar);
+            var index = model.Board.ColumnNumbers.IndexOf(oneChar);
 
             if (index < 0)
             {
@@ -55,20 +55,20 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(BoardModel model)
+        public string ToDisplay(ApplicationObjectModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.ColumnNumbers.Count <= this.NumberO0)
+            if (this.NumberO0 < 0 || model.Board.ColumnNumbers.Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.ColumnNumbers[this.NumberO0];
+                return model.Board.ColumnNumbers[this.NumberO0];
             }
         }
     }

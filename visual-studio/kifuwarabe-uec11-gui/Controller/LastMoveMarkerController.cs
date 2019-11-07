@@ -11,7 +11,7 @@
     /// </summary>
     public static class LastMoveMarkerController
     {
-        public static void SetIndex(State model, MainWindow view, int zShapedIndex)
+        public static void SetIndex(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
         {
             if (model == null)
             {
@@ -24,12 +24,12 @@
             }
 
             // 内部的には インデックスは Z字式 で持てだぜ☆（＾～＾）
-            model.LastMoveIndex = zShapedIndex;
+            model.State.LastMoveIndex = zShapedIndex;
 
-            view.lastMoveValue.Content = CellAddress.FromIndex(zShapedIndex, view.BoardModel).ToDisplayTrimed(view.BoardModel);
+            view.lastMoveValue.Content = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
         }
 
-        public static void SetAddress(State model, MainWindow view, CellAddress cellAddress)
+        public static void SetAddress(ApplicationObjectModel model, MainWindow view, CellAddress cellAddress)
         {
             if (model == null)
             {
@@ -47,11 +47,11 @@
             }
 
             // インデックスは Z字式 で出てくるぜ☆（＾～＾）
-            model.LastMoveIndex = cellAddress.ToIndex(view.BoardModel);
-            view.lastMoveValue.Content = cellAddress.ToDisplayTrimed(view.BoardModel);
+            model.State.LastMoveIndex = cellAddress.ToIndex(model);
+            view.lastMoveValue.Content = cellAddress.ToDisplayTrimed(model);
         }
 
-        public static void Repaint(State model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
             if (model == null)
             {
@@ -66,17 +66,17 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = view.lastMoveMarker;
 
-            if (-1 < model.LastMoveIndex)
+            if (-1 < model.State.LastMoveIndex)
             {
                 var board = view.board;
 
                 lastMoveMarker.Visibility = Visibility.Visible;
-                MainWindow.PutAnythingOnNode(view, model.LastMoveIndex, (left, top) =>
+                MainWindow.PutAnythingOnNode(view, model.State.LastMoveIndex, (left, top) =>
                 {
                     // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                    lastMoveMarker.Width = board.Width / view.BoardModel.GetColumnDiv() * 0.4;
-                    lastMoveMarker.Height = board.Height / view.BoardModel.GetRowDiv() * 0.4;
+                    lastMoveMarker.Width = board.Width / model.Board.GetColumnDiv() * 0.4;
+                    lastMoveMarker.Height = board.Height / model.Board.GetRowDiv() * 0.4;
 
                     Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
                     Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);

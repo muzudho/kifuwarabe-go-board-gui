@@ -31,7 +31,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (BoardInstructionArgument, int) Parse(string text, int start, BoardModel boardModel)
+        public static (BoardInstructionArgument, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             if (text == null)
             {
@@ -47,7 +47,7 @@
 
             // 行番号を読めだぜ☆（＾～＾）数字とは限らないからな☆ｍ９（＾～＾）
             RowAddress rowAddress;
-            (rowAddress, next) = RowAddress.Parse(text, next, boardModel);
+            (rowAddress, next) = RowAddress.Parse(text, next, model);
             if (rowAddress == null)
             {
                 // 不一致☆（＾～＾）
@@ -70,7 +70,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(BoardModel model)
+        public string ToDisplay(ApplicationObjectModel model)
         {
             return $"{this.RowAddress.ToDisplayTrimed(model)} {this.Columns}";
         }

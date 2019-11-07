@@ -19,7 +19,7 @@
             this.ColumnAddress = columnAddress;
         }
 
-        public static (CellAddress, int) Parse(string text, int start, BoardModel model)
+        public static (CellAddress, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             ColumnAddress columnAddress;
             var next = 0;
@@ -48,29 +48,29 @@
             return (new CellAddress(rowAddress, columnAddress), next);
         }
 
-        public static int ToIndex(int rowNumberO0, int columnNumberO0, BoardModel model)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return rowNumberO0 * model.ColumnSize + columnNumberO0;
+            return rowNumberO0 * model.Board.ColumnSize + columnNumberO0;
         }
 
-        public static CellAddress FromIndex(int indexO0, BoardModel model)
+        public static CellAddress FromIndex(int indexO0, ApplicationObjectModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumberO0 = indexO0 / model.ColumnSize;
-            var columnNumberO0 = indexO0 % model.ColumnSize;
+            var rowNumberO0 = indexO0 / model.Board.ColumnSize;
+            var columnNumberO0 = indexO0 % model.Board.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
-        public int ToIndex(BoardModel model)
+        public int ToIndex(ApplicationObjectModel model)
         {
             return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
@@ -79,7 +79,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(BoardModel model)
+        public string ToDisplayNoTrim(ApplicationObjectModel model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayNoTrim(model)}";
         }
@@ -88,7 +88,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(BoardModel model)
+        public string ToDisplayTrimed(ApplicationObjectModel model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayTrimed(model)}";
         }

@@ -7,7 +7,7 @@
 
     public static class RowNumberController
     {
-        public static void Repaint(BoardModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
             if (model == null)
             {
@@ -31,14 +31,14 @@
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
 
-            var columnInterval = view.board.Width / model.GetColumnDiv();
-            var rowInterval = view.board.Height / model.GetRowDiv();
+            var columnInterval = view.board.Width / model.Board.GetColumnDiv();
+            var rowInterval = view.board.Height / model.Board.GetRowDiv();
             var paddingLeft = view.board.Width * 0.05;
             var paddingTop = view.board.Height * 0.05;
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                if (model.GetRowNumbersNoTrim().Count <= row || view.BoardModel.RowSize <= row)
+                if (model.Board.GetRowNumbersNoTrim().Count <= row || model.Board.RowSize <= row)
                 {
                     // 範囲外アクセス。
                     var label = view.RowLabels[row];
@@ -47,7 +47,7 @@
                 else
                 {
                     var label = view.RowLabels[row];
-                    label.Content = model.GetRowNumbersNoTrim()[row];
+                    label.Content = model.Board.GetRowNumbersNoTrim()[row];
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;

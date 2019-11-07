@@ -29,7 +29,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColorInstructionArgument, int) Parse(string text, int start, BoardModel model)
+        public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             var cellRanges = new List<CellRange>();
             var next = start;
@@ -70,7 +70,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(BoardModel model)
+        public string ToDisplay(ApplicationObjectModel model)
         {
             // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
             var tokens = new List<string>();
