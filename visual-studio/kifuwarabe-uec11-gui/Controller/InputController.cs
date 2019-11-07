@@ -96,11 +96,8 @@
 
                                     case "ply":
                                         {
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                model.State.Ply = outValue;
-                                                view.plyValue.Content = outValue.ToString(CultureInfo.CurrentCulture);
-                                            }
+                                            model.State.Ply.Value = prop.Value;
+                                            view.plyValue.Content = prop.Value;
                                         }
                                         break;
                                     case "move":
@@ -113,11 +110,11 @@
                                         }
                                         break;
                                     case "b-name":
-                                        model.State.BlackName = prop.Value;
+                                        model.State.BlackName.Value = prop.Value;
                                         view.blackNameValue.Content = prop.Value;
                                         break;
                                     case "b-time":
-                                        model.State.BlackTime = prop.Value;
+                                        model.State.BlackTime.Value = prop.Value;
                                         view.blackTimeValue.Content = prop.Value;
                                         break;
                                     case "b-hama":
@@ -130,11 +127,11 @@
                                         }
                                         break;
                                     case "w-name":
-                                        model.State.WhiteName = prop.Value;
+                                        model.State.WhiteName.Value = prop.Value;
                                         view.whiteNameValue.Content = prop.Value;
                                         break;
                                     case "w-time":
-                                        model.State.WhiteTime = prop.Value;
+                                        model.State.WhiteTime.Value = prop.Value;
                                         view.whiteTimeValue.Content = prop.Value;
                                         break;
                                     case "w-hama":
@@ -352,6 +349,7 @@
                     {
                         StoneController.Repaint(view.Model, view, index);
                     }
+                    LastMoveMarkerController.Repaint(view.Model, view);
 
                     // 画面の再描画をしようぜ☆（＾～＾）
                     view.RepaintWindow();

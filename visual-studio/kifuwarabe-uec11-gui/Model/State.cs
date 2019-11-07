@@ -13,23 +13,22 @@
         /// <summary>
         /// 何手目か。
         /// </summary>
-        public int Ply { get; set; }
+        public CanvasWidgetState Ply { get; set; }
 
         /// <summary>
         /// 最後の着手点。
-        /// 内部的には Z字式のインデックスで持つぜ☆（＾～＾）
         /// </summary>
-        public int LastMoveIndex { get; set; }
+        public CanvasWidgetState Move { get; set; }
 
         /// <summary>
         /// 黒の選手名。
         /// </summary>
-        public string BlackName { get; set; }
+        public CanvasWidgetState BlackName { get; set; }
 
         /// <summary>
         /// 黒の残り時間。
         /// </summary>
-        public string BlackTime { get; set; }
+        public CanvasWidgetState BlackTime { get; set; }
 
         /// <summary>
         /// 黒のアゲハマ。
@@ -41,12 +40,12 @@
         /// <summary>
         /// 白の選手名。
         /// </summary>
-        public string WhiteName { get; set; }
+        public CanvasWidgetState WhiteName { get; set; }
 
         /// <summary>
         /// 白の残り時間。
         /// </summary>
-        public string WhiteTime { get; set; }
+        public CanvasWidgetState WhiteTime { get; set; }
 
         /// <summary>
         /// 白のアゲハマ。
@@ -69,11 +68,12 @@
             // 初期値は 2 秒☆（＾～＾）
             this.IntervalMsec = 2000;
 
-            this.LastMoveIndex = -1;
-            this.BlackName = string.Empty;
-            this.BlackTime = string.Empty;
-            this.WhiteName = string.Empty;
-            this.WhiteTime = string.Empty;
+            this.Ply = new CanvasWidgetState();
+            this.Move = new CanvasWidgetState();
+            this.BlackName = new CanvasWidgetState();
+            this.BlackTime = new CanvasWidgetState();
+            this.WhiteName = new CanvasWidgetState();
+            this.WhiteTime = new CanvasWidgetState();
             this.Info = string.Empty;
         }
     }

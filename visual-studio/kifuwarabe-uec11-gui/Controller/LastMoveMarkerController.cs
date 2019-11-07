@@ -26,17 +26,18 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = view.lastMoveMarker;
 
-            if (-1 < model.State.LastMoveIndex)
+            if (model.State.Move.Visible)
             {
-                var board = view.board;
-
                 lastMoveMarker.Visibility = Visibility.Visible;
-                MainWindow.PutAnythingOnNode(view, model.State.LastMoveIndex, (left, top) =>
+
+                var (moveCellAddress, next) = CellAddress.Parse(model.State.Move.Value, 0, model);
+
+                MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
                 {
                     // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                    lastMoveMarker.Width = board.Width / model.Board.GetColumnDiv() * 0.4;
-                    lastMoveMarker.Height = board.Height / model.Board.GetRowDiv() * 0.4;
+                    lastMoveMarker.Width = view.board.Width / model.Board.GetColumnDiv() * 0.4;
+                    lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
 
                     Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
                     Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
@@ -61,9 +62,9 @@
             }
 
             // 内部的には インデックスは Z字式 で持てだぜ☆（＾～＾）
-            model.State.LastMoveIndex = zShapedIndex;
-
-            view.lastMoveValue.Content = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+            var text = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+            model.State.Move.Value = text;
+            view.lastMoveValue.Content = text;
         }
 
         public static void SetAddress(ApplicationObjectModel model, MainWindow view, CellAddress cellAddress)
@@ -83,9 +84,9 @@
                 throw new ArgumentNullException(nameof(cellAddress));
             }
 
-            // インデックスは Z字式 で出てくるぜ☆（＾～＾）
-            model.State.LastMoveIndex = cellAddress.ToIndex(model);
-            view.lastMoveValue.Content = cellAddress.ToDisplayTrimed(model);
+            var text = cellAddress.ToDisplayTrimed(model);
+            model.State.Move.Value = text;
+            view.lastMoveValue.Content = text;
         }
     }
 }
