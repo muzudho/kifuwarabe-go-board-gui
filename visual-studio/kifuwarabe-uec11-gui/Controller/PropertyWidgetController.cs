@@ -8,9 +8,12 @@
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class CanvasWidgetController
+    public static class PropertyWidgetController
     {
-        private static Dictionary<string, string> nameDictionary = new Dictionary<string, string>()
+        /// <summary>
+        /// 外向きの名前を、内向きの名前に変換だぜ☆（＾～＾）
+        /// </summary>
+        private static Dictionary<string, string> inwardDictionary = new Dictionary<string, string>()
             {
                 { "ply", "plyCanvas" },
                 { "move", "lastMoveCanvas" },
@@ -24,7 +27,10 @@
                 { "info", "infoCanvas" },
             };
 
-        public static (Canvas, CanvasWidgetModel) GetCanvasBy(ApplicationObjectModel model, MainWindow view, string widgetName)
+        public delegate void MatchCanvasCallbackDone(PropertyWidgetModel model, Canvas view);
+        public delegate void MatchCanvasCallbackErr();
+
+        public static void MatchCanvasBy(ApplicationObjectModel model, MainWindow view, string outsideName, MatchCanvasCallbackDone callbackDone, MatchCanvasCallbackErr callbackErr)
         {
             if (model == null)
             {
@@ -36,13 +42,23 @@
                 throw new ArgumentNullException(nameof(view));
             }
 
-            if (nameDictionary.ContainsKey(widgetName))
+            if (callbackDone == null)
             {
-                var name = nameDictionary[widgetName];
-                Canvas canvas = (Canvas)view.FindName(name);
+                throw new ArgumentNullException(nameof(callbackDone));
+            }
 
-                CanvasWidgetModel widgetModel = null;
-                switch (widgetName)
+            if (callbackErr == null)
+            {
+                throw new ArgumentNullException(nameof(callbackErr));
+            }
+
+            if (inwardDictionary.ContainsKey(outsideName))
+            {
+                var insideName = inwardDictionary[outsideName];
+                Canvas canvas = (Canvas)view.FindName(insideName);
+
+                PropertyWidgetModel widgetModel = null;
+                switch (outsideName)
                 {
                     case "ply":
                         widgetModel = model.State.Ply;
@@ -71,24 +87,22 @@
                     case "komi":
                         widgetModel = model.State.Komi;
                         break;
-                    /* TODO
                     case "info":
                         widgetModel = model.State.Info;
                         break;
-                    */
                     default:
-                        Trace.WriteLine($"Error           | widgetName:[{widgetName}] is not found.");
+                        Trace.WriteLine($"Error           | widgetName:[{outsideName}] is not found.");
                         break;
                 }
 
-                return (canvas, widgetModel);
+                callbackDone(widgetModel, canvas);
             }
             else
             {
-                Trace.WriteLine($"Error           | widgetName:[{widgetName}] is not found.");
+                Trace.WriteLine($"Error           | widgetName:[{outsideName}] is not found.");
             }
 
-            return (null, null);
+            callbackErr();
         }
 
         public static void Repaint(ApplicationObjectModel model, MainWindow view, string widgetName)
@@ -104,26 +118,25 @@
             }
 
             // JSONで使われている名前と、内部で使われている名前は分けるぜ☆（＾～＾）
-            var (canvas, canvasWidgetModel) = GetCanvasBy(model, view, widgetName);
-
-            if (canvas != null)
-            {
-                if (canvasWidgetModel == null)
+            MatchCanvasBy(model, view, widgetName,
+                (canvasWidgetModel, canvas)=>
+                {
+                    if (canvasWidgetModel.Visible)
+                    {
+                        canvas.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        canvas.Visibility = Visibility.Hidden;
+                    }
+                },
+                ()=>
                 {
                     Trace.WriteLine($"Error           | [{widgetName}] is not found in repaint.");
-                }
-                else if (canvasWidgetModel.Visible)
-                {
-                    canvas.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    canvas.Visibility = Visibility.Hidden;
-                }
-            }
+                });
         }
 
-        public static void ChangeProperty(CanvasWidgetModel model, Canvas view, WidgetInstructionArgument args)
+        public static void ChangeProperty(PropertyWidgetModel model, Canvas view, WidgetInstructionArgument args)
         {
             if (model == null)
             {

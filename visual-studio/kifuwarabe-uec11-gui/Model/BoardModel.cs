@@ -50,6 +50,7 @@
 
         /// <summary>
         /// 置いている石☆（＾～＾）
+        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<Stone> Stones { get; set; }
 
@@ -65,16 +66,19 @@
 
         /// <summary>
         /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
+        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<string> RowNumbers { get; set; }
 
         /// <summary>
         /// 各列番号☆（＾～＾）
+        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<string> ColumnNumbers { get; set; }
 
         /// <summary>
         /// 星の番地☆（＾～＾）
+        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<string> StarCellAddresses { get; set; }
 

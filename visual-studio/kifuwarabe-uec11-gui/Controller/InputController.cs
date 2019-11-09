@@ -141,7 +141,8 @@
                                         break;
 
                                     case "info":
-                                        model.State.Info = prop.Value;
+                                        model.State.Info.Value
+                                            = prop.Value;
 
                                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                                         view.infoValue.Content = MainWindow.SoluteNewline(prop.Value);
@@ -219,56 +220,34 @@
                         case "widget":
                             {
                                 var args = (WidgetInstructionArgument)instruction.Argument;
-                                switch (args.Name)
-                                {
-                                    case "ply":
-                                        CanvasWidgetController.ChangeProperty(model.State.Ply, view.plyCanvas, args);
-                                        break;
 
-                                    case "move":
-                                        CanvasWidgetController.ChangeProperty(model.State.Move, view.lastMoveCanvas, args);
-                                        break;
+                                PropertyWidgetController.MatchCanvasBy(model, view, args.Name,
+                                    (widgetModel, widgetView) =>
+                                    {
+                                        PropertyWidgetController.ChangeProperty(widgetModel, widgetView, args);
+                                    },
+                                    () =>
+                                    {
+                                        // Not found widget.
 
-                                    case "b-name":
-                                        CanvasWidgetController.ChangeProperty(model.State.BlackName, view.blackNameCanvas, args);
-                                        break;
+                                        switch (args.Name)
+                                        {
+                                            case "row-numbers":
+                                                RowNumbersWidgetController.ChangeProperty(model, args);
+                                                break;
 
-                                    case "b-time":
-                                        CanvasWidgetController.ChangeProperty(model.State.BlackTime, view.blackTimeCanvas, args);
-                                        break;
+                                            case "column-numbers":
+                                                ColumnNumbersWidgetController.ChangeProperty(model, args);
+                                                break;
 
-                                    case "b-hama":
-                                        CanvasWidgetController.ChangeProperty(model.State.BlackHama, view.blackAgehamaCanvas, args);
-                                        break;
+                                            case "stars":
+                                                StarsWidgetController.ChangeProperty(model, args);
+                                                break;
 
-                                    case "w-name":
-                                        CanvasWidgetController.ChangeProperty(model.State.WhiteName, view.whiteNameCanvas, args);
-                                        break;
-
-                                    case "w-time":
-                                        CanvasWidgetController.ChangeProperty(model.State.WhiteTime, view.whiteTimeCanvas, args);
-                                        break;
-
-                                    case "w-hama":
-                                        CanvasWidgetController.ChangeProperty(model.State.WhiteHama, view.whiteAgehamaCanvas, args);
-                                        break;
-
-                                    case "komi":
-                                        CanvasWidgetController.ChangeProperty(model.State.Komi, view.komiCanvas, args);
-                                        break;
-
-                                    case "row-numbers":
-                                        RowNumbersWidgetController.ChangeProperty(model, args);
-                                        break;
-
-                                    case "column-numbers":
-                                        ColumnNumbersWidgetController.ChangeProperty(model, args);
-                                        break;
-
-                                    case "stars":
-                                        StarsWidgetController.ChangeProperty(model, args);
-                                        break;
-                                }
+                                            default:
+                                                break;
+                                        }
+                                    });
                             }
                             break;
 
@@ -352,16 +331,16 @@
                     LastMoveMarkerController.Repaint(view.Model, view);
 
                     // TODO UIウィジェット
-                    CanvasWidgetController.Repaint(view.Model, view, "ply");
-                    CanvasWidgetController.Repaint(view.Model, view, "move");
-                    CanvasWidgetController.Repaint(view.Model, view, "b-name");
-                    CanvasWidgetController.Repaint(view.Model, view, "b-time");
-                    CanvasWidgetController.Repaint(view.Model, view, "b-hama");
-                    CanvasWidgetController.Repaint(view.Model, view, "w-name");
-                    CanvasWidgetController.Repaint(view.Model, view, "w-time");
-                    CanvasWidgetController.Repaint(view.Model, view, "w-hama");
-                    CanvasWidgetController.Repaint(view.Model, view, "komi");
-                    CanvasWidgetController.Repaint(view.Model, view, "info");
+                    PropertyWidgetController.Repaint(view.Model, view, "ply");
+                    PropertyWidgetController.Repaint(view.Model, view, "move");
+                    PropertyWidgetController.Repaint(view.Model, view, "b-name");
+                    PropertyWidgetController.Repaint(view.Model, view, "b-time");
+                    PropertyWidgetController.Repaint(view.Model, view, "b-hama");
+                    PropertyWidgetController.Repaint(view.Model, view, "w-name");
+                    PropertyWidgetController.Repaint(view.Model, view, "w-time");
+                    PropertyWidgetController.Repaint(view.Model, view, "w-hama");
+                    PropertyWidgetController.Repaint(view.Model, view, "komi");
+                    PropertyWidgetController.Repaint(view.Model, view, "info");
 
                     // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
                     view.RepaintWindow();
