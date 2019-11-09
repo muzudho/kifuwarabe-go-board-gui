@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.Json;
- 
+
     /// <summary>
     /// `output.json` をこれで作ろうぜ☆（＾～＾）
     /// </summary>
@@ -37,6 +37,30 @@
                     new PropertyStringList(
                         new List<string>(){
                             "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+                        },
+                        (value) =>
+                        {
+                            // 位置調整のためのスペースが含まれていると　検索のとき、やっかい☆（＾～＾）取り除いたリストも作っておくぜ☆（＾～＾）
+                            {
+                                for (int i = 0; i < value.Count; i++)
+                                {
+                                    value[i] = value[i].Trim();
+                                }
+
+                                this.rowNumbersTrimed = new List<string>(value);
+                            }
+                        }
+                    )
+                },
+
+                // 星の番地☆（＾～＾）
+                // 初期値は19路盤だぜ☆（＾～＾）
+                // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
+                {
+                    "stars",
+                    new PropertyStringList(
+                        new List<string>(){
+                            "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
                         }
                     )
                 },
@@ -134,28 +158,7 @@
             // 読取専用の項目は　無視しようぜ☆（＾～＾）と思ったら全部消えた……☆（＾～＾）
             // option.IgnoreReadOnlyProperties = true;
 
-            return JsonSerializer.Serialize(this,option);
-        }
-
-        public void SetRowNumbersNoTrimed(List<string> rowNumbersNoTrimed)
-        {
-            if (rowNumbersNoTrimed == null)
-            {
-                throw new ArgumentNullException(nameof(rowNumbersNoTrimed));
-            }
-
-            this.Properties["row-numbers"].Value = rowNumbersNoTrimed;
-
-            // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
-            {
-                var list = this.Properties["row-numbers"].ToTextList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i] = list[i].Trim();
-                }
-
-                this.rowNumbersTrimed = new List<string>(list);
-            }
+            return JsonSerializer.Serialize(this, option);
         }
     }
 }

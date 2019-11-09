@@ -240,7 +240,7 @@
                                                 break;
 
                                             case "stars":
-                                                StarsWidgetController.ChangeProperty(model, args);
+                                                StarsController.ChangeProperty(model, args);
                                                 break;
 
                                             default:

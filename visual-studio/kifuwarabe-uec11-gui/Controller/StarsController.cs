@@ -5,7 +5,7 @@
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class StarsWidgetController
+    public static class StarsController
     {
         public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {
@@ -33,7 +33,7 @@
                         }
                     }
 
-                    model.Board.SetStarCellAddresses(new List<string>(cellAddresses));
+                    model.Properties["stars"].Value = new List<string>(cellAddresses);
                     break;
             }
         }

@@ -18,11 +18,6 @@
                 // 初期値は 空点 で☆（＾～＾）
                 this.Stones.Add(Stone.None);
             }
-
-            this.StarCellAddresses = new List<string>()
-            {
-                 "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
-            };
         }
 
         /// <summary>
@@ -40,12 +35,6 @@
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<Stone> Stones { get; set; }
-
-        /// <summary>
-        /// 星の番地☆（＾～＾）
-        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
-        /// </summary>
-        public List<string> StarCellAddresses { get; set; }
 
         /// <summary>
         /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
@@ -90,11 +79,6 @@
         public void SetStone(int zShapedIndex, Stone stone)
         {
             this.Stones[zShapedIndex] = stone;
-        }
-
-        public void SetStarCellAddresses(List<string> cellAddresses)
-        {
-            this.StarCellAddresses = cellAddresses;
         }
     }
 }

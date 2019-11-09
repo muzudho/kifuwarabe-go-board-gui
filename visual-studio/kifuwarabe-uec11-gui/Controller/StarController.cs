@@ -27,27 +27,28 @@
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var star = view.Stars[i];
-                if (i < model.Board.StarCellAddresses.Count)
+                var starView = view.Stars[i];
+                var starsModel = model.Properties["stars"].ToTextList();
+                if (i < starsModel.Count)
                 {
-                    star.Visibility = Visibility.Visible;
-                    var (cellAddress, next) = CellAddress.Parse(model.Board.StarCellAddresses[i], 0, model);
+                    starView.Visibility = Visibility.Visible;
+                    var (cellAddress, next) = CellAddress.Parse(starsModel[i], 0, model);
                     if (cellAddress != null)
                     {
                         MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(model), (left, top) =>
                         {
                             // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                            star.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
-                            star.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
+                            starView.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
+                            starView.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
 
-                            Canvas.SetLeft(star, left - star.Width / 2);
-                            Canvas.SetTop(star, top - star.Height / 2);
+                            Canvas.SetLeft(starView, left - starView.Width / 2);
+                            Canvas.SetTop(starView, top - starView.Height / 2);
                         });
                     }
                 }
                 else
                 {
-                    star.Visibility = Visibility.Hidden;
+                    starView.Visibility = Visibility.Hidden;
                 }
             }
         }

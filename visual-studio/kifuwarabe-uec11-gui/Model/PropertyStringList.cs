@@ -9,6 +9,12 @@
     /// </summary>
     public class PropertyStringList : PropertyValue
     {
+        /// <summary>
+        /// Valueのセッターの後で☆（＾～＾）
+        /// </summary>
+        /// <param name="value">代入されてきた値のコピー。</param>
+        public delegate void AfterSetsValueCallbackType(List<string> value);
+
         private List<string> innerValue;
 
         public PropertyStringList()
@@ -17,11 +23,16 @@
             this.Visible = true;
         }
 
-        public PropertyStringList(List<string> value)
+        public PropertyStringList(List<string> value, AfterSetsValueCallbackType afterSetsValueCallback = null)
         {
+            // Value より先に このコールバックをセットしておくこと。
+            this.AfterSetsValueCallback = afterSetsValueCallback;
+
             this.Value = value;
             this.Visible = true;
         }
+
+        private AfterSetsValueCallbackType AfterSetsValueCallback { get; set; }
 
         /// <summary>
         /// JSON用の入出力だぜ☆（＾～＾）
@@ -46,6 +57,11 @@
                 else
                 {
                     this.innerValue = ColumnNumbersController.FromString(value.ToString());
+                }
+
+                if (this.AfterSetsValueCallback != null)
+                {
+                    this.AfterSetsValueCallback(new List<string>(this.innerValue));
                 }
             }
         }
