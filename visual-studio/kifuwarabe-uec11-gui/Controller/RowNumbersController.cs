@@ -5,7 +5,7 @@
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class RowNumbersWidgetController
+    public static class RowNumbersController
     {
         public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {

@@ -65,7 +65,7 @@
             // 1文字以上のヒットがある場合☆（＾～＾）
 
             var oneChar = figures.ToString(CultureInfo.CurrentCulture);            
-            int index = model.Board.RowNumbers.IndexOf(oneChar);
+            int index = model.Board.RowNumbersTrimed.IndexOf(oneChar);
 
             if (index < 0)
             {
@@ -88,13 +88,13 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.Board.GetRowNumbersNoTrim().Count <= this.NumberO0)
+            if (this.NumberO0 < 0 || model.Board.RowNumbers.Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.Board.GetRowNumbersNoTrim()[this.NumberO0];
+                return model.Board.RowNumbers[this.NumberO0];
             }
         }
 
@@ -109,13 +109,13 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.Board.RowNumbers.Count <= this.NumberO0)
+            if (this.NumberO0 < 0 || model.Board.RowNumbersTrimed.Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.Board.RowNumbers[this.NumberO0];
+                return model.Board.RowNumbersTrimed[this.NumberO0];
             }
         }
     }

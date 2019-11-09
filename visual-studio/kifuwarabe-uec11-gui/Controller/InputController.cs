@@ -232,7 +232,7 @@
                                         switch (args.Name)
                                         {
                                             case "row-numbers":
-                                                RowNumbersWidgetController.ChangeProperty(model, args);
+                                                RowNumbersController.ChangeProperty(model, args);
                                                 break;
 
                                             case "column-numbers":

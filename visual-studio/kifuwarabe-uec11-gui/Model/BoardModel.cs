@@ -49,19 +49,22 @@
 
         /// <summary>
         /// 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
-        /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
-        /// </summary>
-        private List<string> rowNumbersNoTrim;
-        public List<string> GetRowNumbersNoTrim()
-        {
-            return this.rowNumbersNoTrim;
-        }
-
-        /// <summary>
-        /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<string> RowNumbers { get; set; }
+
+        /// <summary>
+        /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
+        /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
+        /// </summary>
+        private List<string> rowNumbersTrimed;
+        public List<string> RowNumbersTrimed
+        {
+            get
+            {
+                return this.rowNumbersTrimed;
+            }
+        }
 
         /// <summary>
         /// 星の番地☆（＾～＾）
@@ -114,24 +117,24 @@
             this.Stones[zShapedIndex] = stone;
         }
 
-        public void SetRowNumbers(List<string> rowNumbers)
+        public void SetRowNumbers(List<string> rowNumbersNoTrimed)
         {
-            if (rowNumbers == null)
+            if (rowNumbersNoTrimed == null)
             {
-                throw new ArgumentNullException(nameof(rowNumbers));
+                throw new ArgumentNullException(nameof(rowNumbersNoTrimed));
             }
 
-            this.rowNumbersNoTrim = rowNumbers;
+            this.RowNumbers = rowNumbersNoTrimed;
 
             // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
             {
-                var array = this.GetRowNumbersNoTrim().ToArray();
+                var array = this.RowNumbers.ToArray();
                 for (int i = 0; i < array.Length; i++)
                 {
                     array[i] = array[i].Trim();
                 }
 
-                this.RowNumbers = new List<string>(array);
+                this.rowNumbersTrimed = new List<string>(array);
             }
         }
 
