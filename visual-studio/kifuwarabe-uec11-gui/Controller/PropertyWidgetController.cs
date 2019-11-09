@@ -27,7 +27,7 @@
                 { "info", "infoCanvas" },
             };
 
-        public delegate void MatchCanvasCallbackDone(PropertyWidgetModel model, Canvas view);
+        public delegate void MatchCanvasCallbackDone(PropertyModel model, Canvas view);
         public delegate void MatchCanvasCallbackErr();
 
         public static void MatchCanvasBy(ApplicationObjectModel model, MainWindow view, string outsideName, MatchCanvasCallbackDone callbackDone, MatchCanvasCallbackErr callbackErr)
@@ -57,38 +57,38 @@
                 var insideName = inwardDictionary[outsideName];
                 Canvas canvas = (Canvas)view.FindName(insideName);
 
-                PropertyWidgetModel widgetModel = null;
+                PropertyModel widgetModel = null;
                 switch (outsideName)
                 {
                     case "ply":
-                        widgetModel = model.State.Ply;
+                        widgetModel = model.Properties.Ply;
                         break;
                     case "move":
-                        widgetModel = model.State.Move;
+                        widgetModel = model.Properties.Move;
                         break;
                     case "b-name":
-                        widgetModel = model.State.BlackName;
+                        widgetModel = model.Properties.BlackName;
                         break;
                     case "b-time":
-                        widgetModel = model.State.BlackTime;
+                        widgetModel = model.Properties.BlackTime;
                         break;
                     case "b-hama":
-                        widgetModel = model.State.BlackHama;
+                        widgetModel = model.Properties.BlackHama;
                         break;
                     case "w-name":
-                        widgetModel = model.State.WhiteName;
+                        widgetModel = model.Properties.WhiteName;
                         break;
                     case "w-time":
-                        widgetModel = model.State.WhiteTime;
+                        widgetModel = model.Properties.WhiteTime;
                         break;
                     case "w-hama":
-                        widgetModel = model.State.WhiteHama;
+                        widgetModel = model.Properties.WhiteHama;
                         break;
                     case "komi":
-                        widgetModel = model.State.Komi;
+                        widgetModel = model.Properties.Komi;
                         break;
                     case "info":
-                        widgetModel = model.State.Info;
+                        widgetModel = model.Properties.Info;
                         break;
                     default:
                         Trace.WriteLine($"Error           | widgetName:[{outsideName}] is not found.");
@@ -136,7 +136,7 @@
                 });
         }
 
-        public static void ChangeProperty(PropertyWidgetModel model, Canvas view, WidgetInstructionArgument args)
+        public static void ChangeProperty(PropertyModel model, Canvas view, WidgetInstructionArgument args)
         {
             if (model == null)
             {

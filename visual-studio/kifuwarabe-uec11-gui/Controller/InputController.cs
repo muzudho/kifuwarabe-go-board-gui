@@ -96,7 +96,7 @@
 
                                     case "ply":
                                         {
-                                            model.State.Ply.Value = prop.Value;
+                                            model.Properties.Ply.Value = prop.Value;
                                             view.plyValue.Content = prop.Value;
                                         }
                                         break;
@@ -106,42 +106,42 @@
                                             if (cellAddress != null)
                                             {
                                                 var text1 = cellAddress.ToDisplayTrimed(model);
-                                                model.State.Move.Value = text1;
+                                                model.Properties.Move.Value = text1;
                                                 view.lastMoveValue.Content = text1;
                                             }
                                         }
                                         break;
                                     case "b-name":
-                                        model.State.BlackName.Value = prop.Value;
+                                        model.Properties.BlackName.Value = prop.Value;
                                         view.blackNameValue.Content = prop.Value;
                                         break;
                                     case "b-time":
-                                        model.State.BlackTime.Value = prop.Value;
+                                        model.Properties.BlackTime.Value = prop.Value;
                                         view.blackTimeValue.Content = prop.Value;
                                         break;
                                     case "b-hama":
-                                        model.State.BlackHama.Value = prop.Value;
+                                        model.Properties.BlackHama.Value = prop.Value;
                                         view.blackAgehamaValue.Content = prop.Value;
                                         break;
                                     case "w-name":
-                                        model.State.WhiteName.Value = prop.Value;
+                                        model.Properties.WhiteName.Value = prop.Value;
                                         view.whiteNameValue.Content = prop.Value;
                                         break;
                                     case "w-time":
-                                        model.State.WhiteTime.Value = prop.Value;
+                                        model.Properties.WhiteTime.Value = prop.Value;
                                         view.whiteTimeValue.Content = prop.Value;
                                         break;
                                     case "w-hama":
-                                        model.State.WhiteHama.Value = prop.Value;
+                                        model.Properties.WhiteHama.Value = prop.Value;
                                         view.whiteAgehamaValue.Content = prop.Value;
                                         break;
                                     case "komi":
-                                        model.State.Komi.Value = prop.Value;
+                                        model.Properties.Komi.Value = prop.Value;
                                         view.komiValue.Content = prop.Value;
                                         break;
 
                                     case "info":
-                                        model.State.Info.Value
+                                        model.Properties.Info.Value
                                             = prop.Value;
 
                                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
@@ -150,11 +150,11 @@
 
                                     case "interval-msec":
                                         {
+                                            model.Properties.IntervalMsec.Value = prop.Value;
                                             if (int.TryParse(prop.Value, out int outValue))
                                             {
-                                                model.State.IntervalMsec = outValue;
                                                 view.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
-                                                Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
+                                                // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
                                             }
                                         }
                                         break;
@@ -175,7 +175,7 @@
 
                                         // 最後の着手点☆（＾～＾）
                                         var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.State.Move.Value = text1;
+                                        model.Properties.Move.Value = text1;
                                         view.lastMoveValue.Content = text1;
                                     }
                                 }
@@ -195,7 +195,7 @@
 
                                         // 最後の着手点☆（＾～＾）
                                         var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.State.Move.Value = text1;
+                                        model.Properties.Move.Value = text1;
                                         view.lastMoveValue.Content = text1;
                                     }
                                 }

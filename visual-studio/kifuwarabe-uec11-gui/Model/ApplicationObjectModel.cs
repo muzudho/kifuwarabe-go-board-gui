@@ -9,11 +9,11 @@
     public class ApplicationObjectModel
     {
         public BoardModel Board { get; set; }
-        public State State { get; set; }
+        public PropertiesModel Properties { get; set; }
 
         public ApplicationObjectModel()
         {
-            this.State = new State();
+            this.Properties = new PropertiesModel();
 
             // 盤☆（＾～＾）
             this.Board = new BoardModel();

@@ -26,11 +26,11 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = view.lastMoveMarker;
 
-            if (model.State.Move.Visible)
+            if (model.Properties.Move.Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
-                var (moveCellAddress, next) = CellAddress.Parse(model.State.Move.Value, 0, model);
+                var (moveCellAddress, next) = CellAddress.Parse(model.Properties.Move.Value, 0, model);
                 if (moveCellAddress!=null)
                 {
                     MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
