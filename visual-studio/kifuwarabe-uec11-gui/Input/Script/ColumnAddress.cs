@@ -13,6 +13,14 @@
     public class ColumnAddress
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="columnAddress"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(ColumnAddress columnAddress, int curr);
+
+        /// <summary>
         /// 0から始まる（Origin 0）列番号☆（＾～＾）
         /// </summary>
         public int NumberO0 { get; private set; }
@@ -28,7 +36,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColumnAddress, int) Parse(string text, int start, ApplicationObjectModel appModel)
+        public static int Parse(string text, int start, ApplicationObjectModel appModel, ParsesCallback callback)
         {
             if (text == null)
             {
@@ -37,7 +45,7 @@
 
             if (text.Length < start + 1 || appModel == null)
             {
-                return (null, start);
+                return callback(null, start);
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);            
@@ -46,10 +54,10 @@
             if (index < 0)
             {
                 // 該当なし☆（＾～＾）
-                return (null, start);
+                return callback(null, start);
             }
 
-            return (new ColumnAddress(index), start + 1);
+            return callback(new ColumnAddress(index), start + 1);
         }
 
         /// <summary>

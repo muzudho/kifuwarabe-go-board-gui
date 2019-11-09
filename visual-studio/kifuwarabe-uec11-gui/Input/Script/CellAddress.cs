@@ -29,16 +29,18 @@
 
         public static int Parse(string text, int start, ApplicationObjectModel appModel, ParsesCallback callback)
         {
-            ColumnAddress columnAddress;
-            var next = 0;
-            {
-                (columnAddress, next) = ColumnAddress.Parse(text, start, appModel);
-                if (columnAddress == null)
+            ColumnAddress columnAddress = null;
+            var next = ColumnAddress.Parse(text, start, appModel, (columnAddress2, curr) =>
                 {
-                    // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                    return callback(null, start);
-                }
-            }
+                    if (columnAddress2 == null)
+                    {
+                        // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                        return callback(null, start);
+                    }
+
+                    columnAddress = columnAddress2;
+                    return curr;
+                });
 
             // 列はマッチ☆（＾～＾）
 

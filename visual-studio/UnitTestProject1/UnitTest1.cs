@@ -334,31 +334,44 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalColumnAddress()
         {
-            var model = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModel();
 
-            Assert.AreEqual("A", ColumnAddress.Parse("A", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("B", ColumnAddress.Parse("B", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("C", ColumnAddress.Parse("C", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("D", ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", 3, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("E", ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", 4, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("F", ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", 5, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("G", ColumnAddress.Parse("G", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("H", ColumnAddress.Parse("H", 0, model).Item1?.ToDisplay(model));
+            var start = 0;
+            Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr)=>
+            {
+                Assert.AreEqual("A", matched?.ToDisplay(appModel));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
+
+            start = 3;
+            Assert.AreEqual(4, ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", start, appModel, (matched, curr)=>
+            {
+                Assert.AreEqual("D", matched?.ToDisplay(appModel));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
 
             // I is a null.
-            Assert.IsNull(ColumnAddress.Parse("I", 0, model).Item1?.ToDisplay(model));
+            start = 0;
+            Assert.AreEqual(start, ColumnAddress.Parse("I", start, appModel, (matched, curr)=>
+            {
+                Assert.IsNull(matched);
+                if (matched == null)
+                {
+                    return start;
+                }
 
-            Assert.AreEqual("J", ColumnAddress.Parse("J", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("K", ColumnAddress.Parse("K", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("L", ColumnAddress.Parse("L", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("M", ColumnAddress.Parse("M", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("N", ColumnAddress.Parse("N", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("O", ColumnAddress.Parse("O", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("P", ColumnAddress.Parse("P", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("Q", ColumnAddress.Parse("Q", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("R", ColumnAddress.Parse("R", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("S", ColumnAddress.Parse("S", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("T", ColumnAddress.Parse("T", 0, model).Item1?.ToDisplay(model));
+                return curr;
+            }));
         }
 
         /// <summary>
