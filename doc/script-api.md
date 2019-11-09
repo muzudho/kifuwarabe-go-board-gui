@@ -208,11 +208,6 @@ set stars = "d4", "l4", "h8", "d12", "l12"
 set b-hama.visible = false
 set w-hama.visible = false
 set komi.visible = false
-```
-
-今はまだ　盤の設定と、指し手は　２回に分けて送らないと　うまく反映されないぜ☆（＾～＾）
-
-```
 black h8
 white h9
 black i10
