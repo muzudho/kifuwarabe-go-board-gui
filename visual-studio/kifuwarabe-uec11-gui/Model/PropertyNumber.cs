@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Globalization;
 
     /// <summary>
@@ -77,7 +78,7 @@
         {
             return new List<string>()
             {
-                this.ToString()
+                this.ToText()
             };
         }
     }

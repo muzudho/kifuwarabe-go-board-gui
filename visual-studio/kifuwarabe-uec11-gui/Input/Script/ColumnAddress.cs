@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using KifuwarabeUec11Gui.Model;
+    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// Z字方向式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）

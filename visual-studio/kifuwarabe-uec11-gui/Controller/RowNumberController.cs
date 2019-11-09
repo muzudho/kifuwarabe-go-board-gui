@@ -1,6 +1,7 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.Model;
@@ -49,7 +50,6 @@
                 {
                     var label = view.RowLabels[row];
                     label.Content = rowNumbers[row];
-
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
                     label.Width = columnInterval * 1.8;

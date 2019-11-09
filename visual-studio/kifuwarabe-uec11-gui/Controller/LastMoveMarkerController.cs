@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
     using System.Windows;

@@ -74,7 +74,7 @@
         {
             return new List<string>()
             {
-                this.ToString()
+                this.ToText()
             };
         }
     }

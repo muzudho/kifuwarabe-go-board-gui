@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KifuwarabeUec11Gui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged" Initialized="Window_Initialized">
+        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged" Initialized="Window_Initialized" Loaded="Window_Loaded">
     <Grid x:Name="grid">
         <Canvas x:Name="canvas">
             <Path x:Name="board" Fill="#FFEDDF5F" Stroke="Black" StrokeThickness="1" Stretch="Fill" Width="575" Canvas.Left="75" Canvas.Top="23.02" Height="388" Panel.ZIndex="100">
@@ -58,7 +58,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >999</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -98,7 +98,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >A99</Label>
+                    >--------</Label>
             </Canvas>
 
 
@@ -141,7 +141,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >AAAAAAAA</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -181,7 +181,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >99:59</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -221,7 +221,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >999</Label>
+                    >--------</Label>
             </Canvas>
 
 
@@ -264,7 +264,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >BBBBBBBB</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -305,7 +305,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >99:59</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -346,7 +346,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >999</Label>
+                    >--------</Label>
             </Canvas>
 
             <Canvas
@@ -387,7 +387,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >99.5</Label>
+                    >--------</Label>
             </Canvas>
 
         </Canvas>
@@ -406,7 +406,7 @@
                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
-                >InfoXXXX</Label>
+                >Info--------</Label>
         </Canvas>
     </Grid>
 </Window>

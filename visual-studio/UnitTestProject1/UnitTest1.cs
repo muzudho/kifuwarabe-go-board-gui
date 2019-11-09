@@ -7,6 +7,7 @@ namespace UnitTestProject1
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using KifuwarabeUec11Gui.Controller;
 
     [TestClass]
     public class UnitTest1

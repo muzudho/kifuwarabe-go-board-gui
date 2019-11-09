@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）

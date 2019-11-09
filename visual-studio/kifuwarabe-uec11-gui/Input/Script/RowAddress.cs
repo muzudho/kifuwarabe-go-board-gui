@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using KifuwarabeUec11Gui.Model;
+    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// 行番号だぜ☆（＾～＾）

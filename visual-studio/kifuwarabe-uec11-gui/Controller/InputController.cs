@@ -1,8 +1,7 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
     using System.Diagnostics;
-    using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
@@ -11,29 +10,29 @@
     /// </summary>
     public static class InputController
     {
-        public static void Go(ApplicationObjectModel model, MainWindow view)
+        public static void Go(ApplicationObjectModel appModel, MainWindow appView)
         {
-            if (null == model)
+            if (null == appModel)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (null == view)
+            if (null == appView)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
-            var text = view.InputTextReader.ReadToEnd();
+            var text = appView.InputTextReader.ReadToEnd();
 
             // 空行は無視☆（＾～＾）
             if (!string.IsNullOrWhiteSpace(text))
             {
                 Trace.WriteLine($"Text            | {text}");
-                view.CommunicationLogWriter.WriteLine(text);
-                view.CommunicationLogWriter.Flush();
+                appView.CommunicationLogWriter.WriteLine(text);
+                appView.CommunicationLogWriter.Flush();
             }
 
-            var scriptDocument = InputScriptDocument.Parse(text, model);
+            var scriptDocument = InputScriptDocument.Parse(text, appModel);
             if (scriptDocument != null)
             {
                 foreach (var instruction in scriptDocument.Instructions)
@@ -46,7 +45,7 @@
                         var args = (InfoInstructionArgument)instruction.Argument;
 
                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                        view.infoValue.Content = MainWindow.SoluteNewline(args.Text);
+                        appView.infoValue.Content = MainWindow.SoluteNewline(args.Text);
                     }
                     else if (instruction.Command == InputScriptDocument.BlackCommand)
                     {
@@ -54,15 +53,15 @@
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneController.ChangeColorToBlack(model, view, zShapedIndex);
+                                StoneController.ChangeColorToBlack(appModel, appView, zShapedIndex);
 
                                 // 最後の着手点☆（＾～＾）
-                                var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
-                                view.lastMoveValue.Content = text1;
+                                var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
+                                appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                appView.lastMoveValue.Content = text1;
                             }
                         }
                     }
@@ -72,15 +71,15 @@
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 白石にするぜ☆（＾～＾）
-                                StoneController.ChangeColorToWhite(model, view, zShapedIndex);
+                                StoneController.ChangeColorToWhite(appModel, appView, zShapedIndex);
 
                                 // 最後の着手点☆（＾～＾）
-                                var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
-                                view.lastMoveValue.Content = text1;
+                                var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
+                                appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                appView.lastMoveValue.Content = text1;
                             }
                         }
                     }
@@ -90,18 +89,18 @@
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 石を取り除くぜ☆（＾～＾）
-                                StoneController.ChangeColorToSpace(model, view, zShapedIndex);
+                                StoneController.ChangeColorToSpace(appModel, appView, zShapedIndex);
                             }
                         }
                     }
                     else if (instruction.Command == InputScriptDocument.BoardCommand)
                     {
                         var args = (BoardInstructionArgument)instruction.Argument;
-                        int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, model);
-                        int length = cellIndex + model.Board.ColumnSize;
+                        int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
+                        int length = cellIndex + appModel.Board.ColumnSize;
                         // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
 
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -117,17 +116,17 @@
                             {
                                 case 'b':
                                     // 黒石にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToBlack(model, view, cellIndex);
+                                    StoneController.ChangeColorToBlack(appModel, appView, cellIndex);
                                     cellIndex++;
                                     break;
                                 case 'w':
                                     // 白石にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToWhite(model, view, cellIndex);
+                                    StoneController.ChangeColorToWhite(appModel, appView, cellIndex);
                                     cellIndex++;
                                     break;
                                 case '.':
                                     // 空点にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToSpace(model, view, cellIndex);
+                                    StoneController.ChangeColorToSpace(appModel, appView, cellIndex);
                                     cellIndex++;
                                     break;
                             }
@@ -138,13 +137,13 @@
                         var args = (JsonInstructionArgument)instruction.Argument;
                         Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
-                        view.SetModel(ApplicationObjectModel.Parse(args.Json));
+                        appView.SetModel(ApplicationObjectModel.Parse(args.Json));
                     }
                     else if (instruction.Command == InputScriptDocument.WidgetCommand)
                     {
                         var args = (WidgetInstructionArgument)instruction.Argument;
 
-                        PropertyController.MatchCanvasBy(model, view, args.Name,
+                        PropertyController.MatchCanvasBy(appModel, appView, args.Name,
                             (widgetModel, widgetView, insideStem) =>
                             {
                                 PropertyController.ChangeProperty(widgetModel, widgetView, args);
@@ -155,15 +154,15 @@
 
                                 if (args.Name == ColumnNumbersController.OutsideName)
                                 {
-                                    ColumnNumbersController.ChangeProperty(model, args);
+                                    ColumnNumbersController.ChangeProperty(appModel, args);
                                 }
                                 else if (args.Name == RowNumbersController.OutsideName)
                                 {
-                                    RowNumbersController.ChangeProperty(model, args);
+                                    RowNumbersController.ChangeProperty(appModel, args);
                                 }
                                 else if (args.Name == StarsController.OutsideName)
                                 {
-                                    StarsController.ChangeProperty(model, args);
+                                    StarsController.ChangeProperty(appModel, args);
                                 }
                                 else
                                 {
@@ -176,115 +175,58 @@
                         // ビューは、ここでは更新しないぜ☆（＾～＾）
                         var prop = (SetsInstructionArgument)instruction.Argument;
 
-                        PropertyController.MatchCanvasBy(model, view, prop.Name,
-                            (widgetModel, widgetView, insideStem) =>
+                        PropertyController.MatchCanvasBy(appModel, appView, prop.Name,
+                            (propModel, propView, insideStem) =>
                             {
-                                Trace.WriteLine($"Found           | Outside:{prop.Name}, Inside:{insideStem} In InputController.Go.");
-
                                 // モデルに値をセット☆（＾～＾）
-                                widgetModel.Value = prop.Value;
+                                propModel.Value = prop.Value;
 
-                                // ビューを更新☆（＾～＾）
-                                // PropertyController.RepaintByOutsideName(model, view, prop.Name);
+                                Trace.WriteLine($"Found           | Outside:{prop.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[prop.Name].ToText()}");
                             },
                             (err) =>
                             {
-                                Trace.WriteLine($"Error           | {err} In InputController.Go.");
+                                if (prop.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                {
+                                    // インターバル・ミリ秒☆（＾～＾）
+                                    appModel.Properties[prop.Name].Value = prop.Value;
+                                }
+                                else if (prop.Name == LastMoveMarkerController.OutsideName)
+                                {
+                                    var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, appModel);
+                                    if (cellAddress != null)
+                                    {
+                                        var text1 = cellAddress.ToDisplayTrimed(appModel);
+                                        appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                        appView.lastMoveValue.Content = text1;
+                                    }
+                                }
+                                else if (prop.Name == BoardModel.RowSizeOutsideName)
+                                {
+                                    if (int.TryParse(prop.Value, out int outValue))
+                                    {
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                        {
+                                            appModel.Board.RowSize = outValue;
+                                        }
+                                    }
+                                }
+                                else if (prop.Name == BoardModel.ColumnSizeOutsideName)
+                                {
+                                    if (int.TryParse(prop.Value, out int outValue))
+                                    {
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                        {
+                                            appModel.Board.ColumnSize = outValue;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Trace.WriteLine($"Error           | {err} In InputController.Go.");
+                                }
                             });
-
-                        if (prop.Name == ApplicationObjectModel.IntervalMsecOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            if (int.TryParse(prop.Value, out int outValue))
-                            {
-                                view.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
-                                // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
-                            }
-                        }
-                        else if (prop.Name == LastMoveMarkerController.OutsideName)
-                        {
-                            var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, model);
-                            if (cellAddress != null)
-                            {
-                                var text1 = cellAddress.ToDisplayTrimed(model);
-                                model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
-                                view.lastMoveValue.Content = text1;
-                            }
-                        }
-                        else if (prop.Name == ApplicationObjectModel.InfoOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-
-                            // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                            // view.infoValue.Content = MainWindow.SoluteNewline(prop.Value);
-                        }
-                        /*
-                        else if (prop.Name == ApplicationObjectModel.PlyOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.plyValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.BlackNameOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.blackNameValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.BlackTimeOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.blackTimeValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.BlackHamaOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.blackAgehamaValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.WhiteNameOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.whiteNameValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.WhiteTimeOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.whiteTimeValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.WhiteHamaOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.whiteAgehamaValue.Content = prop.Value;
-                        }
-                        else if (prop.Name == ApplicationObjectModel.KomiOutsideName)
-                        {
-                            model.Properties[prop.Name].Value = prop.Value;
-                            view.komiValue.Content = prop.Value;
-                        }
-                        */
-                        else if (prop.Name == BoardModel.RowSizeOutsideName)
-                        {
-                            if (int.TryParse(prop.Value, out int outValue))
-                            {
-                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                if (0 < outValue && outValue < HyperParameter.MaxRowSize)
-                                {
-                                    model.Board.RowSize = outValue;
-                                }
-                            }
-                        }
-                        else if (prop.Name == BoardModel.ColumnSizeOutsideName)
-                        {
-                            if (int.TryParse(prop.Value, out int outValue))
-                            {
-                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
-                                {
-                                    model.Board.ColumnSize = outValue;
-                                }
-                            }
-                        }
-                        else
-                        {
-                        }
                     }
                     else if (instruction.Command == InputScriptDocument.ExitsCommand)
                     {
@@ -296,51 +238,17 @@
                     }
                 }
 
-                // 全ての入力に対応したぜ☆（＾～＾）！
+                // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
+                // あとは　モデルに合わせてビューを更新するだけだな☆（＾～＾）！
                 {
                     // GUI出力 を書き込むやつ☆（＾～＾）
                     // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
                     // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
                     using (var outputJsonWriter = new OutputJsonWriter("output.json"))
                     {
-                        outputJsonWriter.WriteLine(view.Model.ToJson());
+                        outputJsonWriter.WriteLine(appModel.ToJson());
                         outputJsonWriter.Flush();
                     }
-
-                    // JSONを反映しようぜ☆（＾～＾）
-                    // 列番号
-                    ColumnNumberController.Repaint(view.Model, view);
-
-                    // 行番号
-                    RowNumberController.Repaint(view.Model, view);
-
-                    // 星
-                    StarController.Repaint(view.Model, view);
-
-                    // 石
-                    for (int index = 0; index < HyperParameter.MaxCellCount; index++)
-                    {
-                        StoneController.Repaint(view.Model, view, index);
-                    }
-
-                    // 着手マーカー
-                    LastMoveMarkerController.Repaint(view.Model, view);
-
-                    // TODO UIウィジェット
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.PlyOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, LastMoveMarkerController.OutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.BlackNameOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.BlackTimeOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.BlackHamaOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.WhiteNameOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.WhiteTimeOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.WhiteHamaOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.KomiOutsideName);
-                    PropertyController.RepaintByOutsideName(view.Model, view, ApplicationObjectModel.InfoOutsideName);
-
-                    // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
-                    view.RepaintWindow();
-                    view.InvalidateVisual();
                 }
             }
         }

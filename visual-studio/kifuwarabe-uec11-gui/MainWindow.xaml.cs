@@ -8,6 +8,8 @@
     using System.Windows.Shapes;
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.Model;
+    using KifuwarabeUec11Gui.Controller;
+    using System.Diagnostics;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -202,8 +204,7 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                // this.plyLabel.FontSize = columnInterval;
-                this.plyValue.Content = $"{this.Model.Properties[ApplicationObjectModel.PlyOutsideName]}";
+                this.plyValue.Content = $"{this.Model.Properties[ApplicationObjectModel.PlyOutsideName].ToText()}";
             }
         }
 
@@ -232,6 +233,7 @@
                 this.DispatchTimer.Tick += (s, e) =>
                 {
                     InputController.Go(this.Model, this);
+                    ApplicationController.RepaintAllViews(this.Model, this);
                 };
             }
 
@@ -406,6 +408,11 @@
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ApplicationController.RepaintAllViews(this.Model, this);
         }
     }
 }

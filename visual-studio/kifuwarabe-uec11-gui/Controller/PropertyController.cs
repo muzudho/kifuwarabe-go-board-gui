@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@
         /// 外向きの名前を、内向きの名前に変換だぜ☆（＾～＾）
         /// 行番号など　１つの Canvas にまとまっていないものは　ここに入ってないぜ☆（＾～＾）
         /// </summary>
-        private static Dictionary<string, string> inwardStemDictionary = new Dictionary<string, string>()
+        private static Dictionary<string, string> inwardCanvasStemDictionary = new Dictionary<string, string>()
             {
                 { ApplicationObjectModel.PlyOutsideName, "ply" },
                 { LastMoveMarkerController.OutsideName, "lastMove" },
@@ -58,14 +58,15 @@
                 throw new ArgumentNullException(nameof(callbackErr));
             }
 
-            if (inwardStemDictionary.ContainsKey(outsideName))
+            if (inwardCanvasStemDictionary.ContainsKey(outsideName))
             {
-                var insideStem = inwardStemDictionary[outsideName];
-                Canvas canvas = (Canvas)view.FindName($"{insideStem}Canvas");
+                var insideStem = inwardCanvasStemDictionary[outsideName];
+                Canvas widgetView = (Canvas)view.FindName($"{insideStem}Canvas");
 
-                PropertyValue propValue = model.Properties[outsideName];
+                // これが参照渡しになっているつもりだが……☆（＾～＾）
+                PropertyValue widgetModel = model.Properties[outsideName];
 
-                callbackDone(propValue, canvas, insideStem);
+                callbackDone(widgetModel, widgetView, insideStem);
             }
             else
             {

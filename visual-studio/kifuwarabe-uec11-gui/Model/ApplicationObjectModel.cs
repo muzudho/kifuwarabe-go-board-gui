@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.Json;
+    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// `output.json` をこれで作ろうぜ☆（＾～＾）
@@ -90,7 +91,7 @@
                 {PlyOutsideName, new PropertyNumber(0) },
 
                 // 最後の着手点。
-                {LastMoveMarkerController.OutsideName, new PropertyNumber(0) },
+                {LastMoveMarkerController.OutsideName, new PropertyString("---") },
 
                 // 黒の選手名。
                 {BlackNameOutsideName, new PropertyString("player1") },
