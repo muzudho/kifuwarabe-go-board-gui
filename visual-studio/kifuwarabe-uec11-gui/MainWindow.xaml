@@ -98,7 +98,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >Z99</Label>
+                    >A99</Label>
             </Canvas>
 
 
@@ -141,7 +141,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >Aaaaaaaa</Label>
+                    >AAAAAAAA</Label>
             </Canvas>
 
             <Canvas
@@ -264,7 +264,7 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >Bbbbbbbb</Label>
+                    >BBBBBBBB</Label>
             </Canvas>
 
             <Canvas
@@ -406,7 +406,7 @@
                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
-                />
+                >InfoXXXX</Label>
         </Canvas>
     </Grid>
 </Window>

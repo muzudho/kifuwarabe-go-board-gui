@@ -14,7 +14,7 @@
 
         public PropertyNumber()
         {
-            this.Value = 0.0;
+            // this.Value = 0.0;
             this.Visible = true;
         }
 

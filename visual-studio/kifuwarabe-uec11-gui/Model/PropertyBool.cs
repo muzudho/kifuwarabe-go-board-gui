@@ -14,7 +14,7 @@
 
         public PropertyBool()
         {
-            this.Value = false;
+            // this.Value = false;
             this.Visible = true;
         }
 

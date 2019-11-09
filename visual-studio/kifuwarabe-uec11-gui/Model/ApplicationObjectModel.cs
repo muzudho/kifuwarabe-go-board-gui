@@ -9,6 +9,9 @@
     /// </summary>
     public class ApplicationObjectModel
     {
+        /// <summary>
+        /// コマンドの名前☆（＾～＾）
+        /// </summary>
         public static string IntervalMsecOutsideName => "interval-msec";
         public static string PlyOutsideName => "ply";
         public static string BlackNameOutsideName => "b-name";
@@ -20,7 +23,7 @@
         public static string KomiOutsideName => "komi";
 
         /// <summary>
-        /// オブジェクトの名前でもあり、コマンド名でもあるぜ☆（＾～＾）
+        /// オブジェクトの名前☆（＾～＾）　コマンド名とは別ものだぜ☆（＾～＾）
         /// </summary>
         public static string InfoOutsideName => "info";
 
@@ -131,12 +134,9 @@
         /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
         /// </summary>
         private List<string> rowNumbersTrimed;
-        public List<string> RowNumbersTrimed
+        public List<string> GetRowNumbersTrimed()
         {
-            get
-            {
-                return this.rowNumbersTrimed;
-            }
+            return this.rowNumbersTrimed;
         }
 
         public static ApplicationObjectModel Parse(string json)

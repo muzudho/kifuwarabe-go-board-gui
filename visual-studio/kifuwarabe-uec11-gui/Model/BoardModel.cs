@@ -9,6 +9,12 @@
     /// </summary>
     public class BoardModel
     {
+        /// <summary>
+        /// その他のデータの名前☆（＾～＾）
+        /// </summary>
+        public static string RowSizeOutsideName => "row-size";
+        public static string ColumnSizeOutsideName => "column-size";
+
         public BoardModel()
         {
             this.Stones = new List<Stone>();

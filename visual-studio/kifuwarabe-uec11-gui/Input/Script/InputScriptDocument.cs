@@ -10,6 +10,20 @@
     /// </summary>
     public class InputScriptDocument
     {
+        public static string BlackCommand => "black";
+        public static string WhiteCommand => "white";
+        public static string SpaceCommand => "space";
+        public static string BoardCommand => "board";
+        public static string JsonCommand => "json";
+        public static string WidgetCommand => "widget";
+        public static string SetsCommand => "set";
+        public static string ExitsCommand => "exit";
+
+        /// <summary>
+        /// オブジェクトの名前☆（＾～＾）　コマンド名とは別ものだぜ☆（＾～＾）
+        /// </summary>
+        public static string InfoCommand => "info";
+
         public List<Instruction> Instructions { get; private set; }
 
         public InputScriptDocument(List<Instruction> instructions)
@@ -49,7 +63,7 @@
 
                 if (commandName != null)
                 {
-                    if (commandName.Text == ApplicationObjectModel.InfoOutsideName)
+                    if (commandName.Text == InputScriptDocument.InfoCommand)
                     {
                         InfoInstructionArgument argument;
                         (argument, next) = InfoInstructionArgument.Parse(line, next);
@@ -62,95 +76,83 @@
                             instructions.Add(new Instruction(commandName.Text, argument));
                         }
                     }
+                    else if (commandName.Text == InputScriptDocument.BlackCommand ||
+                        commandName.Text == InputScriptDocument.WhiteCommand ||
+                        commandName.Text == InputScriptDocument.SpaceCommand)
+                    {
+                        ColorInstructionArgument argument;
+                        (argument, next) = ColorInstructionArgument.Parse(line, next, model);
+                        if (argument == null)
+                        {
+                            Trace.WriteLine($"Error           | {line}");
+                        }
+                        else
+                        {
+                            // Trace.WriteLine($"Test            | {word.Text} {argument.ToDisplay()}");
+                            instructions.Add(new Instruction(commandName.Text, argument));
+                        }
+                    }
+                    else if (commandName.Text == InputScriptDocument.BoardCommand)
+                    {
+                        BoardInstructionArgument argument;
+                        (argument, next) = BoardInstructionArgument.Parse(line, next, model);
+                        if (argument == null)
+                        {
+                            Trace.WriteLine($"Error           | {line}");
+                        }
+                        else
+                        {
+                            // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
+                            instructions.Add(new Instruction(commandName.Text, argument));
+                        }
+                    }
+                    else if (commandName.Text == InputScriptDocument.JsonCommand)
+                    {
+                        JsonInstructionArgument argument;
+                        (argument, next) = JsonInstructionArgument.Parse(line, next);
+                        if (argument == null)
+                        {
+                            Trace.WriteLine($"Error           | {line}");
+                        }
+                        else
+                        {
+                            // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
+                            instructions.Add(new Instruction(commandName.Text, argument));
+                        }
+                    }
+                    else if (commandName.Text == InputScriptDocument.WidgetCommand)
+                    {
+                        WidgetInstructionArgument argument;
+                        (argument, next) = WidgetInstructionArgument.Parse(line, next);
+                        if (argument == null)
+                        {
+                            Trace.WriteLine($"Error           | {line}");
+                        }
+                        else
+                        {
+                            // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
+                            instructions.Add(new Instruction(commandName.Text, argument));
+                        }
+                    }
+                    else if (commandName.Text == InputScriptDocument.SetsCommand)
+                    {
+                        SetsInstructionArgument argument;
+                        (argument, next) = SetsInstructionArgument.Parse(line, next);
+                        if (argument == null)
+                        {
+                            Trace.WriteLine($"Error           | {line}");
+                        }
+                        else
+                        {
+                            instructions.Add(new Instruction(commandName.Text, argument));
+                        }
+                    }
+                    else if (commandName.Text == InputScriptDocument.ExitsCommand)
+                    {
+                        instructions.Add(new Instruction(commandName.Text, null));
+                    }
                     else
                     {
-                        switch (commandName.Text)
-                        {
-                            case "exit":
-                                instructions.Add(new Instruction(commandName.Text, null));
-                                break;
-
-                            case "set":
-                                {
-                                    SetsInstructionArgument argument;
-                                    (argument, next) = SetsInstructionArgument.Parse(line, next);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                break;
-
-                            case "black": // thru
-                            case "white": // thru
-                            case "space":
-                                {
-                                    ColorInstructionArgument argument;
-                                    (argument, next) = ColorInstructionArgument.Parse(line, next, model);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        // Trace.WriteLine($"Test            | {word.Text} {argument.ToDisplay()}");
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                break;
-
-                            case "widget":
-                                {
-                                    WidgetInstructionArgument argument;
-                                    (argument, next) = WidgetInstructionArgument.Parse(line, next);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                break;
-
-                            case "board":
-                                {
-                                    BoardInstructionArgument argument;
-                                    (argument, next) = BoardInstructionArgument.Parse(line, next, model);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                break;
-
-                            case "JSON":
-                                {
-                                    JsonInstructionArgument argument;
-                                    (argument, next) = JsonInstructionArgument.Parse(line, next);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        // Trace.WriteLine($"Test            | {commandName.Text} {argument.ToDisplay()}");
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                break;
-                        }
                     }
                 }
             }
