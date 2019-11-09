@@ -29,10 +29,11 @@
 
         public static (CellRange, int) Parse(string text, int start, ApplicationObjectModel model)
         {
-            var next = start;
+            CellRange cellRange = null;
+            int curr = start;
 
             CellAddress startsCellAddress;
-            (startsCellAddress, next) = CellAddress.Parse(text, next, model);
+            (startsCellAddress, curr) = CellAddress.Parse(text, curr, model);
             if (startsCellAddress == null)
             {
                 // 構文不一致☆（＾～＾）
@@ -40,27 +41,32 @@
             }
             // Trace.WriteLine($"startsCellAddres| {startsCellAddress.ToDisplay()}");
 
-            ExactlyKeyword colon;
-            (colon, next) = ExactlyKeyword.Parse(":", text, next);
-            if (colon == null)
+            var next = ExactlyKeyword.Parse(":", text, curr, (colon, curr) =>
             {
-                // 構文不一致☆（＾～＾）
+                if (colon == null)
+                {
+                    // 構文不一致☆（＾～＾）
 
-                // ここまで一致していれば、短縮形として確定するぜ☆（＾～＾）
-                // 例えば `k10` は、 `k10:k10` と一致したと判定するんだぜ☆（＾～＾）
-                return (new CellRange(startsCellAddress, startsCellAddress), next);
-            }
+                    // ここまで一致していれば、短縮形として確定するぜ☆（＾～＾）
+                    // 例えば `k10` は、 `k10:k10` と一致したと判定するんだぜ☆（＾～＾）
+                    cellRange = new CellRange(startsCellAddress, startsCellAddress);
+                    return curr;
+                }
 
-            CellAddress endsCellAddress;
-            (endsCellAddress, next) = CellAddress.Parse(text, next, model);
-            if (endsCellAddress == null)
-            {
-                // 構文不一致☆（＾～＾）コロンが付いていて尻切れトンボなら不一致、諦めろだぜ☆（＾～＾）
-                return (null, start);
-            }
-            // Trace.WriteLine($"endsCellAddress | {endsCellAddress.ToDisplay()}");
+                CellAddress endsCellAddress;
+                (endsCellAddress, curr) = CellAddress.Parse(text, curr, model);
+                if (endsCellAddress == null)
+                {
+                    // 構文不一致☆（＾～＾）コロンが付いていて尻切れトンボなら不一致、諦めろだぜ☆（＾～＾）
+                    return start;
+                }
+                // Trace.WriteLine($"endsCellAddress | {endsCellAddress.ToDisplay()}");
 
-            return (new CellRange(startsCellAddress, endsCellAddress), next);
+                cellRange = new CellRange(startsCellAddress, endsCellAddress);
+                return curr;
+            });
+
+            return (cellRange, next);
         }
 
         public void Foreach(ApplicationObjectModel model, IndexCallback callback)

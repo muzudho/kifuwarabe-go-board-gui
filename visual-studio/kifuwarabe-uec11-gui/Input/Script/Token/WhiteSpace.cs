@@ -31,26 +31,6 @@
             this.Text = text;
         }
 
-        /*
-        public static (WhiteSpace, int) Parse(string text, int start)
-        {
-            if (text == null || text.Length <= start)
-            {
-                return (null, start);
-            }
-
-            var m = regex.Match(text.Substring(start));
-            if (m.Success)
-            {
-                // 一致。
-                var whiteSpaces = m.Groups[1].Value;
-                return (new WhiteSpace(whiteSpaces), start + whiteSpaces.Length);
-            }
-
-            return (null, start);
-        }
-        */
-
         /// <summary>
         /// 
         /// </summary>
@@ -58,7 +38,7 @@
         /// <param name="start"></param>
         /// <param name="callback"></param>
         /// <returns>Next.</returns>
-        public static int Parse2(string text, int start, ParsesWhiteSpaceCallbackType callback)
+        public static int Parse(string text, int start, ParsesWhiteSpaceCallbackType callback)
         {
             if (callback == null)
             {

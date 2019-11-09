@@ -42,7 +42,7 @@
             BoardInstructionArgument boardInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            var next = WhiteSpace.Parse2(text, start,
+            var next = WhiteSpace.Parse(text, start,
                 (_, curr) =>
                 {
                     RowAddress rowAddress = null;
@@ -56,7 +56,7 @@
                     else
                     {
                         // 途中のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpace.Parse2(text, curr,
+                        return WhiteSpace.Parse(text, curr,
                             (_, curr) =>
                             {
                                 // 行の残り全部を読み取るぜ☆（＾～＾）

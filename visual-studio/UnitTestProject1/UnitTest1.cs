@@ -289,20 +289,56 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestExactlyKeyword()
         {
+            // とりあえずこのテストのスタートは0に揃えておこう☆（＾～＾）
+            var start = 0;
+
             // 単語完全一致のテスト☆（＾～＾）
-            Assert.AreEqual("black", ExactlyKeyword.Parse("black", "black", 0).Item1?.ToDisplay());
-            Assert.AreEqual("white", ExactlyKeyword.Parse("white", "white", 0).Item1?.ToDisplay());
-            Assert.AreEqual("start", ExactlyKeyword.Parse("start", "start", 0).Item1?.ToDisplay());
+            Assert.AreEqual(5, ExactlyKeyword.Parse("black", "black", start, (exactlyKeyword, curr) =>
+            {
+                Assert.AreEqual("black", exactlyKeyword?.ToDisplay());
+                if (exactlyKeyword != null)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
+
+            Assert.AreEqual(5, ExactlyKeyword.Parse("white", "white", start, (exactlyKeyword, curr) =>
+            {
+                Assert.AreEqual("white", exactlyKeyword?.ToDisplay());
+                if (exactlyKeyword != null)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
+
+            Assert.AreEqual(5, ExactlyKeyword.Parse("start", "start", start, (exactlyKeyword, curr) =>
+            {
+                Assert.AreEqual("start", exactlyKeyword?.ToDisplay());
+                if (exactlyKeyword != null)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
 
             // ホワイトスペースのテスト☆（*＾～＾*）
-            var start = 0;
-            // Assert.AreEqual("     ", WhiteSpace.Parse("     ", start).Item1?.ToDisplay());
-            Assert.AreEqual(5, WhiteSpace.Parse2("     ", start, (whiteSpace, curr) =>
+            Assert.AreEqual(5, WhiteSpace.Parse("     ", start, (whiteSpace, curr) =>
             {
                 Assert.AreEqual("     ", whiteSpace?.ToDisplay());
                 if (whiteSpace != null)
                 {
-                    return curr + whiteSpace.Text.Length;
+                    return curr;
                 }
                 else
                 {

@@ -38,7 +38,7 @@
             bool repeatsColor = true;
             while (repeatsColor)
             {
-                nextSum = WhiteSpace.Parse2(text, nextSum,
+                nextSum = WhiteSpace.Parse(text, nextSum,
                     (whiteSpace, curr) =>
                     {
                         if (whiteSpace == null)

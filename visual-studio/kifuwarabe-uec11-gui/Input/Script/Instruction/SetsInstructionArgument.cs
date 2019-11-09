@@ -39,7 +39,7 @@
             SetsInstructionArgument setsInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            var next = WhiteSpace.Parse2(text, start,
+            var next = WhiteSpace.Parse(text, start,
                 (_, curr) =>
                 {
                     // 次のイコールの手前までを読み取るぜ☆（＾～＾）
@@ -56,7 +56,7 @@
                         curr++;
 
                         // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpace.Parse2(text, curr,
+                        return WhiteSpace.Parse(text, curr,
                             (_, curr) =>
                             {
                                 // 行の残り全部を読み取るぜ☆（＾～＾）
