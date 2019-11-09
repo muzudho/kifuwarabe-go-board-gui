@@ -22,7 +22,6 @@
         public static string SpaceCommand => "space";
         public static string BoardCommand => "board";
         public static string JsonCommand => "json";
-        public static string WidgetCommand => "widget";
         public static string SetsCommand => "set";
         public static string ExitsCommand => "exit";
 
@@ -126,20 +125,6 @@
                                 {
                                     JsonInstructionArgument argument;
                                     (argument, curr) = JsonInstructionArgument.Parse(line, curr);
-                                    if (argument == null)
-                                    {
-                                        Trace.WriteLine($"Error           | {line}");
-                                    }
-                                    else
-                                    {
-                                        Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
-                                        instructions.Add(new Instruction(commandName.Text, argument));
-                                    }
-                                }
-                                else if (commandName.Text == InputScriptDocument.WidgetCommand)
-                                {
-                                    SetsInstructionArgument argument;
-                                    (argument, curr) = SetsInstructionArgument.Parse(line, curr);
                                     if (argument == null)
                                     {
                                         Trace.WriteLine($"Error           | {line}");

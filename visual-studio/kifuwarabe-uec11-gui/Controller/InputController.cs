@@ -143,61 +143,34 @@
 
                         appView.SetModel(ApplicationObjectModel.Parse(args.Json));
                     }
-                    else if (instruction.Command == InputScriptDocument.WidgetCommand)
-                    {
-                        var args = (SetsInstructionArgument)instruction.Argument;
-
-                        PropertyController.MatchCanvasBy(appModel, appView, args.Name,
-                            (widgetModel, widgetView, insideStem) =>
-                            {
-                                PropertyController.ChangeProperty(widgetModel, widgetView, args);
-                            },
-                            (err) =>
-                            {
-                                    // Not found widget.
-
-                                    if (args.Name == ColumnNumbersController.OutsideName)
-                                {
-                                    ColumnNumbersController.ChangeProperty(appModel, args);
-                                }
-                                else if (args.Name == RowNumbersController.OutsideName)
-                                {
-                                    RowNumbersController.ChangeProperty(appModel, args);
-                                }
-                                else if (args.Name == StarsController.OutsideName)
-                                {
-                                    StarsController.ChangeProperty(appModel, args);
-                                }
-                                else
-                                {
-                                }
-                            });
-                    }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
                         // モデルに値を設定するコマンドだぜ☆（＾～＾）
                         // ビューは、ここでは更新しないぜ☆（＾～＾）
-                        var prop = (SetsInstructionArgument)instruction.Argument;
+                        var args = (SetsInstructionArgument)instruction.Argument;
 
-                        PropertyController.MatchCanvasBy(appModel, appView, prop.Name,
+                        PropertyController.MatchCanvasBy(appModel, appView, args.Name,
                             (propModel, propView, insideStem) =>
                             {
-                                    // モデルに値をセット☆（＾～＾）
-                                    propModel.Value = prop.Value;
+                                // モデルに値をセット☆（＾～＾）
+                                PropertyController.ChangeProperty(propModel, propView, args);
+                                // propModel.Value = args.Value;
 
-                                Trace.WriteLine($"Found           | Outside:{prop.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[prop.Name].ToText()}");
+                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[args.Name].ToText()}");
                             },
                             (err) =>
                             {
-                                if (prop.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                // Not found property.
+                                if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
                                 {
-                                        // インターバル・ミリ秒☆（＾～＾）
-                                        appModel.Properties[prop.Name].Value = prop.Value;
+                                    // インターバル・ミリ秒☆（＾～＾）
+                                    appModel.Properties[args.Name].Value = args.Value;
                                 }
-                                else if (prop.Name == LastMoveMarkerController.OutsideName)
+                                else if (args.Name == LastMoveMarkerController.OutsideName)
                                 {
+                                    // 着手マーカー☆（＾～＾）
                                     var start = 0;
-                                    CellAddress.Parse(prop.Value, start, appModel, (cellAddress, curr) =>
+                                    CellAddress.Parse(args.Value, start, appModel, (cellAddress, curr) =>
                                     {
                                         if (cellAddress == null)
                                         {
@@ -210,27 +183,44 @@
                                         return curr;
                                     });
                                 }
-                                else if (prop.Name == BoardModel.RowSizeOutsideName)
+                                else if (args.Name == BoardModel.RowSizeOutsideName)
                                 {
-                                    if (int.TryParse(prop.Value, out int outValue))
+                                    // 行サイズ☆（＾～＾）
+                                    if (int.TryParse(args.Value, out int outValue))
                                     {
-                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                            if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
                                         {
                                             appModel.Board.RowSize = outValue;
                                         }
                                     }
                                 }
-                                else if (prop.Name == BoardModel.ColumnSizeOutsideName)
+                                else if (args.Name == BoardModel.ColumnSizeOutsideName)
                                 {
-                                    if (int.TryParse(prop.Value, out int outValue))
+                                    // 列サイズ☆（＾～＾）
+                                    if (int.TryParse(args.Value, out int outValue))
                                     {
-                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                            if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
                                         {
                                             appModel.Board.ColumnSize = outValue;
                                         }
                                     }
+                                }
+                                else if (args.Name == ColumnNumbersController.OutsideName)
+                                {
+                                    // 列番号☆（＾～＾）
+                                    ColumnNumbersController.ChangeProperty(appModel, args);
+                                }
+                                else if (args.Name == RowNumbersController.OutsideName)
+                                {
+                                    // 行番号☆（＾～＾）
+                                    RowNumbersController.ChangeProperty(appModel, args);
+                                }
+                                else if (args.Name == StarsController.OutsideName)
+                                {
+                                    // 盤上の星☆（＾～＾）
+                                    StarsController.ChangeProperty(appModel, args);
                                 }
                                 else
                                 {

@@ -129,15 +129,17 @@ white A1 B2:D4 E5 F6:H8
 お絵描きができるな☆（＾～＾）
 
 
-# ウィジェットを非表示にしたいなら `widget` コマンドを使えだぜ☆（＾～＾）
+# ウィジェットを非表示にしたいなら `set ～.visible` コマンドを使えだぜ☆（＾～＾）
 
 Example:
 
 ```
-widget b-hama.visible = false
-widget w-hama.visible = false
-widget komi vsible = false
+set b-hama.visible = false
+set w-hama.visible = false
+set komi.visible = false
 ```
+
+効くやつ、効かないやつがあるのは実装が適当だからだぜ☆（＾～＾）
 
 ウィジェットには、キャンバス型と、個別型の　２種類があるぜ☆（＾～＾）
 
@@ -200,12 +202,12 @@ set b-name = Kifuwarabe
 set w-name = Warabemoti
 set row-size = 15
 set column-size = 15
-widget row-numbers.value = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
-widget column-numbers.value = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
-widget stars.value = "d4", "l4", "h8", "d12", "l12"
-widget b-hama.visible = false
-widget w-hama.visible = false
-widget komi.visible = false
+set row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
+set stars = "d4", "l4", "h8", "d12", "l12"
+set b-hama.visible = false
+set w-hama.visible = false
+set komi.visible = false
 ```
 
 今はまだ　盤の設定と、指し手は　２回に分けて送らないと　うまく反映されないぜ☆（＾～＾）

@@ -11,7 +11,7 @@
     /// 
     /// 構造としては
     /// 
-    /// `widget {name}.{property} = {value}`
+    /// `set {name}.{property} = {value}`
     /// 
     /// だぜ☆（＾～＾）`.{property}` が省略されている場合、`.value` を補うぜ☆（＾～＾）
     /// しかし☆

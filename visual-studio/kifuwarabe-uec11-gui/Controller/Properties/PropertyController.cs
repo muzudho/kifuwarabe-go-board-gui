@@ -61,16 +61,16 @@
             if (inwardCanvasStemDictionary.ContainsKey(outsideName))
             {
                 var insideStem = inwardCanvasStemDictionary[outsideName];
-                Canvas widgetView = (Canvas)view.FindName($"{insideStem}Canvas");
+                Canvas propView = (Canvas)view.FindName($"{insideStem}Canvas");
 
                 // これが参照渡しになっているつもりだが……☆（＾～＾）
-                PropertyValue widgetModel = model.Properties[outsideName];
+                PropertyValue propModel = model.Properties[outsideName];
 
-                callbackDone(widgetModel, widgetView, insideStem);
+                callbackDone(propModel, propView, insideStem);
             }
             else
             {
-                callbackErr($"widgetName:[{outsideName}] is not found.");
+                callbackErr($"outsideName:[{outsideName}] is not found.");
             }
         }
 
@@ -94,16 +94,16 @@
 
             // JSONで使われている名前と、内部で使われている名前は分けるぜ☆（＾～＾）
             MatchCanvasBy(appModel, appView, outsideName,
-                (widgetModel, widgetView, insideStem) =>
+                (propModel, propView, insideStem) =>
                 {
                     // あれば値☆（＾～＾）
                     {
                         var valueLabelName = $"{insideStem}Value";
-                        var valueLabelView = (Label)widgetView.FindName(valueLabelName);
+                        var valueLabelView = (Label)propView.FindName(valueLabelName);
                         if (valueLabelView != null)
                         {
                             // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                            valueLabelView.Content = MainWindow.SoluteNewline(widgetModel.ToText());
+                            valueLabelView.Content = MainWindow.SoluteNewline(propModel.ToText());
                         }
                         else
                         {
@@ -112,13 +112,13 @@
                     }
 
                     // 表示・非表示☆（＾～＾）
-                    if (widgetModel.Visible)
+                    if (propModel.Visible)
                     {
-                        widgetView.Visibility = Visibility.Visible;
+                        propView.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        widgetView.Visibility = Visibility.Hidden;
+                        propView.Visibility = Visibility.Hidden;
                     }
                 },
                 (err)=>
@@ -127,16 +127,16 @@
                 });
         }
 
-        public static void ChangeProperty(PropertyValue model, Canvas view, SetsInstructionArgument args)
+        public static void ChangeProperty(PropertyValue propModel, Canvas propView, SetsInstructionArgument args)
         {
-            if (model == null)
+            if (propModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(propModel));
             }
 
-            if (view == null)
+            if (propView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(propView));
             }
 
             if (args == null)
@@ -146,16 +146,21 @@
 
             switch (args.Property)
             {
+                case "value":
+                    // モデルに値をセット☆（＾～＾）
+                    propModel.Value = args.Value;
+                    break;
+
                 case "visible":
                     switch (args.Value)
                     {
                         case "true":
-                            model.Visible = true;
-                            view.Visibility = Visibility.Visible;
+                            propModel.Visible = true;
+                            propView.Visibility = Visibility.Visible;
                             break;
                         case "false":
-                            model.Visible = false;
-                            view.Visibility = Visibility.Hidden;
+                            propModel.Visible = false;
+                            propView.Visibility = Visibility.Hidden;
                             break;
                     }
                     break;
