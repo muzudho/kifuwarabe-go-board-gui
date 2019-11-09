@@ -4,18 +4,18 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="whiteSpace"></param>
-    /// <param name="curr">Current.</param>
-    /// <returns>Next.</returns>
-    public delegate int ParsesWhiteSpaceCallbackType(WhiteSpace whiteSpace, int curr);
-
-    /// <summary>
     /// １個以上の空白☆（＾～＾）
     /// </summary>
     public class WhiteSpace
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="whiteSpace"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(WhiteSpace whiteSpace, int curr);
+
         /// <summary>
         /// ホワイト・スペース☆（＾～＾）
         /// </summary>
@@ -38,7 +38,7 @@
         /// <param name="start"></param>
         /// <param name="callback"></param>
         /// <returns>Next.</returns>
-        public static int Parse(string text, int start, ParsesWhiteSpaceCallbackType callback)
+        public static int Parse(string text, int start, ParsesCallback callback)
         {
             if (callback == null)
             {

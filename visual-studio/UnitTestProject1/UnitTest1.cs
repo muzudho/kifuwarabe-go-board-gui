@@ -171,32 +171,85 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellAddress()
         {
-            var model = new ApplicationObjectModel();
-            Assert.AreEqual("A1", CellAddress.Parse("A1", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("B2", CellAddress.Parse("B2", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("C3", CellAddress.Parse("C3", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("D4", CellAddress.Parse("D4", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("E5", CellAddress.Parse("E5", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("F6", CellAddress.Parse("F6", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("G7", CellAddress.Parse("G7", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("H8", CellAddress.Parse("H8", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("J9", CellAddress.Parse("J9", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("K10", CellAddress.Parse("K10", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("L11", CellAddress.Parse("L11", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("M12", CellAddress.Parse("M12", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("N13", CellAddress.Parse("N13", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("O14", CellAddress.Parse("O14", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("P15", CellAddress.Parse("P15", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("Q16", CellAddress.Parse("Q16", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("R17", CellAddress.Parse("R17", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("S18", CellAddress.Parse("S18", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("T19", CellAddress.Parse("T19", 0, model).Item1?.ToDisplayTrimed(model));
+            var appModel = new ApplicationObjectModel();
+
+            // Ç∆ÇËÇ†Ç¶Ç∏Ç±ÇÃÉeÉXÉgÇÃÉXÉ^Å[ÉgÇÕ0Ç…ëµÇ¶ÇƒÇ®Ç±Ç§ÅôÅiÅOÅ`ÅOÅj
+            var start = 0;
+
+            // 2åÖÅôÅiÅOÅ`ÅOÅj
+            var list1 = new List<string>()
+            {
+                "A1","B2","C3",                          "D4",                          "E5",                          "F6",                          "G7",                          "H8",                          "J9"
+            };
+
+            foreach (var item in list1)
+            {
+                Assert.AreEqual(2, CellAddress.Parse(item, start, appModel, (cellAddress, curr) =>
+                {
+                    Assert.AreEqual(item, cellAddress?.ToDisplayTrimed(appModel));
+                    if (cellAddress != null)
+                    {
+                        return curr;
+                    }
+                    else
+                    {
+                        return start;
+                    }
+                }));
+            }
+
+            // 3åÖÅôÅiÅOÅ`ÅOÅj
+            var list2 = new List<string>()
+            {
+                "K10",
+                "L11",
+                "M12",
+                "N13",
+                "O14",
+                "P15",
+                "Q16",
+                "R17",
+                "S18",
+                "T19"
+            };
+
+            foreach (var item in list2)
+            {
+                Assert.AreEqual(3, CellAddress.Parse(item, start, appModel, (cellAddress, curr) =>
+                {
+                    Assert.AreEqual(item, cellAddress?.ToDisplayTrimed(appModel));
+                    if (cellAddress == null)
+                    {
+                        return start;
+                    }
+
+                    return curr;
+                }));
+            }
+
+            // ëÂï∂éöÅEè¨ï∂éöÇÕãÊï Ç∑ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅjèâä˙ÉZÉbÉgÇÃóÒî‘çÜÇ…è¨ï∂éöÇÕñ≥Ç¢Ç∫ÅôÅiÅOÅ`ÅOÅj
+            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (cellAddress, curr)=>
+            {
+                Assert.IsNull(cellAddress?.ToDisplayTrimed(appModel));
+                if (cellAddress == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
 
             // ëÂï∂éöÅEè¨ï∂éöÇÕãÊï Ç∑ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreNotEqual("A19", CellAddress.Parse("a19", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreNotEqual("B19", CellAddress.Parse("b19", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreNotEqual("s19", CellAddress.Parse("S19", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreNotEqual("t19", CellAddress.Parse("T19", 0, model).Item1?.ToDisplayTrimed(model));
+            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (cellAddress, curr)=>
+            {
+                Assert.AreNotEqual("t19", cellAddress?.ToDisplayTrimed(appModel));
+                if (cellAddress == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
         }
 
         /// <summary>
@@ -347,7 +400,7 @@ namespace UnitTestProject1
             }));
 
             // ç≈èâÇ…É}ÉbÉ`Ç∑ÇÈíPåÍÇÃÉeÉXÉgÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (word, curr)=>
+            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (word, curr) =>
             {
                 Assert.AreEqual("black", word?.ToDisplay());
                 if (word != null)
@@ -360,7 +413,7 @@ namespace UnitTestProject1
                 }
             }));
 
-            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (word, curr)=>
+            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (word, curr) =>
             {
                 Assert.AreEqual("Hello, world", word?.ToDisplay());
                 if (word != null)

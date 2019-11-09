@@ -32,9 +32,15 @@
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
-                var (moveCellAddress, next) = CellAddress.Parse(model.Properties[OutsideName].ToText(), 0, model);
-                if (moveCellAddress != null)
+                var start = 0;
+                CellAddress.Parse(model.Properties[OutsideName].ToText(), start, model, (moveCellAddress, curr) =>
                 {
+                    if (moveCellAddress == null)
+                    {
+                        lastMoveMarker.Visibility = Visibility.Hidden;
+                        return start;
+                    }
+
                     MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
                     {
                             // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
@@ -45,11 +51,9 @@
                         Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
                         Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
                     });
-                }
-                else
-                {
-                    lastMoveMarker.Visibility = Visibility.Hidden;
-                }
+
+                    return curr;
+                });
             }
             else
             {

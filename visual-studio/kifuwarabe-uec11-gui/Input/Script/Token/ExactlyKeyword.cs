@@ -3,18 +3,18 @@
     using System;
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="exactlyKeyword"></param>
-    /// <param name="curr">Current.</param>
-    /// <returns>Next.</returns>
-    public delegate int ParsesExactlyKeywordCallbackType(ExactlyKeyword exactlyKeyword, int curr);
-
-    /// <summary>
     /// キーワードの完全一致☆（＾～＾）
     /// </summary>
     public class ExactlyKeyword
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exactlyKeyword"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(ExactlyKeyword exactlyKeyword, int curr);
+
         /// <summary>
         /// キーワード☆（＾～＾）
         /// </summary>
@@ -25,7 +25,7 @@
             this.Word = word;
         }
 
-        public static int Parse(string word, string text, int start, ParsesExactlyKeywordCallbackType callback)
+        public static int Parse(string word, string text, int start, ParsesCallback callback)
         {
             if (callback == null)
             {

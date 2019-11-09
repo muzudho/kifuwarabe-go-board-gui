@@ -192,13 +192,19 @@
                                 }
                                 else if (prop.Name == LastMoveMarkerController.OutsideName)
                                 {
-                                    var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, appModel);
-                                    if (cellAddress != null)
+                                    var start = 0;
+                                    CellAddress.Parse(prop.Value, start, appModel, (cellAddress, curr) =>
                                     {
+                                        if (cellAddress == null)
+                                        {
+                                            return start;
+                                        }
+
                                         var text1 = cellAddress.ToDisplayTrimed(appModel);
                                         appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
                                         appView.lastMoveValue.Content = text1;
-                                    }
+                                        return curr;
+                                    });
                                 }
                                 else if (prop.Name == BoardModel.RowSizeOutsideName)
                                 {

@@ -32,19 +32,26 @@
                 if (i < starsModel.Count)
                 {
                     starView.Visibility = Visibility.Visible;
-                    var (cellAddress, next) = CellAddress.Parse(starsModel[i], 0, model);
-                    if (cellAddress != null)
+                    var start = 0;
+                    CellAddress.Parse(starsModel[i], start, model, (cellAddress, curr) =>
                     {
+                        if (cellAddress == null)
+                        {
+                            return start;
+                        }
+
                         MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(model), (left, top) =>
                         {
-                            // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                            starView.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
+                                // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
+                                starView.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
                             starView.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
 
                             Canvas.SetLeft(starView, left - starView.Width / 2);
                             Canvas.SetTop(starView, top - starView.Height / 2);
                         });
-                    }
+
+                        return curr;
+                    });
                 }
                 else
                 {
@@ -60,7 +67,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (view==null)
+            if (view == null)
             {
                 throw new ArgumentNullException(nameof(view));
             }

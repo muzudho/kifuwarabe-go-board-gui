@@ -4,18 +4,18 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="whiteSpace"></param>
-    /// <param name="curr">Current.</param>
-    /// <returns>Next.</returns>
-    public delegate int ParsesWordCallbackType(Word word, int curr);
-
-    /// <summary>
     /// 次の空白までの文字列☆（＾～＾）
     /// </summary>
     public class Word
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="whiteSpace"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(Word word, int curr);
+
         /// <summary>
         /// 英語がいうところの、単語☆（＾～＾）
         /// </summary>
@@ -31,7 +31,7 @@
             this.Text = text;
         }
 
-        public static int Parse(string text, int start, ParsesWordCallbackType callback)
+        public static int Parse(string text, int start, ParsesCallback callback)
         {
             if (callback == null)
             {

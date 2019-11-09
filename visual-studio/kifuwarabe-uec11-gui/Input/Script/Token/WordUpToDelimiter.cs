@@ -3,18 +3,18 @@
     using System;
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="whiteSpace"></param>
-    /// <param name="curr">Current.</param>
-    /// <returns>Next.</returns>
-    public delegate int ParsesWordUpToDelimiterCallbackType(WordUpToDelimiter wordUpToDelimiter, int curr);
-
-    /// <summary>
     /// 区切り記号までの単語☆（＾～＾）
     /// </summary>
     public class WordUpToDelimiter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="whiteSpace"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(WordUpToDelimiter wordUpToDelimiter, int curr);
+
         /// <summary>
         /// マッチングした文字☆（＾～＾）
         /// </summary>
@@ -25,7 +25,7 @@
             this.Text = text;
         }
 
-        public static int Parse(string delimiter, string text, int start, ParsesWordUpToDelimiterCallbackType callback)
+        public static int Parse(string delimiter, string text, int start, ParsesCallback callback)
         {
             if (callback == null)
             {
