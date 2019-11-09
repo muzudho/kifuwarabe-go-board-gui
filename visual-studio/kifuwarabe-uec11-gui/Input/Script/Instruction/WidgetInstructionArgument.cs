@@ -59,48 +59,51 @@
                 {
                     // 次のドットの手前までを読み取るぜ☆（＾～＾）
                     WordUpToDelimiter name;
-                    (name, curr) = WordUpToDelimiter.Parse(".", text, curr);
-                    if (name == null)
+                    return WordUpToDelimiter.Parse(".", text, curr, (name, curr) =>
                     {
-                        // 不一致☆（＾～＾）
-                        return start;
-                    }
-                    else
-                    {
-                        // ドットは読み飛ばすぜ☆（＾～＾）
-                        curr++;
+                        if (name == null)
+                        {
+                            // 不一致☆（＾～＾）
+                            return start;
+                        }
+                        else
+                        {
+                            // ドットは読み飛ばすぜ☆（＾～＾）
+                            curr++;
 
-                        // 次のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpace.Parse(text, curr,
-                            (_, curr) =>
-                            {
-                                // 次のイコールの手前までを読み取るぜ☆（＾～＾）
-                                WordUpToDelimiter property;
-                                (property, curr) = WordUpToDelimiter.Parse("=", text, curr);
-                                if (property == null)
+                            // 次のスペースは読み飛ばすぜ☆（＾～＾）
+                            return WhiteSpace.Parse(text, curr,
+                                (_, curr) =>
                                 {
-                                    // 不一致☆（＾～＾）
-                                    return start;
-                                }
-                                else
-                                {
-                                    // イコールは読み飛ばすぜ☆（＾～＾）
-                                    curr++;
-
-                                    // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-                                    return WhiteSpace.Parse(text, curr,
-                                        (_, curr) =>
+                                    // 次のイコールの手前までを読み取るぜ☆（＾～＾）
+                                    return WordUpToDelimiter.Parse("=", text, curr, (property, curr) =>
+                                    {
+                                        if (property == null)
                                         {
-                                            // 行の残り全部を読み取るぜ☆（＾～＾）
-                                            string value = text.Substring(curr);
+                                            // 不一致☆（＾～＾）
+                                            return start;
+                                        }
+                                        else
+                                        {
+                                            // イコールは読み飛ばすぜ☆（＾～＾）
+                                            curr++;
 
-                                            // 列と行の両方マッチ☆（＾～＾）
-                                            widgetInstructionArgument = new WidgetInstructionArgument(name.Text.Trim(), property.Text.Trim(), value.Trim());
-                                            return curr + value.Length;
-                                        });
-                                }
-                            });
-                    }
+                                            // 最初のスペースは読み飛ばすぜ☆（＾～＾）
+                                            return WhiteSpace.Parse(text, curr,
+                                                    (_, curr) =>
+                                                    {
+                                                // 行の残り全部を読み取るぜ☆（＾～＾）
+                                                string value = text.Substring(curr);
+
+                                                // 列と行の両方マッチ☆（＾～＾）
+                                                widgetInstructionArgument = new WidgetInstructionArgument(name.Text.Trim(), property.Text.Trim(), value.Trim());
+                                                        return curr + value.Length;
+                                                    });
+                                        }
+                                    });
+                                });
+                        }
+                    });
                 });
 
             return (widgetInstructionArgument, next);

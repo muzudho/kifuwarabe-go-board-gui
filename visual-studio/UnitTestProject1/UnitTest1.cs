@@ -360,7 +360,18 @@ namespace UnitTestProject1
                 }
             }));
 
-            Assert.AreEqual("Hello, world", WordUpToDelimiter.Parse("!", "Hello, world!", 0).Item1?.ToDisplay());
+            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (word, curr)=>
+            {
+                Assert.AreEqual("Hello, world", word?.ToDisplay());
+                if (word != null)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
         }
 
         /// <summary>

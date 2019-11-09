@@ -3,6 +3,14 @@
     using System;
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="whiteSpace"></param>
+    /// <param name="curr">Current.</param>
+    /// <returns>Next.</returns>
+    public delegate int ParsesWordUpToDelimiterCallbackType(WordUpToDelimiter wordUpToDelimiter, int curr);
+
+    /// <summary>
     /// 区切り記号までの単語☆（＾～＾）
     /// </summary>
     public class WordUpToDelimiter
@@ -17,11 +25,16 @@
             this.Text = text;
         }
 
-        public static (WordUpToDelimiter, int) Parse(string delimiter, string text, int start)
+        public static int Parse(string delimiter, string text, int start, ParsesWordUpToDelimiterCallbackType callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             if (delimiter == null || text == null || text.Length <= start)
             {
-                return (null, start);
+                return callback(null, start);
             }
 
             var next = text.IndexOf(delimiter, start, StringComparison.Ordinal);
@@ -29,10 +42,10 @@
             {
                 // 一致。
                 var word = text.Substring(start, next - start);
-                return (new WordUpToDelimiter(word), next);
+                return callback(new WordUpToDelimiter(word), next);
             }
 
-            return (null, start);
+            return callback(null, start);
         }
 
         /// <summary>

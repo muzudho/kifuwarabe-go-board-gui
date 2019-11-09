@@ -43,28 +43,29 @@
                 (_, curr) =>
                 {
                     // 次のイコールの手前までを読み取るぜ☆（＾～＾）
-                    WordUpToDelimiter name;
-                    (name, curr) = WordUpToDelimiter.Parse("=", text, curr);
-                    if (name == null)
+                    return WordUpToDelimiter.Parse("=", text, curr, (name, curr) =>
                     {
-                        // 不一致☆（＾～＾）
-                        return start;
-                    }
-                    else
-                    {
-                        // イコールは読み飛ばすぜ☆（＾～＾）
-                        curr++;
+                        if (name == null)
+                        {
+                            // 不一致☆（＾～＾）
+                            return start;
+                        }
+                        else
+                        {
+                            // イコールは読み飛ばすぜ☆（＾～＾）
+                            curr++;
 
-                        // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpace.Parse(text, curr,
-                            (_, curr) =>
-                            {
+                            // 最初のスペースは読み飛ばすぜ☆（＾～＾）
+                            return WhiteSpace.Parse(text, curr,
+                                (_, curr) =>
+                                {
                                 // 行の残り全部を読み取るぜ☆（＾～＾）
                                 string value = text.Substring(curr);
-                                setsInstructionArgument = new SetsInstructionArgument(name.Text.Trim(), value.Trim());
-                                return curr + value.Length;
-                            });
-                    }
+                                    setsInstructionArgument = new SetsInstructionArgument(name.Text.Trim(), value.Trim());
+                                    return curr + value.Length;
+                                });
+                        }
+                    });
                 });
 
             // 列と行の両方マッチ☆（＾～＾）
