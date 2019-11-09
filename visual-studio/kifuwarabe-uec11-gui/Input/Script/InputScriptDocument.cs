@@ -10,6 +10,13 @@
     /// </summary>
     public class InputScriptDocument
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matched"></param>
+        /// <param name="curr">Current.</param>
+        public delegate void ParsesCallback(InputScriptDocument matched);
+
         public static string BlackCommand => "black";
         public static string WhiteCommand => "white";
         public static string SpaceCommand => "space";
@@ -31,12 +38,18 @@
             this.Instructions = instructions;
         }
 
-        public static InputScriptDocument Parse(string text, ApplicationObjectModel appModel)
+        public static void Parse(string text, ApplicationObjectModel appModel, ParsesCallback callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             // 空行は無視☆（＾～＾）
             if (string.IsNullOrWhiteSpace(text))
             {
-                return null;
+                callback(null);
+                return;
             }
 
             var instructions = new List<Instruction>();
@@ -166,7 +179,7 @@
                 });
             }
 
-            return new InputScriptDocument(instructions);
+            callback(new InputScriptDocument(instructions));
         }
     }
 }

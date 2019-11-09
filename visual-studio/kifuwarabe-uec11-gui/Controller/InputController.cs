@@ -32,9 +32,13 @@
                 appView.CommunicationLogWriter.Flush();
             }
 
-            var scriptDocument = InputScriptDocument.Parse(text, appModel);
-            if (scriptDocument != null)
+            InputScriptDocument.Parse(text, appModel, (scriptDocument) =>
             {
+                if (scriptDocument == null)
+                {
+                    return;
+                }
+
                 foreach (var instruction in scriptDocument.Instructions)
                 {
                     if (instruction.Command == InputScriptDocument.InfoCommand)
@@ -150,9 +154,9 @@
                             },
                             (err) =>
                             {
-                                // Not found widget.
+                                    // Not found widget.
 
-                                if (args.Name == ColumnNumbersController.OutsideName)
+                                    if (args.Name == ColumnNumbersController.OutsideName)
                                 {
                                     ColumnNumbersController.ChangeProperty(appModel, args);
                                 }
@@ -178,8 +182,8 @@
                         PropertyController.MatchCanvasBy(appModel, appView, prop.Name,
                             (propModel, propView, insideStem) =>
                             {
-                                // モデルに値をセット☆（＾～＾）
-                                propModel.Value = prop.Value;
+                                    // モデルに値をセット☆（＾～＾）
+                                    propModel.Value = prop.Value;
 
                                 Trace.WriteLine($"Found           | Outside:{prop.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[prop.Name].ToText()}");
                             },
@@ -187,8 +191,8 @@
                             {
                                 if (prop.Name == ApplicationObjectModel.IntervalMsecOutsideName)
                                 {
-                                    // インターバル・ミリ秒☆（＾～＾）
-                                    appModel.Properties[prop.Name].Value = prop.Value;
+                                        // インターバル・ミリ秒☆（＾～＾）
+                                        appModel.Properties[prop.Name].Value = prop.Value;
                                 }
                                 else if (prop.Name == LastMoveMarkerController.OutsideName)
                                 {
@@ -210,8 +214,8 @@
                                 {
                                     if (int.TryParse(prop.Value, out int outValue))
                                     {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                            if (0 < outValue && outValue < HyperParameter.MaxRowSize)
                                         {
                                             appModel.Board.RowSize = outValue;
                                         }
@@ -221,8 +225,8 @@
                                 {
                                     if (int.TryParse(prop.Value, out int outValue))
                                     {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                            if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
                                         {
                                             appModel.Board.ColumnSize = outValue;
                                         }
@@ -256,7 +260,7 @@
                         outputJsonWriter.Flush();
                     }
                 }
-            }
+            });
         }
     }
 }
