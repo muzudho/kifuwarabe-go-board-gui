@@ -96,7 +96,7 @@
 
                                     case "ply":
                                         {
-                                            model.Properties.Ply.Value = prop.Value;
+                                            model.Properties["ply"].SetValue(prop.Value);
                                             view.plyValue.Content = prop.Value;
                                         }
                                         break;
@@ -106,43 +106,42 @@
                                             if (cellAddress != null)
                                             {
                                                 var text1 = cellAddress.ToDisplayTrimed(model);
-                                                model.Properties.Move.Value = text1;
+                                                model.Properties["move"].SetValue(text1);
                                                 view.lastMoveValue.Content = text1;
                                             }
                                         }
                                         break;
                                     case "b-name":
-                                        model.Properties.BlackName.Value = prop.Value;
+                                        model.Properties["b-name"].SetValue(prop.Value);
                                         view.blackNameValue.Content = prop.Value;
                                         break;
                                     case "b-time":
-                                        model.Properties.BlackTime.Value = prop.Value;
+                                        model.Properties["b-time"].SetValue(prop.Value);
                                         view.blackTimeValue.Content = prop.Value;
                                         break;
                                     case "b-hama":
-                                        model.Properties.BlackHama.Value = prop.Value;
+                                        model.Properties["b-hama"].SetValue(prop.Value);
                                         view.blackAgehamaValue.Content = prop.Value;
                                         break;
                                     case "w-name":
-                                        model.Properties.WhiteName.Value = prop.Value;
+                                        model.Properties["w-name"].SetValue(prop.Value);
                                         view.whiteNameValue.Content = prop.Value;
                                         break;
                                     case "w-time":
-                                        model.Properties.WhiteTime.Value = prop.Value;
+                                        model.Properties["w-time"].SetValue(prop.Value);
                                         view.whiteTimeValue.Content = prop.Value;
                                         break;
                                     case "w-hama":
-                                        model.Properties.WhiteHama.Value = prop.Value;
+                                        model.Properties["w-hama"].SetValue(prop.Value);
                                         view.whiteAgehamaValue.Content = prop.Value;
                                         break;
                                     case "komi":
-                                        model.Properties.Komi.Value = prop.Value;
+                                        model.Properties["komi"].SetValue(prop.Value);
                                         view.komiValue.Content = prop.Value;
                                         break;
 
                                     case "info":
-                                        model.Properties.Info.Value
-                                            = prop.Value;
+                                        model.Properties["info"].SetValue(prop.Value);
 
                                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                                         view.infoValue.Content = MainWindow.SoluteNewline(prop.Value);
@@ -150,7 +149,7 @@
 
                                     case "interval-msec":
                                         {
-                                            model.Properties.IntervalMsec.Value = prop.Value;
+                                            model.Properties["interval-msec"].SetValue(prop.Value);
                                             if (int.TryParse(prop.Value, out int outValue))
                                             {
                                                 view.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
@@ -175,7 +174,7 @@
 
                                         // 最後の着手点☆（＾～＾）
                                         var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.Properties.Move.Value = text1;
+                                        model.Properties["move"].SetValue(text1);
                                         view.lastMoveValue.Content = text1;
                                     }
                                 }
@@ -195,7 +194,7 @@
 
                                         // 最後の着手点☆（＾～＾）
                                         var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.Properties.Move.Value = text1;
+                                        model.Properties["move"].SetValue(text1);
                                         view.lastMoveValue.Content = text1;
                                     }
                                 }

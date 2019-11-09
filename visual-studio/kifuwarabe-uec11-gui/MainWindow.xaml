@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KifuwarabeUec11Gui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded" Initialized="Window_Initialized">
+        Title="MainWindow" Height="450" Width="800" Background="#FF008833" SizeChanged="Window_SizeChanged" Initialized="Window_Initialized">
     <Grid x:Name="grid">
         <Canvas x:Name="canvas">
             <Path x:Name="board" Fill="#FFEDDF5F" Stroke="Black" StrokeThickness="1" Stretch="Fill" Width="575" Canvas.Left="75" Canvas.Top="23.02" Height="388" Panel.ZIndex="100">

@@ -203,12 +203,8 @@
             // 何手目か表示しようぜ☆（＾～＾）？
             {
                 // this.plyLabel.FontSize = columnInterval;
-                this.plyValue.Content = $"{this.Model.Properties.Ply}";
+                this.plyValue.Content = $"{this.Model.Properties["ply"]}";
             }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -231,9 +227,10 @@
                 this.DispatchTimer.Start();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                if (int.TryParse(this.Model.Properties.IntervalMsec.Value, out int intervalMsec))
+                if (this.Model.Properties["interval-msec"] is PropertyNumber)
                 {
-                    this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(intervalMsec);
+                    var propValue = (PropertyNumber)this.Model.Properties["interval-msec"];
+                    this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(propValue.Value);
                 }
 
                 this.DispatchTimer.Tick += (s, e) =>

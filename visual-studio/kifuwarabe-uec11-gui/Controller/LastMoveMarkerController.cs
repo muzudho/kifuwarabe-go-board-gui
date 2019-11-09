@@ -26,23 +26,31 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = view.lastMoveMarker;
 
-            if (model.Properties.Move.Visible)
+            if (model.Properties["move"].Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
-                var (moveCellAddress, next) = CellAddress.Parse(model.Properties.Move.Value, 0, model);
-                if (moveCellAddress!=null)
+                if (model.Properties["move"] is PropertyString)
                 {
-                    MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
+                    var propValue = (PropertyString)model.Properties["move"];
+                    var (moveCellAddress, next) = CellAddress.Parse(propValue.Value, 0, model);
+                    if (moveCellAddress != null)
                     {
-                        // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
+                        MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
+                        {
+                            // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                        lastMoveMarker.Width = view.board.Width / model.Board.GetColumnDiv() * 0.4;
-                        lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
+                            lastMoveMarker.Width = view.board.Width / model.Board.GetColumnDiv() * 0.4;
+                            lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
 
-                        Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
-                        Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
-                    });
+                            Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
+                            Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
+                        });
+                    }
+                    else
+                    {
+                        lastMoveMarker.Visibility = Visibility.Hidden;
+                    }
                 }
                 else
                 {
