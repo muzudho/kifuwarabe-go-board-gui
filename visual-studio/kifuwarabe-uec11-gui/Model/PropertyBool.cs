@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
 
     /// <summary>
@@ -67,6 +68,14 @@
         public override string ToText()
         {
             return this.innerValue.ToString(CultureInfo.CurrentCulture);
+        }
+
+        public override List<string> ToTextList()
+        {
+            return new List<string>()
+            {
+                this.ToString()
+            };
         }
     }
 }

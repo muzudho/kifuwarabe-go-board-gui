@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
@@ -64,7 +65,15 @@
 
         public override string ToText()
         {
-            return this.innerValue.ToString();
+            return this.innerValue;
+        }
+
+        public override List<string> ToTextList()
+        {
+            return new List<string>()
+            {
+                this.ToString()
+            };
         }
     }
 }

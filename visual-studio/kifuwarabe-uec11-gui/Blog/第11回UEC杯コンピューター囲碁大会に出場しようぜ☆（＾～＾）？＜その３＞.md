@@ -345,5 +345,374 @@ widget stars.value = "d4", "l4", "h8", "d12", "l12"
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
 「　↑連珠盤でけた☆　寝る☆（＾～＾）」
 
-＜書きかけ＞
+# 2019-11-07 19:15頃
 
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　もっと盤面って１行で入力できないものなの？」
+
+```
+board wwwww/bbbbb/...../wbwbw
+```
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　↑例えば　白石が w で、黒石が b で、スペースを `.` にするのよ」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　フォーサイス記法をアレンジした感じか……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　１行に　こだわらなくてもいいんじゃないか☆？」
+
+```
+board 9 wwwww
+board 8 bbbbb
+board 7 .....
+board 6 wbwbw
+```
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　行ずつ指定する形にすれば　人間にも見やすいだろう☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　わらちゃんは天才ね！」
+
+# 2019-11-07 20:30頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　いかの塩辛を食べた……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　次は　インスタント・コーヒーだな☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+（ず……ずずぃ……☆）　＃　インスタント・コーヒーを飲む音
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　行番号が分かったら、どうやって　セルのインデックスを取得するんだっけ☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　`CellAddress` クラスになんかいいメソッド作ってないのかだぜ☆？」
+
+# 2019-11-07 21:30頃
+
+![20191107wpf46.png](https://crieit.now.sh/upload_images/a2ca472fd5c6cbcdbd021e2475c2a7ee5dc40d5ed1ccc.png)
+
+```
+board 19 bbbbbwwwww.....bbbb
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　はい、 `board` コマンドを実装したぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　`output.json` は JSONファイルなのに 入力はなんで `input.txt` の独自コマンドなんだぜ☆？
+JSON で入力させろだぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　お父ん、ストレスで飛びそう☆」
+
+
+output.txt:
+
+```
+{"board":{"rowSize":19,"columnSize":19,"stones":[1,1,1,1,1,2,2,2,2,2,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"rowNumbers":["19","18","17","16","15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"],"columnNumbers":["A","B","C","D","E","F","G","H","J","K","L","M","N","O","P","Q","R","S","T"],"starCellAddresses":["D16","K16","Q16","D10","K10","Q10","D4","K4","Q4"]},"state":{"intervalMsec":2000,"ply":0,"lastMoveIndex":-1,"blackName":"","blackTime":"","blackHama":0,"whiteName":"","whiteTime":"","whiteHama":0,"komi":0,"info":""}}
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　確かに　これを　そのまま　デシリアライズ　できればお得だが、そんなデータ構造してないしな☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　JSON に合わせたデータ構造にしたらよくない？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　設計のレベルから大改造だな……☆
+`ApplicationDataModel` とかいうクラス名で　この構造を作るかだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　JSONは Java Script Object Notation だろ☆ 合わせるなら `ApplicationObjectModel` の方が近くないか☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　じゃあ　それで☆」
+
+# 2019-11-07 22:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　もともと `State` と `BoardModel` しかないコードなんで　なんとかなりそうだが……☆」
+ 
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　ほとんどのメソッドが　グローバル変数を引数で渡されるという　とんでもない作りになったが　まあいいだろう☆」
+
+```
+JSON {ここにJSON}
+```
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　↑こんな感じのコマンドを作りましょうよ」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　大文字４つのコマンドでいいのかだぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　まあ　いいだろう、こんな　くそＧＵＩ　の仕様に　こだわらなくても☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　JSON をごそっと差し替えても、再描画が対応してない……☆
+どこが変わったのか　部分ごとに　再描画しないといけないぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　めんどくさい作り　してんな……☆」
+
+# 2019-11-07 23:00頃
+
+[The New JSON Serializer In .NET Core 3](https://www.c-sharpcorner.com/article/the-new-json-serializer-in-net-core-3/)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　デシリアライズしても、JSON を読み込めてないぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　キャメル・ケースなんかに　したからでは☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　セッターが　プライベートだと　ダメなんじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　カプセル化も　へったくれ　も無いな……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　アノテーションは無いのかだぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　見つからんなぁ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　完全に復元するには、白アゲハマ・ウィジェットの visible とかも JSON に出しておかないといけないのか……☆」
+
+# 2019-11-08 24:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　ヌル例外が出て　スタック・トレースが無い……☆
+何かを　数分かけて　ダウンロードしたら　出るようになったが……☆　今日は終わり☆」
+
+# 2019-11-09 sat 09:45頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　今日は１時間だけ　何かしようぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　UIウィジェットは　画面上にずっと表示されっぱなしだから
+リペイント・メソッドなんか　作ってないんだよな☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　気に入らねぇ☆！　表示されているものを　表示しようぜ☆！」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　ウィジェットを　プログラムで付けたIDではなく、ユーザーが付けた名前で検索できる方法が必要だぜ☆
+例えば……☆」
+
+```
+var widget = FindWidget("黒アゲハマ");
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑こういうメソッドが必要だぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　しかし JSON では お父んが付けた `b-hama` がウィジェット名になっているぜ☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　そっちも　ユーザーが設定できるようにしたいぜ☆」
+
+[C#のWPFで名前からコントロールを取得する](https://araramistudio.jimdo.com/2016/12/05/wpfで名前からコントロールを取得する/)
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　↑名前でウィジェットを検索できるんじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　Git hub でソースコード見て　名前を調べて
+狙い撃ちで　開発者の想定しない操作を　されてしまう☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　洗濯機の中で　何　回ってんの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　出かける服だぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　何着て　出かけんの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　出かける服以外のやつしかないよな☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　フーン」
+
+
+CanvasWidgetController.cs:
+
+
+```
+        private static Dictionary<string, string> nameDictionary = new Dictionary<string, string>()
+            {
+                { "ply", "plyCanvas" },
+                { "move", "lastMoveCanvas" },
+                { "b-name", "blackNameCanvas" },
+                { "b-time", "blackTimeCanvas" },
+                { "b-hama", "blackAgehamaCanvas" },
+                { "w-name", "whiteNameCanvas" },
+                { "w-time", "whiteTimeCanvas" },
+                { "w-hama", "whiteAgehamaCanvas" },
+                { "komi", "komiCanvas" },
+                { "info", "infoCanvas" },
+            };
+
+        public static string GetNameBy(string widgetName)
+        {
+            if (nameDictionary.ContainsKey(widgetName))
+            {
+                return nameDictionary[widgetName];
+            }
+
+            return string.Empty;
+        }
+```
+
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　if文や switch文に頼って　キータイピングしまくるのは　悪いコーディングだぜ☆
+↑このように　データは　構造に入れるのが　マスト　だぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　その name の使い道は オブジェクトを探して取ってくることしか無いんだから、
+直接　オブジェクトを検索して返すところまで　やったら？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　そうしよ☆」
+
+# 2019-11-09 sat 12:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　１時間遅刻したかと思ったんだが、２３時間　早かったようだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　戻ってこなくていいのに……☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　ちょっとべつのブログを書くぜ☆（＾～＾）休憩☆（＾～＾）」
+
+# 2019-11-09 sat 13:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　思ったんだが☆、」
+
+```
+widget row-numbers.value = "15", "14", "13", "12", "11"
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑これは☆」
+
+```
+set row-numbers = "15", "14", "13", "12", "11"
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑これでよくない☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　プロパティの値の書式は　プログラム側がよろしく判定するということか☆　自動推論かだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　パーサーが複雑になるじゃない」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　行番号は `Board` に、　プレイヤー名は `State` に、と分けているんだが、
+これを `Widgets` に統一したいと思うんだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　name, value, visible の３属性をもつ構造体のことかだぜ☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　それは Widget なのかなあ？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　じゃあ `Props` でいいだろ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　React の用語と混乱する☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　混乱しない用語とか　無いもんな……☆ `Properties` にするぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　Java の用語と混乱する☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　諦めろ☆」
+
+```
+set row-numbers = '15', '14', '13', '12', '11'
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　C# で開発していると　ダブル・クォーテーションのエスケープがめんどくさいんで、
+スクリプトは　シングル・クォーテーション　にしたらどうだぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　CSVの慣習に反するから　イケてないわねぇ」
+
+```
+"intervalMsec":{"name":"interval-msec","value":"2000","visible":true}
+```
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　↑ `name` の内容を２回打ち込むのも イケてなくないか☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　それは　いけてないな……☆」
+
+# 2019-11-09 sat 14:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　遅い昼飯を食べるかだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　空振りお出かけ　は止めろだぜ☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　JSON にも 数値型と 論理型があるだろ☆
+全部　文字列型にしてしまうのは　イケてないのでは☆？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　それは　いけてないな……☆」
+
+# 2019-11-09 sat 15:00頃
+
+```
+"column-numbers":{"value":"\u0022a\u0022, \u0022b\u0022, \u0022c\u0022, ...(omitted)
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`\u0022a` って何☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　ダブル・クォーテーションなんじゃないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　とほほほほ……☆」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　string型のリストをシリアライズ、デシリアライズできないのかだぜ☆？」
+
+# 2019-11-09 sat 16:00頃
+
+output.json:
+
+```
+"column-numbers":{"value":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"],"visible":true},
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`List<string>` 型もデシリアライズしてくれた……☆　ラッキー☆」
+
+
+＜書きかけ＞

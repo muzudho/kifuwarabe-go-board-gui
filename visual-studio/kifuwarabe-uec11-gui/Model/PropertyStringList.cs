@@ -2,23 +2,22 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyNumber : PropertyValue
+    public class PropertyStringList : PropertyValue
     {
-        private double innerValue;
+        private List<string> innerValue;
 
-        public PropertyNumber()
+        public PropertyStringList()
         {
-            this.Value = 0.0;
+            this.Value = new List<string>();
             this.Visible = true;
         }
 
-        public PropertyNumber(double value)
+        public PropertyStringList(List<string> value)
         {
             this.Value = value;
             this.Visible = true;
@@ -40,45 +39,35 @@
                     throw new ArgumentNullException(nameof(value));
                 }
 
-                if (value is double)
+                if (value is List<string>)
                 {
-                    this.innerValue = (double)value;
+                    this.innerValue = (List<string>)value;
                 }
-                else if (double.TryParse(value.ToString(), out double outValue))
+                else
                 {
-                    this.innerValue = outValue;
+                    this.innerValue = ColumnNumbersController.FromString(value.ToString());
                 }
             }
         }
 
         public override bool ToBool()
         {
-            if (innerValue == 0.0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return false;
         }
 
         public override double ToNumber()
         {
-            return this.innerValue;
+            return 0.0;
         }
 
         public override string ToText()
         {
-            return this.innerValue.ToString(CultureInfo.CurrentCulture);
+            return string.Empty;
         }
 
         public override List<string> ToTextList()
         {
-            return new List<string>()
-            {
-                this.ToString()
-            };
+            return this.innerValue;
         }
     }
 }
