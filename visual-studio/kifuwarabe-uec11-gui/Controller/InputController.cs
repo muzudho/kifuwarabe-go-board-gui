@@ -333,16 +333,37 @@
                     }
 
                     // JSONを反映しようぜ☆（＾～＾）
+                    // 列番号
                     ColumnNumberController.Repaint(view.Model, view);
+
+                    // 行番号
                     RowNumberController.Repaint(view.Model, view);
+
+                    // 星
                     StarController.Repaint(view.Model, view);
+
+                    // 石
                     for (int index = 0; index < HyperParameter.MaxCellCount; index++)
                     {
                         StoneController.Repaint(view.Model, view, index);
                     }
+
+                    // 着手マーカー
                     LastMoveMarkerController.Repaint(view.Model, view);
 
-                    // 画面の再描画をしようぜ☆（＾～＾）
+                    // TODO UIウィジェット
+                    CanvasWidgetController.Repaint(view.Model, view, "ply");
+                    CanvasWidgetController.Repaint(view.Model, view, "move");
+                    CanvasWidgetController.Repaint(view.Model, view, "b-name");
+                    CanvasWidgetController.Repaint(view.Model, view, "b-time");
+                    CanvasWidgetController.Repaint(view.Model, view, "b-hama");
+                    CanvasWidgetController.Repaint(view.Model, view, "w-name");
+                    CanvasWidgetController.Repaint(view.Model, view, "w-time");
+                    CanvasWidgetController.Repaint(view.Model, view, "w-hama");
+                    CanvasWidgetController.Repaint(view.Model, view, "komi");
+                    CanvasWidgetController.Repaint(view.Model, view, "info");
+
+                    // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
                     view.RepaintWindow();
                     view.InvalidateVisual();
                 }
