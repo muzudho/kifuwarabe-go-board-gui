@@ -30,7 +30,7 @@
             return new List<string>(columns);
         }
 
-        public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
+        public static void ChangeProperty(ApplicationObjectModel model, SetsInstructionArgument args)
         {
             if (model == null)
             {

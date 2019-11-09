@@ -54,7 +54,7 @@
                 }
                 // Trace.WriteLine($"startsCellAddres| {startsCellAddress.ToDisplay()}");
 
-                return ExactlyKeyword.Parse(":", text, curr, (colon, curr) =>
+                return StartsWithKeyword.Parse(":", text, curr, (colon, curr) =>
                 {
                     if (colon == null)
                     {

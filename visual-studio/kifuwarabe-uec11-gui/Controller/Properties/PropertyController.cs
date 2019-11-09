@@ -127,7 +127,7 @@
                 });
         }
 
-        public static void ChangeProperty(PropertyValue model, Canvas view, WidgetInstructionArgument args)
+        public static void ChangeProperty(PropertyValue model, Canvas view, SetsInstructionArgument args)
         {
             if (model == null)
             {

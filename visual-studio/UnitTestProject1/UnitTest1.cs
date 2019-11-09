@@ -51,9 +51,10 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestSetsInstructionArgumentTest()
         {
-            Assert.AreEqual("b-name = Kifuwarabe", SetsInstructionArgument.Parse("set b-name = Kifuwarabe", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-time = 10:00", SetsInstructionArgument.Parse("set  b-time  =  10:00  ", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-hama = ", SetsInstructionArgument.Parse("set b-hama =", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgument.Parse("set b-name.value = Kifuwarabe", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgument.Parse("set b-name = Kifuwarabe", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-time.value = 10:00", SetsInstructionArgument.Parse("set  b-time  =  10:00  ", 3).Item1?.ToDisplay());
+            Assert.AreEqual("b-hama.value = ", SetsInstructionArgument.Parse("set b-hama =", 3).Item1?.ToDisplay());
         }
 
         /// <summary>
@@ -445,7 +446,7 @@ namespace UnitTestProject1
             var start = 0;
 
             // ’PŒêŠ®‘Sˆê’v‚ÌƒeƒXƒg™iO`Oj
-            Assert.AreEqual(5, ExactlyKeyword.Parse("black", "black", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeyword.Parse("black", "black", start, (matched, curr) =>
             {
                 Assert.AreEqual("black", matched?.ToDisplay());
                 if (matched == null)
@@ -456,7 +457,7 @@ namespace UnitTestProject1
                 return curr;
             }));
 
-            Assert.AreEqual(5, ExactlyKeyword.Parse("white", "white", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeyword.Parse("white", "white", start, (matched, curr) =>
             {
                 Assert.AreEqual("white", matched?.ToDisplay());
                 if (matched == null)
@@ -467,7 +468,7 @@ namespace UnitTestProject1
                 return curr;
             }));
 
-            Assert.AreEqual(5, ExactlyKeyword.Parse("start", "start", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeyword.Parse("start", "start", start, (matched, curr) =>
             {
                 Assert.AreEqual("start", matched?.ToDisplay());
                 if (matched == null)

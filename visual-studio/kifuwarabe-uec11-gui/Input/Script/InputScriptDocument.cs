@@ -61,7 +61,7 @@
                 {
                     // 行頭のスペースは読み飛ばすぜ☆（＾～＾）
 
-                    return ExactlyKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
+                    return StartsWithKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
                     {
                         if (commentSymbol != null)
                         {
@@ -138,8 +138,8 @@
                                 }
                                 else if (commandName.Text == InputScriptDocument.WidgetCommand)
                                 {
-                                    WidgetInstructionArgument argument;
-                                    (argument, curr) = WidgetInstructionArgument.Parse(line, curr);
+                                    SetsInstructionArgument argument;
+                                    (argument, curr) = SetsInstructionArgument.Parse(line, curr);
                                     if (argument == null)
                                     {
                                         Trace.WriteLine($"Error           | {line}");

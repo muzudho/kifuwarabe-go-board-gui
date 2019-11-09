@@ -9,7 +9,7 @@
     {
         public static string OutsideName => "stars";
 
-        public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
+        public static void ChangeProperty(ApplicationObjectModel model, SetsInstructionArgument args)
         {
             if (args == null)
             {

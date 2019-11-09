@@ -145,7 +145,7 @@
                     }
                     else if (instruction.Command == InputScriptDocument.WidgetCommand)
                     {
-                        var args = (WidgetInstructionArgument)instruction.Argument;
+                        var args = (SetsInstructionArgument)instruction.Argument;
 
                         PropertyController.MatchCanvasBy(appModel, appView, args.Name,
                             (widgetModel, widgetView, insideStem) =>
