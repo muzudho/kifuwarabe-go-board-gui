@@ -19,12 +19,6 @@
                 this.Stones.Add(Stone.None);
             }
 
-            // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
-            this.SetRowNumbers(new List<string>()
-            {
-                "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
-            });
-
             this.StarCellAddresses = new List<string>()
             {
                  "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
@@ -46,25 +40,6 @@
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<Stone> Stones { get; set; }
-
-        /// <summary>
-        /// 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
-        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
-        /// </summary>
-        public List<string> RowNumbers { get; set; }
-
-        /// <summary>
-        /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
-        /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
-        /// </summary>
-        private List<string> rowNumbersTrimed;
-        public List<string> RowNumbersTrimed
-        {
-            get
-            {
-                return this.rowNumbersTrimed;
-            }
-        }
 
         /// <summary>
         /// 星の番地☆（＾～＾）
@@ -115,27 +90,6 @@
         public void SetStone(int zShapedIndex, Stone stone)
         {
             this.Stones[zShapedIndex] = stone;
-        }
-
-        public void SetRowNumbers(List<string> rowNumbersNoTrimed)
-        {
-            if (rowNumbersNoTrimed == null)
-            {
-                throw new ArgumentNullException(nameof(rowNumbersNoTrimed));
-            }
-
-            this.RowNumbers = rowNumbersNoTrimed;
-
-            // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
-            {
-                var array = this.RowNumbers.ToArray();
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i] = array[i].Trim();
-                }
-
-                this.rowNumbersTrimed = new List<string>(array);
-            }
         }
 
         public void SetStarCellAddresses(List<string> cellAddresses)

@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.Json;
@@ -9,18 +10,11 @@
     /// </summary>
     public class ApplicationObjectModel
     {
-        public BoardModel Board { get; set; }
-
-        /// <summary>
-        /// JSONに出力される書式も気にして　構造化している☆（＾～＾）
-        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, PropertyValue> Properties { get; set; }
-
         public ApplicationObjectModel()
         {
             // 盤☆（＾～＾）
             this.Board = new BoardModel();
+            this.rowNumbersTrimed = new List<string>();
 
             this.Properties = new Dictionary<string, PropertyValue>()
             {
@@ -31,6 +25,18 @@
                     new PropertyStringList(
                         new List<string>(){
                             "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+                        }
+                    )
+                },
+
+                // 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
+                // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
+                // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
+                {
+                    "row-numbers",
+                    new PropertyStringList(
+                        new List<string>(){
+                            "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
                         }
                     )
                 },
@@ -74,6 +80,27 @@
             };
         }
 
+        public BoardModel Board { get; set; }
+
+        /// <summary>
+        /// JSONに出力される書式も気にして　構造化している☆（＾～＾）
+        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
+        /// </summary>
+        public Dictionary<string, PropertyValue> Properties { get; set; }
+
+        /// <summary>
+        /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
+        /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
+        /// </summary>
+        private List<string> rowNumbersTrimed;
+        public List<string> RowNumbersTrimed
+        {
+            get
+            {
+                return this.rowNumbersTrimed;
+            }
+        }
+
         public static ApplicationObjectModel Parse(string json)
         {
             Trace.WriteLine($"json input      | {json}");
@@ -108,6 +135,27 @@
             // option.IgnoreReadOnlyProperties = true;
 
             return JsonSerializer.Serialize(this,option);
+        }
+
+        public void SetRowNumbersNoTrimed(List<string> rowNumbersNoTrimed)
+        {
+            if (rowNumbersNoTrimed == null)
+            {
+                throw new ArgumentNullException(nameof(rowNumbersNoTrimed));
+            }
+
+            this.Properties["row-numbers"].Value = rowNumbersNoTrimed;
+
+            // 位置調整のためのスペースが含まれていると　やっかい☆（＾～＾）
+            {
+                var list = this.Properties["row-numbers"].ToTextList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    list[i] = list[i].Trim();
+                }
+
+                this.rowNumbersTrimed = new List<string>(list);
+            }
         }
     }
 }

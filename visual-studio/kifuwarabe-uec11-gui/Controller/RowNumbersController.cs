@@ -33,7 +33,7 @@
                         }
                     }
 
-                    model.Board.SetRowNumbers(new List<string>(rows));
+                    model.Properties["row-numbers"].Value = new List<string>(rows);
                     break;
             }
         }
