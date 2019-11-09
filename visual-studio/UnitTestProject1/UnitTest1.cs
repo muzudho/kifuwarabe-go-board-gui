@@ -82,11 +82,43 @@ namespace UnitTestProject1
         public void TestInternationalCellRange()
         {
             var model = new ApplicationObjectModel();
-            Assert.AreEqual("C7:E9", CellRange.Parse("C7:E9", 0, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("E9:C7", CellRange.Parse("E9:C7", 0, model).Item1?.ToDisplay(model));
+
+            // ‚Æ‚è‚ ‚¦‚¸‚±‚ÌƒeƒXƒg‚ÌƒXƒ^[ƒg‚Í0‚É‘µ‚¦‚Ä‚¨‚±‚¤™iO`Oj
+            var start = 0;
+
+            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, model, (matched, curr)=>
+            {
+                Assert.AreEqual("C7:E9", matched?.ToDisplay(model));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
+
+            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, model, (matched, curr)=>
+            {
+                Assert.AreEqual("E9:C7", matched?.ToDisplay(model));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
 
             // ’Zk•\‹L™iO`Oj
-            Assert.AreEqual("F5", CellRange.Parse("F5:F5", 0, model).Item1?.ToDisplay(model));
+            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, model, (matched, curr)=>
+            {
+                Assert.AreEqual("F5", matched?.ToDisplay(model));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
 
             // “à•”ƒCƒ“ƒfƒbƒNƒX‚àŠm”F™iO`Oj
             /*
@@ -117,9 +149,20 @@ namespace UnitTestProject1
 
                 // I—ñ‚Í–³‚¢‚±‚Æ‚É’ˆÓ™iO`OjI
                 // ‰EŒ¨ã‚ª‚è™iO`Oj
-                CellRange.Parse("H7:K9", 0, model).Item1?.Foreach(model, (index) =>
+                CellRange.Parse("H7:K9", start, model, (matched, curr) =>
                 {
-                    indexes.Add(index);
+                    Assert.AreEqual("H7:K9", matched?.ToDisplay(model));
+                    if (matched == null)
+                    {
+                        return start;
+                    }
+
+                    matched.Foreach(model, (index) =>
+                    {
+                        indexes.Add(index);
+                    });
+
+                    return curr;
                 });
 
                 // H7 J7 K7 H8 J8 K8 H9 J9 K9
@@ -130,9 +173,20 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 // I—ñ‚Í–³‚¢‚±‚Æ‚É’ˆÓ™iO`OjI
-                CellRange.Parse("K9:H7", 0, model).Item1?.Foreach(model, (index) =>
+                CellRange.Parse("K9:H7", start, model, (matched, curr)=>
                 {
-                    indexes.Add(index);
+                    Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
+                    if (matched == null)
+                    {
+                        return start;
+                    }
+
+                    matched.Foreach(model, (index) =>
+                    {
+                        indexes.Add(index);
+                    });
+
+                    return curr;
                 });
 
                 // K9 J9 H9 K8 J8 H8 K7 J7 H7
@@ -144,9 +198,20 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // I—ñ‚Í–³‚¢‚±‚Æ‚É’ˆÓ™iO`OjI
-                CellRange.Parse("H7:K9", 0, model).Item1?.Foreach(model, (indexO0) =>
+                CellRange.Parse("H7:K9", start, model, (matched, curr)=>
                 {
-                    signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                    Assert.AreEqual("H7:K9", matched?.ToDisplay(model));
+                    if (matched == null)
+                    {
+                        return start;
+                    }
+
+                    matched.Foreach(model, (indexO0) =>
+                    {
+                        signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                    });
+
+                    return curr;
                 });
 
                 Assert.AreEqual("H7 J7 K7 H8 J8 K8 H9 J9 K9", string.Join(' ', signs));
@@ -156,9 +221,20 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // I—ñ‚Í–³‚¢‚±‚Æ‚É’ˆÓ™iO`OjI
-                CellRange.Parse("K9:H7", 0, model).Item1?.Foreach(model, (indexO0) =>
+                CellRange.Parse("K9:H7", start, model, (matched, curr)=>
                 {
-                    signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                    Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
+                    if (matched == null)
+                    {
+                        return start;
+                    }
+
+                    matched.Foreach(model, (indexO0) =>
+                    {
+                        signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                    });
+
+                    return curr;
                 });
 
                 Assert.AreEqual("K9 J9 H9 K8 J8 H8 K7 J7 H7", string.Join(' ', signs));
@@ -184,10 +260,10 @@ namespace UnitTestProject1
 
             foreach (var item in list1)
             {
-                Assert.AreEqual(2, CellAddress.Parse(item, start, appModel, (cellAddress, curr) =>
+                Assert.AreEqual(2, CellAddress.Parse(item, start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual(item, cellAddress?.ToDisplayTrimed(appModel));
-                    if (cellAddress != null)
+                    Assert.AreEqual(item, matched?.ToDisplayTrimed(appModel));
+                    if (matched != null)
                     {
                         return curr;
                     }
@@ -215,10 +291,10 @@ namespace UnitTestProject1
 
             foreach (var item in list2)
             {
-                Assert.AreEqual(3, CellAddress.Parse(item, start, appModel, (cellAddress, curr) =>
+                Assert.AreEqual(3, CellAddress.Parse(item, start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual(item, cellAddress?.ToDisplayTrimed(appModel));
-                    if (cellAddress == null)
+                    Assert.AreEqual(item, matched?.ToDisplayTrimed(appModel));
+                    if (matched == null)
                     {
                         return start;
                     }
@@ -228,10 +304,10 @@ namespace UnitTestProject1
             }
 
             // ‘å•¶ŽšE¬•¶Žš‚Í‹æ•Ê‚·‚é‚º™iO`Oj‰ŠúƒZƒbƒg‚Ì—ñ”Ô†‚É¬•¶Žš‚Í–³‚¢‚º™iO`Oj
-            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (cellAddress, curr)=>
+            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (matched, curr)=>
             {
-                Assert.IsNull(cellAddress?.ToDisplayTrimed(appModel));
-                if (cellAddress == null)
+                Assert.IsNull(matched?.ToDisplayTrimed(appModel));
+                if (matched == null)
                 {
                     return start;
                 }
@@ -240,10 +316,10 @@ namespace UnitTestProject1
             }));
 
             // ‘å•¶ŽšE¬•¶Žš‚Í‹æ•Ê‚·‚é‚º™iO`Oj
-            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (cellAddress, curr)=>
+            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (matched, curr)=>
             {
-                Assert.AreNotEqual("t19", cellAddress?.ToDisplayTrimed(appModel));
-                if (cellAddress == null)
+                Assert.AreNotEqual("t19", matched?.ToDisplayTrimed(appModel));
+                if (matched == null)
                 {
                     return start;
                 }
@@ -346,84 +422,72 @@ namespace UnitTestProject1
             var start = 0;
 
             // ’PŒêŠ®‘Sˆê’v‚ÌƒeƒXƒg™iO`Oj
-            Assert.AreEqual(5, ExactlyKeyword.Parse("black", "black", start, (exactlyKeyword, curr) =>
+            Assert.AreEqual(5, ExactlyKeyword.Parse("black", "black", start, (matched, curr) =>
             {
-                Assert.AreEqual("black", exactlyKeyword?.ToDisplay());
-                if (exactlyKeyword != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("black", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
 
-            Assert.AreEqual(5, ExactlyKeyword.Parse("white", "white", start, (exactlyKeyword, curr) =>
+            Assert.AreEqual(5, ExactlyKeyword.Parse("white", "white", start, (matched, curr) =>
             {
-                Assert.AreEqual("white", exactlyKeyword?.ToDisplay());
-                if (exactlyKeyword != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("white", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
 
-            Assert.AreEqual(5, ExactlyKeyword.Parse("start", "start", start, (exactlyKeyword, curr) =>
+            Assert.AreEqual(5, ExactlyKeyword.Parse("start", "start", start, (matched, curr) =>
             {
-                Assert.AreEqual("start", exactlyKeyword?.ToDisplay());
-                if (exactlyKeyword != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("start", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
 
             // ƒzƒƒCƒgƒXƒy[ƒX‚ÌƒeƒXƒg™i*O`O*j
-            Assert.AreEqual(5, WhiteSpace.Parse("     ", start, (whiteSpace, curr) =>
+            Assert.AreEqual(5, WhiteSpace.Parse("     ", start, (matched, curr) =>
             {
-                Assert.AreEqual("     ", whiteSpace?.ToDisplay());
-                if (whiteSpace != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("     ", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
 
             // Å‰‚Éƒ}ƒbƒ`‚·‚é’PŒê‚ÌƒeƒXƒg™iO`Oj
-            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (word, curr) =>
+            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (matched, curr) =>
             {
-                Assert.AreEqual("black", word?.ToDisplay());
-                if (word != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("black", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
 
-            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (word, curr) =>
+            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (matched, curr) =>
             {
-                Assert.AreEqual("Hello, world", word?.ToDisplay());
-                if (word != null)
-                {
-                    return curr;
-                }
-                else
+                Assert.AreEqual("Hello, world", matched?.ToDisplay());
+                if (matched == null)
                 {
                     return start;
                 }
+
+                return curr;
             }));
         }
 

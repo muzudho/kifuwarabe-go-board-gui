@@ -18,6 +18,14 @@
     /// </summary>
     public class CellRange
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cellRange"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(CellRange cellRange, int curr);
+
         public CellAddress StartsCellAddress { get; private set; }
         public CellAddress EndsCellAddress { get; private set; }
 
@@ -27,7 +35,7 @@
             this.EndsCellAddress = endsCellAddress;
         }
 
-        public static (CellRange, int) Parse(string text, int start, ApplicationObjectModel model)
+        public static int Parse(string text, int start, ApplicationObjectModel model, ParsesCallback callback)
         {
             CellRange cellRange = null;
             int curr = start;
@@ -68,7 +76,7 @@
                 });
             });
 
-            return (cellRange, next);
+            return callback(cellRange, next);
         }
 
         public void Foreach(ApplicationObjectModel model, IndexCallback callback)

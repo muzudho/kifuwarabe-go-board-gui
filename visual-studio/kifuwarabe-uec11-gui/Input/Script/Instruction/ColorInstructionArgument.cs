@@ -45,25 +45,25 @@
                         {
                             // 最初にスペースなんか無かった☆（＾～＾）ここで成功終了☆（＾～＾）
                             repeatsColor = false;
+                            return curr;
                         }
-                        else
+
+                        // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
+                        return CellRange.Parse(text, curr, model, (cellRange, curr) =>
                         {
-                            // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
-                            CellRange cellRange;
-                            (cellRange, curr) = CellRange.Parse(text, curr, model);
                             if (cellRange == null)
                             {
-                                // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
-                                repeatsColor = false;
+                                    // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
+                                    repeatsColor = false;
                             }
                             else
                             {
-                                // セル番地指定があった☆（＾～＾）マッチで成功終了☆（＾～＾）
-                                cellRanges.Add(cellRange);
+                                    // セル番地指定があった☆（＾～＾）マッチで成功終了☆（＾～＾）
+                                    cellRanges.Add(cellRange);
                             }
-                        }
 
-                        return curr;
+                            return curr;
+                        });
                     });
             }
 
