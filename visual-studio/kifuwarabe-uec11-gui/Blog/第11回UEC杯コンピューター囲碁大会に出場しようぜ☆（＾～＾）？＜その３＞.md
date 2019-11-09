@@ -1,4 +1,7 @@
-﻿# 2019-11-06 19:30頃
+﻿![20191110wpf47.png](https://crieit.now.sh/upload_images/e2a0885fe0a773d3a3cbdbddb61e91b75dc6ef3bb9678.png)
+(2019-11-10 2:00頃 [Git hub](https://github.com/muzudho/kifuwarabe-uec11-gui))
+
+# 2019-11-06 19:30頃
 
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
 「　GUIをもう少し作り込みたい☆」
@@ -810,5 +813,46 @@ set b-hama.visible = false
 
 ![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
 「　そうしましょう！」
+
+# 2019-11-09 sat 21:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　ラムダ式の構文の練習をしている☆」
+
+# 2019-11-09 sat 22:00～23:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　関数型プログラミングで if 分岐したあとの return 書くとき　頭が沸騰するぜ☆」
+
+# 2019-11-10 sat 00:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　パーサーを　ラムダ式計算に書き換えたんで
+`set` 構文と `widget` 構文の統一をやってみるぜ☆」
+
+# 2019-11-10 sat 01:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　まだ途中☆（＾～＾）」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　石と、ウィジェットが　異なるコードで　同じ命令でも異なる働きをするんだよな☆（＾～＾）」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　１行ずつ分けてループで回しながらパースするように変更☆
+コマンドを分けないと実行できなかったバグが取れたぜ☆」
+
+![20191110wpf47.png](https://crieit.now.sh/upload_images/e2a0885fe0a773d3a3cbdbddb61e91b75dc6ef3bb9678.png)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　見た目は変わっていないが、バグが取れたぜ☆（＾～＾）
+Ｃ＃で　ラムダ計算風に書いたプログラムのサンプルとしても使えるだろう☆」
+
+```
+{"board":{"rowSize":15,"columnSize":15,"stones":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"properties":{"column-numbers":{"value":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"],"visible":true},"row-numbers":{"value":["15","14","13","12","11","10","  9","  8","  7","  6","  5","  4","  3","  2","  1"],"visible":true},"stars":{"value":["d4","l4","h8","d12","l12"],"visible":true},"interval-msec":{"value":2000,"visible":true},"ply":{"value":0,"visible":true},"move":{"value":"g9","visible":true},"b-name":{"value":"Kifuwarabe","visible":true},"b-time":{"value":"00:00","visible":true},"b-hama":{"value":0,"visible":false},"w-name":{"value":"Warabemoti","visible":true},"w-time":{"value":"00:00","visible":true},"w-hama":{"value":0,"visible":false},"komi":{"value":6.5,"visible":false},"info":{"value":"","visible":true}}}
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　JSONもすっきりしただろ☆」
 
 ＜書きかけ＞
