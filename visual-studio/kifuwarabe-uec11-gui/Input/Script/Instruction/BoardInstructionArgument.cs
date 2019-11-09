@@ -45,16 +45,14 @@
             var next = WhiteSpace.Parse(text, start,
                 (_, curr) =>
                 {
-                    RowAddress rowAddress = null;
-                    (rowAddress, curr) = RowAddress.Parse(text, curr, model);
+                    return RowAddress.Parse(text, curr, model, (rowAddress, curr) =>
+                    {
+                        if (rowAddress == null)
+                        {
+                            // 不一致☆（＾～＾）
+                            return start;
+                        }
 
-                    if (rowAddress == null)
-                    {
-                        // 不一致☆（＾～＾）
-                        return start;
-                    }
-                    else
-                    {
                         // 途中のスペースは読み飛ばすぜ☆（＾～＾）
                         return WhiteSpace.Parse(text, curr,
                             (_, curr) =>
@@ -66,7 +64,7 @@
                                 boardInstructionArgument = new BoardInstructionArgument(rowAddress, columns.Trim());
                                 return curr + columns.Length;
                             });
-                    }
+                    });
                 });
 
             return (boardInstructionArgument, next);

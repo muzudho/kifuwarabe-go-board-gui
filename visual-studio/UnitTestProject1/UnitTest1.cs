@@ -380,49 +380,59 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestRowAddress()
         {
-            var model = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModel();
+            int start;
 
-            // ƒCƒ“ƒfƒbƒNƒXŠm”F™iO`Oj“à•”“I‚É‚Ís”Ô†‚Í@‚Ð‚Á‚­‚è•Ô‚Á‚Ä‚¢‚é‚º™iO`Oj
-            Assert.AreEqual(18, RowAddress.Parse("1", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(17, RowAddress.Parse("2", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(16, RowAddress.Parse("3", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(15, RowAddress.Parse("1234", 3, model).Item1?.NumberO0);
-            Assert.AreEqual(14, RowAddress.Parse("12345", 4, model).Item1?.NumberO0);
-            Assert.AreEqual(13, RowAddress.Parse("123456", 5, model).Item1?.NumberO0);
-            Assert.AreEqual(12, RowAddress.Parse("7", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(11, RowAddress.Parse("8", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(10, RowAddress.Parse("9", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(9, RowAddress.Parse("10", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(8, RowAddress.Parse("11", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(7, RowAddress.Parse("12", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(6, RowAddress.Parse("12345678901213", 12, model).Item1?.NumberO0);
-            Assert.AreEqual(5, RowAddress.Parse("123456789012314", 13, model).Item1?.NumberO0);
-            Assert.AreEqual(4, RowAddress.Parse("1234567890123415", 14, model).Item1?.NumberO0);
-            Assert.AreEqual(3, RowAddress.Parse("16", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(2, RowAddress.Parse("17", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(1, RowAddress.Parse("18", 0, model).Item1?.NumberO0);
-            Assert.AreEqual(0, RowAddress.Parse("19", 0, model).Item1?.NumberO0);
+            // ƒCƒ“ƒfƒbƒNƒXŠm”F™iO`Oj“à•”“I‚É‚Ís”Ô†‚Í@‚Ð‚Á‚­‚è•Ô‚Á‚Ä‚¢‚é‚º™iO`Oj"19" ‚ª 0s–ÚA "1" ‚ª 18s–Ú‚¾‚º™iO`Oj
+            start = 0;
+            Assert.AreEqual(start+1, RowAddress.Parse("1", start, appModel, (matched, curr)=>
+            {
+                Assert.AreEqual(18, matched?.NumberO0);
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
+
+            // ƒCƒ“ƒfƒbƒNƒXŠm”F™iO`Oj“à•”“I‚É‚Ís”Ô†‚Í@‚Ð‚Á‚­‚è•Ô‚Á‚Ä‚¢‚é‚º™iO`Oj "15" ‚Í 4s–Ú‚¾‚º™iO`Oj
+            start = 14;
+            Assert.AreEqual(start+2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+            {
+                Assert.AreEqual(4, matched?.NumberO0);
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
 
             // •\‹LŠm”F™iO`Oj
-            Assert.AreEqual("1", RowAddress.Parse("1", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("2", RowAddress.Parse("2", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("3", RowAddress.Parse("3", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("4", RowAddress.Parse("1234", 3, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("5", RowAddress.Parse("12345", 4, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("6", RowAddress.Parse("123456", 5, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("7", RowAddress.Parse("7", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("8", RowAddress.Parse("8", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("9", RowAddress.Parse("9", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("10", RowAddress.Parse("10", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("11", RowAddress.Parse("11", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("12", RowAddress.Parse("12", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("13", RowAddress.Parse("12345678901213", 12, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("14", RowAddress.Parse("123456789012314", 13, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("15", RowAddress.Parse("1234567890123415", 14, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("16", RowAddress.Parse("16", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("17", RowAddress.Parse("17", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("18", RowAddress.Parse("18", 0, model).Item1?.ToDisplayTrimed(model));
-            Assert.AreEqual("19", RowAddress.Parse("19", 0, model).Item1?.ToDisplayTrimed(model));
+            start = 0;
+            Assert.AreEqual(start+1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
+            {
+                Assert.AreEqual("1", matched?.ToDisplayTrimed(appModel));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
+
+            start = 14;
+            Assert.AreEqual(start+2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+            {
+                Assert.AreEqual("15", matched?.ToDisplayTrimed(appModel));
+                if (matched == null)
+                {
+                    return start;
+                }
+
+                return curr;
+            }));
         }
 
         /// <summary>

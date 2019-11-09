@@ -13,10 +13,10 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="cellAddress"></param>
+        /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(CellAddress cellAddress, int curr);
+        public delegate int ParsesCallback(CellAddress matched, int curr);
 
         public ColumnAddress ColumnAddress { get; private set; }
         public RowAddress RowAddress { get; private set; }
@@ -29,33 +29,38 @@
 
         public static int Parse(string text, int start, ApplicationObjectModel appModel, ParsesCallback callback)
         {
-            ColumnAddress columnAddress = null;
-            var next = ColumnAddress.Parse(text, start, appModel, (columnAddress2, curr) =>
-                {
-                    if (columnAddress2 == null)
-                    {
-                        // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                        return callback(null, start);
-                    }
-
-                    columnAddress = columnAddress2;
-                    return curr;
-                });
-
-            // 列はマッチ☆（＾～＾）
-
-            RowAddress rowAddress;
+            if (callback == null)
             {
-                (rowAddress, next) = RowAddress.Parse(text, next, appModel);
-                if (rowAddress == null)
-                {
-                    // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                    return callback(null, start);
-                }
+                throw new ArgumentNullException(nameof(callback));
             }
 
-            // 列と行の両方マッチ☆（＾～＾）
-            return callback(new CellAddress(rowAddress, columnAddress), next);
+            CellAddress cellAddress = null;
+
+            var next = ColumnAddress.Parse(text, start, appModel, (columnAddress, curr) =>
+                {
+                    if (columnAddress == null)
+                    {
+                        // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                        return start;
+                    }
+
+                    // 列はマッチ☆（＾～＾）
+
+                    return RowAddress.Parse(text, curr, appModel, (rowAddress, curr) =>
+                    {
+                        if (rowAddress == null)
+                        {
+                            // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                            return start;
+                        }
+
+                        // 列と行の両方マッチ☆（＾～＾）
+                        cellAddress = new CellAddress(rowAddress, columnAddress);
+                        return curr;
+                    });
+                });
+
+            return callback(cellAddress, next);
         }
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModel model)

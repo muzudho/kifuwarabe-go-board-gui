@@ -10,10 +10,10 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="whiteSpace"></param>
+        /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(WordUpToDelimiter wordUpToDelimiter, int curr);
+        public delegate int ParsesCallback(WordUpToDelimiter matched, int curr);
 
         /// <summary>
         /// マッチングした文字☆（＾～＾）

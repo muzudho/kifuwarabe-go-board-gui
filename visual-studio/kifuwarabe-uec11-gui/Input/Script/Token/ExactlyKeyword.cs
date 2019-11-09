@@ -10,10 +10,10 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="exactlyKeyword"></param>
+        /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(ExactlyKeyword exactlyKeyword, int curr);
+        public delegate int ParsesCallback(ExactlyKeyword matched, int curr);
 
         /// <summary>
         /// キーワード☆（＾～＾）

@@ -13,6 +13,14 @@
     public class RowAddress
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matched"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(RowAddress matched, int curr);
+
+        /// <summary>
         /// 0から始まる（Origin 0）列番号☆（＾～＾）
         /// </summary>
         public int NumberO0 { get; private set; }
@@ -22,16 +30,21 @@
             this.NumberO0 = numberO0;
         }
 
-        public static (RowAddress, int) Parse(string text, int start, ApplicationObjectModel model)
+        public static int Parse(string text, int start, ApplicationObjectModel appModel, ParsesCallback callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
 
-            if (text.Length < start + 1 || model == null)
+            if (text.Length < start + 1 || appModel == null)
             {
-                return (null, start);
+                return callback(null, start);
             }
 
             // 複数桁の数字☆（＾～＾）
@@ -47,7 +60,7 @@
                 else
                 {
                     // 1文字もヒットしなかった場合☆（＾～＾）
-                    return (null, start);
+                    return callback(null, start);
                 }
             }
 
@@ -66,16 +79,16 @@
             // 1文字以上のヒットがある場合☆（＾～＾）
 
             var oneChar = figures.ToString(CultureInfo.CurrentCulture);            
-            int index = model.GetRowNumbersTrimed().IndexOf(oneChar);
+            int index = appModel.GetRowNumbersTrimed().IndexOf(oneChar);
 
             if (index < 0)
             {
                 // 該当なし☆（＾～＾）
-                return (null, start);
+                return callback(null, start);
             }
 
             // 内部的には行番号は 0 から持つぜ☆（＾～＾）
-            return (new RowAddress(index), start);
+            return callback(new RowAddress(index), start);
         }
 
         /// <summary>

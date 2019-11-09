@@ -21,10 +21,10 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="cellRange"></param>
+        /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(CellRange cellRange, int curr);
+        public delegate int ParsesCallback(CellRange matched, int curr);
 
         public CellAddress StartsCellAddress { get; private set; }
         public CellAddress EndsCellAddress { get; private set; }
@@ -37,6 +37,11 @@
 
         public static int Parse(string text, int start, ApplicationObjectModel model, ParsesCallback callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             CellRange cellRange = null;
             int curr = start;
 

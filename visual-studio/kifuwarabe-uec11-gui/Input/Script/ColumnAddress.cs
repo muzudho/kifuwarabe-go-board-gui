@@ -15,10 +15,10 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="columnAddress"></param>
+        /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(ColumnAddress columnAddress, int curr);
+        public delegate int ParsesCallback(ColumnAddress matched, int curr);
 
         /// <summary>
         /// 0から始まる（Origin 0）列番号☆（＾～＾）
@@ -38,6 +38,11 @@
         /// <returns></returns>
         public static int Parse(string text, int start, ApplicationObjectModel appModel, ParsesCallback callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
