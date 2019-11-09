@@ -309,7 +309,7 @@ namespace UnitTestProject1
         public void TestColumnNumbers()
         {
             var model = new ApplicationObjectModel();
-            var columnNumbers = model.Properties["column-numbers"].ToTextList();
+            var columnNumbers = model.Properties[ColumnNumbersController.OutsideName].ToTextList();
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));

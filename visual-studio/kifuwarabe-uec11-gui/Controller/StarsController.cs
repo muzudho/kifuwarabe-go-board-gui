@@ -7,6 +7,8 @@
 
     public static class StarsController
     {
+        public static string OutsideName => "stars";
+
         public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {
             if (args == null)
@@ -33,7 +35,7 @@
                         }
                     }
 
-                    model.Properties["stars"].Value = new List<string>(cellAddresses);
+                    model.Properties[OutsideName].Value = new List<string>(cellAddresses);
                     break;
             }
         }

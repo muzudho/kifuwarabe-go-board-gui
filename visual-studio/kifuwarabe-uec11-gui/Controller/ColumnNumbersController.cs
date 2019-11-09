@@ -7,6 +7,8 @@
 
     public static class ColumnNumbersController
     {
+        public static string OutsideName => "column-numbers";
+
         public static List<string> FromString(string text)
         {
             if (text == null)
@@ -43,7 +45,7 @@
             switch (args.Property)
             {
                 case "value":
-                    model.Properties["column-numbers"].Value = args.Value;
+                    model.Properties[OutsideName].Value = args.Value;
                     break;
             }
         }

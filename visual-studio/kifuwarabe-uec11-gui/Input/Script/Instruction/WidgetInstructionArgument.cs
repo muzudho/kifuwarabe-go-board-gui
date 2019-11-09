@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// `widget b-name.visible = true` みたいなコマンド☆（＾～＾）

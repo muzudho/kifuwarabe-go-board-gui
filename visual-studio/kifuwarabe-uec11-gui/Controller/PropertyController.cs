@@ -8,23 +8,24 @@
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class PropertyWidgetController
+    public static class PropertyController
     {
         /// <summary>
         /// 外向きの名前を、内向きの名前に変換だぜ☆（＾～＾）
+        /// 行番号など　１つの Canvas にまとまっていないものは　ここに入ってないぜ☆（＾～＾）
         /// </summary>
-        private static Dictionary<string, string> inwardDictionary = new Dictionary<string, string>()
+        private static Dictionary<string, string> inwardCanvasDictionary = new Dictionary<string, string>()
             {
-                { "ply", "plyCanvas" },
-                { "move", "lastMoveCanvas" },
-                { "b-name", "blackNameCanvas" },
-                { "b-time", "blackTimeCanvas" },
-                { "b-hama", "blackAgehamaCanvas" },
-                { "w-name", "whiteNameCanvas" },
-                { "w-time", "whiteTimeCanvas" },
-                { "w-hama", "whiteAgehamaCanvas" },
-                { "komi", "komiCanvas" },
-                { "info", "infoCanvas" },
+                { ApplicationObjectModel.PlyOutsideName, "plyCanvas" },
+                { LastMoveMarkerController.OutsideName, "lastMoveCanvas" },
+                { ApplicationObjectModel.BlackNameOutsideName, "blackNameCanvas" },
+                { ApplicationObjectModel.BlackTimeOutsideName, "blackTimeCanvas" },
+                { ApplicationObjectModel.BlackHamaOutsideName, "blackAgehamaCanvas" },
+                { ApplicationObjectModel.WhiteNameOutsideName, "whiteNameCanvas" },
+                { ApplicationObjectModel.WhiteTimeOutsideName, "whiteTimeCanvas" },
+                { ApplicationObjectModel.WhiteHamaOutsideName, "whiteAgehamaCanvas" },
+                { ApplicationObjectModel.KomiOutsideName, "komiCanvas" },
+                { ApplicationObjectModel.InfoOutsideName, "infoCanvas" },
             };
 
         public delegate void MatchCanvasCallbackDone(PropertyValue model, Canvas view);
@@ -52,48 +53,12 @@
                 throw new ArgumentNullException(nameof(callbackErr));
             }
 
-            if (inwardDictionary.ContainsKey(outsideName))
+            if (inwardCanvasDictionary.ContainsKey(outsideName))
             {
-                var insideName = inwardDictionary[outsideName];
+                var insideName = inwardCanvasDictionary[outsideName];
                 Canvas canvas = (Canvas)view.FindName(insideName);
 
-                PropertyValue propValue = null;
-                switch (outsideName)
-                {
-                    case "ply":
-                        propValue = model.Properties["ply"];
-                        break;
-                    case "move":
-                        propValue = model.Properties["move"];
-                        break;
-                    case "b-name":
-                        propValue = model.Properties["b-name"];
-                        break;
-                    case "b-time":
-                        propValue = model.Properties["b-time"];
-                        break;
-                    case "b-hama":
-                        propValue = model.Properties["b-hama"];
-                        break;
-                    case "w-name":
-                        propValue = model.Properties["w-name"];
-                        break;
-                    case "w-time":
-                        propValue = model.Properties["w-time"];
-                        break;
-                    case "w-hama":
-                        propValue = model.Properties["w-hama"];
-                        break;
-                    case "komi":
-                        propValue = model.Properties["komi"];
-                        break;
-                    case "info":
-                        propValue = model.Properties["info"];
-                        break;
-                    default:
-                        Trace.WriteLine($"Error           | widgetName:[{outsideName}] is not found.");
-                        break;
-                }
+                PropertyValue propValue = model.Properties[outsideName];
 
                 callbackDone(propValue, canvas);
             }

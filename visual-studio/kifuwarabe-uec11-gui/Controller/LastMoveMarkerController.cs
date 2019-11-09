@@ -11,6 +11,8 @@
     /// </summary>
     public static class LastMoveMarkerController
     {
+        public static string OutsideName => "move";
+
         public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
             if (model == null)
@@ -26,11 +28,11 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = view.lastMoveMarker;
 
-            if (model.Properties["move"].Visible)
+            if (model.Properties[OutsideName].Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
-                var (moveCellAddress, next) = CellAddress.Parse(model.Properties["move"].ToText(), 0, model);
+                var (moveCellAddress, next) = CellAddress.Parse(model.Properties[OutsideName].ToText(), 0, model);
                 if (moveCellAddress != null)
                 {
                     MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>

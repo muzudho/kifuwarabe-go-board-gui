@@ -38,7 +38,7 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var rowNumbers = model.Properties["row-numbers"].ToTextList();
+                var rowNumbers = model.Properties[RowNumbersController.OutsideName].ToTextList();
                 if (rowNumbers.Count <= row || model.Board.RowSize <= row)
                 {
                     // 範囲外アクセス。

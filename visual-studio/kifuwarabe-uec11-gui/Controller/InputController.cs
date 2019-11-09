@@ -1,11 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Globalization;
-    using System.Windows;
-    using System.Windows.Controls;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
@@ -41,261 +37,265 @@
             {
                 foreach (var instruction in scriptDocument.Instructions)
                 {
-                    switch (instruction.Command)
+                    if (instruction.Command == ApplicationObjectModel.InfoOutsideName)
                     {
-                        case "exit":
-                            {
-                                // このアプリケーションを終了します。
-                                System.Windows.Application.Current.Shutdown();
-                            }
-                            break;
+                        // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
 
-                        case "info":
-                            {
-                                // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
+                        // プロパティ☆（＾～＾）
+                        var args = (InfoInstructionArgument)instruction.Argument;
 
-                                // プロパティ☆（＾～＾）
-                                var args = (InfoInstructionArgument)instruction.Argument;
-
-                                // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                                view.infoValue.Content = MainWindow.SoluteNewline(args.Text);
-                            }
-                            break;
-
-                        case "set":
-                            {
-                                // プロパティ☆（＾～＾）
-                                var prop = (SetsInstructionArgument)instruction.Argument;
-                                switch (prop.Name)
+                        // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                        view.infoValue.Content = MainWindow.SoluteNewline(args.Text);
+                    }
+                    else
+                    {
+                        switch (instruction.Command)
+                        {
+                            case "exit":
                                 {
-                                    case "row-size":
-                                        {
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue < HyperParameter.MaxRowSize)
-                                                {
-                                                    model.Board.RowSize = outValue;
-                                                }
-                                            }
-                                        }
-                                        break;
+                                    // このアプリケーションを終了します。
+                                    System.Windows.Application.Current.Shutdown();
+                                }
+                                break;
 
-                                    case "column-size":
+                            case "set":
+                                {
+                                    // プロパティ☆（＾～＾）
+                                    var prop = (SetsInstructionArgument)instruction.Argument;
+                                    if (prop.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
+                                        if (int.TryParse(prop.Value, out int outValue))
                                         {
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
-                                                {
-                                                    model.Board.ColumnSize = outValue;
-                                                }
-                                            }
+                                            view.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
+                                            // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
                                         }
-                                        break;
-
-                                    case "ply":
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.PlyOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
+                                        view.plyValue.Content = prop.Value;
+                                    }
+                                    else if (prop.Name == LastMoveMarkerController.OutsideName)
+                                    {
+                                        var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, model);
+                                        if (cellAddress != null)
                                         {
-                                            model.Properties["ply"].Value = prop.Value;
-                                            view.plyValue.Content = prop.Value;
+                                            var text1 = cellAddress.ToDisplayTrimed(model);
+                                            model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                            view.lastMoveValue.Content = text1;
                                         }
-                                        break;
-                                    case "move":
-                                        {
-                                            var (cellAddress, next) = CellAddress.Parse(prop.Value, 0, model);
-                                            if (cellAddress != null)
-                                            {
-                                                var text1 = cellAddress.ToDisplayTrimed(model);
-                                                model.Properties["move"].Value = text1;
-                                                view.lastMoveValue.Content = text1;
-                                            }
-                                        }
-                                        break;
-                                    case "b-name":
-                                        model.Properties["b-name"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.BlackNameOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.blackNameValue.Content = prop.Value;
-                                        break;
-                                    case "b-time":
-                                        model.Properties["b-time"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.BlackTimeOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.blackTimeValue.Content = prop.Value;
-                                        break;
-                                    case "b-hama":
-                                        model.Properties["b-hama"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.BlackHamaOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.blackAgehamaValue.Content = prop.Value;
-                                        break;
-                                    case "w-name":
-                                        model.Properties["w-name"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.WhiteNameOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.whiteNameValue.Content = prop.Value;
-                                        break;
-                                    case "w-time":
-                                        model.Properties["w-time"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.WhiteTimeOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.whiteTimeValue.Content = prop.Value;
-                                        break;
-                                    case "w-hama":
-                                        model.Properties["w-hama"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.WhiteHamaOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.whiteAgehamaValue.Content = prop.Value;
-                                        break;
-                                    case "komi":
-                                        model.Properties["komi"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.KomiOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
                                         view.komiValue.Content = prop.Value;
-                                        break;
-
-                                    case "info":
-                                        model.Properties["info"].Value = prop.Value;
+                                    }
+                                    else if (prop.Name == ApplicationObjectModel.InfoOutsideName)
+                                    {
+                                        model.Properties[prop.Name].Value = prop.Value;
 
                                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                                         view.infoValue.Content = MainWindow.SoluteNewline(prop.Value);
-                                        break;
-
-                                    case "interval-msec":
+                                    }
+                                    else
+                                    {
+                                        switch (prop.Name)
                                         {
-                                            model.Properties["interval-msec"].Value = prop.Value;
-                                            if (int.TryParse(prop.Value, out int outValue))
-                                            {
-                                                view.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
-                                                // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
-                                            }
+                                            case "row-size":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                                        {
+                                                            model.Board.RowSize = outValue;
+                                                        }
+                                                    }
+                                                }
+                                                break;
+
+                                            case "column-size":
+                                                {
+                                                    if (int.TryParse(prop.Value, out int outValue))
+                                                    {
+                                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                                        {
+                                                            model.Board.ColumnSize = outValue;
+                                                        }
+                                                    }
+                                                }
+                                                break;
                                         }
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case "black":
-                            {
-                                var args = (ColorInstructionArgument)instruction.Argument;
-                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                foreach (var cellRange in args.CellRanges)
-                                {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(model))
-                                    {
-                                        // 黒石にするぜ☆（＾～＾）
-                                        StoneController.ChangeColorToBlack(model, view, zShapedIndex);
-
-                                        // 最後の着手点☆（＾～＾）
-                                        var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.Properties["move"].Value = text1;
-                                        view.lastMoveValue.Content = text1;
                                     }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case "white":
-                            {
-                                var args = (ColorInstructionArgument)instruction.Argument;
-                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                foreach (var cellRange in args.CellRanges)
+                            case "black":
                                 {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                                    var args = (ColorInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.CellRanges)
                                     {
-                                        // 白石にするぜ☆（＾～＾）
-                                        StoneController.ChangeColorToWhite(model, view, zShapedIndex);
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                                        {
+                                            // 黒石にするぜ☆（＾～＾）
+                                            StoneController.ChangeColorToBlack(model, view, zShapedIndex);
 
-                                        // 最後の着手点☆（＾～＾）
-                                        var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
-                                        model.Properties["move"].Value = text1;
-                                        view.lastMoveValue.Content = text1;
+                                            // 最後の着手点☆（＾～＾）
+                                            var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+                                            model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                            view.lastMoveValue.Content = text1;
+                                        }
                                     }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case "space":
-                            {
-                                var args = (ColorInstructionArgument)instruction.Argument;
-                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                foreach (var cellRange in args.CellRanges)
+                            case "white":
                                 {
-                                    foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                                    var args = (ColorInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.CellRanges)
                                     {
-                                        // 石を取り除くぜ☆（＾～＾）
-                                        StoneController.ChangeColorToSpace(model, view, zShapedIndex);
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                                        {
+                                            // 白石にするぜ☆（＾～＾）
+                                            StoneController.ChangeColorToWhite(model, view, zShapedIndex);
+
+                                            // 最後の着手点☆（＾～＾）
+                                            var text1 = CellAddress.FromIndex(zShapedIndex, model).ToDisplayTrimed(model);
+                                            model.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                            view.lastMoveValue.Content = text1;
+                                        }
                                     }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case "widget":
-                            {
-                                var args = (WidgetInstructionArgument)instruction.Argument;
+                            case "space":
+                                {
+                                    var args = (ColorInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.CellRanges)
+                                    {
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(model))
+                                        {
+                                            // 石を取り除くぜ☆（＾～＾）
+                                            StoneController.ChangeColorToSpace(model, view, zShapedIndex);
+                                        }
+                                    }
+                                }
+                                break;
 
-                                PropertyWidgetController.MatchCanvasBy(model, view, args.Name,
-                                    (widgetModel, widgetView) =>
-                                    {
-                                        PropertyWidgetController.ChangeProperty(widgetModel, widgetView, args);
-                                    },
-                                    () =>
-                                    {
+                            case "widget":
+                                {
+                                    var args = (WidgetInstructionArgument)instruction.Argument;
+
+                                    PropertyController.MatchCanvasBy(model, view, args.Name,
+                                        (widgetModel, widgetView) =>
+                                        {
+                                            PropertyController.ChangeProperty(widgetModel, widgetView, args);
+                                        },
+                                        () =>
+                                        {
                                         // Not found widget.
 
-                                        switch (args.Name)
-                                        {
-                                            case "row-numbers":
-                                                RowNumbersController.ChangeProperty(model, args);
-                                                break;
-
-                                            case "column-numbers":
+                                        if (args.Name == ColumnNumbersController.OutsideName)
+                                            {
                                                 ColumnNumbersController.ChangeProperty(model, args);
-                                                break;
-
-                                            case "stars":
+                                            }
+                                            else if (args.Name == RowNumbersController.OutsideName)
+                                            {
+                                                RowNumbersController.ChangeProperty(model, args);
+                                            }
+                                            else if (args.Name == StarsController.OutsideName)
+                                            {
                                                 StarsController.ChangeProperty(model, args);
-                                                break;
+                                            }
+                                            else
+                                            {
+                                            }
+                                        });
+                                }
+                                break;
 
-                                            default:
+                            case "board":
+                                {
+                                    var args = (BoardInstructionArgument)instruction.Argument;
+                                    int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, model);
+                                    int length = cellIndex + model.Board.ColumnSize;
+                                    // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
+
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var columnChar in args.Columns)
+                                    {
+                                        // Trace.WriteLine($"Column          | Ch=[{columnChar}]");
+                                        if (length <= cellIndex)
+                                        {
+                                            break;
+                                        }
+
+                                        switch (columnChar)
+                                        {
+                                            case 'b':
+                                                // 黒石にするぜ☆（＾～＾）
+                                                StoneController.ChangeColorToBlack(model, view, cellIndex);
+                                                cellIndex++;
+                                                break;
+                                            case 'w':
+                                                // 白石にするぜ☆（＾～＾）
+                                                StoneController.ChangeColorToWhite(model, view, cellIndex);
+                                                cellIndex++;
+                                                break;
+                                            case '.':
+                                                // 空点にするぜ☆（＾～＾）
+                                                StoneController.ChangeColorToSpace(model, view, cellIndex);
+                                                cellIndex++;
                                                 break;
                                         }
-                                    });
-                            }
-                            break;
-
-                        case "board":
-                            {
-                                var args = (BoardInstructionArgument)instruction.Argument;
-                                int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, model);
-                                int length = cellIndex + model.Board.ColumnSize;
-                                // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
-
-                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                                foreach (var columnChar in args.Columns)
-                                {
-                                    // Trace.WriteLine($"Column          | Ch=[{columnChar}]");
-                                    if (length <= cellIndex)
-                                    {
-                                        break;
-                                    }
-
-                                    switch (columnChar)
-                                    {
-                                        case 'b':
-                                            // 黒石にするぜ☆（＾～＾）
-                                            StoneController.ChangeColorToBlack(model, view, cellIndex);
-                                            cellIndex++;
-                                            break;
-                                        case 'w':
-                                            // 白石にするぜ☆（＾～＾）
-                                            StoneController.ChangeColorToWhite(model, view, cellIndex);
-                                            cellIndex++;
-                                            break;
-                                        case '.':
-                                            // 空点にするぜ☆（＾～＾）
-                                            StoneController.ChangeColorToSpace(model, view, cellIndex);
-                                            cellIndex++;
-                                            break;
                                     }
                                 }
-                            }
-                            break;
+                                break;
 
-                        case "JSON":
-                            {
-                                var args = (JsonInstructionArgument)instruction.Argument;
-                                Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
+                            case "JSON":
+                                {
+                                    var args = (JsonInstructionArgument)instruction.Argument;
+                                    Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
-                                view.SetModel(ApplicationObjectModel.Parse(args.Json));
-                            }
-                            break;
+                                    view.SetModel(ApplicationObjectModel.Parse(args.Json));
+                                }
+                                break;
+                        }
                     }
                 }
 
@@ -330,16 +330,16 @@
                     LastMoveMarkerController.Repaint(view.Model, view);
 
                     // TODO UIウィジェット
-                    PropertyWidgetController.Repaint(view.Model, view, "ply");
-                    PropertyWidgetController.Repaint(view.Model, view, "move");
-                    PropertyWidgetController.Repaint(view.Model, view, "b-name");
-                    PropertyWidgetController.Repaint(view.Model, view, "b-time");
-                    PropertyWidgetController.Repaint(view.Model, view, "b-hama");
-                    PropertyWidgetController.Repaint(view.Model, view, "w-name");
-                    PropertyWidgetController.Repaint(view.Model, view, "w-time");
-                    PropertyWidgetController.Repaint(view.Model, view, "w-hama");
-                    PropertyWidgetController.Repaint(view.Model, view, "komi");
-                    PropertyWidgetController.Repaint(view.Model, view, "info");
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.PlyOutsideName);
+                    PropertyController.Repaint(view.Model, view, LastMoveMarkerController.OutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.BlackNameOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.BlackTimeOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.BlackHamaOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.WhiteNameOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.WhiteTimeOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.WhiteHamaOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.KomiOutsideName);
+                    PropertyController.Repaint(view.Model, view, ApplicationObjectModel.InfoOutsideName);
 
                     // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
                     view.RepaintWindow();

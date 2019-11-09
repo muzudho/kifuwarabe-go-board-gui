@@ -7,6 +7,8 @@
 
     public static class RowNumbersController
     {
+        public static string OutsideName => "row-numbers";
+
         public static void ChangeProperty(ApplicationObjectModel model, WidgetInstructionArgument args)
         {
             if (model==null)
@@ -33,7 +35,7 @@
                         }
                     }
 
-                    model.Properties["row-numbers"].Value = new List<string>(rows);
+                    model.Properties[OutsideName].Value = new List<string>(rows);
                     break;
             }
         }

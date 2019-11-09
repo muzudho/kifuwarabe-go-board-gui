@@ -1,6 +1,5 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.Json;
@@ -10,6 +9,21 @@
     /// </summary>
     public class ApplicationObjectModel
     {
+        public static string IntervalMsecOutsideName => "interval-msec";
+        public static string PlyOutsideName => "ply";
+        public static string BlackNameOutsideName => "b-name";
+        public static string BlackTimeOutsideName => "b-time";
+        public static string BlackHamaOutsideName => "b-hama";
+        public static string WhiteNameOutsideName => "w-name";
+        public static string WhiteTimeOutsideName => "w-time";
+        public static string WhiteHamaOutsideName => "w-hama";
+        public static string KomiOutsideName => "komi";
+
+        /// <summary>
+        /// オブジェクトの名前でもあり、コマンド名でもあるぜ☆（＾～＾）
+        /// </summary>
+        public static string InfoOutsideName => "info";
+
         public ApplicationObjectModel()
         {
             // 盤☆（＾～＾）
@@ -21,7 +35,7 @@
                 // 各列番号☆（＾～＾）
                 // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
                 {
-                    "column-numbers",
+                    ColumnNumbersController.OutsideName,
                     new PropertyStringList(
                         new List<string>(){
                             "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
@@ -33,7 +47,7 @@
                 // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
-                    "row-numbers",
+                    RowNumbersController.OutsideName,
                     new PropertyStringList(
                         new List<string>(){
                             "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
@@ -57,7 +71,7 @@
                 // 初期値は19路盤だぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
-                    "stars",
+                    StarsController.OutsideName,
                     new PropertyStringList(
                         new List<string>(){
                             "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
@@ -67,40 +81,40 @@
 
                 // 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
                 // 初期値は 2 秒☆（＾～＾）
-                {"interval-msec", new PropertyNumber(2000) },
+                {IntervalMsecOutsideName, new PropertyNumber(2000) },
 
                 // 何手目か。
-                {"ply", new PropertyNumber(0) },
+                {PlyOutsideName, new PropertyNumber(0) },
 
                 // 最後の着手点。
-                {"move", new PropertyNumber(0) },
+                {LastMoveMarkerController.OutsideName, new PropertyNumber(0) },
 
                 // 黒の選手名。
-                {"b-name", new PropertyString("player1") },
+                {BlackNameOutsideName, new PropertyString("player1") },
 
                 // 黒の残り時間。
-                {"b-time", new PropertyString("00:00") },
+                {BlackTimeOutsideName, new PropertyString("00:00") },
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {"b-hama", new PropertyNumber(0) },
+                {BlackHamaOutsideName, new PropertyNumber(0) },
 
                 // 白の選手名。
-                {"w-name", new PropertyString("player2") },
+                {WhiteNameOutsideName, new PropertyString("player2") },
 
                 // 白の残り時間。
-                {"w-time", new PropertyString("00:00") },
+                {WhiteTimeOutsideName, new PropertyString("00:00") },
 
                 // 白のアゲハマ。
-                {"w-hama", new PropertyNumber(0) },
+                {WhiteHamaOutsideName, new PropertyNumber(0) },
 
                 // 白のコミ。
-                {"komi", new PropertyNumber(6.5) },
+                {KomiOutsideName, new PropertyNumber(6.5) },
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
-                {"info", new PropertyString("") },
+                {InfoOutsideName, new PropertyString("") },
             };
         }
 
