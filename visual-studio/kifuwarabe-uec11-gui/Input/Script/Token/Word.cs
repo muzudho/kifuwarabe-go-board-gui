@@ -1,6 +1,15 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
+    using System;
     using System.Text.RegularExpressions;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="whiteSpace"></param>
+    /// <param name="curr">Current.</param>
+    /// <returns>Next.</returns>
+    public delegate int ParsesWordCallbackType(Word word, int curr);
 
     /// <summary>
     /// 次の空白までの文字列☆（＾～＾）
@@ -22,11 +31,16 @@
             this.Text = text;
         }
 
-        public static (Word, int) Parse(string text, int start)
+        public static int Parse(string text, int start, ParsesWordCallbackType callback)
         {
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             if (text == null || text.Length <= start)
             {
-                return (null, start);
+                return callback(null, start);
             }
 
             var m = regex.Match(text.Substring(start));
@@ -34,10 +48,10 @@
             {
                 // 一致。
                 var word = m.Groups[1].Value;
-                return (new Word(word), start + word.Length);
+                return callback(new Word(word), start + word.Length);
             }
 
-            return (null, start);
+            return callback(null, start);
         }
 
         /// <summary>

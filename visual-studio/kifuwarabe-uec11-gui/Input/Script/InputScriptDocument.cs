@@ -54,13 +54,13 @@
                         {
                             // 行頭が `#` なら、その行は読み飛ばせだぜ☆（＾～＾）
                             Trace.WriteLine($"Comment         | {line}");
+                            return curr;
                         }
-                        else
-                        {
-                            Trace.WriteLine($"Read            | {line}");
 
-                            Word commandName;
-                            (commandName, curr) = Word.Parse(line, curr);
+                        Trace.WriteLine($"Read            | {line}");
+
+                        return Word.Parse(line, curr, (commandName, curr) =>
+                        {
                             Trace.WriteLine($"Command         | {commandName?.Text}");
 
                             if (commandName != null)
@@ -159,9 +159,9 @@
                                 {
                                 }
                             }
-                        }
 
-                        return curr;
+                            return curr;
+                        });
                     });
                 });
             }

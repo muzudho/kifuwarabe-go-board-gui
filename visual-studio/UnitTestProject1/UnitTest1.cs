@@ -347,7 +347,18 @@ namespace UnitTestProject1
             }));
 
             // 最初にマッチする単語のテスト☆（＾～＾）
-            Assert.AreEqual("black", Word.Parse("black a19 k10 t1", 0).Item1?.ToDisplay());
+            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (word, curr)=>
+            {
+                Assert.AreEqual("black", word?.ToDisplay());
+                if (word != null)
+                {
+                    return curr;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
 
             Assert.AreEqual("Hello, world", WordUpToDelimiter.Parse("!", "Hello, world!", 0).Item1?.ToDisplay());
         }
