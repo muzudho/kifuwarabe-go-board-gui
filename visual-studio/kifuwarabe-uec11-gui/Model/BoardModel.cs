@@ -25,13 +25,6 @@
                 "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
             });
 
-            // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
-            this.ColumnNumbers = new List<string>()
-            {
-                "A", "B", "C", "D", "E", "F", "G", "H", "J", "K",
-                "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-            };
-
             this.StarCellAddresses = new List<string>()
             {
                  "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
@@ -69,12 +62,6 @@
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
         public List<string> RowNumbers { get; set; }
-
-        /// <summary>
-        /// 各列番号☆（＾～＾）
-        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
-        /// </summary>
-        public List<string> ColumnNumbers { get; set; }
 
         /// <summary>
         /// 星の番地☆（＾～＾）
@@ -146,11 +133,6 @@
 
                 this.RowNumbers = new List<string>(array);
             }
-        }
-
-        public void SetColumnNumbers(List<string> columnNumbers)
-        {
-            this.ColumnNumbers = columnNumbers;
         }
 
         public void SetStarCellAddresses(List<string> cellAddresses)

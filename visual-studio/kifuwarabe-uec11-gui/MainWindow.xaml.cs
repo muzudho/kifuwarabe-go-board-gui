@@ -227,11 +227,7 @@
                 this.DispatchTimer.Start();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                if (this.Model.Properties["interval-msec"] is PropertyNumber)
-                {
-                    var propValue = (PropertyNumber)this.Model.Properties["interval-msec"];
-                    this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(propValue.Value);
-                }
+                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.Properties["interval-msec"].ToNumber());
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {

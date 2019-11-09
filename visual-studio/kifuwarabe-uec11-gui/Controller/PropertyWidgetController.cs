@@ -27,7 +27,7 @@
                 { "info", "infoCanvas" },
             };
 
-        public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view);
+        public delegate void MatchCanvasCallbackDone(PropertyValue model, Canvas view);
         public delegate void MatchCanvasCallbackErr();
 
         public static void MatchCanvasBy(ApplicationObjectModel model, MainWindow view, string outsideName, MatchCanvasCallbackDone callbackDone, MatchCanvasCallbackErr callbackErr)
@@ -57,7 +57,7 @@
                 var insideName = inwardDictionary[outsideName];
                 Canvas canvas = (Canvas)view.FindName(insideName);
 
-                IPropertyValue propValue = null;
+                PropertyValue propValue = null;
                 switch (outsideName)
                 {
                     case "ply":
@@ -136,7 +136,7 @@
                 });
         }
 
-        public static void ChangeProperty(IPropertyValue model, Canvas view, WidgetInstructionArgument args)
+        public static void ChangeProperty(PropertyValue model, Canvas view, WidgetInstructionArgument args)
         {
             if (model == null)
             {

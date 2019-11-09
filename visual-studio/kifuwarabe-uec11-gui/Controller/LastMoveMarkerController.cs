@@ -30,27 +30,19 @@
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
-                if (model.Properties["move"] is PropertyString)
+                var (moveCellAddress, next) = CellAddress.Parse(model.Properties["move"].ToText(), 0, model);
+                if (moveCellAddress != null)
                 {
-                    var propValue = (PropertyString)model.Properties["move"];
-                    var (moveCellAddress, next) = CellAddress.Parse(propValue.Value, 0, model);
-                    if (moveCellAddress != null)
+                    MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
                     {
-                        MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
-                        {
                             // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
                             lastMoveMarker.Width = view.board.Width / model.Board.GetColumnDiv() * 0.4;
-                            lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
+                        lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
 
-                            Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
-                            Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
-                        });
-                    }
-                    else
-                    {
-                        lastMoveMarker.Visibility = Visibility.Hidden;
-                    }
+                        Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
+                        Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);
+                    });
                 }
                 else
                 {

@@ -3,6 +3,7 @@ namespace UnitTestProject1
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text;
+    using KifuwarabeUec11Gui;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -307,28 +308,29 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColumnNumbers()
         {
-            var boardModel = new BoardModel();
+            var model = new ApplicationObjectModel();
+            var columnNumbers = ColumnNumbersController.FromString(model.Properties["column-numbers"].ToText());
 
-            Assert.AreEqual(0, boardModel.ColumnNumbers.IndexOf("A"));
-            Assert.AreEqual(1, boardModel.ColumnNumbers.IndexOf("B"));
-            Assert.AreEqual(2, boardModel.ColumnNumbers.IndexOf("C"));
-            Assert.AreEqual(3, boardModel.ColumnNumbers.IndexOf("D"));
-            Assert.AreEqual(4, boardModel.ColumnNumbers.IndexOf("E"));
-            Assert.AreEqual(5, boardModel.ColumnNumbers.IndexOf("F"));
-            Assert.AreEqual(6, boardModel.ColumnNumbers.IndexOf("G"));
-            Assert.AreEqual(7, boardModel.ColumnNumbers.IndexOf("H"));
-            Assert.AreNotEqual(8, boardModel.ColumnNumbers.IndexOf("I"));
-            Assert.AreEqual(8, boardModel.ColumnNumbers.IndexOf("J"));
-            Assert.AreEqual(9, boardModel.ColumnNumbers.IndexOf("K"));
-            Assert.AreEqual(10, boardModel.ColumnNumbers.IndexOf("L"));
-            Assert.AreEqual(11, boardModel.ColumnNumbers.IndexOf("M"));
-            Assert.AreEqual(12, boardModel.ColumnNumbers.IndexOf("N"));
-            Assert.AreEqual(13, boardModel.ColumnNumbers.IndexOf("O"));
-            Assert.AreEqual(14, boardModel.ColumnNumbers.IndexOf("P"));
-            Assert.AreEqual(15, boardModel.ColumnNumbers.IndexOf("Q"));
-            Assert.AreEqual(16, boardModel.ColumnNumbers.IndexOf("R"));
-            Assert.AreEqual(17, boardModel.ColumnNumbers.IndexOf("S"));
-            Assert.AreEqual(18, boardModel.ColumnNumbers.IndexOf("T"));
+            Assert.AreEqual(0, columnNumbers.IndexOf("A"));
+            Assert.AreEqual(1, columnNumbers.IndexOf("B"));
+            Assert.AreEqual(2, columnNumbers.IndexOf("C"));
+            Assert.AreEqual(3, columnNumbers.IndexOf("D"));
+            Assert.AreEqual(4, columnNumbers.IndexOf("E"));
+            Assert.AreEqual(5, columnNumbers.IndexOf("F"));
+            Assert.AreEqual(6, columnNumbers.IndexOf("G"));
+            Assert.AreEqual(7, columnNumbers.IndexOf("H"));
+            Assert.AreNotEqual(8, columnNumbers.IndexOf("I"));
+            Assert.AreEqual(8, columnNumbers.IndexOf("J"));
+            Assert.AreEqual(9, columnNumbers.IndexOf("K"));
+            Assert.AreEqual(10, columnNumbers.IndexOf("L"));
+            Assert.AreEqual(11, columnNumbers.IndexOf("M"));
+            Assert.AreEqual(12, columnNumbers.IndexOf("N"));
+            Assert.AreEqual(13, columnNumbers.IndexOf("O"));
+            Assert.AreEqual(14, columnNumbers.IndexOf("P"));
+            Assert.AreEqual(15, columnNumbers.IndexOf("Q"));
+            Assert.AreEqual(16, columnNumbers.IndexOf("R"));
+            Assert.AreEqual(17, columnNumbers.IndexOf("S"));
+            Assert.AreEqual(18, columnNumbers.IndexOf("T"));
         }
     }
 }

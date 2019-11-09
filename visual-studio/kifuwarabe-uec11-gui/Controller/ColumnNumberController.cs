@@ -22,17 +22,19 @@
                 throw new ArgumentNullException(nameof(view));
             }
 
+            var columnNumbers = ColumnNumbersController.FromString(model.Properties["column-numbers"].ToText());
+
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = view.ColumnLabels[column];
-                if (model.Board.ColumnNumbers.Count <= column || model.Board.ColumnSize <= column)
+                if (columnNumbers.Count <= column || model.Board.ColumnSize <= column)
                 {
                     // 範囲外アクセス。
                     label.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    label.Content = model.Board.ColumnNumbers[column];
+                    label.Content = columnNumbers[column];
 
                     // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
                     // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）

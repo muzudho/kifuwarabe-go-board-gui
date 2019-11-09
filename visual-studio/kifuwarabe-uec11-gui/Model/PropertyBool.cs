@@ -1,15 +1,15 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
     using System;
+    using System.Globalization;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyBool : IPropertyValue
+    public class PropertyBool : PropertyValue
     {
-        public bool Value { get; set; }
-        public bool Visible { get; set; }
+        private bool innerValue;
 
         public PropertyBool()
         {
@@ -23,21 +23,50 @@
             this.Visible = true;
         }
 
-        public void SetValue(object value)
+        /// <summary>
+        /// JSON用の入出力だぜ☆（＾～＾）
+        /// </summary>
+        public override object Value
         {
-            if (value == null)
+            get { return this.innerValue; }
+            set
             {
-                throw new ArgumentNullException(nameof(value));
-            }
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
 
-            if (value is bool)
-            {
-                this.Value = (bool)value;
+                if (value is bool)
+                {
+                    this.innerValue = (bool)value;
+                }
+                else if (bool.TryParse(value.ToString(), out bool outValue))
+                {
+                    this.innerValue = outValue;
+                }
             }
-            else if (bool.TryParse(value.ToString(), out bool outValue))
+        }
+
+        public override bool ToBool()
+        {
+            return this.innerValue;
+        }
+
+        public override double ToNumber()
+        {
+            if (this.innerValue)
             {
-                this.Value = outValue;
+                return 1.0;
             }
+            else
+            {
+                return 0.0;
+            }
+        }
+
+        public override string ToText()
+        {
+            return this.innerValue.ToString(CultureInfo.CurrentCulture);
         }
     }
 }

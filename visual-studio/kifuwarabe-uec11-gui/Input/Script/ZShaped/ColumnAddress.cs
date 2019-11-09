@@ -39,8 +39,8 @@
                 return (null, start);
             }
 
-            var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
-            var index = model.Board.ColumnNumbers.IndexOf(oneChar);
+            var oneChar = text[start].ToString(CultureInfo.CurrentCulture);            
+            var index = ColumnNumbersController.FromString(model.Properties["column-numbers"].ToText()).IndexOf(oneChar);
 
             if (index < 0)
             {
@@ -62,13 +62,15 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            if (this.NumberO0 < 0 || model.Board.ColumnNumbers.Count <= this.NumberO0)
+            var columnNumbers = ColumnNumbersController.FromString(model.Properties["column-numbers"].ToText());
+
+            if (this.NumberO0 < 0 || columnNumbers.Count <= this.NumberO0)
             {
                 return "#Error#";
             }
             else
             {
-                return model.Board.ColumnNumbers[this.NumberO0];
+                return columnNumbers[this.NumberO0];
             }
         }
     }

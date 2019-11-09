@@ -1,15 +1,15 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
     using System;
+    using System.Globalization;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyNumber : IPropertyValue
+    public class PropertyNumber : PropertyValue
     {
-        public double Value { get; set; }
-        public bool Visible { get; set; }
+        private double innerValue;
 
         public PropertyNumber()
         {
@@ -23,21 +23,53 @@
             this.Visible = true;
         }
 
-        public void SetValue(object value)
+        /// <summary>
+        /// JSON用の入出力だぜ☆（＾～＾）
+        /// </summary>
+        public override object Value
         {
-            if (value == null)
+            get
             {
-                throw new ArgumentNullException(nameof(value));
+                return this.innerValue;
             }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
 
-            if (value is double)
-            {
-                this.Value = (double)value;
+                if (value is double)
+                {
+                    this.innerValue = (double)value;
+                }
+                else if (double.TryParse(value.ToString(), out double outValue))
+                {
+                    this.innerValue = outValue;
+                }
             }
-            else if (double.TryParse(value.ToString(), out double outValue))
+        }
+
+        public override bool ToBool()
+        {
+            if (innerValue == 0.0)
             {
-                this.Value = outValue;
+                return false;
             }
+            else
+            {
+                return true;
+            }
+        }
+
+        public override double ToNumber()
+        {
+            return this.innerValue;
+        }
+
+        public override string ToText()
+        {
+            return this.innerValue.ToString(CultureInfo.CurrentCulture);
         }
     }
 }
