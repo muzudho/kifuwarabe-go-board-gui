@@ -32,38 +32,43 @@
         public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModel model)
         {
             var cellRanges = new List<CellRange>();
-            var next = start;
+            var nextSum = start;
 
-            // リスト☆（＾～＾）最初のスペースは読み飛ばすぜ☆（＾～＾）
-            for (; ; )
+            // リスト☆（＾～＾）
+            bool repeatsColor = true;
+            while (repeatsColor)
             {
-                WhiteSpace whiteSpace;
-                {
-                    (whiteSpace, next) = WhiteSpace.Parse(text, next);
-                    if (whiteSpace == null)
+                nextSum = WhiteSpace.Parse2(text, nextSum,
+                    (whiteSpace, curr) =>
                     {
-                        // おわり☆（＾～＾）
-                        break;
-                    }
-                }
+                        if (whiteSpace == null)
+                        {
+                            // 最初にスペースなんか無かった☆（＾～＾）ここで成功終了☆（＾～＾）
+                            repeatsColor = false;
+                        }
+                        else
+                        {
+                            // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
+                            CellRange cellRange;
+                            (cellRange, curr) = CellRange.Parse(text, curr, model);
+                            if (cellRange == null)
+                            {
+                                // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
+                                repeatsColor = false;
+                            }
+                            else
+                            {
+                                // セル番地指定があった☆（＾～＾）マッチで成功終了☆（＾～＾）
+                                cellRanges.Add(cellRange);
+                            }
+                        }
 
-                CellRange cellRange;
-                {
-                    (cellRange, next) = CellRange.Parse(text, next, model);
-                    if (cellRange == null)
-                    {
-                        // おわり☆（＾～＾）
-                        break;
-                    }
-                }
-
-                // マッチ☆（＾～＾）
-                cellRanges.Add(cellRange);
+                        return curr;
+                    });
             }
 
-
             // 列と行の両方マッチ☆（＾～＾）
-            return (new ColorInstructionArgument(cellRanges), next);
+            return (new ColorInstructionArgument(cellRanges), nextSum);
         }
 
         /// <summary>

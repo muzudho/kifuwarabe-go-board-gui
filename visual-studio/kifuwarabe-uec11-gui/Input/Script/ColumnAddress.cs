@@ -28,20 +28,20 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColumnAddress, int) Parse(string text, int start, ApplicationObjectModel model)
+        public static (ColumnAddress, int) Parse(string text, int start, ApplicationObjectModel appModel)
         {
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
 
-            if (text.Length < start + 1 || model == null)
+            if (text.Length < start + 1 || appModel == null)
             {
                 return (null, start);
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);            
-            var index = model.Properties[ColumnNumbersController.OutsideName].ToTextList().IndexOf(oneChar);
+            var index = appModel.Properties[ColumnNumbersController.OutsideName].ToTextList().IndexOf(oneChar);
 
             if (index < 0)
             {

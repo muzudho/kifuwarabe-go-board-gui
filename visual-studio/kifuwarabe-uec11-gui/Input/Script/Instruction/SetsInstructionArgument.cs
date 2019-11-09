@@ -4,7 +4,6 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// `set b-name = Kifuwarabe` みたいなコマンド☆（＾～＾）
     /// </summary>
     public class SetsInstructionArgument
     {
@@ -32,42 +31,44 @@
         /// <returns></returns>
         public static (SetsInstructionArgument, int) Parse(string text, int start)
         {
-            if (text==null)
+            if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
 
-            var next = start;
+            SetsInstructionArgument setsInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
-
-            // 次のイコールの手前までを読み取るぜ☆（＾～＾）
-            WordUpToDelimiter name;
-            {
-                (name, next) = WordUpToDelimiter.Parse("=", text, next);
-                if (name == null)
+            var next = WhiteSpace.Parse2(text, start,
+                (_, curr) =>
                 {
-                    // 不一致☆（＾～＾）
-                    return (null, start);
-                }
-            }
+                    // 次のイコールの手前までを読み取るぜ☆（＾～＾）
+                    WordUpToDelimiter name;
+                    (name, curr) = WordUpToDelimiter.Parse("=", text, curr);
+                    if (name == null)
+                    {
+                        // 不一致☆（＾～＾）
+                        return start;
+                    }
+                    else
+                    {
+                        // イコールは読み飛ばすぜ☆（＾～＾）
+                        curr++;
 
-            // イコールは読み飛ばすぜ☆（＾～＾）
-            next++;
-
-            // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
-
-            // 行の残り全部を読み取るぜ☆（＾～＾）
-            string value = text.Substring(next);
+                        // 最初のスペースは読み飛ばすぜ☆（＾～＾）
+                        return WhiteSpace.Parse2(text, curr,
+                            (_, curr) =>
+                            {
+                                // 行の残り全部を読み取るぜ☆（＾～＾）
+                                string value = text.Substring(curr);
+                                setsInstructionArgument = new SetsInstructionArgument(name.Text.Trim(), value.Trim());
+                                return curr + value.Length;
+                            });
+                    }
+                });
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new SetsInstructionArgument(name.Text.Trim(), value.Trim()), next);
+            return (setsInstructionArgument, next);
         }
 
         /// <summary>

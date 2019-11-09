@@ -295,7 +295,20 @@ namespace UnitTestProject1
             Assert.AreEqual("start", ExactlyKeyword.Parse("start", "start", 0).Item1?.ToDisplay());
 
             // ホワイトスペースのテスト☆（*＾～＾*）
-            Assert.AreEqual("     ", WhiteSpace.Parse("     ", 0).Item1?.ToDisplay());
+            var start = 0;
+            // Assert.AreEqual("     ", WhiteSpace.Parse("     ", start).Item1?.ToDisplay());
+            Assert.AreEqual(5, WhiteSpace.Parse2("     ", start, (whiteSpace, curr) =>
+            {
+                Assert.AreEqual("     ", whiteSpace?.ToDisplay());
+                if (whiteSpace != null)
+                {
+                    return curr + whiteSpace.Text.Length;
+                }
+                else
+                {
+                    return start;
+                }
+            }));
 
             // 最初にマッチする単語のテスト☆（＾～＾）
             Assert.AreEqual("black", Word.Parse("black a19 k10 t1", 0).Item1?.ToDisplay());

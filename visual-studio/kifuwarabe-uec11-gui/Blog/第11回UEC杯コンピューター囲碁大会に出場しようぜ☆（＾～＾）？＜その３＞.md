@@ -714,5 +714,101 @@ output.json:
 ![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
 「　`List<string>` 型もデシリアライズしてくれた……☆　ラッキー☆」
 
+# 2019-11-09 sat 17:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　行番号に位置調整のために半角空白が入っていて、これをトリムしてはいけないというのが　つらい……☆」
+
+# 2019-11-09 sat 18:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　大量のマジック・ナンバーを消している……☆」
+
+output.json:
+
+```
+,"rowNumbersTrimed":["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"]
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑こういう隠しデータまで　JSON に出てしまうの　なんとかならないの☆？」
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　プロパティーになってるんだろ☆　ゲッター・メソッドにしようぜ☆？」
+
+output.json:
+
+```
+{"board":{"rowSize":15,"columnSize":15,"stones":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"properties":{"column-numbers":{"value":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"],"visible":true},"row-numbers":{"value":["15","14","13","12","11","10","  9","  8","  7","  6","  5","  4","  3","  2","  1"],"visible":true},"stars":{"value":["d4","l4","h8","d12","l12"],"visible":true},"interval-msec":{"value":2000,"visible":true},"ply":{"value":0,"visible":true},"move":{"value":0,"visible":true},"b-name":{"value":"Kifuwarabe","visible":true},"b-time":{"value":"00:00","visible":true},"b-hama":{"value":0,"visible":false},"w-name":{"value":"Warabemoti","visible":true},"w-time":{"value":"00:00","visible":true},"w-hama":{"value":0,"visible":false},"komi":{"value":6.5,"visible":false},"info":{"value":"","visible":true}}}
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑JSONは　こんな感じで　どうだぜ☆？」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　`"visible":false` はデフォルトにして、JSONに出力しないようにできないの？」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　調べてみるぜ☆」
+
+[Hiding C# properties when serialize with JSON.NET](https://stackoverflow.com/questions/24306666/hiding-c-sharp-properties-when-serialize-with-json-net)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑常時隠すのは　あるのかも知れないが、ゲッター・メソッドでも　できるしな☆」
+
+[How to serialize and deserialize JSON in .NET](https://docs.microsoft.com/ja-jp/dotnet/standard/serialization/system-text-json-how-to)
+[Reducing Serialized JSON Size](https://www.newtonsoft.com/json/help/html/ReducingSerializedJSONSize.htm)
+[DefaultValueAttribute Class](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.defaultvalueattribute?redirectedfrom=MSDN&view=netcore-3.0)
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑ここに載ってなければ　なさそう……☆」
+
+```
+[DefaultValue(0.0)]
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　↑こういうの付けても　変わりなし☆」
+
+# 2019-11-09 sat 19:00頃
+
+![KIFUWARABE_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/5ac9fa3b390b658160717a7c1ef5008a5dc2a156b1dd7.gif)
+「　`black` も `white` も小文字なのに、 `JSON` だけ　大文字なのは　やはり　気にかかるぜ☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　細かいやつだな……☆　じゃあ `json` コマンドな☆」
+
+# 2019-11-09 sat 20:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`set` コマンドが　バグった☆」
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`.ToString()` が付け加えられて暗黙の文字列変換がされてしまうのは　困りものだぜ☆」
+
+# 2019-11-09 sat 20:00頃
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　列番号を変更するのと、`black` で黒石を置くのを　同じテキストで実行すると　古い列番号で置かれてしまう☆」
+
+```
+set b-hama = 3
+widget b-hama.visible = false
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`set` 構文と `widget` 構文の２つあるの大変なんで……☆、」
+
+```
+set b-hama = 3
+set b-hama.value = 3
+set b-hama.visible = false
+```
+
+![KITASHIRAKAWA_Chiyuri_80x100x8_01_Futu.gif](https://crieit.now.sh/upload_images/3da2d4690cf2c3f101c5cbc0e48729f55dc2a1340659b.gif)
+「　`set` 構文に統一しようぜ☆？ `.` が無ければ `.value` が補完されるということで☆」
+
+![OKAZAKI_Yumemi_80x80x8_02_Syaberu.gif](https://crieit.now.sh/upload_images/058791c2dd4c1604ce1bd9ec26d490ae5dc2a2f671baf.gif)
+「　そうしましょう！」
 
 ＜書きかけ＞

@@ -3,8 +3,16 @@
     using System;
 
     /// <summary>
-    /// `widget b-name.visible = true` みたいなコマンド☆（＾～＾）
-    /// 構造としては `widget {name}.{property} = {value}` だぜ☆（＾～＾）
+    /// 次のようなコマンド☆（＾～＾）
+    /// 
+    /// `set b-name = Kifuwarabe`
+    /// `set b-name.visible = true`
+    /// 
+    /// 構造としては
+    /// 
+    /// `widget {name}.{property} = {value}`
+    /// 
+    /// だぜ☆（＾～＾）`.{property}` が省略されている場合、`.value` を補うぜ☆（＾～＾）
     /// </summary>
     public class WidgetInstructionArgument
     {
@@ -38,61 +46,64 @@
         /// <returns></returns>
         public static (WidgetInstructionArgument, int) Parse(string text, int start)
         {
-            if (text==null)
+            if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
 
-            var next = start;
+            WidgetInstructionArgument widgetInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
-
-            // 次のドットの手前までを読み取るぜ☆（＾～＾）
-            WordUpToDelimiter name;
-            {
-                (name, next) = WordUpToDelimiter.Parse(".", text, next);
-                if (name == null)
+            var next = WhiteSpace.Parse2(text, start,
+                (_, curr) =>
                 {
-                    // 不一致☆（＾～＾）
-                    return (null, start);
-                }
-            }
+                    // 次のドットの手前までを読み取るぜ☆（＾～＾）
+                    WordUpToDelimiter name;
+                    (name, curr) = WordUpToDelimiter.Parse(".", text, curr);
+                    if (name == null)
+                    {
+                        // 不一致☆（＾～＾）
+                        return start;
+                    }
+                    else
+                    {
+                        // ドットは読み飛ばすぜ☆（＾～＾）
+                        curr++;
 
-            // ドットは読み飛ばすぜ☆（＾～＾）
-            next++;
+                        // 次のスペースは読み飛ばすぜ☆（＾～＾）
+                        return WhiteSpace.Parse2(text, curr,
+                            (_, curr) =>
+                            {
+                                // 次のイコールの手前までを読み取るぜ☆（＾～＾）
+                                WordUpToDelimiter property;
+                                (property, curr) = WordUpToDelimiter.Parse("=", text, curr);
+                                if (property == null)
+                                {
+                                    // 不一致☆（＾～＾）
+                                    return start;
+                                }
+                                else
+                                {
+                                    // イコールは読み飛ばすぜ☆（＾～＾）
+                                    curr++;
 
-            // 次のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
+                                    // 最初のスペースは読み飛ばすぜ☆（＾～＾）
+                                    return WhiteSpace.Parse2(text, curr,
+                                        (_, curr) =>
+                                        {
+                                            // 行の残り全部を読み取るぜ☆（＾～＾）
+                                            string value = text.Substring(curr);
 
-            // 次のイコールの手前までを読み取るぜ☆（＾～＾）
-            WordUpToDelimiter property;
-            {
-                (property, next) = WordUpToDelimiter.Parse("=", text, next);
-                if (property == null)
-                {
-                    // 不一致☆（＾～＾）
-                    return (null, start);
-                }
-            }
+                                            // 列と行の両方マッチ☆（＾～＾）
+                                            widgetInstructionArgument = new WidgetInstructionArgument(name.Text.Trim(), property.Text.Trim(), value.Trim());
+                                            return curr + value.Length;
+                                        });
+                                }
+                            });
+                    }
+                });
 
-            // イコールは読み飛ばすぜ☆（＾～＾）
-            next++;
-
-            // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
-
-            // 行の残り全部を読み取るぜ☆（＾～＾）
-            string value = text.Substring(next);
-
-            // 列と行の両方マッチ☆（＾～＾）
-            return (new WidgetInstructionArgument(name.Text.Trim(), property.Text.Trim(), value.Trim()), next);
+            return (widgetInstructionArgument, next);
         }
 
         /// <summary>

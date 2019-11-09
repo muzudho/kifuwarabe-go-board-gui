@@ -38,32 +38,38 @@
                 throw new ArgumentNullException(nameof(text));
             }
 
-            var next = start;
+            // 行番号を読めだぜ☆（＾～＾）数字とは限らないからな☆ｍ９（＾～＾）
+            BoardInstructionArgument boardInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
+            var next = WhiteSpace.Parse2(text, start,
+                (_, curr) =>
+                {
+                    RowAddress rowAddress = null;
+                    (rowAddress, curr) = RowAddress.Parse(text, curr, model);
 
-            // 行番号を読めだぜ☆（＾～＾）数字とは限らないからな☆ｍ９（＾～＾）
-            RowAddress rowAddress;
-            (rowAddress, next) = RowAddress.Parse(text, next, model);
-            if (rowAddress == null)
-            {
-                // 不一致☆（＾～＾）
-                return (null, start);
-            }
+                    if (rowAddress == null)
+                    {
+                        // 不一致☆（＾～＾）
+                        return start;
+                    }
+                    else
+                    {
+                        // 途中のスペースは読み飛ばすぜ☆（＾～＾）
+                        return WhiteSpace.Parse2(text, curr,
+                            (_, curr) =>
+                            {
+                                // 行の残り全部を読み取るぜ☆（＾～＾）
+                                string columns = text.Substring(curr);
 
-            // 途中のスペースは読み飛ばすぜ☆（＾～＾）
-            {
-                (_, next) = WhiteSpace.Parse(text, next);
-            }
+                                // 列と行の両方マッチ☆（＾～＾）
+                                boardInstructionArgument = new BoardInstructionArgument(rowAddress, columns.Trim());
+                                return curr + columns.Length;
+                            });
+                    }
+                });
 
-            // 行の残り全部を読み取るぜ☆（＾～＾）
-            string columns = text.Substring(next);
-
-            // 列と行の両方マッチ☆（＾～＾）
-            return (new BoardInstructionArgument(rowAddress, columns.Trim()), next);
+            return (boardInstructionArgument, next);
         }
 
         /// <summary>
