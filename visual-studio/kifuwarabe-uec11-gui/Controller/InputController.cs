@@ -10,7 +10,10 @@
     /// </summary>
     public static class InputController
     {
-        public static void Go(ApplicationObjectModel appModel, MainWindow appView)
+        public delegate void ReadsCallback(string text);
+        public delegate void AfterCommandCallback();
+
+        public static void Read(ApplicationObjectModel appModel, MainWindow appView, ReadsCallback callback)
         {
             if (null == appModel)
             {
@@ -22,17 +25,41 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
+            if (null == callback)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             var text = appView.InputTextReader.ReadToEnd();
 
             // 空行は無視☆（＾～＾）
             if (!string.IsNullOrWhiteSpace(text))
             {
+                // ログに取るぜ☆（＾～＾）
                 Trace.WriteLine($"Text            | {text}");
                 appView.CommunicationLogWriter.WriteLine(text);
                 appView.CommunicationLogWriter.Flush();
             }
 
-            InputScriptDocument.Parse(text, appModel, (scriptDocument) =>
+            foreach (var line in text.Split(Environment.NewLine))
+            {
+                callback(line);
+            }
+        }
+
+        public static void ParseByLine(ApplicationObjectModel appModel, MainWindow appView, string line, AfterCommandCallback aftetCommandCallback)
+        {
+            if (null == appModel)
+            {
+                throw new ArgumentNullException(nameof(appModel));
+            }
+
+            if (null == appView)
+            {
+                throw new ArgumentNullException(nameof(appView));
+            }
+
+            InputScriptDocument.ParseByLine(line, appModel, (scriptDocument) =>
             {
                 if (scriptDocument == null)
                 {
@@ -50,6 +77,7 @@
 
                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                         appView.infoValue.Content = MainWindow.SoluteNewline(args.Text);
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.BlackCommand)
                     {
@@ -60,7 +88,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneController.ChangeColorToBlack(appModel, appView, zShapedIndex);
+                                StoneController.ChangeModelToBlack(appModel, zShapedIndex);
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
@@ -68,6 +96,7 @@
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.WhiteCommand)
                     {
@@ -78,7 +107,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 白石にするぜ☆（＾～＾）
-                                StoneController.ChangeColorToWhite(appModel, appView, zShapedIndex);
+                                StoneController.ChangeModelToWhite(appModel, zShapedIndex);
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
@@ -86,6 +115,7 @@
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.SpaceCommand)
                     {
@@ -96,22 +126,23 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 石を取り除くぜ☆（＾～＾）
-                                StoneController.ChangeColorToSpace(appModel, appView, zShapedIndex);
+                                StoneController.ChangeModelToSpace(appModel, zShapedIndex);
                             }
                         }
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.BoardCommand)
                     {
                         var args = (BoardInstructionArgument)instruction.Argument;
-                        int cellIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
-                        int length = cellIndex + appModel.Board.ColumnSize;
+                        int zShapedIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
+                        int length = zShapedIndex + appModel.Board.ColumnSize;
                         // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
 
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var columnChar in args.Columns)
                         {
                             // Trace.WriteLine($"Column          | Ch=[{columnChar}]");
-                            if (length <= cellIndex)
+                            if (length <= zShapedIndex)
                             {
                                 break;
                             }
@@ -120,21 +151,22 @@
                             {
                                 case 'b':
                                     // 黒石にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToBlack(appModel, appView, cellIndex);
-                                    cellIndex++;
+                                    StoneController.ChangeModelToBlack(appModel, zShapedIndex);
+                                    zShapedIndex++;
                                     break;
                                 case 'w':
                                     // 白石にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToWhite(appModel, appView, cellIndex);
-                                    cellIndex++;
+                                    StoneController.ChangeModelToWhite(appModel, zShapedIndex);
+                                    zShapedIndex++;
                                     break;
                                 case '.':
                                     // 空点にするぜ☆（＾～＾）
-                                    StoneController.ChangeColorToSpace(appModel, appView, cellIndex);
-                                    cellIndex++;
+                                    StoneController.ChangeModelToSpace(appModel, zShapedIndex);
+                                    zShapedIndex++;
                                     break;
                             }
                         }
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.JsonCommand)
                     {
@@ -142,6 +174,7 @@
                         Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
                         appView.SetModel(ApplicationObjectModel.Parse(args.Json));
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
@@ -153,8 +186,7 @@
                             (propModel, propView, insideStem) =>
                             {
                                 // モデルに値をセット☆（＾～＾）
-                                PropertyController.ChangeProperty(propModel, propView, args);
-                                // propModel.Value = args.Value;
+                                PropertyController.ChangeModel(propModel, propView, args);
 
                                 Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[args.Name].ToText()}");
                             },
@@ -210,23 +242,24 @@
                                 else if (args.Name == ColumnNumbersController.OutsideName)
                                 {
                                     // 列番号☆（＾～＾）
-                                    ColumnNumbersController.ChangeProperty(appModel, args);
+                                    ColumnNumbersController.ChangeModel(appModel, args);
                                 }
                                 else if (args.Name == RowNumbersController.OutsideName)
                                 {
                                     // 行番号☆（＾～＾）
-                                    RowNumbersController.ChangeProperty(appModel, args);
+                                    RowNumbersController.ChangeModel(appModel, args);
                                 }
                                 else if (args.Name == StarsController.OutsideName)
                                 {
                                     // 盤上の星☆（＾～＾）
-                                    StarsController.ChangeProperty(appModel, args);
+                                    StarsController.ChangeModel(appModel, args);
                                 }
                                 else
                                 {
                                     Trace.WriteLine($"Error           | {err} In InputController.Go.");
                                 }
                             });
+                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.ExitsCommand)
                     {
@@ -235,19 +268,6 @@
                     }
                     else
                     {
-                    }
-                }
-
-                // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
-                // あとは　モデルに合わせてビューを更新するだけだな☆（＾～＾）！
-                {
-                    // GUI出力 を書き込むやつ☆（＾～＾）
-                    // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
-                    // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
-                    using (var outputJsonWriter = new OutputJsonWriter("output.json"))
-                    {
-                        outputJsonWriter.WriteLine(appModel.ToJson());
-                        outputJsonWriter.Flush();
                     }
                 }
             });

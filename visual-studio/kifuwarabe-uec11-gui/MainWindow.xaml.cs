@@ -83,13 +83,13 @@
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.RepaintWindow();
+            this.FitSizeToWindow();
         }
 
         /// <summary>
         /// TODO リサイズしてないなら　設定しなおさなくていいものも　ここに書いてあるな☆（＾～＾）減らせそう☆（＾～＾）
         /// </summary>
-        public void RepaintWindow()
+        public void FitSizeToWindow()
         {
             var grid = this.grid;
             var board = this.board;
@@ -172,12 +172,12 @@
             StarController.Repaint(this.Model, this);
 
             // 石を描こうぜ☆（＾～＾）？
-            for (var i = 0; i < HyperParameter.MaxCellCount; i++)
+            for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
-                var stone = this.Stones[i];
-                if (i < this.Model.Board.GetCellCount())
+                var stone = this.Stones[zShapedIndex];
+                if (zShapedIndex < this.Model.Board.GetCellCount())
                 {
-                    PutAnythingOnNode(this, i, (left, top) =>
+                    PutAnythingOnNode(this, zShapedIndex, (left, top) =>
                     {
                         // 大きさ☆（＾～＾）
                         stone.Width = board.Width / this.Model.Board.GetColumnDiv() * 0.8;
@@ -189,7 +189,7 @@
                 }
                 else
                 {
-                    StoneController.ChangeColorToSpace(this.Model, this, i);
+                    StoneController.ChangeModelToSpace(this.Model, zShapedIndex);
                 }
             }
 
@@ -232,8 +232,29 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
-                    InputController.Go(this.Model, this);
-                    ApplicationController.RepaintAllViews(this.Model, this);
+                    InputController.Read(this.Model, this, (text)=>
+                    {
+                        InputController.ParseByLine(this.Model, this, text, ()=>
+                        {
+                            // 1コマンド実行するたびに、しつこく再描画しようと思ったが、べつに……☆（＾～＾）
+                        });
+
+                        // すべてのコマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
+                        ApplicationController.RepaintAllViews(this.Model, this);
+
+                        // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
+                        // あとは　モデルに合わせてビューを更新するだけだな☆（＾～＾）！
+                        {
+                            // GUI出力 を書き込むやつ☆（＾～＾）
+                            // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
+                            // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
+                            using (var outputJsonWriter = new OutputJsonWriter("output.json"))
+                            {
+                                outputJsonWriter.WriteLine(this.Model.ToJson());
+                                outputJsonWriter.Flush();
+                            }
+                        }
+                    });
                 };
             }
 

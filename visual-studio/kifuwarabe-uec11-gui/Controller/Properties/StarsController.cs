@@ -9,16 +9,16 @@
     {
         public static string OutsideName => "stars";
 
-        public static void ChangeProperty(ApplicationObjectModel model, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectModel appModel, SetsInstructionArgument args)
         {
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));
             }
 
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             switch (args.Property)
@@ -35,7 +35,7 @@
                         }
                     }
 
-                    model.Properties[OutsideName].Value = new List<string>(cellAddresses);
+                    appModel.Properties[OutsideName].Value = new List<string>(cellAddresses);
                     break;
             }
         }

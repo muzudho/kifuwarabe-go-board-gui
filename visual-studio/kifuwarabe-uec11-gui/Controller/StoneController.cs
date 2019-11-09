@@ -13,25 +13,25 @@
     /// </summary>
     public static class StoneController
     {
-        public static void Repaint(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
+        public static void Repaint(ApplicationObjectModel appModel, MainWindow appView, int zShapedIndex)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (view == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             // ビュー☆（＾～＾）
             {
-                var stone = view.GetStone(zShapedIndex);
+                var stone = appView.GetStone(zShapedIndex);
 
-                if (zShapedIndex < model.Board.Stones.Count)
+                if (zShapedIndex < appModel.Board.Stones.Count)
                 {
-                    switch (model.Board.Stones[zShapedIndex])
+                    switch (appModel.Board.Stones[zShapedIndex])
                     {
                         case Stone.Black:
                             stone.Fill = Brushes.Black;
@@ -59,80 +59,37 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeColorToBlack(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeModelToBlack(ApplicationObjectModel appModel, int zShapedIndex)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            if (view == null)
-            {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             // モデル☆（＾～＾）
-            {
-                model.Board.SetStone(zShapedIndex, Stone.Black);
-            }
-
-            // ビュー☆（＾～＾）
-            {
-                var stone = view.GetStone(zShapedIndex);
-                stone.Fill = Brushes.Black;
-                stone.Stroke = Brushes.White;
-                stone.Visibility = Visibility.Visible;
-            }
+            appModel.Board.SetStone(zShapedIndex, Stone.Black);
         }
 
-        public static void ChangeColorToWhite(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeModelToWhite(ApplicationObjectModel appModel, int zShapedIndex)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            if (view == null)
-            {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             // モデル☆（＾～＾）
-            {
-                model.Board.SetStone(zShapedIndex, Stone.White);
-            }
-
-            // ビュー☆（＾～＾）
-            {
-                var stone = view.GetStone(zShapedIndex);
-                stone.Fill = Brushes.White;
-                stone.Stroke = Brushes.Black;
-                stone.Visibility = Visibility.Visible;
-            }
+            appModel.Board.SetStone(zShapedIndex, Stone.White);
         }
 
-        public static void ChangeColorToSpace(ApplicationObjectModel model, MainWindow view, int zShapedIndex)
+        public static void ChangeModelToSpace(ApplicationObjectModel appModel, int zShapedIndex)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            if (view == null)
-            {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             // モデル☆（＾～＾）
-            {
-                model.Board.SetStone(zShapedIndex, Stone.None);
-            }
-
-            // ビュー☆（＾～＾）
-            {
-                var stone = view.GetStone(zShapedIndex);
-                stone.Visibility = Visibility.Hidden;
-            }
+            appModel.Board.SetStone(zShapedIndex, Stone.None);
         }
     }
 }

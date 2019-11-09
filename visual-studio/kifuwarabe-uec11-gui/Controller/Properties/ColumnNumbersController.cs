@@ -30,11 +30,11 @@
             return new List<string>(columns);
         }
 
-        public static void ChangeProperty(ApplicationObjectModel model, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectModel appModel, SetsInstructionArgument args)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             if (args == null)
@@ -45,7 +45,7 @@
             switch (args.Property)
             {
                 case "value":
-                    model.Properties[OutsideName].Value = args.Value;
+                    appModel.Properties[OutsideName].Value = args.Value;
                     break;
             }
         }

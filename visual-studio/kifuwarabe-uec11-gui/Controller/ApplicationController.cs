@@ -55,7 +55,7 @@
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.InfoOutsideName);
 
             // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
-            appView.RepaintWindow();
+            appView.FitSizeToWindow();
             appView.InvalidateVisual();
         }
     }

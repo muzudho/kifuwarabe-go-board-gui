@@ -127,7 +127,7 @@
                 });
         }
 
-        public static void ChangeProperty(PropertyValue propModel, Canvas propView, SetsInstructionArgument args)
+        public static void ChangeModel(PropertyValue propModel, Canvas propView, SetsInstructionArgument args)
         {
             if (propModel == null)
             {
@@ -156,11 +156,11 @@
                     {
                         case "true":
                             propModel.Visible = true;
-                            propView.Visibility = Visibility.Visible;
+                            // propView.Visibility = Visibility.Visible;
                             break;
                         case "false":
                             propModel.Visible = false;
-                            propView.Visibility = Visibility.Hidden;
+                            // propView.Visibility = Visibility.Hidden;
                             break;
                     }
                     break;
