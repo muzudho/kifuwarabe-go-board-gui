@@ -18,11 +18,8 @@
             }
 
             // インターバル・ミリ秒☆（＾～＾）
-            if (int.TryParse(appModel.Properties[ApplicationObjectModel.IntervalMsecOutsideName].ToText(), out int outValue))
-            {
-                appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(outValue);
-                // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
-            }
+            appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.Numbers[ApplicationObjectModel.IntervalMsecOutsideName].Value);
+            // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
 
             // 列番号
             ColumnNumberController.Repaint(appModel, appView);

@@ -28,7 +28,7 @@
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
                 var starView = view.Stars[i];
-                var starsModel = model.Properties[StarsController.OutsideName].ToTextList();
+                var starsModel = model.StringLists[StarsController.OutsideName].ToTextList();
                 if (i < starsModel.Count)
                 {
                     starView.Visibility = Visibility.Visible;

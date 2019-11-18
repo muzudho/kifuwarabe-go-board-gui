@@ -1,17 +1,13 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
-    using System;
-    using System.Collections.Generic;
     using System.Globalization;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyBool : PropertyValue
+    public class PropertyBool : IPropertyValue
     {
-        private bool innerValue;
-
         public PropertyBool()
         {
             // this.Value = false;
@@ -27,55 +23,13 @@
         /// <summary>
         /// JSON用の入出力だぜ☆（＾～＾）
         /// </summary>
-        public override object Value
-        {
-            get { return this.innerValue; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
+        public bool Value { get; set; }
 
-                if (value is bool)
-                {
-                    this.innerValue = (bool)value;
-                }
-                else if (bool.TryParse(value.ToString(), out bool outValue))
-                {
-                    this.innerValue = outValue;
-                }
-            }
-        }
+        public bool Visible { get; set; }
 
-        public override bool ToBool()
+        public string ToText()
         {
-            return this.innerValue;
-        }
-
-        public override double ToNumber()
-        {
-            if (this.innerValue)
-            {
-                return 1.0;
-            }
-            else
-            {
-                return 0.0;
-            }
-        }
-
-        public override string ToText()
-        {
-            return this.innerValue.ToString(CultureInfo.CurrentCulture);
-        }
-
-        public override List<string> ToTextList()
-        {
-            return new List<string>()
-            {
-                this.ToText()
-            };
+            return this.Value.ToString(CultureInfo.CurrentCulture);
         }
     }
 }

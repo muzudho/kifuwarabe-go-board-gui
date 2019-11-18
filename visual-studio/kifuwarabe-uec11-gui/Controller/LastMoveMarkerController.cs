@@ -13,27 +13,29 @@
     {
         public static string OutsideName => "move";
 
-        public static void Repaint(ApplicationObjectModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel appModel, MainWindow appView)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (view == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
-            var lastMoveMarker = view.lastMoveMarker;
+            var lastMoveMarker = appView.lastMoveMarker;
 
-            if (model.Properties[OutsideName].Visible)
+            var property = appModel.ReadProperty(OutsideName);
+
+            if (property.Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
                 var start = 0;
-                CellAddress.Parse(model.Properties[OutsideName].ToText(), start, model, (moveCellAddress, curr) =>
+                CellAddress.Parse(property.ToText(), start, appModel, (moveCellAddress, curr) =>
                 {
                     if (moveCellAddress == null)
                     {
@@ -41,12 +43,12 @@
                         return start;
                     }
 
-                    MainWindow.PutAnythingOnNode(view, moveCellAddress.ToIndex(model), (left, top) =>
+                    MainWindow.PutAnythingOnNode(appView, moveCellAddress.ToIndex(appModel), (left, top) =>
                     {
                             // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                            lastMoveMarker.Width = view.board.Width / model.Board.GetColumnDiv() * 0.4;
-                        lastMoveMarker.Height = view.board.Height / model.Board.GetRowDiv() * 0.4;
+                            lastMoveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
+                        lastMoveMarker.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.4;
 
                         Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);
                         Canvas.SetTop(lastMoveMarker, top - lastMoveMarker.Height / 2);

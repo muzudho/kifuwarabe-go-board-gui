@@ -2,13 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyStringList : PropertyValue
+    public class PropertyStringList : IPropertyValue
     {
         /// <summary>
         /// Valueのセッターの後で☆（＾～＾）
@@ -33,12 +32,33 @@
             this.Visible = true;
         }
 
+        public static List<string> FromString(string text)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            var columns = text.Split(',');
+            for (int i = 0; i < columns.Length; i++)
+            {
+                // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
+                var token = columns[i].Trim();
+                if (1 < token.Length)
+                {
+                    columns[i] = token.Substring(1, token.Length - 2);
+                }
+            }
+
+            return new List<string>(columns);
+        }
+
         private AfterSetsValueCallbackType AfterSetsValueCallback { get; set; }
 
         /// <summary>
         /// JSON用の入出力だぜ☆（＾～＾）
         /// </summary>
-        public override object Value
+        public List<string> Value
         {
             get
             {
@@ -46,45 +66,25 @@
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                if (value is List<string>)
-                {
-                    this.innerValue = (List<string>)value;
-                }
-                else
-                {
-                    this.innerValue = ColumnNumbersController.FromString(value.ToString());
-                }
+                this.innerValue = value;
 
                 if (this.AfterSetsValueCallback != null)
                 {
-                    this.AfterSetsValueCallback(new List<string>(this.innerValue));
+                    this.AfterSetsValueCallback(this.innerValue);
                 }
             }
         }
 
-        public override bool ToBool()
+        public bool Visible { get; set; }
+
+        public string ToText()
         {
-            return false;
+            return string.Join(',', this.Value);
         }
 
-        public override double ToNumber()
+        public List<string> ToTextList()
         {
-            return 0.0;
-        }
-
-        public override string ToText()
-        {
-            return string.Empty;
-        }
-
-        public override List<string> ToTextList()
-        {
-            return this.innerValue;
+            return this.Value;
         }
     }
 }

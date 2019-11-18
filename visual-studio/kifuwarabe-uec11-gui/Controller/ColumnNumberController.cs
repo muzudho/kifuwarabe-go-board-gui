@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.Model;
@@ -23,7 +22,7 @@
                 throw new ArgumentNullException(nameof(view));
             }
 
-            var columnNumbers = model.Properties[ColumnNumbersController.OutsideName].ToTextList();
+            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].ToTextList();
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {

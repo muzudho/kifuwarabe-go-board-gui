@@ -35,7 +35,7 @@
                         }
                     }
 
-                    appModel.Properties[OutsideName].Value = new List<string>(cellAddresses);
+                    appModel.StringLists[OutsideName].Value = new List<string>(cellAddresses);
                     break;
             }
         }

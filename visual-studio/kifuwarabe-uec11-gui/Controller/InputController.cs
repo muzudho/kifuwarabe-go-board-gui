@@ -92,7 +92,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
@@ -111,7 +111,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
@@ -188,7 +188,25 @@
                                 // モデルに値をセット☆（＾～＾）
                                 PropertyController.ChangeModel(propModel, propView, args);
 
-                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Properties[args.Name].ToText()}");
+                                appModel.ReadProperty(
+                                    args.Name,
+                                    (b) =>
+                                    {
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Booleans[args.Name].ToText()}");
+                                    },
+                                    (n) =>
+                                    {
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Numbers[args.Name].ToText()}");
+                                    },
+                                    (s) =>
+                                    {
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Strings[args.Name].ToText()}");
+                                    },
+                                    (sList) =>
+                                    {
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.StringLists[args.Name].ToText()}");
+                                    }
+                                    );
                             },
                             (err) =>
                             {
@@ -196,7 +214,10 @@
                                 if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
                                 {
                                     // インターバル・ミリ秒☆（＾～＾）
-                                    appModel.Properties[args.Name].Value = args.Value;
+                                    if (double.TryParse(args.Value, out double outValue))
+                                    {
+                                        appModel.Numbers[args.Name].Value = outValue;
+                                    }
                                 }
                                 else if (args.Name == LastMoveMarkerController.OutsideName)
                                 {
@@ -210,7 +231,7 @@
                                         }
 
                                         var text1 = cellAddress.ToDisplayTrimed(appModel);
-                                        appModel.Properties[LastMoveMarkerController.OutsideName].Value = text1;
+                                        appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
                                         appView.lastMoveValue.Content = text1;
                                         return curr;
                                     });

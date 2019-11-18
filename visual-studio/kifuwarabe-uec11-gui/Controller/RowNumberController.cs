@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.Model;
@@ -39,7 +38,7 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var rowNumbers = model.Properties[RowNumbersController.OutsideName].ToTextList();
+                var rowNumbers = model.StringLists[RowNumbersController.OutsideName].ToTextList();
                 if (rowNumbers.Count <= row || model.Board.RowSize <= row)
                 {
                     // 範囲外アクセス。

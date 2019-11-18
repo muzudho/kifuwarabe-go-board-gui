@@ -28,24 +28,24 @@
                 { ApplicationObjectModel.InfoOutsideName, "info" },
             };
 
-        public delegate void MatchCanvasCallbackDone(PropertyValue model, Canvas view, string insideStem);
+        public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view, string insideStem);
         public delegate void MatchCanvasCallbackErr(string message);
 
         public static void MatchCanvasBy(
-            ApplicationObjectModel model,
-            MainWindow view,
+            ApplicationObjectModel appModel,
+            MainWindow appView,
             string outsideName,
             MatchCanvasCallbackDone callbackDone,
             MatchCanvasCallbackErr callbackErr)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (view == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             if (callbackDone == null)
@@ -61,10 +61,10 @@
             if (inwardCanvasStemDictionary.ContainsKey(outsideName))
             {
                 var insideStem = inwardCanvasStemDictionary[outsideName];
-                Canvas propView = (Canvas)view.FindName($"{insideStem}Canvas");
+                Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
 
                 // これが参照渡しになっているつもりだが……☆（＾～＾）
-                PropertyValue propModel = model.Properties[outsideName];
+                IPropertyValue propModel = appModel.ReadProperty(outsideName);
 
                 callbackDone(propModel, propView, insideStem);
             }
@@ -127,7 +127,7 @@
                 });
         }
 
-        public static void ChangeModel(PropertyValue propModel, Canvas propView, SetsInstructionArgument args)
+        public static void ChangeModel(IPropertyValue propModel, Canvas propView, SetsInstructionArgument args)
         {
             if (propModel == null)
             {
@@ -148,7 +148,29 @@
             {
                 case "value":
                     // モデルに値をセット☆（＾～＾）
-                    propModel.Value = args.Value;
+                    if (propModel is PropertyBool)
+                    {
+                        if (bool.TryParse(args.Value, out bool outValue))
+                        {
+                            ((PropertyBool)propModel).Value = outValue;
+                        }
+                    }
+                    else if (propModel is PropertyNumber)
+                    {
+                        if (double.TryParse(args.Value, out double outValue))
+                        {
+                            ((PropertyNumber)propModel).Value = outValue;
+                        }
+                    }
+                    else if (propModel is PropertyString)
+                    {
+                        ((PropertyString)propModel).Value = args.Value;
+                    }
+                    else if (propModel is PropertyStringList)
+                    {
+                        ((PropertyStringList)propModel).Value = PropertyStringList.FromString(args.Value);
+                    }
+
                     break;
 
                 case "visible":
