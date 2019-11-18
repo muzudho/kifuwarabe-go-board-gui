@@ -135,7 +135,7 @@
                     {
                         var args = (BoardInstructionArgument)instruction.Argument;
                         int zShapedIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
-                        int length = zShapedIndex + appModel.Board.ColumnSize;
+                        int length = zShapedIndex + appModel.Metrics.ColumnSize;
                         // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
 
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -244,7 +244,7 @@
                                         // 一応サイズに制限を付けておくぜ☆（＾～＾）
                                         if (0 < outValue && outValue < HyperParameter.MaxRowSize)
                                         {
-                                            appModel.Board.RowSize = outValue;
+                                            appModel.Metrics.RowSize = outValue;
                                         }
                                     }
                                 }
@@ -256,7 +256,7 @@
                                         // 一応サイズに制限を付けておくぜ☆（＾～＾）
                                         if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
                                         {
-                                            appModel.Board.ColumnSize = outValue;
+                                            appModel.Metrics.ColumnSize = outValue;
                                         }
                                     }
                                 }

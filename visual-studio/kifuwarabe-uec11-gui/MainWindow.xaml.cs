@@ -115,14 +115,14 @@
             board.Height = shortenEdge;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.Board.GetColumnDiv(this.Model.Metrics);
+            var rowInterval = board.Height / this.Model.Board.GetRowDiv(this.Model.Metrics);
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var line = this.VerticalLines[column];
-                if (column < this.Model.Board.ColumnSize)
+                if (column < this.Model.Metrics.ColumnSize)
                 {
                     line.Visibility = Visibility.Visible;
                     Canvas.SetLeft(line, 0);
@@ -135,7 +135,7 @@
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
                     line.Y1 = boardTop + board.Height * 0.05;
                     line.X2 = line.X1;
-                    line.Y2 = line.Y1 + rowInterval * this.Model.Board.GetRowLastO0();
+                    line.Y2 = line.Y1 + rowInterval * this.Model.Board.GetRowLastO0(this.Model.Metrics);
                 }
                 else
                 {
@@ -147,7 +147,7 @@
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var line = this.HorizontalLines[row];
-                if (row < this.Model.Board.RowSize)
+                if (row < this.Model.Metrics.RowSize)
                 {
                     Canvas.SetLeft(line, 0);
                     Canvas.SetTop(line, 0);
@@ -158,7 +158,7 @@
                     // 盤☆（＾～＾）
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
                     line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
-                    line.X2 = line.X1 + columnInterval * this.Model.Board.GetColumnLastO0();
+                    line.X2 = line.X1 + columnInterval * this.Model.Board.GetColumnLastO0(this.Model.Metrics);
                     line.Y2 = line.Y1;
                 }
                 else
@@ -175,13 +175,13 @@
             for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
                 var stone = this.Stones[zShapedIndex];
-                if (zShapedIndex < this.Model.Board.GetCellCount())
+                if (zShapedIndex < this.Model.Board.GetCellCount(this.Model.Metrics))
                 {
                     PutAnythingOnNode(this, zShapedIndex, (left, top) =>
                     {
                         // 大きさ☆（＾～＾）
-                        stone.Width = board.Width / this.Model.Board.GetColumnDiv() * 0.8;
-                        stone.Height = board.Height / this.Model.Board.GetRowDiv() * 0.8;
+                        stone.Width = board.Width / this.Model.Board.GetColumnDiv(this.Model.Metrics) * 0.8;
+                        stone.Height = board.Height / this.Model.Board.GetRowDiv(this.Model.Metrics) * 0.8;
 
                         Canvas.SetLeft(stone, left - stone.Width / 2);
                         Canvas.SetTop(stone, top - stone.Height / 2);
@@ -269,8 +269,8 @@
             // 盤☆（＾～＾）
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
-            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.Board.GetColumnDiv(this.Model.Metrics);
+            var rowInterval = board.Height / this.Model.Board.GetRowDiv(this.Model.Metrics);
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
@@ -317,13 +317,13 @@
             }
 
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
-            StarController.Initialize(this.Model.Board, this);
+            StarController.Initialize(this.Model.Metrics, this.Model.Board, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
             for (var i = 0; i < HyperParameter.MaxCellCount; i++)
             {
-                var row = i / Model.Board.ColumnSize;
-                var column = i % Model.Board.ColumnSize;
+                var row = i / this.Model.Metrics.ColumnSize;
+                var column = i % this.Model.Metrics.ColumnSize;
 
                 var stone = new Ellipse();
                 stone.Name = $"stone{i}";
@@ -395,13 +395,13 @@
         /// 碁盤の線上の交点に何か置くぜ☆（＾～＾）
         /// 石１個置くたびに再計算するのは　無駄な気もするが、GUIでは、コーディングの楽さ優先だぜ☆（＾～＾）
         /// </summary>
-        /// <param name="mainWindow"></param>
+        /// <param name="appView"></param>
         /// <param name="index"></param>
-        public static void PutAnythingOnNode(MainWindow mainWindow, int index, NodeCallback stoneCallback)
+        public static void PutAnythingOnNode(MainWindow appView, int index, NodeCallback stoneCallback)
         {
-            if (mainWindow == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(mainWindow));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             if (stoneCallback == null)
@@ -410,8 +410,8 @@
             }
 
             // 盤☆（＾～＾）
-            var board = mainWindow.board;
-            var grid = mainWindow.grid;
+            var board = appView.board;
+            var grid = appView.grid;
             var centerX = grid.RenderSize.Width / 2;
             var centerY = grid.RenderSize.Height / 2;
 
@@ -422,10 +422,10 @@
             var boardTop = centerY - shortenEdge / 2;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / mainWindow.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / mainWindow.Model.Board.GetRowDiv();
-            var row = index / mainWindow.Model.Board.ColumnSize;
-            var column = index % mainWindow.Model.Board.ColumnSize + SignLen;
+            var columnInterval = board.Width / appView.Model.Board.GetColumnDiv(appView.Model.Metrics);
+            var rowInterval = board.Height / appView.Model.Board.GetRowDiv(appView.Model.Metrics);
+            var row = index / appView.Model.Metrics.ColumnSize;
+            var column = index % appView.Model.Metrics.ColumnSize + SignLen;
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);

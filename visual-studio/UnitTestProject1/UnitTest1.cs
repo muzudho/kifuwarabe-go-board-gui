@@ -18,7 +18,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test1()
         {
-            var boardModel = new BoardModel();
+            var metricsModel = new MetricsModel();
+            // var boardModel = new BoardModel();
 
             /*
             // ŠÈ’P‚ÈÀs™iO`Oj
@@ -36,9 +37,9 @@ namespace UnitTestProject1
             // ŠÈ’P‚ÈÀs™iO`Oj
             var builder = new StringBuilder();
             builder.Append("[");
-            for (int i = 0; i < boardModel.ColumnSize; i++)
+            for (int i = 0; i < metricsModel.ColumnSize; i++)
             {
-                builder.Append($"{i * boardModel.ColumnSize},");
+                builder.Append($"{i * metricsModel.ColumnSize},");
             }
             builder.Append("]");
             Trace.WriteLine(builder.ToString());
