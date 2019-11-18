@@ -87,7 +87,7 @@ namespace UnitTestProject1
             // Ç∆ÇËÇ†Ç¶Ç∏Ç±ÇÃÉeÉXÉgÇÃÉXÉ^Å[ÉgÇÕ0Ç…ëµÇ¶ÇƒÇ®Ç±Ç§ÅôÅiÅOÅ`ÅOÅj
             var start = 0;
 
-            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, model, (matched, curr)=>
+            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, model, (matched, curr) =>
             {
                 Assert.AreEqual("C7:E9", matched?.ToDisplay(model));
                 if (matched == null)
@@ -98,7 +98,7 @@ namespace UnitTestProject1
                 return curr;
             }));
 
-            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, model, (matched, curr)=>
+            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, model, (matched, curr) =>
             {
                 Assert.AreEqual("E9:C7", matched?.ToDisplay(model));
                 if (matched == null)
@@ -110,7 +110,7 @@ namespace UnitTestProject1
             }));
 
             // íZèkï\ãLÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, model, (matched, curr)=>
+            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, model, (matched, curr) =>
             {
                 Assert.AreEqual("F5", matched?.ToDisplay(model));
                 if (matched == null)
@@ -174,7 +174,7 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("K9:H7", start, model, (matched, curr)=>
+                CellRange.Parse("K9:H7", start, model, (matched, curr) =>
                 {
                     Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
                     if (matched == null)
@@ -199,7 +199,7 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("H7:K9", start, model, (matched, curr)=>
+                CellRange.Parse("H7:K9", start, model, (matched, curr) =>
                 {
                     Assert.AreEqual("H7:K9", matched?.ToDisplay(model));
                     if (matched == null)
@@ -222,7 +222,7 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("K9:H7", start, model, (matched, curr)=>
+                CellRange.Parse("K9:H7", start, model, (matched, curr) =>
                 {
                     Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
                     if (matched == null)
@@ -305,7 +305,7 @@ namespace UnitTestProject1
             }
 
             // ëÂï∂éöÅEè¨ï∂éöÇÕãÊï Ç∑ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅjèâä˙ÉZÉbÉgÇÃóÒî‘çÜÇ…è¨ï∂éöÇÕñ≥Ç¢Ç∫ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (matched, curr)=>
+            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (matched, curr) =>
             {
                 Assert.IsNull(matched?.ToDisplayTrimed(appModel));
                 if (matched == null)
@@ -317,7 +317,7 @@ namespace UnitTestProject1
             }));
 
             // ëÂï∂éöÅEè¨ï∂éöÇÕãÊï Ç∑ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (matched, curr)=>
+            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (matched, curr) =>
             {
                 Assert.AreNotEqual("t19", matched?.ToDisplayTrimed(appModel));
                 if (matched == null)
@@ -338,7 +338,7 @@ namespace UnitTestProject1
             var appModel = new ApplicationObjectModel();
 
             var start = 0;
-            Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr)=>
+            Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("A", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -350,7 +350,7 @@ namespace UnitTestProject1
             }));
 
             start = 3;
-            Assert.AreEqual(4, ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", start, appModel, (matched, curr)=>
+            Assert.AreEqual(4, ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("D", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -363,7 +363,7 @@ namespace UnitTestProject1
 
             // I is a null.
             start = 0;
-            Assert.AreEqual(start, ColumnAddress.Parse("I", start, appModel, (matched, curr)=>
+            Assert.AreEqual(start, ColumnAddress.Parse("I", start, appModel, (matched, curr) =>
             {
                 Assert.IsNull(matched);
                 if (matched == null)
@@ -386,54 +386,54 @@ namespace UnitTestProject1
 
             // ÉCÉìÉfÉbÉNÉXämîFÅôÅiÅOÅ`ÅOÅjì‡ïîìIÇ…ÇÕçsî‘çÜÇÕÅ@Ç–Ç¡Ç≠ÇËï‘Ç¡ÇƒÇ¢ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj"19" Ç™ 0çsñ⁄ÅA "1" Ç™ 18çsñ⁄ÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
             start = 0;
-            Assert.AreEqual(start+1, RowAddress.Parse("1", start, appModel, (matched, curr)=>
-            {
-                Assert.AreEqual(18, matched?.NumberO0);
-                if (matched == null)
-                {
-                    return start;
-                }
+            Assert.AreEqual(start + 1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
+              {
+                  Assert.AreEqual(18, matched?.NumberO0);
+                  if (matched == null)
+                  {
+                      return start;
+                  }
 
-                return curr;
-            }));
+                  return curr;
+              }));
 
             // ÉCÉìÉfÉbÉNÉXämîFÅôÅiÅOÅ`ÅOÅjì‡ïîìIÇ…ÇÕçsî‘çÜÇÕÅ@Ç–Ç¡Ç≠ÇËï‘Ç¡ÇƒÇ¢ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj "15" ÇÕ 4çsñ⁄ÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
             start = 14;
-            Assert.AreEqual(start+2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
-            {
-                Assert.AreEqual(4, matched?.NumberO0);
-                if (matched == null)
-                {
-                    return start;
-                }
+            Assert.AreEqual(start + 2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+              {
+                  Assert.AreEqual(4, matched?.NumberO0);
+                  if (matched == null)
+                  {
+                      return start;
+                  }
 
-                return curr;
-            }));
+                  return curr;
+              }));
 
             // ï\ãLämîFÅôÅiÅOÅ`ÅOÅj
             start = 0;
-            Assert.AreEqual(start+1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
-            {
-                Assert.AreEqual("1", matched?.ToDisplayTrimed(appModel));
-                if (matched == null)
-                {
-                    return start;
-                }
+            Assert.AreEqual(start + 1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
+              {
+                  Assert.AreEqual("1", matched?.ToDisplayTrimed(appModel));
+                  if (matched == null)
+                  {
+                      return start;
+                  }
 
-                return curr;
-            }));
+                  return curr;
+              }));
 
             start = 14;
-            Assert.AreEqual(start+2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
-            {
-                Assert.AreEqual("15", matched?.ToDisplayTrimed(appModel));
-                if (matched == null)
-                {
-                    return start;
-                }
+            Assert.AreEqual(start + 2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+              {
+                  Assert.AreEqual("15", matched?.ToDisplayTrimed(appModel));
+                  if (matched == null)
+                  {
+                      return start;
+                  }
 
-                return curr;
-            }));
+                  return curr;
+              }));
         }
 
         /// <summary>
@@ -513,6 +513,74 @@ namespace UnitTestProject1
 
                 return curr;
             }));
+        }
+
+        /// <summary>
+        /// JSONÇÃì«çûÉeÉXÉgÅôÅiÅOÅ`ÅOÅj
+        /// </summary>
+        [TestMethod]
+        public void TestReadJson()
+        {
+            var appModel = ApplicationObjectModel.Parse("{\"board\":{\"rowSize\":15,\"columnSize\":13}}");
+            Assert.AreEqual(15, appModel.Board.RowSize);
+            Assert.AreEqual(13, appModel.Board.ColumnSize);
+        }
+
+        /// <summary>
+        /// JSONÇÃì«çûÉeÉXÉgÅôÅiÅOÅ`ÅOÅj
+        /// </summary>
+        [TestMethod]
+        public void TestReadStarsJson()
+        {
+            var appModel = ApplicationObjectModel.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
+            Assert.AreEqual("A1,B2,C3", appModel.StringLists[StarsController.OutsideName].ToText());
+        }
+
+        /// <summary>
+        /// ÉZÉãÇÃÉCÉìÉfÉbÉNÉXÇÃÉeÉXÉgÅôÅiÅOÅ`ÅOÅj
+        /// </summary>
+        [TestMethod]
+        public void TestIndexOfCell()
+        {
+            var appModel = new ApplicationObjectModel();
+
+            // ÉCÉìÉfÉbÉNÉXÇÕ ç∂è„Ç 0 Ç∆ÇµÇΩ ZéöèáÅB
+
+            // 19òHî’
+            appModel.Board.RowSize = 19;
+            appModel.Board.ColumnSize = 19;
+            Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
+            Assert.AreEqual(19 - 1, CellAddress.ToIndex(0, 19 - 1, appModel));
+            Assert.AreEqual(19, CellAddress.ToIndex(1, 0, appModel));
+            Assert.AreEqual(19 * (19 - 1), CellAddress.ToIndex(19 - 1, 0, appModel));
+            Assert.AreEqual(20 * (19 - 1), CellAddress.ToIndex(19 - 1, 19 - 1, appModel));
+
+            // 15òHî’
+            appModel.Board.RowSize = 15;
+            appModel.Board.ColumnSize = 15;
+            Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
+            Assert.AreEqual(15 - 1, CellAddress.ToIndex(0, 15 - 1, appModel));
+            Assert.AreEqual(15, CellAddress.ToIndex(1, 0, appModel));
+            Assert.AreEqual(15 * (15 - 1), CellAddress.ToIndex(15 - 1, 0, appModel));
+            Assert.AreEqual(16 * (15 - 1), CellAddress.ToIndex(15 - 1, 15 - 1, appModel));
+
+            // 13òHî’
+            appModel.Board.RowSize = 13;
+            appModel.Board.ColumnSize = 13;
+            Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
+            Assert.AreEqual(13 - 1, CellAddress.ToIndex(0, 13 - 1, appModel));
+            Assert.AreEqual(13, CellAddress.ToIndex(1, 0, appModel));
+            Assert.AreEqual(13 * (13 - 1), CellAddress.ToIndex(13 - 1, 0, appModel));
+            Assert.AreEqual(14 * (13 - 1), CellAddress.ToIndex(13 - 1, 13 - 1, appModel));
+
+            // 9òHî’
+            appModel.Board.RowSize = 9;
+            appModel.Board.ColumnSize = 9;
+            Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
+            Assert.AreEqual(9 - 1, CellAddress.ToIndex(0, 9 - 1, appModel));
+            Assert.AreEqual(9, CellAddress.ToIndex(1, 0, appModel));
+            Assert.AreEqual(9 * (9 - 1), CellAddress.ToIndex(9 - 1, 0, appModel));
+            Assert.AreEqual(10 * (9 - 1), CellAddress.ToIndex(9 - 1, 9 - 1, appModel));
         }
 
         /// <summary>

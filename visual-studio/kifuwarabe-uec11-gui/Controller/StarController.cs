@@ -13,38 +13,39 @@
     /// </summary>
     public static class StarController
     {
-        public static void Repaint(ApplicationObjectModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModel appModel, MainWindow appView)
         {
-            if (model == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (view == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
+
+            var starsModel = appModel.StringLists[StarsController.OutsideName].ToTextList();
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var starView = view.Stars[i];
-                var starsModel = model.StringLists[StarsController.OutsideName].ToTextList();
+                var starView = appView.Stars[i];
                 if (i < starsModel.Count)
                 {
                     starView.Visibility = Visibility.Visible;
                     var start = 0;
-                    CellAddress.Parse(starsModel[i], start, model, (cellAddress, curr) =>
+                    CellAddress.Parse(starsModel[i], start, appModel, (cellAddress, curr) =>
                     {
                         if (cellAddress == null)
                         {
                             return start;
                         }
 
-                        MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(model), (left, top) =>
+                        MainWindow.PutAnythingOnNode(appView, cellAddress.ToIndex(appModel), (left, top) =>
                         {
-                                // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                                starView.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
-                            starView.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
+                            // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
+                            starView.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.3;
+                            starView.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.3;
 
                             Canvas.SetLeft(starView, left - starView.Width / 2);
                             Canvas.SetTop(starView, top - starView.Height / 2);

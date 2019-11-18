@@ -45,9 +45,9 @@
 
                     MainWindow.PutAnythingOnNode(appView, moveCellAddress.ToIndex(appModel), (left, top) =>
                     {
-                            // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
+                        // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                            lastMoveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
+                        lastMoveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
                         lastMoveMarker.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.4;
 
                         Canvas.SetLeft(lastMoveMarker, left - lastMoveMarker.Width / 2);

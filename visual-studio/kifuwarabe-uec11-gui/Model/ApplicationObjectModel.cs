@@ -231,12 +231,16 @@
             option1.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
             var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationObjectModel), option1) as ApplicationObjectModel;
+            Trace.WriteLine($"ColumnSize      | {newModel.Board.ColumnSize}");
+            Trace.WriteLine($"RowSize         | {newModel.Board.RowSize}");
 
+            /*
             {
                 var option2 = new JsonSerializerOptions();
                 option2.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 Trace.WriteLine($"json re         | {JsonSerializer.Serialize(newModel, option2)}");
             }
+            */
 
             return newModel;
         }

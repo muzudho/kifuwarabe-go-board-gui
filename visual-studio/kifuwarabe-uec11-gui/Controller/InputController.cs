@@ -11,7 +11,6 @@
     public static class InputController
     {
         public delegate void ReadsCallback(string text);
-        public delegate void AfterCommandCallback();
 
         public static void Read(ApplicationObjectModel appModel, MainWindow appView, ReadsCallback callback)
         {
@@ -47,7 +46,7 @@
             }
         }
 
-        public static void ParseByLine(ApplicationObjectModel appModel, MainWindow appView, string line, AfterCommandCallback aftetCommandCallback)
+        public static void ParseByLine(ApplicationObjectModel appModel, MainWindow appView, string line)
         {
             if (null == appModel)
             {
@@ -77,7 +76,6 @@
 
                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                         appView.infoValue.Content = MainWindow.SoluteNewline(args.Text);
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.BlackCommand)
                     {
@@ -96,7 +94,6 @@
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.WhiteCommand)
                     {
@@ -115,7 +112,6 @@
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.SpaceCommand)
                     {
@@ -129,7 +125,6 @@
                                 StoneController.ChangeModelToSpace(appModel, zShapedIndex);
                             }
                         }
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.BoardCommand)
                     {
@@ -166,7 +161,6 @@
                                     break;
                             }
                         }
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.JsonCommand)
                     {
@@ -174,7 +168,6 @@
                         Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
                         appView.SetModel(ApplicationObjectModel.Parse(args.Json));
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
@@ -280,7 +273,6 @@
                                     Trace.WriteLine($"Error           | {err} In InputController.Go.");
                                 }
                             });
-                        aftetCommandCallback();
                     }
                     else if (instruction.Command == InputScriptDocument.ExitsCommand)
                     {

@@ -17,6 +17,8 @@
 
         public BoardModel()
         {
+            this.RowSize = 19;
+            this.ColumnSize = 19;
             this.Stones = new List<Stone>();
             for (int i = 0; i < this.GetCellCount(); i++)
             {
@@ -28,12 +30,12 @@
         /// <summary>
         /// デフォルトでは 19路盤☆（＾～＾）
         /// </summary>
-        public int RowSize { get; set; } = 19;
+        public int RowSize { get; set; }
 
         /// <summary>
         /// 19路盤☆（＾～＾）
         /// </summary>
-        public int ColumnSize { get; set; } = 19;
+        public int ColumnSize { get; set; }
 
         /// <summary>
         /// 置いている石☆（＾～＾）

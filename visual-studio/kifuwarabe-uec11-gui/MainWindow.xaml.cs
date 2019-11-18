@@ -115,6 +115,8 @@
             board.Height = shortenEdge;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
+
+
             var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
             var rowInterval = board.Height / this.Model.Board.GetRowDiv();
 
@@ -168,9 +170,6 @@
             }
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
-            // １９路盤の星を描こうぜ☆（＾～＾）？
-            StarController.Repaint(this.Model, this);
-
             // 石を描こうぜ☆（＾～＾）？
             for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
@@ -193,14 +192,17 @@
                 }
             }
 
-            // 最後の着手点を描こうぜ☆（＾～＾）？
-            LastMoveMarkerController.Repaint(this.Model, this);
-
             // 列の符号を描こうぜ☆（＾～＾）？
             ColumnNumberController.Repaint(this.Model, this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
             RowNumberController.Repaint(this.Model, this);
+
+            // １９路盤の星を描こうぜ☆（＾～＾）？
+            StarController.Repaint(this.Model, this);
+
+            // 最後の着手点を描こうぜ☆（＾～＾）？
+            LastMoveMarkerController.Repaint(this.Model, this);
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
@@ -234,10 +236,7 @@
                 {
                     InputController.Read(this.Model, this, (text)=>
                     {
-                        InputController.ParseByLine(this.Model, this, text, ()=>
-                        {
-                            // 1コマンド実行するたびに、しつこく再描画しようと思ったが、べつに……☆（＾～＾）
-                        });
+                        InputController.ParseByLine(this.Model, this, text);
 
                         // すべてのコマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
                         ApplicationController.RepaintAllViews(this.Model, this);
@@ -395,13 +394,13 @@
         /// 碁盤の線上の交点に何か置くぜ☆（＾～＾）
         /// 石１個置くたびに再計算するのは　無駄な気もするが、GUIでは、コーディングの楽さ優先だぜ☆（＾～＾）
         /// </summary>
-        /// <param name="mainWindow"></param>
+        /// <param name="appView"></param>
         /// <param name="index"></param>
-        public static void PutAnythingOnNode(MainWindow mainWindow, int index, NodeCallback stoneCallback)
+        public static void PutAnythingOnNode(MainWindow appView, int index, NodeCallback stoneCallback)
         {
-            if (mainWindow == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(mainWindow));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             if (stoneCallback == null)
@@ -410,8 +409,8 @@
             }
 
             // 盤☆（＾～＾）
-            var board = mainWindow.board;
-            var grid = mainWindow.grid;
+            var board = appView.board;
+            var grid = appView.grid;
             var centerX = grid.RenderSize.Width / 2;
             var centerY = grid.RenderSize.Height / 2;
 
@@ -422,10 +421,12 @@
             var boardTop = centerY - shortenEdge / 2;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / mainWindow.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / mainWindow.Model.Board.GetRowDiv();
-            var row = index / mainWindow.Model.Board.ColumnSize;
-            var column = index % mainWindow.Model.Board.ColumnSize + SignLen;
+            var columnInterval = board.Width / appView.Model.Board.GetColumnDiv();
+            var rowInterval = board.Height / appView.Model.Board.GetRowDiv();
+
+            var row = index / appView.Model.Board.ColumnSize;
+            var column = index % appView.Model.Board.ColumnSize + SignLen;
+
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
             stoneCallback(left, top);

@@ -27,17 +27,12 @@
             // 行番号
             RowNumberController.Repaint(appModel, appView);
 
-            // 星
-            StarController.Repaint(appModel, appView);
 
             // 石
             for (int index = 0; index < HyperParameter.MaxCellCount; index++)
             {
                 StoneController.Repaint(appModel, appView, index);
             }
-
-            // 着手マーカー
-            LastMoveMarkerController.Repaint(appModel, appView);
 
             // TODO UIウィジェット
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.PlyOutsideName);
@@ -53,6 +48,13 @@
 
             // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
             appView.FitSizeToWindow();
+
+            // 星
+            StarController.Repaint(appModel, appView);
+
+            // 着手マーカー
+            LastMoveMarkerController.Repaint(appModel, appView);
+
             appView.InvalidateVisual();
         }
     }
