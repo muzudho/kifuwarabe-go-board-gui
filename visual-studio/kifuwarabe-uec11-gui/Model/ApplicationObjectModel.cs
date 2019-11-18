@@ -29,16 +29,10 @@
         /// </summary>
         public static string InfoOutsideName => "info";
 
-        /// <summary>
-        /// JSONで読み込むとき、列番号、行番号は、石や星の配置より先に読み込んでおく必要がある。
-        /// </summary>
         public ApplicationObjectModel()
         {
-            this.Metrics = new MetricsModel();
-
             // 盤☆（＾～＾）
             this.Board = new BoardModel();
-
             this.rowNumbersTrimed = new List<string>();
 
             this.Booleans = new Dictionary<string, PropertyBool>()
@@ -137,11 +131,6 @@
             };
 
         }
-
-        /// <summary>
-        /// 石を置くより先に決めておきたいやつは　ここに入れろだぜ☆（＾～＾）
-        /// </summary>
-        public MetricsModel Metrics { get; set; }
 
         public BoardModel Board { get; set; }
 

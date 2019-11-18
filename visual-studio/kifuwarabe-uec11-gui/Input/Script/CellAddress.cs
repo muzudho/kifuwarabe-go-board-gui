@@ -63,25 +63,25 @@
             return callback(cellAddress, next);
         }
 
-        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModel appModel)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModel model)
         {
-            if (appModel == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(appModel));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            return rowNumberO0 * appModel.Metrics.ColumnSize + columnNumberO0;
+            return rowNumberO0 * model.Board.ColumnSize + columnNumberO0;
         }
 
-        public static CellAddress FromIndex(int indexO0, ApplicationObjectModel appModel)
+        public static CellAddress FromIndex(int indexO0, ApplicationObjectModel model)
         {
-            if (appModel == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(appModel));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumberO0 = indexO0 / appModel.Metrics.ColumnSize;
-            var columnNumberO0 = indexO0 % appModel.Metrics.ColumnSize;
+            var rowNumberO0 = indexO0 / model.Board.ColumnSize;
+            var columnNumberO0 = indexO0 % model.Board.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 

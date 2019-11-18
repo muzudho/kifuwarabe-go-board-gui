@@ -13,38 +13,38 @@
     /// </summary>
     public static class StarController
     {
-        public static void Repaint(ApplicationObjectModel appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectModel model, MainWindow view)
         {
-            if (appModel == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(appModel));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            if (appView == null)
+            if (view == null)
             {
-                throw new ArgumentNullException(nameof(appView));
+                throw new ArgumentNullException(nameof(view));
             }
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var starView = appView.Stars[i];
-                var starsModel = appModel.StringLists[StarsController.OutsideName].ToTextList();
+                var starView = view.Stars[i];
+                var starsModel = model.StringLists[StarsController.OutsideName].ToTextList();
                 if (i < starsModel.Count)
                 {
                     starView.Visibility = Visibility.Visible;
                     var start = 0;
-                    CellAddress.Parse(starsModel[i], start, appModel, (cellAddress, curr) =>
+                    CellAddress.Parse(starsModel[i], start, model, (cellAddress, curr) =>
                     {
                         if (cellAddress == null)
                         {
                             return start;
                         }
 
-                        MainWindow.PutAnythingOnNode(appView, cellAddress.ToIndex(appModel), (left, top) =>
+                        MainWindow.PutAnythingOnNode(view, cellAddress.ToIndex(model), (left, top) =>
                         {
                                 // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                                starView.Width = appView.board.Width / appModel.Board.GetColumnDiv(appModel.Metrics) * 0.3;
-                            starView.Height = appView.board.Height / appModel.Board.GetRowDiv(appModel.Metrics) * 0.3;
+                                starView.Width = view.board.Width / model.Board.GetColumnDiv() * 0.3;
+                            starView.Height = view.board.Height / model.Board.GetRowDiv() * 0.3;
 
                             Canvas.SetLeft(starView, left - starView.Width / 2);
                             Canvas.SetTop(starView, top - starView.Height / 2);
@@ -60,27 +60,22 @@
             }
         }
 
-        public static void Initialize(MetricsModel metricsModel, BoardModel boardModel, MainWindow appView)
+        public static void Initialize(BoardModel model, MainWindow view)
         {
-            if (metricsModel == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(metricsModel));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            if (boardModel == null)
+            if (view == null)
             {
-                throw new ArgumentNullException(nameof(boardModel));
-            }
-
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
+                throw new ArgumentNullException(nameof(view));
             }
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var row = i / metricsModel.ColumnSize;
-                var column = i % metricsModel.ColumnSize;
+                var row = i / model.ColumnSize;
+                var column = i % model.ColumnSize;
 
                 var star = new Ellipse();
                 star.Name = $"star{i}";
@@ -94,8 +89,8 @@
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(star, 0);
                 Canvas.SetTop(star, 0);
-                appView.Stars.Add(star);
-                appView.canvas.Children.Add(star);
+                view.Stars.Add(star);
+                view.canvas.Children.Add(star);
             }
         }
     }
