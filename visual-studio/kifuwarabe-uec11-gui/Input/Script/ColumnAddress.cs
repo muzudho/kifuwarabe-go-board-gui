@@ -36,7 +36,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static int Parse(string text, int start, ApplicationObjectModelForCSharp appModel, ParsesCallback callback)
+        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
         {
             if (callback == null)
             {
@@ -69,7 +69,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelForCSharp model)
+        public string ToDisplay(ApplicationObjectModelWrapper model)
         {
             if (model == null)
             {

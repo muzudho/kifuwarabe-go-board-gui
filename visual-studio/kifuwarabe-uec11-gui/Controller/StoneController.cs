@@ -13,7 +13,7 @@
     /// </summary>
     public static class StoneController
     {
-        public static void Repaint(ApplicationObjectModelForCSharp appModel, MainWindow appView, int zShapedIndex)
+        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView, int zShapedIndex)
         {
             if (appModel == null)
             {
@@ -59,7 +59,7 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeModelToBlack(ApplicationObjectModelForCSharp appModel, int zShapedIndex)
+        public static void ChangeModelToBlack(ApplicationObjectModelWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {
@@ -70,7 +70,7 @@
             appModel.Board.SetStone(zShapedIndex, Stone.Black);
         }
 
-        public static void ChangeModelToWhite(ApplicationObjectModelForCSharp appModel, int zShapedIndex)
+        public static void ChangeModelToWhite(ApplicationObjectModelWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {
@@ -81,7 +81,7 @@
             appModel.Board.SetStone(zShapedIndex, Stone.White);
         }
 
-        public static void ChangeModelToSpace(ApplicationObjectModelForCSharp appModel, int zShapedIndex)
+        public static void ChangeModelToSpace(ApplicationObjectModelWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {

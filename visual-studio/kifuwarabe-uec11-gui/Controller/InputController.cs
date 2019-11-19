@@ -12,7 +12,7 @@
     {
         public delegate void ReadsCallback(string text);
 
-        public static void Read(ApplicationObjectModelForCSharp appModel, MainWindow appView, ReadsCallback callback)
+        public static void Read(ApplicationObjectModelWrapper appModel, MainWindow appView, ReadsCallback callback)
         {
             if (null == appModel)
             {
@@ -46,7 +46,7 @@
             }
         }
 
-        public static void ParseByLine(ApplicationObjectModelForCSharp appModel, MainWindow appView, string line)
+        public static void ParseByLine(ApplicationObjectModelWrapper appModel, MainWindow appView, string line)
         {
             if (null == appModel)
             {
@@ -90,7 +90,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
+                                appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
@@ -108,7 +108,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
+                                appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
                                 appView.lastMoveValue.Content = text1;
                             }
                         }
@@ -167,7 +167,7 @@
                         var args = (JsonInstructionArgument)instruction.Argument;
                         Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
-                        appView.SetModel(ApplicationObjectModelForCSharp.Parse(args.Json));
+                        appView.SetModel(new ApplicationObjectModelWrapper(ApplicationObjectModel.Parse(args.Json)));
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
@@ -204,7 +204,7 @@
                             (err) =>
                             {
                                 // Not found property.
-                                if (args.Name == ApplicationObjectModelForCSharp.IntervalMsecOutsideName)
+                                if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
                                 {
                                     // インターバル・ミリ秒☆（＾～＾）
                                     if (double.TryParse(args.Value, out double outValue))
@@ -212,7 +212,7 @@
                                         appModel.Numbers[args.Name].Value = outValue;
                                     }
                                 }
-                                else if (args.Name == LastMoveMarkerController.OutsideName)
+                                else if (args.Name == ApplicationObjectModel.LastMoveMarkerOutsideName)
                                 {
                                     // 着手マーカー☆（＾～＾）
                                     var start = 0;
@@ -224,12 +224,12 @@
                                         }
 
                                         var text1 = cellAddress.ToDisplayTrimed(appModel);
-                                        appModel.Strings[LastMoveMarkerController.OutsideName].Value = text1;
+                                        appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
                                         appView.lastMoveValue.Content = text1;
                                         return curr;
                                     });
                                 }
-                                else if (args.Name == BoardModel.RowSizeOutsideName)
+                                else if (args.Name == ApplicationObjectModel.RowSizeOutsideName)
                                 {
                                     // 行サイズ☆（＾～＾）
                                     if (int.TryParse(args.Value, out int outValue))
@@ -241,7 +241,7 @@
                                         }
                                     }
                                 }
-                                else if (args.Name == BoardModel.ColumnSizeOutsideName)
+                                else if (args.Name == ApplicationObjectModel.ColumnSizeOutsideName)
                                 {
                                     // 列サイズ☆（＾～＾）
                                     if (int.TryParse(args.Value, out int outValue))

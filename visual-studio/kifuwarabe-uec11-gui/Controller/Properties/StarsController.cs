@@ -9,7 +9,7 @@
     {
         public static string OutsideName => "stars";
 
-        public static void ChangeModel(ApplicationObjectModelForCSharp appModel, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
         {
             if (args == null)
             {

@@ -19,6 +19,11 @@
         /// <summary>
         /// 白石☆（＾～＾）
         /// </summary>
-        White
+        White,
+
+        /// <summary>
+        /// 壁……、というか枠☆（＾～＾）
+        /// </summary>
+        Wall
     }
 }

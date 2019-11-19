@@ -13,7 +13,7 @@
     /// </summary>
     public static class StarController
     {
-        public static void Repaint(ApplicationObjectModelForCSharp appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -61,7 +61,7 @@
             }
         }
 
-        public static void Initialize(BoardModel model, MainWindow view)
+        public static void Initialize(BoardModelWrapper model, MainWindow view)
         {
             if (model == null)
             {

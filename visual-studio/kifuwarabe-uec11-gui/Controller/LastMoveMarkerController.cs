@@ -11,9 +11,7 @@
     /// </summary>
     public static class LastMoveMarkerController
     {
-        public static string OutsideName => "move";
-
-        public static void Repaint(ApplicationObjectModelForCSharp appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -28,7 +26,7 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = appView.lastMoveMarker;
 
-            var property = appModel.ReadProperty(OutsideName);
+            var property = appModel.ReadProperty(ApplicationObjectModel.LastMoveMarkerOutsideName);
 
             if (property.Visible)
             {

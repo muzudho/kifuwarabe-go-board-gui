@@ -7,41 +7,54 @@
     /// 盤だぜ☆（＾～＾）　
     /// 大きなオブジェクトのわりに頻繁に更新されるぜ☆（＾～＾）
     /// </summary>
-    public class BoardModel
+    public class BoardModelWrapper
     {
-        /// <summary>
-        /// その他のデータの名前☆（＾～＾）
-        /// </summary>
-        public static string RowSizeOutsideName => "row-size";
-        public static string ColumnSizeOutsideName => "column-size";
-
-        public BoardModel()
+        public BoardModelWrapper(BoardModel boardModel)
         {
-            this.RowSize = 19;
-            this.ColumnSize = 19;
-            this.Stones = new List<Stone>();
-            for (int i = 0; i < this.GetCellCount(); i++)
+            this.BoardModel = boardModel;
+        }
+
+        public BoardModel BoardModel { get; private set; }
+
+        public int RowSize
+        {
+            get
             {
-                // 初期値は 空点 で☆（＾～＾）
-                this.Stones.Add(Stone.None);
+                return this.BoardModel.RowSize;
+            }
+            set
+            {
+                this.BoardModel.RowSize = value;
             }
         }
 
-        /// <summary>
-        /// デフォルトでは 19路盤☆（＾～＾）
-        /// </summary>
-        public int RowSize { get; set; }
-
-        /// <summary>
-        /// 19路盤☆（＾～＾）
-        /// </summary>
-        public int ColumnSize { get; set; }
+        public int ColumnSize
+        {
+            get
+            {
+                return this.BoardModel.ColumnSize;
+            }
+            set
+            {
+                this.BoardModel.ColumnSize = value;
+            }
+        }
 
         /// <summary>
         /// 置いている石☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<Stone> Stones { get; set; }
+        public List<Stone> Stones
+        {
+            get
+            {
+                return this.BoardModel.Stones;
+            }
+            set
+            {
+                this.BoardModel.Stones = value;
+            }
+        }
 
         /// <summary>
         /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）

@@ -23,11 +23,8 @@
             this.Visible = true;
         }
 
-        public PropertyStringList(List<string> value, AfterSetsValueCallbackType afterSetsValueCallback = null)
+        public PropertyStringList(List<string> value)
         {
-            // Value より先に このコールバックをセットしておくこと。
-            this.AfterSetsValueCallback = afterSetsValueCallback;
-
             this.Value = value;
             this.Visible = true;
         }
@@ -54,6 +51,10 @@
         }
 
         private AfterSetsValueCallbackType AfterSetsValueCallback { get; set; }
+        public void SetAfterSetsValueCallback(AfterSetsValueCallbackType callback)
+        {
+            this.AfterSetsValueCallback = callback;
+        }
 
         /// <summary>
         /// JSON用の入出力だぜ☆（＾～＾）

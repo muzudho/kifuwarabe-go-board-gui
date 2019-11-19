@@ -29,7 +29,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModelForCSharp model)
+        public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModelWrapper model)
         {
             var cellRanges = new List<CellRange>();
             var nextSum = start;
@@ -75,7 +75,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelForCSharp model)
+        public string ToDisplay(ApplicationObjectModelWrapper model)
         {
             // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
             var tokens = new List<string>();

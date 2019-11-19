@@ -30,7 +30,7 @@
             this.NumberO0 = numberO0;
         }
 
-        public static int Parse(string text, int start, ApplicationObjectModelForCSharp appModel, ParsesCallback callback)
+        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
         {
             if (callback == null)
             {
@@ -95,7 +95,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(ApplicationObjectModelForCSharp model)
+        public string ToDisplayNoTrim(ApplicationObjectModelWrapper model)
         {
             if (model == null)
             {
@@ -118,7 +118,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(ApplicationObjectModelForCSharp model)
+        public string ToDisplayTrimed(ApplicationObjectModelWrapper model)
         {
             if (model == null)
             {

@@ -35,7 +35,7 @@
             this.EndsCellAddress = endsCellAddress;
         }
 
-        public static int Parse(string text, int start, ApplicationObjectModelForCSharp model, ParsesCallback callback)
+        public static int Parse(string text, int start, ApplicationObjectModelWrapper model, ParsesCallback callback)
         {
             if (callback == null)
             {
@@ -84,7 +84,7 @@
             return callback(cellRange, next);
         }
 
-        public void Foreach(ApplicationObjectModelForCSharp model, IndexCallback callback)
+        public void Foreach(ApplicationObjectModelWrapper model, IndexCallback callback)
         {
             // Trace.WriteLine($"Foreach         | {this.ToDisplay()} | sr={this.StartsCellAddress.RowAddress.ToDisplay()} sc={this.StartsCellAddress.ColumnAddress.ToDisplay()} er={this.EndsCellAddress.RowAddress.ToDisplay()} ec={this.EndsCellAddress.ColumnAddress.ToDisplay()}");
 
@@ -133,7 +133,7 @@
             }
         }
 
-        public HashSet<int> ToIndexes(ApplicationObjectModelForCSharp model)
+        public HashSet<int> ToIndexes(ApplicationObjectModelWrapper model)
         {
             var hash = new HashSet<int>();
 
@@ -149,7 +149,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelForCSharp model)
+        public string ToDisplay(ApplicationObjectModelWrapper model)
         {
             var starts = this.StartsCellAddress.ToDisplayTrimed(model);
             var ends = this.EndsCellAddress.ToDisplayTrimed(model);

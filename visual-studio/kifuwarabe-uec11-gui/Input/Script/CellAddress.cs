@@ -27,7 +27,7 @@
             this.ColumnAddress = columnAddress;
         }
 
-        public static int Parse(string text, int start, ApplicationObjectModelForCSharp appModel, ParsesCallback callback)
+        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
         {
             if (callback == null)
             {
@@ -63,7 +63,7 @@
             return callback(cellAddress, next);
         }
 
-        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModelForCSharp model)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModelWrapper model)
         {
             if (model == null)
             {
@@ -73,7 +73,7 @@
             return rowNumberO0 * model.Board.ColumnSize + columnNumberO0;
         }
 
-        public static CellAddress FromIndex(int indexO0, ApplicationObjectModelForCSharp model)
+        public static CellAddress FromIndex(int indexO0, ApplicationObjectModelWrapper model)
         {
             if (model == null)
             {
@@ -85,7 +85,7 @@
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
-        public int ToIndex(ApplicationObjectModelForCSharp model)
+        public int ToIndex(ApplicationObjectModelWrapper model)
         {
             return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
@@ -94,7 +94,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(ApplicationObjectModelForCSharp model)
+        public string ToDisplayNoTrim(ApplicationObjectModelWrapper model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayNoTrim(model)}";
         }
@@ -103,7 +103,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(ApplicationObjectModelForCSharp model)
+        public string ToDisplayTrimed(ApplicationObjectModelWrapper model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayTrimed(model)}";
         }

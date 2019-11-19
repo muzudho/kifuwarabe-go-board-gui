@@ -7,7 +7,7 @@
 
     public static class RowNumberController
     {
-        public static void Repaint(ApplicationObjectModelForCSharp model, MainWindow view)
+        public static void Repaint(ApplicationObjectModelWrapper model, MainWindow view)
         {
             if (model == null)
             {
@@ -60,7 +60,7 @@
             }
         }
 
-        public static void Initialize(BoardModel model, MainWindow view)
+        public static void Initialize(BoardModelWrapper model, MainWindow view)
         {
             if (model == null)
             {

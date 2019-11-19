@@ -16,23 +16,23 @@
         /// </summary>
         private static Dictionary<string, string> inwardCanvasStemDictionary = new Dictionary<string, string>()
             {
-                { ApplicationObjectModelForCSharp.PlyOutsideName, "ply" },
-                { LastMoveMarkerController.OutsideName, "lastMove" },
-                { ApplicationObjectModelForCSharp.BlackNameOutsideName, "blackName" },
-                { ApplicationObjectModelForCSharp.BlackTimeOutsideName, "blackTime" },
-                { ApplicationObjectModelForCSharp.BlackHamaOutsideName, "blackAgehama" },
-                { ApplicationObjectModelForCSharp.WhiteNameOutsideName, "whiteName" },
-                { ApplicationObjectModelForCSharp.WhiteTimeOutsideName, "whiteTime" },
-                { ApplicationObjectModelForCSharp.WhiteHamaOutsideName, "whiteAgehama" },
-                { ApplicationObjectModelForCSharp.KomiOutsideName, "komi" },
-                { ApplicationObjectModelForCSharp.InfoOutsideName, "info" },
+                { ApplicationObjectModel.PlyOutsideName, "ply" },
+                { ApplicationObjectModel.LastMoveMarkerOutsideName, "lastMove" },
+                { ApplicationObjectModel.BlackNameOutsideName, "blackName" },
+                { ApplicationObjectModel.BlackTimeOutsideName, "blackTime" },
+                { ApplicationObjectModel.BlackHamaOutsideName, "blackAgehama" },
+                { ApplicationObjectModel.WhiteNameOutsideName, "whiteName" },
+                { ApplicationObjectModel.WhiteTimeOutsideName, "whiteTime" },
+                { ApplicationObjectModel.WhiteHamaOutsideName, "whiteAgehama" },
+                { ApplicationObjectModel.KomiOutsideName, "komi" },
+                { ApplicationObjectModel.InfoOutsideName, "info" },
             };
 
         public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view, string insideStem);
         public delegate void MatchCanvasCallbackErr(string message);
 
         public static void MatchCanvasBy(
-            ApplicationObjectModelForCSharp appModel,
+            ApplicationObjectModelWrapper appModel,
             MainWindow appView,
             string outsideName,
             MatchCanvasCallbackDone callbackDone,
@@ -80,7 +80,7 @@
         /// <param name="appModel"></param>
         /// <param name="appView"></param>
         /// <param name="outsideName"></param>
-        public static void RepaintByOutsideName(ApplicationObjectModelForCSharp appModel, MainWindow appView, string outsideName)
+        public static void RepaintByOutsideName(ApplicationObjectModelWrapper appModel, MainWindow appView, string outsideName)
         {
             if (appModel == null)
             {

@@ -9,7 +9,7 @@
     {
         public static string OutsideName => "row-numbers";
 
-        public static void ChangeModel(ApplicationObjectModelForCSharp appModel, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
         {
             if (appModel==null)
             {
