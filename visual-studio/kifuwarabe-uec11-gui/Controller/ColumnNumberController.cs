@@ -22,7 +22,7 @@
                 throw new ArgumentNullException(nameof(view));
             }
 
-            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].ToTextList();
+            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].Value;
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {

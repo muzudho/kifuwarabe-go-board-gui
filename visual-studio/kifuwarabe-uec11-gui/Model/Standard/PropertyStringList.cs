@@ -82,10 +82,5 @@
         {
             return string.Join(',', this.Value);
         }
-
-        public List<string> ToTextList()
-        {
-            return this.Value;
-        }
     }
 }

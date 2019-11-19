@@ -54,7 +54,7 @@
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);            
-            var index = appModel.StringLists[ColumnNumbersController.OutsideName].ToTextList().IndexOf(oneChar);
+            var index = appModel.StringLists[ColumnNumbersController.OutsideName].Value.IndexOf(oneChar);
 
             if (index < 0)
             {
@@ -76,7 +76,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].ToTextList();
+            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].Value;
 
             if (this.NumberO0 < 0 || columnNumbers.Count <= this.NumberO0)
             {

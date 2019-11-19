@@ -19,3 +19,10 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 コマンドを全部 GUI が処理すると最後に `./output.json` を出力する☆（＾～＾） 仕様は 決まってないぜ☆（＾～＾）実装の気分☆（＾～＾）
 
 [Sample](./doc/sample/output.json)
+
+
+# Application object model
+
+データの互換フォーマットの仕様だぜ☆（＾～＾）
+
+[Standard-application object model](./doc/standard-application-object-model.md)

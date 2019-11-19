@@ -590,7 +590,7 @@ namespace UnitTestProject1
         public void TestColumnNumbers()
         {
             var model = new ApplicationObjectModelWrapper();
-            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].ToTextList();
+            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].Value;
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));
