@@ -8,7 +8,7 @@
     {
         public static string OutsideName => "column-numbers";
 
-        public static void ChangeModel(ApplicationObjectModel appModel, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectModelForCSharp appModel, SetsInstructionArgument args)
         {
             if (appModel == null)
             {

@@ -37,7 +37,7 @@
             this.Instructions = instructions;
         }
 
-        public static void ParseByLine(string line, ApplicationObjectModel appModel, ParsesCallback callback)
+        public static void ParseByLine(string line, ApplicationObjectModelForCSharp appModel, ParsesCallback callback)
         {
             if (callback == null)
             {

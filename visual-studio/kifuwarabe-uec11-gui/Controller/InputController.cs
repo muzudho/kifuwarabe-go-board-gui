@@ -12,7 +12,7 @@
     {
         public delegate void ReadsCallback(string text);
 
-        public static void Read(ApplicationObjectModel appModel, MainWindow appView, ReadsCallback callback)
+        public static void Read(ApplicationObjectModelForCSharp appModel, MainWindow appView, ReadsCallback callback)
         {
             if (null == appModel)
             {
@@ -46,7 +46,7 @@
             }
         }
 
-        public static void ParseByLine(ApplicationObjectModel appModel, MainWindow appView, string line)
+        public static void ParseByLine(ApplicationObjectModelForCSharp appModel, MainWindow appView, string line)
         {
             if (null == appModel)
             {
@@ -167,7 +167,7 @@
                         var args = (JsonInstructionArgument)instruction.Argument;
                         Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
-                        appView.SetModel(ApplicationObjectModel.Parse(args.Json));
+                        appView.SetModel(ApplicationObjectModelForCSharp.Parse(args.Json));
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
@@ -204,7 +204,7 @@
                             (err) =>
                             {
                                 // Not found property.
-                                if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                if (args.Name == ApplicationObjectModelForCSharp.IntervalMsecOutsideName)
                                 {
                                     // インターバル・ミリ秒☆（＾～＾）
                                     if (double.TryParse(args.Value, out double outValue))

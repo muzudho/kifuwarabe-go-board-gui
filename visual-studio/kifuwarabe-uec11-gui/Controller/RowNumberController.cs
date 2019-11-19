@@ -7,7 +7,7 @@
 
     public static class RowNumberController
     {
-        public static void Repaint(ApplicationObjectModel model, MainWindow view)
+        public static void Repaint(ApplicationObjectModelForCSharp model, MainWindow view)
         {
             if (model == null)
             {

@@ -63,7 +63,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColorInstructionArgumentTest()
         {
-            var model = new ApplicationObjectModel();
+            var model = new ApplicationObjectModelForCSharp();
 
             Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black A19 K1 T1", 5, model).Item1?.ToDisplay(model));
             Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white B19 K2 S1", 5, model).Item1?.ToDisplay(model));
@@ -82,7 +82,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellRange()
         {
-            var model = new ApplicationObjectModel();
+            var model = new ApplicationObjectModelForCSharp();
 
             // とりあえずこのテストのスタートは0に揃えておこう☆（＾～＾）
             var start = 0;
@@ -248,7 +248,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellAddress()
         {
-            var appModel = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModelForCSharp();
 
             // とりあえずこのテストのスタートは0に揃えておこう☆（＾～＾）
             var start = 0;
@@ -335,7 +335,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalColumnAddress()
         {
-            var appModel = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModelForCSharp();
 
             var start = 0;
             Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr) =>
@@ -381,7 +381,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestRowAddress()
         {
-            var appModel = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModelForCSharp();
             int start;
 
             // インデックス確認☆（＾～＾）内部的には行番号は　ひっくり返っているぜ☆（＾～＾）"19" が 0行目、 "1" が 18行目だぜ☆（＾～＾）
@@ -521,7 +521,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestReadJson()
         {
-            var appModel = ApplicationObjectModel.Parse("{\"board\":{\"rowSize\":15,\"columnSize\":13}}");
+            var appModel = ApplicationObjectModelForCSharp.Parse("{\"board\":{\"rowSize\":15,\"columnSize\":13}}");
             Assert.AreEqual(15, appModel.Board.RowSize);
             Assert.AreEqual(13, appModel.Board.ColumnSize);
         }
@@ -532,7 +532,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestReadStarsJson()
         {
-            var appModel = ApplicationObjectModel.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
+            var appModel = ApplicationObjectModelForCSharp.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
             Assert.AreEqual("A1,B2,C3", appModel.StringLists[StarsController.OutsideName].ToText());
         }
 
@@ -542,7 +542,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestIndexOfCell()
         {
-            var appModel = new ApplicationObjectModel();
+            var appModel = new ApplicationObjectModelForCSharp();
 
             // インデックスは 左上を 0 とした Z字順。
 
@@ -589,7 +589,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColumnNumbers()
         {
-            var model = new ApplicationObjectModel();
+            var model = new ApplicationObjectModelForCSharp();
             var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].ToTextList();
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));

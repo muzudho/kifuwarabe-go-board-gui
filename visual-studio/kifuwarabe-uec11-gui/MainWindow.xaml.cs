@@ -39,7 +39,7 @@
         /// <summary>
         /// このアプリケーションのデータ☆（＾～＾）
         /// </summary>
-        public ApplicationObjectModel Model { get; private set; }
+        public ApplicationObjectModelForCSharp Model { get; private set; }
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
@@ -56,7 +56,7 @@
 
         public MainWindow()
         {
-            this.Model = new ApplicationObjectModel();
+            this.Model = new ApplicationObjectModelForCSharp();
 
             this.VerticalLines = new List<Line>();
             this.HorizontalLines = new List<Line>();
@@ -71,7 +71,7 @@
             InitializeComponent();
         }
 
-        public void SetModel(ApplicationObjectModel model)
+        public void SetModel(ApplicationObjectModelForCSharp model)
         {
             this.Model = model;
         }
@@ -206,7 +206,7 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                this.plyValue.Content = $"{this.Model.Numbers[ApplicationObjectModel.PlyOutsideName].ToText()}";
+                this.plyValue.Content = $"{this.Model.Numbers[ApplicationObjectModelForCSharp.PlyOutsideName].ToText()}";
             }
         }
 
@@ -230,7 +230,7 @@
                 this.DispatchTimer.Start();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.Numbers[ApplicationObjectModel.IntervalMsecOutsideName].Value);
+                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.Numbers[ApplicationObjectModelForCSharp.IntervalMsecOutsideName].Value);
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {

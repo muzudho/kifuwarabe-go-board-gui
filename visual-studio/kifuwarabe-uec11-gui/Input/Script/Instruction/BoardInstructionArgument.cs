@@ -31,7 +31,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (BoardInstructionArgument, int) Parse(string text, int start, ApplicationObjectModel model)
+        public static (BoardInstructionArgument, int) Parse(string text, int start, ApplicationObjectModelForCSharp model)
         {
             if (text == null)
             {
@@ -74,7 +74,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModel model)
+        public string ToDisplay(ApplicationObjectModelForCSharp model)
         {
             return $"{this.RowAddress.ToDisplayTrimed(model)} {this.Columns}";
         }
