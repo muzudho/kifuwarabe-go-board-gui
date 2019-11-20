@@ -80,7 +80,7 @@
 
         public string ToText()
         {
-            return string.Join(',', this.Value);
+            return $"\"{string.Join("\",\"", this.Value)}\"";
         }
     }
 }

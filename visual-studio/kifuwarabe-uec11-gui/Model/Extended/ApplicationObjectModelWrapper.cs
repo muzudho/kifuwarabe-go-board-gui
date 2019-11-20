@@ -40,6 +40,8 @@
                     this.rowNumbersTrimed.Add(value[i].Trim());
                 }
             });
+            // イベント・ハンドラーを起こすぜ☆（＾～＾）
+            this.StringLists[RowNumbersController.OutsideName].Value = this.StringLists[RowNumbersController.OutsideName].Value;
         }
 
         public ApplicationObjectModel ApplicationObjectModel { get; private set; }

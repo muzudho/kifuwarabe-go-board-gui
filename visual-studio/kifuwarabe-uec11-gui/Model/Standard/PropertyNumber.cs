@@ -1,8 +1,5 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Globalization;
 
     /// <summary>
