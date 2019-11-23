@@ -358,13 +358,13 @@
             {
                 Panel.SetZIndex(top1Canvas, (int)ZOrder.UI);
                 Panel.SetZIndex(top2Canvas, (int)ZOrder.UI);
-                Panel.SetZIndex(blackNameCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(blackTimeCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(blackAgehamaCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(whiteNameCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(whiteTimeCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(whiteAgehamaCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(komiCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(right1Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(right3Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(right2Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(left1Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(left2Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(left3Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(left4Canvas, (int)ZOrder.UI);
                 Panel.SetZIndex(infoCanvas, (int)ZOrder.InfoCanvas);
             }
         }

@@ -77,11 +77,22 @@ Escape sequence:
 # 名前=値 になってるのを設定するのは `set`
 
 
+Format:
+
+
+```
+set {name} = {value}
+set {name}.{property} = {value}
+```
+
+
 Example:
 
 
 ```
-set name = value
+set move = K10
+set move.title = 着手
+set move.visible = true
 ```
 
 

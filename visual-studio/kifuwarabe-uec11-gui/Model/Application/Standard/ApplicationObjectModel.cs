@@ -18,17 +18,17 @@
         /// </summary>
         public static string Top1OutsideName => "top1";
         public static string Top2OutsideName => "top2";
-        public static string BlackHamaOutsideName => "b-hama";
-        public static string BlackNameOutsideName => "b-name";
-        public static string BlackTimeOutsideName => "b-time";
-        public static string ColumnSizeOutsideName => "column-size";
+        public static string Right1OutsideName => "right1";
+        public static string Right2OutsideName => "right2";
+        public static string Right3OutsideName => "right3";
+        public static string Left1OutsideName => "left1";
+        public static string Left2OutsideName => "left2";
+        public static string Left3OutsideName => "left3";
+        public static string Left4OutsideName => "left4";
         public static string InfoOutsideName => "info";
-        public static string IntervalMsecOutsideName => "interval-msec";
-        public static string KomiOutsideName => "komi";
+        public static string ColumnSizeOutsideName => "column-size";
         public static string RowSizeOutsideName => "row-size";
-        public static string WhiteHamaOutsideName => "w-hama";
-        public static string WhiteNameOutsideName => "w-name";
-        public static string WhiteTimeOutsideName => "w-time";
+        public static string IntervalMsecOutsideName => "interval-msec";
 
         public ApplicationObjectModel()
         {
@@ -51,13 +51,13 @@
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber("黒アゲハマ", 0) },
+                {ApplicationObjectModel.Right1OutsideName, new PropertyNumber("黒アゲハマ", 0) },
 
                 // 白のアゲハマ。
-                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber("白アゲハマ", 0) },
+                {ApplicationObjectModel.Left3OutsideName, new PropertyNumber("白アゲハマ", 0) },
 
                 // 白のコミ。
-                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber("コミ", 6.5) },
+                {ApplicationObjectModel.Left4OutsideName, new PropertyNumber("コミ", 6.5) },
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
@@ -66,16 +66,16 @@
                 {ApplicationObjectModel.Top1OutsideName, new PropertyString("着手", "---") },
 
                 // 黒の選手名。
-                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString("名前", "player1") },
+                {ApplicationObjectModel.Right3OutsideName, new PropertyString("名前", "player1") },
 
                 // 黒の残り時間。
-                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.Right2OutsideName, new PropertyString("残り時間", "00:00") },
 
                 // 白の選手名。
-                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString("名前", "player2") },
+                {ApplicationObjectModel.Left1OutsideName, new PropertyString("名前", "player2") },
 
                 // 白の残り時間。
-                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.Left2OutsideName, new PropertyString("残り時間", "00:00") },
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）

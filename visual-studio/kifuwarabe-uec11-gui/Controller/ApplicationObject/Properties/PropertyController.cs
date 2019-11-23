@@ -11,20 +11,20 @@
     public static class PropertyController
     {
         /// <summary>
-        /// 外向きの名前を、内向きの名前に変換だぜ☆（＾～＾）
+        /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
         /// 行番号など　１つの Canvas にまとまっていないものは　ここに入ってないぜ☆（＾～＾）
         /// </summary>
         private static Dictionary<string, string> inwardCanvasStemDictionary = new Dictionary<string, string>()
             {
                 { ApplicationObjectModel.Top1OutsideName, "top1" },
                 { ApplicationObjectModel.Top2OutsideName, "top2" },
-                { ApplicationObjectModel.BlackNameOutsideName, "blackName" },
-                { ApplicationObjectModel.BlackTimeOutsideName, "blackTime" },
-                { ApplicationObjectModel.BlackHamaOutsideName, "blackAgehama" },
-                { ApplicationObjectModel.WhiteNameOutsideName, "whiteName" },
-                { ApplicationObjectModel.WhiteTimeOutsideName, "whiteTime" },
-                { ApplicationObjectModel.WhiteHamaOutsideName, "whiteAgehama" },
-                { ApplicationObjectModel.KomiOutsideName, "komi" },
+                { ApplicationObjectModel.Right1OutsideName, "right1" },
+                { ApplicationObjectModel.Right2OutsideName, "right2" },
+                { ApplicationObjectModel.Right3OutsideName, "right3" },
+                { ApplicationObjectModel.Left1OutsideName, "left1" },
+                { ApplicationObjectModel.Left2OutsideName, "left2" },
+                { ApplicationObjectModel.Left3OutsideName, "left3" },
+                { ApplicationObjectModel.Left4OutsideName, "left4" },
                 { ApplicationObjectModel.InfoOutsideName, "info" },
             };
 

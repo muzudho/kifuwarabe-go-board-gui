@@ -37,13 +37,13 @@
             // TODO UIウィジェット
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Top2OutsideName);
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Top1OutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackNameOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackTimeOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackHamaOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteNameOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteTimeOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteHamaOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.KomiOutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Right3OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Right2OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Right1OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Left1OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Left2OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Left3OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Left4OutsideName);
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.InfoOutsideName);
 
             // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）

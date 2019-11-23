@@ -100,88 +100,8 @@
 
 
 
-
-
             <Canvas
-                x:Name="blackNameCanvas"
-                Canvas.Right="10" Canvas.Bottom="150" Width="60" Height="60"
-                >
-                <Border
-                    BorderThickness="1"
-                    BorderBrush="#FF000000"
-                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    >
-                    <Ellipse
-                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Opacity="0.7"
-                        >
-                        <Ellipse.Fill>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#f6f7f8" Offset="0.0" />
-                                <GradientStop Color="Black" Offset="0.3" />
-                                <GradientStop Color="Green" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </Border>
-                <Label
-                    x:Name="blackNameTitle"
-                    Canvas.Top="10"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Left"
-                    Foreground="White"
-                    >----Title----</Label>
-                <Label
-                    x:Name="blackNameValue"
-                    Canvas.Top="25"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Right"
-                    Foreground="White"
-                    >----Value----</Label>
-            </Canvas>
-
-            <Canvas
-                x:Name="blackTimeCanvas"
-                Canvas.Right="10" Canvas.Bottom="80" Width="60" Height="60"
-                >
-                <Border
-                    BorderThickness="1"
-                    BorderBrush="#FF000000"
-                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    >
-                    <Ellipse
-                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Opacity="0.7"
-                        >
-                        <Ellipse.Fill>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#f6f7f8" Offset="0.0" />
-                                <GradientStop Color="Black" Offset="0.3" />
-                                <GradientStop Color="Green" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </Border>
-                <Label
-                    x:Name="blackTimeTitle"
-                    Canvas.Top="10"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Left"
-                    Foreground="White"
-                    >----Title----</Label>
-                <Label
-                    x:Name="blackTimeValue"
-                    Canvas.Top="25"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Right"
-                    Foreground="White"
-                    >----Value----</Label>
-            </Canvas>
-
-            <Canvas
-                x:Name="blackAgehamaCanvas"
+                x:Name="right1Canvas"
                 Canvas.Right="10" Canvas.Bottom="10" Width="60" Height="60"
                 >
                 <Border
@@ -204,14 +124,92 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackAgehamaTitle"
+                    x:Name="right1Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
                     >----Title----</Label>
                 <Label
-                    x:Name="blackAgehamaValue"
+                    x:Name="right1Value"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >----Value----</Label>
+            </Canvas>
+            
+            <Canvas
+                x:Name="right2Canvas"
+                Canvas.Right="10" Canvas.Bottom="80" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="right2Title"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >----Title----</Label>
+                <Label
+                    x:Name="right2Value"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >----Value----</Label>
+            </Canvas>
+
+            <Canvas
+                x:Name="right3Canvas"
+                Canvas.Right="10" Canvas.Bottom="150" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="right3Title"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >----Title----</Label>
+                <Label
+                    x:Name="right3Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -222,7 +220,7 @@
 
 
             <Canvas
-                x:Name="whiteNameCanvas"
+                x:Name="left1Canvas"
                 Left="10" Top="10" Width="60" Height="60"
                 >
                 <Border
@@ -246,14 +244,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteNameTitle"
+                    x:Name="left1Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >----Title----</Label>
                 <Label
-                    x:Name="whiteNameValue"
+                    x:Name="left1Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -262,7 +260,7 @@
             </Canvas>
 
             <Canvas
-                x:Name="whiteTimeCanvas"
+                x:Name="left2Canvas"
                 Left="10" Top="80" Width="60" Height="60"
                 >
                 <Border
@@ -286,14 +284,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteTimeTitle"
+                    x:Name="left2Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >----Title----</Label>
                 <Label
-                    x:Name="whiteTimeValue"
+                    x:Name="left2Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -302,7 +300,7 @@
             </Canvas>
 
             <Canvas
-                x:Name="whiteAgehamaCanvas"
+                x:Name="left3Canvas"
                 Left="10" Top="150" Width="60" Height="60"
                 >
                 <Border
@@ -326,14 +324,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteAgehamaTitle"
+                    x:Name="left3Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >----Title----</Label>
                 <Label
-                    x:Name="whiteAgehamaValue"
+                    x:Name="left3Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -342,7 +340,7 @@
             </Canvas>
 
             <Canvas
-                x:Name="komiCanvas"
+                x:Name="left4Canvas"
                 Left="10" Top="220" Width="60" Height="60"
                 >
                 <Border
@@ -366,14 +364,14 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="komiTitle"
+                    x:Name="left4Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
                     >----Title----</Label>
                 <Label
-                    x:Name="komiValue"
+                    x:Name="left4Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
@@ -397,6 +395,7 @@
                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
+                Visibility="Hidden"
                 >----Title----</Label>
             <Label
                 x:Name="infoValue"
@@ -406,7 +405,9 @@
                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
-                >----Value----</Label>
+                >
+                ----Value----
+            </Label>
         </Canvas>
     </Grid>
 </Window>
