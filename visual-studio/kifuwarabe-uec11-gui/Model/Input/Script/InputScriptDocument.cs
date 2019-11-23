@@ -72,7 +72,7 @@
 
                     return Word.Parse(line, curr, (commandName, curr) =>
                     {
-                        Trace.WriteLine($"Command         | {commandName?.Text}");
+                        Trace.WriteLine($"Command ISD     | {commandName?.Text}");
 
                         if (commandName != null)
                         {
@@ -124,6 +124,20 @@
                             {
                                 JsonInstructionArgument argument;
                                 (argument, curr) = JsonInstructionArgument.Parse(line, curr);
+                                if (argument == null)
+                                {
+                                    Trace.WriteLine($"Error           | {line}");
+                                }
+                                else
+                                {
+                                    Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                    instructions.Add(new Instruction(commandName.Text, argument));
+                                }
+                            }
+                            else if (commandName.Text == InputScriptDocument.AliasCommand)
+                            {
+                                AliasInstructionArgument argument;
+                                (argument, curr) = AliasInstructionArgument.Parse(line, curr);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");

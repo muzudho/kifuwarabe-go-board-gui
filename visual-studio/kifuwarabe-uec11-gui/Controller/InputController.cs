@@ -172,10 +172,13 @@
                     else if (instruction.Command == InputScriptDocument.AliasCommand)
                     {
                         var args = (AliasInstructionArgument)instruction.Argument;
+                        Trace.WriteLine($"Command 1          | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+
                         foreach (var alias in args.AliasList)
                         {
                             appModel.ObjectRealNames.Add(alias, args.RealName);
                         }
+                        Trace.WriteLine($"After   2          | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {

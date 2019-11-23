@@ -31,9 +31,21 @@
         public static string RowSizeOutsideName => "row-size";
         public static string IntervalMsecOutsideName => "interval-msec";
 
+        /// <summary>
+        /// alias top1 = move
+        /// alias top2 = ply
+        /// alias right1 = b-hama
+        /// alias right2 = b-time
+        /// alias right3 = b-name
+        /// alias left1 = w-name
+        /// alias left2 = w-time
+        /// alias left3 = w-hama
+        /// alias left4 = komi
+        /// </summary>
         public ApplicationObjectModel()
         {
             this.Board = new BoardModel();
+            this.ObjectRealName = new Dictionary<string, string>();
 
             this.Booleans = new Dictionary<string, PropertyBool>()
             {
@@ -133,19 +145,7 @@
         /// <summary>
         /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
         /// </summary>
-        public Dictionary<string, string> ObjectRealName { get; set; } = new Dictionary<string, string>()
-        {
-            { ApplicationObjectModel.MoveOutsideName, "top1" },
-            { ApplicationObjectModel.PlyOutsideName, "top2" },
-            { ApplicationObjectModel.BlackHamaOutsideName, "right1" },
-            { ApplicationObjectModel.BlackTimeOutsideName, "right2" },
-            { ApplicationObjectModel.BlackNameOutsideName, "right3" },
-            { ApplicationObjectModel.WhiteNameOutsideName, "left1" },
-            { ApplicationObjectModel.WhiteTimeOutsideName, "left2" },
-            { ApplicationObjectModel.WhiteHamaOutsideName, "left3" },
-            { ApplicationObjectModel.KomiOutsideName, "left4" },
-            { ApplicationObjectModel.InfoOutsideName, "info" },
-        };
+        public Dictionary<string, string> ObjectRealName { get; set; }
 
         /// <summary>
         /// 論理値型を持つウィジェット☆（＾～＾）

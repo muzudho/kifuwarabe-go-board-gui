@@ -21,6 +21,25 @@
 6. `kifuwarabe-uec11-gui.exe` は input.txt を消しもするが `communication.log` にも書き出している☆（＾～＾）　調子乗って長文書いたら１つのファイルが膨れ上がるからな☆ｍ９（＾～＾）
 
 
+# 部品は汎用化していくので、まず囲碁用にセットする必要があるぜ☆（＾～＾）
+
+プリセットとかいう甘えはない☆（＾～＾）
+
+```
+alias top1 = move
+alias top2 = ply
+alias right1 = b-hama
+alias right2 = b-time
+alias right3 = b-name
+alias left1 = w-name
+alias left2 = w-time
+alias left3 = w-hama
+alias left4 = komi
+```
+
+↑画面上の表示欄に、別名を付けておかないと使えたものではないからな☆（＾～＾）
+
+
 # 行頭 `#` はコメント
 
 

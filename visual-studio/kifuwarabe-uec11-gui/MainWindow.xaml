@@ -50,14 +50,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >----Title----</Label>
+                    >top1</Label>
                 <Label
                     x:Name="top1Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
             <Canvas
                 x:Name="top2Canvas"
@@ -88,14 +88,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >----Title----</Label>
+                    >top2</Label>
                 <Label
                     x:Name="top2Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
 
@@ -129,14 +129,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >----Title----</Label>
+                    >right1</Label>
                 <Label
                     x:Name="right1Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
             
             <Canvas
@@ -168,14 +168,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >----Title----</Label>
+                    >right2</Label>
                 <Label
                     x:Name="right2Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
             <Canvas
@@ -207,14 +207,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >----Title----</Label>
+                    >right3</Label>
                 <Label
                     x:Name="right3Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
 
@@ -249,14 +249,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >----Title----</Label>
+                    >left1</Label>
                 <Label
                     x:Name="left1Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
             <Canvas
@@ -289,14 +289,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >----Title----</Label>
+                    >left2</Label>
                 <Label
                     x:Name="left2Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
             <Canvas
@@ -329,14 +329,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >----Title----</Label>
+                    >left3</Label>
                 <Label
                     x:Name="left3Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
             <Canvas
@@ -369,14 +369,14 @@
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >----Title----</Label>
+                    >left4</Label>
                 <Label
                     x:Name="left4Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >----Value----</Label>
+                    >##</Label>
             </Canvas>
 
         </Canvas>
@@ -396,7 +396,7 @@
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
                 Visibility="Hidden"
-                >----Title----</Label>
+                >info</Label>
             <Label
                 x:Name="infoValue"
                 Canvas.Bottom="0"
@@ -406,7 +406,7 @@
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
                 >
-                ----Value----
+                ##info
             </Label>
         </Canvas>
     </Grid>
