@@ -206,7 +206,7 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                this.plyValue.Content = $"{this.Model.Numbers[ApplicationObjectModel.PlyOutsideName].ToText()}";
+                this.top2Value.Content = $"{this.Model.Numbers[ApplicationObjectModel.Top2OutsideName].ValueAsText()}";
             }
         }
 
@@ -227,7 +227,6 @@
             // UIスレッドで動くタイマー☆（＾～＾）
             {
                 this.DispatchTimer = new DispatcherTimer();
-                this.DispatchTimer.Start();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
                 this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.Numbers[ApplicationObjectModel.IntervalMsecOutsideName].Value);
@@ -255,6 +254,9 @@
                         }
                     });
                 };
+
+                // さっそく常駐☆（＾～＾）
+                this.DispatchTimer.Start();
             }
 
             // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
@@ -354,8 +356,8 @@
 
             // UI表示物☆（＾～＾）
             {
-                Panel.SetZIndex(plyCanvas, (int)ZOrder.UI);
-                Panel.SetZIndex(lastMoveCanvas, (int)ZOrder.UI);
+                Panel.SetZIndex(top1Canvas, (int)ZOrder.UI);
+                Panel.SetZIndex(top2Canvas, (int)ZOrder.UI);
                 Panel.SetZIndex(blackNameCanvas, (int)ZOrder.UI);
                 Panel.SetZIndex(blackTimeCanvas, (int)ZOrder.UI);
                 Panel.SetZIndex(blackAgehamaCanvas, (int)ZOrder.UI);

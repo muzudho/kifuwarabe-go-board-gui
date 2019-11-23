@@ -1,35 +1,33 @@
 ﻿namespace KifuwarabeUec11Gui.Model
 {
-    using System.Globalization;
-
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
     /// 名前プロパティは持つなだぜ☆（＾～＾） JSONの出力書式が　イケてなくなるぜ☆（＾～＾）
     /// </summary>
-    public class PropertyBool : IPropertyValue
+    public class PropertyString : IPropertyValue
     {
-        public PropertyBool()
+        public PropertyString()
         {
-            // this.Value = false;
+            this.Value = string.Empty;
             this.Visible = true;
         }
 
-        public PropertyBool(bool value)
+        public PropertyString(string title, string value)
         {
+            this.Title = title;
             this.Value = value;
             this.Visible = true;
         }
 
-        /// <summary>
-        /// JSON用の入出力だぜ☆（＾～＾）
-        /// </summary>
-        public bool Value { get; set; }
+        public string Title { get; set; }
+
+        public string Value { get; set; }
 
         public bool Visible { get; set; }
 
-        public string ToText()
+        public string ValueAsText()
         {
-            return this.Value.ToString(CultureInfo.CurrentCulture);
+            return this.Value;
         }
     }
 }

@@ -23,8 +23,9 @@
             this.Visible = true;
         }
 
-        public PropertyStringList(List<string> value)
+        public PropertyStringList(string title, List<string> value)
         {
+            this.Title = title;
             this.Value = value;
             this.Visible = true;
         }
@@ -56,9 +57,8 @@
             this.AfterSetsValueCallback = callback;
         }
 
-        /// <summary>
-        /// JSON用の入出力だぜ☆（＾～＾）
-        /// </summary>
+        public string Title { get; set; }
+
         public List<string> Value
         {
             get
@@ -78,7 +78,7 @@
 
         public bool Visible { get; set; }
 
-        public string ToText()
+        public string ValueAsText()
         {
             return $"\"{string.Join("\",\"", this.Value)}\"";
         }

@@ -10,16 +10,12 @@
     {
         bool Visible { get; set; }
 
+        string Title { get; set; }
+
         /// <summary>
         /// ToString() はクラス名が返ってくるやつもあるんで、使わずに別の名前のメソッドにしろだぜ☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        string ToText();
-
-        /*
-        public abstract bool ToBool();
-        public abstract double ToNumber();
-        public abstract List<string> ToTextList();
-        */
+        string ValueAsText();
     }
 }

@@ -35,8 +35,8 @@
             }
 
             // TODO UIウィジェット
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.PlyOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.LastMoveMarkerOutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Top2OutsideName);
+            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.Top1OutsideName);
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackNameOutsideName);
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackTimeOutsideName);
             PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackHamaOutsideName);

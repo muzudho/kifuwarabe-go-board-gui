@@ -90,8 +90,8 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
-                                appView.lastMoveValue.Content = text1;
+                                appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                appView.top1Value.Content = text1;
                             }
                         }
                     }
@@ -108,8 +108,8 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
-                                appView.lastMoveValue.Content = text1;
+                                appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                appView.top1Value.Content = text1;
                             }
                         }
                     }
@@ -185,19 +185,19 @@
                                     args.Name,
                                     (b) =>
                                     {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Booleans[args.Name].ToText()}");
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Booleans[args.Name].ValueAsText()}");
                                     },
                                     (n) =>
                                     {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Numbers[args.Name].ToText()}");
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Numbers[args.Name].ValueAsText()}");
                                     },
                                     (s) =>
                                     {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Strings[args.Name].ToText()}");
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Strings[args.Name].ValueAsText()}");
                                     },
                                     (sList) =>
                                     {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.StringLists[args.Name].ToText()}");
+                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.StringLists[args.Name].ValueAsText()}");
                                     }
                                     );
                             },
@@ -212,7 +212,7 @@
                                         appModel.Numbers[args.Name].Value = outValue;
                                     }
                                 }
-                                else if (args.Name == ApplicationObjectModel.LastMoveMarkerOutsideName)
+                                else if (args.Name == ApplicationObjectModel.Top1OutsideName)
                                 {
                                     // 着手マーカー☆（＾～＾）
                                     var start = 0;
@@ -224,8 +224,8 @@
                                         }
 
                                         var text1 = cellAddress.ToDisplayTrimed(appModel);
-                                        appModel.Strings[ApplicationObjectModel.LastMoveMarkerOutsideName].Value = text1;
-                                        appView.lastMoveValue.Content = text1;
+                                        appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                        appView.top1Value.Content = text1;
                                         return curr;
                                     });
                                 }

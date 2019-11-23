@@ -22,47 +22,7 @@
                 />
 
             <Canvas
-                x:Name="plyCanvas"
-                Canvas.Right="80" Top="10" Width="60" Height="60"
-                >
-                <Border
-                    BorderThickness="1"
-                    BorderBrush="Black"
-                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    >
-                    <Ellipse
-                        x:Name="plyRect"
-                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                        Opacity="0.7"
-                        >
-                        <Ellipse.Fill>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#f6f7f8" Offset="0.0" />
-                                <GradientStop Color="Black" Offset="0.3" />
-                                <GradientStop Color="Green" Offset="1.0" />
-                            </LinearGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </Border>
-                <Label
-                    x:Name="plyName"
-                    Canvas.Top="10"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Left"
-                    Foreground="White"
-                    >手目</Label>
-                <Label
-                    x:Name="plyValue"
-                    Canvas.Top="25"
-                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                    HorizontalContentAlignment="Right"
-                    Foreground="White"
-                    >--------</Label>
-            </Canvas>
-
-            <Canvas
-                x:Name="lastMoveCanvas"
+                x:Name="top1Canvas"
                 Canvas.Right="10" Top="10" Width="60" Height="60"
                 >
                 <Border
@@ -71,7 +31,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="lastMoveRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -86,20 +45,59 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="lastMoveName"
+                    x:Name="top1Title"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >着手</Label>
+                    >----Title----</Label>
                 <Label
-                    x:Name="lastMoveValue"
+                    x:Name="top1Value"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
+            <Canvas
+                x:Name="top2Canvas"
+                Canvas.Right="80" Top="10" Width="60" Height="60"
+                >
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    >
+                    <Ellipse
+                        Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                        Opacity="0.7"
+                        >
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="#f6f7f8" Offset="0.0" />
+                                <GradientStop Color="Black" Offset="0.3" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+                <Label
+                    x:Name="top2Title"
+                    Canvas.Top="10"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Left"
+                    Foreground="White"
+                    >----Title----</Label>
+                <Label
+                    x:Name="top2Value"
+                    Canvas.Top="25"
+                    Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    HorizontalContentAlignment="Right"
+                    Foreground="White"
+                    >----Value----</Label>
+            </Canvas>
+
 
 
 
@@ -114,7 +112,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="blackNameRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -129,19 +126,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackNameName"
+                    x:Name="blackNameTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >名前</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="blackNameValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
             <Canvas
@@ -154,7 +151,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="blackTimeRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -169,19 +165,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackTimeName"
+                    x:Name="blackTimeTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >残り時間</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="blackTimeValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
             <Canvas
@@ -194,7 +190,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="blackAgehamaRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -209,19 +204,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="blackAgehamaName"
+                    x:Name="blackAgehamaTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="White"
-                    >黒アゲハマ</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="blackAgehamaValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="White"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
 
@@ -236,7 +231,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="whiteNameRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -252,19 +246,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteNameName"
+                    x:Name="whiteNameTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >名前</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="whiteNameValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
             <Canvas
@@ -277,7 +271,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="whiteTimeRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -293,19 +286,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteTimeName"
+                    x:Name="whiteTimeTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >残り時間</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="whiteTimeValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
             <Canvas
@@ -318,7 +311,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="whiteAgehamaRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -334,19 +326,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="whiteAgehamaName"
+                    x:Name="whiteAgehamaTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >白アゲハマ</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="whiteAgehamaValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
             <Canvas
@@ -359,7 +351,6 @@
                     CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     >
                     <Ellipse
-                        x:Name="komiRect"
                         Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Height="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                         Opacity="0.7"
@@ -375,19 +366,19 @@
                     </Ellipse>
                 </Border>
                 <Label
-                    x:Name="komiName"
+                    x:Name="komiTitle"
                     Canvas.Top="10"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Left"
                     Foreground="Black"
-                    >コミ</Label>
+                    >----Title----</Label>
                 <Label
                     x:Name="komiValue"
                     Canvas.Top="25"
                     Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                     HorizontalContentAlignment="Right"
                     Foreground="Black"
-                    >--------</Label>
+                    >----Value----</Label>
             </Canvas>
 
         </Canvas>
@@ -399,6 +390,15 @@
             Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
             >
             <Label
+                x:Name="infoTitle"
+                Canvas.Bottom="0"
+                Canvas.Left="0"
+                Width="{Binding Width, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
+                Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
+                Foreground="White"
+                VerticalContentAlignment="Bottom"
+                >----Title----</Label>
+            <Label
                 x:Name="infoValue"
                 Canvas.Bottom="0"
                 Canvas.Left="0"
@@ -406,7 +406,7 @@
                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType={x:Type Canvas}, Mode=FindAncestor}}"
                 Foreground="White"
                 VerticalContentAlignment="Bottom"
-                >Info--------</Label>
+                >----Value----</Label>
         </Canvas>
     </Grid>
 </Window>

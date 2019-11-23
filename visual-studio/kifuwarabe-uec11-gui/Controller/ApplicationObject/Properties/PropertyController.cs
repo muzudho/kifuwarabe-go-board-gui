@@ -16,8 +16,8 @@
         /// </summary>
         private static Dictionary<string, string> inwardCanvasStemDictionary = new Dictionary<string, string>()
             {
-                { ApplicationObjectModel.PlyOutsideName, "ply" },
-                { ApplicationObjectModel.LastMoveMarkerOutsideName, "lastMove" },
+                { ApplicationObjectModel.Top1OutsideName, "top1" },
+                { ApplicationObjectModel.Top2OutsideName, "top2" },
                 { ApplicationObjectModel.BlackNameOutsideName, "blackName" },
                 { ApplicationObjectModel.BlackTimeOutsideName, "blackTime" },
                 { ApplicationObjectModel.BlackHamaOutsideName, "blackAgehama" },
@@ -62,15 +62,21 @@
             {
                 var insideStem = inwardCanvasStemDictionary[outsideName];
                 Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
+                if (propView == null)
+                {
+                    callbackErr($"outsideName:[{outsideName}] is not found in xaml.");
+                }
+                else
+                {
+                    // これが参照渡しになっているつもりだが……☆（＾～＾）
+                    IPropertyValue propModel = appModel.ReadProperty(outsideName);
 
-                // これが参照渡しになっているつもりだが……☆（＾～＾）
-                IPropertyValue propModel = appModel.ReadProperty(outsideName);
-
-                callbackDone(propModel, propView, insideStem);
+                    callbackDone(propModel, propView, insideStem);
+                }
             }
             else
             {
-                callbackErr($"outsideName:[{outsideName}] is not found.");
+                callbackErr($"outsideName:[{outsideName}] is not found in dictionary.");
             }
         }
 
@@ -96,20 +102,37 @@
             MatchCanvasBy(appModel, appView, outsideName,
                 (propModel, propView, insideStem) =>
                 {
-                    // あれば値☆（＾～＾）
+                    // あればタイトル☆（＾～＾）
                     {
-                        var valueLabelName = $"{insideStem}Value";
-                        var valueLabelView = (Label)propView.FindName(valueLabelName);
-                        if (valueLabelView != null)
+                        var tagName = $"{insideStem}Title";
+                        var tagView = (Label)propView.FindName(tagName);
+                        if (tagView != null)
                         {
                             // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                            valueLabelView.Content = MainWindow.SoluteNewline(propModel.ToText());
+                            tagView.Content = MainWindow.SoluteNewline(propModel.Title);
                         }
                         else
                         {
-                            Trace.WriteLine($"Error           | [{valueLabelName}] is not found in InputController.Go.");
+                            Trace.WriteLine($"Error           | tagName=[{tagName}] is not found.");
                         }
                     }
+
+                    // あれば値☆（＾～＾）
+                    {
+                        var tagName = $"{insideStem}Value";
+                        var tagView = (Label)propView.FindName(tagName);
+                        if (tagView != null)
+                        {
+                            // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                            tagView.Content = MainWindow.SoluteNewline(propModel.ValueAsText());
+                        }
+                        else
+                        {
+                            Trace.WriteLine($"Error           | tagName=[{tagName}] is not found.");
+                        }
+                    }
+
+
 
                     // 表示・非表示☆（＾～＾）
                     if (propModel.Visible)
@@ -121,7 +144,7 @@
                         propView.Visibility = Visibility.Hidden;
                     }
                 },
-                (err)=>
+                (err) =>
                 {
                     Trace.WriteLine($"Error           | {err} In PropertyController.Repaint.");
                 });
@@ -146,6 +169,27 @@
 
             switch (args.Property)
             {
+                case "title":
+                    // モデルにタイトルをセット☆（＾～＾）
+                    if (propModel is PropertyBool)
+                    {
+                        ((PropertyBool)propModel).Title = args.Value;
+                    }
+                    else if (propModel is PropertyNumber)
+                    {
+                        ((PropertyNumber)propModel).Title = args.Value;
+                    }
+                    else if (propModel is PropertyString)
+                    {
+                        ((PropertyString)propModel).Title = args.Value;
+                    }
+                    else if (propModel is PropertyStringList)
+                    {
+                        ((PropertyStringList)propModel).Title = args.Value;
+                    }
+
+                    break;
+
                 case "value":
                     // モデルに値をセット☆（＾～＾）
                     if (propModel is PropertyBool)

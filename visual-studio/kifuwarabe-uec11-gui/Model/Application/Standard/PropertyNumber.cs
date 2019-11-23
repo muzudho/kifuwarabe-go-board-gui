@@ -14,20 +14,20 @@
             this.Visible = true;
         }
 
-        public PropertyNumber(double value)
+        public PropertyNumber(string title, double value)
         {
+            this.Title = title;
             this.Value = value;
             this.Visible = true;
         }
 
-        /// <summary>
-        /// JSON用の入出力だぜ☆（＾～＾）
-        /// </summary>
+        public string Title { get; set; }
+
         public double Value { get; set; }
 
         public bool Visible { get; set; }
 
-        public string ToText()
+        public string ValueAsText()
         {
             return this.Value.ToString(CultureInfo.CurrentCulture);
         }

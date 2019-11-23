@@ -14,8 +14,10 @@
     public class ApplicationObjectModel
     {
         /// <summary>
-        /// オブジェクトの名前☆（＾～＾）　コマンド名と同じものもあるが、別ものだぜ☆（＾～＾）
+        /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
+        public static string Top1OutsideName => "top1";
+        public static string Top2OutsideName => "top2";
         public static string BlackHamaOutsideName => "b-hama";
         public static string BlackNameOutsideName => "b-name";
         public static string BlackTimeOutsideName => "b-time";
@@ -23,8 +25,6 @@
         public static string InfoOutsideName => "info";
         public static string IntervalMsecOutsideName => "interval-msec";
         public static string KomiOutsideName => "komi";
-        public static string LastMoveMarkerOutsideName => "move";
-        public static string PlyOutsideName => "ply";
         public static string RowSizeOutsideName => "row-size";
         public static string WhiteHamaOutsideName => "w-hama";
         public static string WhiteNameOutsideName => "w-name";
@@ -43,43 +43,43 @@
             {
                 // 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
                 // 初期値は 2 秒☆（＾～＾）
-                {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber(2000) },
+                {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber("#intervalMSec", 2000) },
 
                 // 何手目か。
-                {ApplicationObjectModel.PlyOutsideName, new PropertyNumber(0) },
+                {ApplicationObjectModel.Top2OutsideName, new PropertyNumber("手目", 0) },
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber(0) },
+                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber("黒アゲハマ", 0) },
 
                 // 白のアゲハマ。
-                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber(0) },
+                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber("白アゲハマ", 0) },
 
                 // 白のコミ。
-                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber(6.5) },
+                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber("コミ", 6.5) },
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
                 // 最後の着手点。
-                {ApplicationObjectModel.LastMoveMarkerOutsideName, new PropertyString("---") },
+                {ApplicationObjectModel.Top1OutsideName, new PropertyString("着手", "---") },
 
                 // 黒の選手名。
-                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString("player1") },
+                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString("名前", "player1") },
 
                 // 黒の残り時間。
-                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString("00:00") },
+                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString("残り時間", "00:00") },
 
                 // 白の選手名。
-                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString("player2") },
+                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString("名前", "player2") },
 
                 // 白の残り時間。
-                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString("00:00") },
+                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString("残り時間", "00:00") },
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
-                {ApplicationObjectModel.InfoOutsideName, new PropertyString("") },
+                {ApplicationObjectModel.InfoOutsideName, new PropertyString("#info", "") },
             };
 
             this.StringLists = new Dictionary<string, PropertyStringList>()
@@ -89,6 +89,7 @@
                 {
                     ColumnNumbersController.OutsideName,
                     new PropertyStringList(
+                        $"#{ColumnNumbersController.OutsideName}",
                         new List<string>(){
                             "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
                         }
@@ -101,6 +102,7 @@
                 {
                     RowNumbersController.OutsideName,
                     new PropertyStringList(
+                        $"#{RowNumbersController.OutsideName}",
                         new List<string>(){
                             "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
                         }
@@ -113,6 +115,7 @@
                 {
                     StarsController.OutsideName,
                     new PropertyStringList(
+                        $"#{StarsController.OutsideName}",
                         new List<string>(){
                             "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
                         }

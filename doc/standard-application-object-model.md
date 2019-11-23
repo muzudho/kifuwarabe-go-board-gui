@@ -71,12 +71,13 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 |name         |type       |
 |-------------|-----------|
+|Title        |title      |
 |Value        |bool       |
 |Visible      |bool       |
 
 ## メソッド
 
-* ToText()
+* ValueAsText()
 
 
 # Property number
@@ -85,12 +86,13 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 |name         |type       |
 |-------------|-----------|
+|Title        |title      |
 |Value        |double     |
 |Visible      |bool       |
 
 ## メソッド
 
-* ToText()
+* ValueAsText()
 
 
 # Property string
@@ -99,12 +101,13 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 |name         |type       |
 |-------------|-----------|
+|Title        |title      |
 |Value        |string     |
 |Visible      |bool       |
 
 ## メソッド
 
-* ToText()
+* ValueAsText()
 
 
 # Property string list
@@ -113,12 +116,13 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 |name         |type        |
 |-------------|------------|
+|Title        |title      |
 |Value        |List<string>|
 |Visible      |bool        |
 
 ## メソッド
 
-* ToText()
+* ValueAsText()
     * `","` で Join して `"` で挟む。エスケープはまだやってない。
         * $"\"{string.Join("\",\"", this.Value)}\""
 

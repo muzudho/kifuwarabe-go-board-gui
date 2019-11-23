@@ -533,7 +533,7 @@ namespace UnitTestProject1
         public void TestReadStarsJson()
         {
             var appModel = ApplicationObjectModel.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
-            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[StarsController.OutsideName].ToText());
+            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[StarsController.OutsideName].ValueAsText());
         }
 
         /// <summary>

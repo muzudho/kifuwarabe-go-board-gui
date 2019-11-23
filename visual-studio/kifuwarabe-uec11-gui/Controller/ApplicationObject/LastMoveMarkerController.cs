@@ -26,14 +26,14 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = appView.lastMoveMarker;
 
-            var property = appModel.ReadProperty(ApplicationObjectModel.LastMoveMarkerOutsideName);
+            var property = appModel.ReadProperty(ApplicationObjectModel.Top1OutsideName);
 
             if (property.Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 
                 var start = 0;
-                CellAddress.Parse(property.ToText(), start, appModel, (moveCellAddress, curr) =>
+                CellAddress.Parse(property.ValueAsText(), start, appModel, (moveCellAddress, curr) =>
                 {
                     if (moveCellAddress == null)
                     {
