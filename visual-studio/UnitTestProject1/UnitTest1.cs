@@ -46,7 +46,17 @@ namespace UnitTestProject1
         }
 
         /// <summary>
-        /// プロパティ値の設定をテスト☆（＾～＾）
+        /// aliasコマンドの引数をテスト☆（＾～＾）
+        /// </summary>
+        [TestMethod]
+        public void TestAliasesInstructionArgumentTest()
+        {
+            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias right3 = b-name black-name player1-name", 5).Item1?.ToDisplay());
+            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias  right3  =  b-name  black-name  player1-name  ", 5).Item1?.ToDisplay());
+        }
+
+        /// <summary>
+        /// setコマンドの引数をテスト☆（＾～＾）
         /// </summary>
         [TestMethod]
         public void TestSetsInstructionArgumentTest()

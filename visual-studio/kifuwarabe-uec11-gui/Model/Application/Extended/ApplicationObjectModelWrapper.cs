@@ -51,7 +51,7 @@
         /// <summary>
         /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
         /// </summary>
-        public Dictionary<string, string> ObjectRealName
+        public Dictionary<string, string> ObjectRealNames
         {
             get
             {

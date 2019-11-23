@@ -17,6 +17,7 @@
         /// <param name="curr">Current.</param>
         public delegate void ParsesCallback(InputScriptDocument matched);
 
+        public static string AliasCommand => "alias";
         public static string BlackCommand => "black";
         public static string WhiteCommand => "white";
         public static string SpaceCommand => "space";

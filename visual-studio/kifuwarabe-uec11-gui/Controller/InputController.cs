@@ -169,6 +169,14 @@
 
                         appView.SetModel(new ApplicationObjectModelWrapper(ApplicationObjectModel.Parse(args.Json)));
                     }
+                    else if (instruction.Command == InputScriptDocument.AliasCommand)
+                    {
+                        var args = (AliasInstructionArgument)instruction.Argument;
+                        foreach (var alias in args.AliasList)
+                        {
+                            appModel.ObjectRealNames.Add(alias, args.RealName);
+                        }
+                    }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
                         // モデルに値を設定するコマンドだぜ☆（＾～＾）

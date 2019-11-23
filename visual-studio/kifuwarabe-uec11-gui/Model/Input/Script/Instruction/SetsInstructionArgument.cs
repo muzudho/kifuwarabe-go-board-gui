@@ -79,14 +79,14 @@
                         {
                             if (leftOfDot == null)
                             {
-                                Trace.WriteLine($"Info            | No dot. curr={curr}");
+                                // Trace.WriteLine($"Info            | No dot. curr={curr}");
                                 // ドット無いぜ……☆（＾～＾）じゃあ `.value` があることにして進めるからな☆（＾～＾）
                                 objectName = leftSide.Text.Trim();
                                 propertyName = "value";
                             }
                             else
                             {
-                                Trace.WriteLine($"Info            | Found dot. curr={curr} leftOfDot.Text=[{leftOfDot.Text}] leftSide.Text=[{leftSide.Text}] leftSide.Text.Substring(curr + 1)=[{leftSide.Text.Substring(curr + 1)}]");
+                                // Trace.WriteLine($"Info            | Found dot. curr={curr} leftOfDot.Text=[{leftOfDot.Text}] leftSide.Text=[{leftSide.Text}] leftSide.Text.Substring(curr + 1)=[{leftSide.Text.Substring(curr + 1)}]");
                                 // とりあえず２つだけ見るぜ☆（＾～＾）それ以降は知らん☆（＾～＾）
                                 objectName = leftOfDot.Text.Trim();
                                 propertyName = leftSide.Text.Substring(curr + 1).Trim();

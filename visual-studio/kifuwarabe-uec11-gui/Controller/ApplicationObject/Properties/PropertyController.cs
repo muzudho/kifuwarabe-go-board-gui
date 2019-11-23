@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
@@ -42,9 +41,9 @@
 
             // エイリアスが設定されていれば変換するぜ☆（＾～＾）
             var insideStem = string.Empty;
-            if (appModel.ObjectRealName.ContainsKey(outsideName))
+            if (appModel.ObjectRealNames.ContainsKey(outsideName))
             {
-                insideStem = appModel.ObjectRealName[outsideName];
+                insideStem = appModel.ObjectRealNames[outsideName];
             }
 
             // UIオブジェクトを検索するぜ☆（＾～＾）
