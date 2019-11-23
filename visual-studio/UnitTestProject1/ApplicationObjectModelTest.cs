@@ -1,6 +1,6 @@
 ﻿namespace UnitTestProject1
 {
-    using KifuwarabeUec11Gui;
+    using System;
     using KifuwarabeUec11Gui.Controller;
     using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +15,10 @@
         public void PlyTestByCommand()
         {
             var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
-            // var appView = new MainWindow();
+            var plyRealName = new RealName("top2");
+
+            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
+
             var text = @"
 alias top2 = ply
 set top2.type = number
@@ -23,26 +26,28 @@ set top2.title = 手目
 set top2.value = 2
 ";
 
-            InputController.ParseByLine(
-                appModel,
-                text,
-                (infoText) =>
-                {
+            foreach (var line in text.Split(Environment.NewLine))
+            {
+                InputController.ParseByLine(
+                    appModel,
+                    line,
+                    (infoText) =>
+                    {
+                    },
+                    (newAppModel) =>
+                    {
+                    },
+                    (textOfMove) =>
+                    {
+                    },
+                    (args) =>
+                    {
+                    });
+            }
 
-                },
-                (newAppModel)=>
-                {
-                },
-                (textOfMove) =>
-                {
-                    // this.top1Value.Content = textOfMove;
-                },
-                (args)=>
-                {
-                });
-            Assert.IsTrue(appModel.Numbers.ContainsKey("ply"));
+            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            var (type, value) = appModel.GetProperty("ply");
+            var (type, value) = appModel.GetProperty(plyRealName);
             Assert.AreEqual(PropertyType.Number, type);
             Assert.AreEqual("手目", value.Title);
             Assert.AreEqual("0", value.ValueAsText());
@@ -55,12 +60,13 @@ set top2.value = 2
         public void PlyTest()
         {
             var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
-            Assert.IsFalse(appModel.Numbers.ContainsKey("ply"));
+            var plyRealName = new RealName("top2");
+            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            appModel.AddProperty("ply", new PropertyNumber("手目"));
-            Assert.IsTrue(appModel.Numbers.ContainsKey("ply"));
+            appModel.AddProperty(plyRealName, new PropertyNumber("手目"));
+            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            var (type, value) = appModel.RemoveProperty("ply");
+            var (type, value) = appModel.RemoveProperty(plyRealName);
             Assert.AreEqual(PropertyType.Number, type);
             Assert.AreEqual("手目", value.Title);
             Assert.AreEqual("0", value.ValueAsText());

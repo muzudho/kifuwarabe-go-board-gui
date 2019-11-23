@@ -25,7 +25,7 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            var starsModel = appModel.StringLists[StarsController.OutsideName].Value;
+            var starsModel = appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value;
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {

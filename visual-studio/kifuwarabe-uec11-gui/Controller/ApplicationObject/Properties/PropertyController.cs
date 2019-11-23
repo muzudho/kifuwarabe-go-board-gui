@@ -10,13 +10,13 @@
 
     public static class PropertyController
     {
-        public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view, string insideStem);
+        public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view);
         public delegate void MatchCanvasCallbackErr(string message);
 
         public static void MatchCanvasBy(
             ApplicationObjectModelWrapper appModel,
             MainWindow appView,
-            string outsideName,
+            RealName realName,
             MatchCanvasCallbackDone callbackDone,
             MatchCanvasCallbackErr callbackErr)
         {
@@ -40,31 +40,24 @@
                 throw new ArgumentNullException(nameof(callbackErr));
             }
 
-            // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-            var insideStem = string.Empty;
-            if (appModel.ObjectRealNames.ContainsKey(outsideName))
-            {
-                insideStem = appModel.ObjectRealNames[outsideName];
-            }
-
             // UIオブジェクトを検索するぜ☆（＾～＾）
-            Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
+            Canvas propView = (Canvas)appView.FindName($"{realName.Value}Canvas");
             if (propView == null)
             {
-                callbackErr($"outsideName=[{outsideName}] insideStem=[{insideStem}] is not found in xaml.");
+                callbackErr($"realName=[{realName.Value}] is not found in xaml.");
             }
             else
             {
                 // これが参照渡しになっているつもりだが……☆（＾～＾）
-                var (type, propModel) = appModel.GetProperty(outsideName);
+                var (type, propModel) = appModel.GetProperty(realName);
 
                 if (propModel == null)
                 {
-                    callbackErr($"outsideName=[{outsideName}] insideStem=[{insideStem}] is null in model.");
+                    callbackErr($"realName=[{realName.Value}] is null in model.");
                 }
                 else
                 {
-                    callbackDone(propModel, propView, insideStem);
+                    callbackDone(propModel, propView);
                 }
             }
         }
@@ -75,7 +68,7 @@
         /// <param name="appModel"></param>
         /// <param name="appView"></param>
         /// <param name="outsideName"></param>
-        public static void RepaintByOutsideName(ApplicationObjectModelWrapper appModel, MainWindow appView, string outsideName)
+        public static void RepaintByName(ApplicationObjectModelWrapper appModel, MainWindow appView, RealName realName)
         {
             if (appModel == null)
             {
@@ -87,13 +80,18 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
+            if (realName == null)
+            {
+                throw new ArgumentNullException(nameof(realName));
+            }
+
             // JSONで使われている名前と、内部で使われている名前は分けるぜ☆（＾～＾）
-            MatchCanvasBy(appModel, appView, outsideName,
-                (propModel, propView, insideStem) =>
+            MatchCanvasBy(appModel, appView, realName,
+                (propModel, propView) =>
                 {
                     // あればタイトル☆（＾～＾）
                     {
-                        var tagName = $"{insideStem}Title";
+                        var tagName = $"{realName.Value}Title";
                         var tagView = (Label)propView.FindName(tagName);
                         if (tagView != null)
                         {
@@ -102,13 +100,13 @@
                         }
                         else
                         {
-                            Trace.WriteLine($"Error           | tagName=[{tagName}] is not found.");
+                            Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
                         }
                     }
 
                     // あれば値☆（＾～＾）
                     {
-                        var tagName = $"{insideStem}Value";
+                        var tagName = $"{realName.Value}Value";
                         var tagView = (Label)propView.FindName(tagName);
                         if (tagView != null)
                         {
@@ -117,7 +115,7 @@
                         }
                         else
                         {
-                            Trace.WriteLine($"Error           | tagName=[{tagName}] is not found.");
+                            Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
                         }
                     }
 
@@ -139,9 +137,16 @@
                 });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appModel"></param>
+        /// <param name="realName"></param>
+        /// <param name="propModel">.typeプロパティを最初に設定するときはヌルで構わない。</param>
+        /// <param name="args"></param>
         public static void ChangeModel(
             ApplicationObjectModelWrapper appModel,
-            string alias,
+            RealName realName,
             IPropertyValue propModel,
             SetsInstructionArgument args
         )
@@ -149,11 +154,6 @@
             if (appModel == null)
             {
                 throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (propModel == null)
-            {
-                throw new ArgumentNullException(nameof(propModel));
             }
 
             if (args == null)
@@ -165,7 +165,11 @@
             {
                 case "title":
                     // モデルにタイトルをセット☆（＾～＾）
-                    if (propModel is PropertyBool)
+                    if (propModel == null)
+                    {
+                        Trace.WriteLine($"Error           | {realName.Value}.title is fail. {realName.Value} is not found.");
+                    }
+                    else if (propModel is PropertyBool)
                     {
                         ((PropertyBool)propModel).Title = args.Value;
                     }
@@ -187,7 +191,7 @@
                 case "type":
                     // TODO 型を変更☆（＾～＾） Value はクリアーされるぜ☆（＾～＾）
                     // var (propType, propValue) = FindProperty(appModel, alias);
-                    var (propType, old) = appModel.RemoveProperty(alias);
+                    var (propType, old) = appModel.RemoveProperty(realName);
 
                     // 新しい型のオブジェクトに換装☆（＾～＾）
                     switch (propType)
@@ -195,36 +199,40 @@
                         case PropertyType.StringType:
                             {
                                 var brandnew = new PropertyString(old.Title);
-                                appModel.AddProperty(alias, brandnew);
+                                appModel.AddProperty(realName, brandnew);
                             }
                             break;
                         case PropertyType.Number:
                             {
                                 var brandnew = new PropertyNumber(old.Title);
-                                appModel.AddProperty(alias, brandnew);
+                                appModel.AddProperty(realName, brandnew);
                             }
                             break;
                         case PropertyType.Bool:
                             {
                                 var brandnew = new PropertyBool(old.Title);
-                                appModel.AddProperty(alias, brandnew);
+                                appModel.AddProperty(realName, brandnew);
                             }
                             break;
                         case PropertyType.StringList:
                             {
                                 var brandnew = new PropertyStringList(old.Title, new List<string>());
-                                appModel.AddProperty(alias, brandnew);
+                                appModel.AddProperty(realName, brandnew);
                             }
                             break;
                         default:
-                            Trace.WriteLine($"Error           | {propType.GetType().Name} type are not implemented.");
+                            Trace.WriteLine($"Error           | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
                             break;
                     }
                     break;
 
                 case "value":
                     // モデルに値をセット☆（＾～＾）
-                    if (propModel is PropertyBool)
+                    if (propModel == null)
+                    {
+                        Trace.WriteLine($"Error           | {realName.Value}.value is fail. {realName.Value} is not found.");
+                    }
+                    else if (propModel is PropertyBool)
                     {
                         if (bool.TryParse(args.Value, out bool outValue))
                         {
@@ -250,16 +258,23 @@
                     break;
 
                 case "visible":
-                    switch (args.Value)
+                    if (propModel == null)
                     {
-                        case "true":
-                            propModel.Visible = true;
-                            // propView.Visibility = Visibility.Visible;
-                            break;
-                        case "false":
-                            propModel.Visible = false;
-                            // propView.Visibility = Visibility.Hidden;
-                            break;
+                        Trace.WriteLine($"Error           | {realName}.visible is fail. {realName} is not found.");
+                    }
+                    else
+                    {
+                        switch (args.Value)
+                        {
+                            case "true":
+                                propModel.Visible = true;
+                                // propView.Visibility = Visibility.Visible;
+                                break;
+                            case "false":
+                                propModel.Visible = false;
+                                // propView.Visibility = Visibility.Hidden;
+                                break;
+                        }
                     }
                     break;
             }

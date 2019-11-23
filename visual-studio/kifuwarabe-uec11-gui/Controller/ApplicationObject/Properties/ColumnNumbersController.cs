@@ -6,8 +6,6 @@
 
     public static class ColumnNumbersController
     {
-        public static string OutsideName => "column-numbers";
-
         public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
         {
             if (appModel == null)
@@ -23,7 +21,7 @@
             switch (args.Property)
             {
                 case "value":
-                    appModel.StringLists[OutsideName].Value = PropertyStringList.FromString(args.Value);
+                    appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value = PropertyStringList.FromString(args.Value);
                     break;
             }
         }

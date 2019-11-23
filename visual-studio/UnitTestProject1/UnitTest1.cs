@@ -543,7 +543,7 @@ namespace UnitTestProject1
         public void TestReadStarsJson()
         {
             var appModel = ApplicationObjectModel.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
-            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[StarsController.OutsideName].ValueAsText());
+            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[ApplicationObjectModel.StarsRealName.Value].ValueAsText());
         }
 
         /// <summary>
@@ -600,7 +600,7 @@ namespace UnitTestProject1
         public void TestColumnNumbers()
         {
             var model = new ApplicationObjectModelWrapper();
-            var columnNumbers = model.StringLists[ColumnNumbersController.OutsideName].Value;
+            var columnNumbers = model.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));

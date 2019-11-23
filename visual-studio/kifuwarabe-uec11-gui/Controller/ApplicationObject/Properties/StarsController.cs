@@ -7,8 +7,6 @@
 
     public static class StarsController
     {
-        public static string OutsideName => "stars";
-
         public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
         {
             if (args == null)
@@ -35,7 +33,7 @@
                         }
                     }
 
-                    appModel.StringLists[OutsideName].Value = new List<string>(cellAddresses);
+                    appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value = new List<string>(cellAddresses);
                     break;
             }
         }

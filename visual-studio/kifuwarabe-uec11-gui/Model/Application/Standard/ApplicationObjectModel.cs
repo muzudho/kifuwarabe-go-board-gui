@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.Json;
-    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// `output.json` をこれで作ろうぜ☆（＾～＾）
@@ -14,24 +13,57 @@
     public class ApplicationObjectModel
     {
         /// <summary>
-        /// プログラム中で使えるエイリアス☆（＾～＾）
+        /// リアルネームは、後ろに Canvas を付けてXMLタグ名に使う☆（＾～＾） top2 なら top2Canvas だぜ☆（＾～＾）
+        /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
-        public static string MoveInsideName => "top1";
-        public static string MoveOutsideName => "move";
+        public static RealName MoveRealName => new RealName("top1");
+        public static AliasName MoveAliasName => new AliasName("move");
 
-        public static string PlyOutsideName => "ply";
-        public static string BlackHamaOutsideName => "b-hama";
-        public static string BlackTimeOutsideName => "b-time";
-        public static string BlackNameOutsideName => "b-name";
-        public static string WhiteNameOutsideName => "w-name";
-        public static string WhiteTimeOutsideName => "w-time";
-        public static string WhiteHamaOutsideName => "w-hama";
-        public static string KomiOutsideName => "komi";
-        public static string InfoOutsideName => "info";
-        public static string ColumnSizeOutsideName => "column-size";
-        public static string RowSizeOutsideName => "row-size";
-        public static string IntervalMsecOutsideName => "interval-msec";
+        public static RealName PlyRealName => new RealName("top2");
+        public static AliasName PlyAliasName => new AliasName("ply");
+
+        public static RealName BlackHamaRealName => new RealName("right1");
+        public static AliasName BlackHamaAliasName => new AliasName("b-hama");
+
+        public static RealName BlackTimeRealName => new RealName("right2");
+        public static AliasName BlackTimeAliasName => new AliasName("b-time");
+
+        public static RealName BlackNameRealName => new RealName("right3");
+        public static AliasName BlackNameAliasName => new AliasName("b-name");
+
+        public static RealName WhiteNameRealName => new RealName("left1");
+        public static AliasName WhiteNameAliasName => new AliasName("w-name");
+
+        public static RealName WhiteTimeRealName => new RealName("left2");
+        public static AliasName WhiteTimeAliasName => new AliasName("w-time");
+
+        public static RealName WhiteHamaRealName => new RealName("left3");
+        public static AliasName WhiteHamaAliasName => new AliasName("w-hama");
+
+        public static RealName KomiRealName => new RealName("left4");
+        public static AliasName KomiAliasName => new AliasName("komi");
+
+        public static RealName InfoRealName => new RealName("info");
+        public static AliasName InfoAliasName => new AliasName("info");
+
+        public static RealName ColumnSizeRealName => new RealName("column-size");
+        public static AliasName ColumnSizeAliasName => new AliasName("column-size");
+
+        public static RealName RowSizeRealName => new RealName("row-size");
+        public static AliasName RowSizeAliasName => new AliasName("row-size");
+
+        public static RealName IntervalMsecRealName => new RealName("interval-msec");
+        public static AliasName IntervalMsecAliasName => new AliasName("interval-msec");
+
+        public static RealName ColumnNumbersRealName => new RealName("column-numbers");
+        public static AliasName ColumnNumbersAliasName => new AliasName("column-numbers");
+
+        public static RealName RowNumbersRealName => new RealName("row-numbers");
+        public static AliasName RowNumbersAliasName => new AliasName("row-numbers");
+
+        public static RealName StarsRealName => new RealName("stars");
+        public static AliasName StarsAliasName => new AliasName("stars");
 
         /// <summary>
         /// alias top1 = move
@@ -58,45 +90,45 @@
             {
                 // 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
                 // 初期値は 2 秒☆（＾～＾）
-                {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber("#intervalMSec", 2000) },
+                {IntervalMsecRealName.Value, new PropertyNumber("#intervalMSec", 2000) },
 
                 //*
                 // 何手目か。
-                {ApplicationObjectModel.PlyOutsideName, new PropertyNumber() }, // "手目", 0
+                {PlyRealName.Value, new PropertyNumber() }, // "手目", 0
                 // */
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber() }, // "黒アゲハマ", 0
+                {BlackHamaRealName.Value, new PropertyNumber() }, // "黒アゲハマ", 0
 
                 // 白のアゲハマ。
-                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber() }, // "白アゲハマ", 0
+                {WhiteHamaRealName.Value, new PropertyNumber() }, // "白アゲハマ", 0
 
                 // 白のコミ。
-                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber() }, // "コミ", 6.5
+                {KomiRealName.Value, new PropertyNumber() }, // "コミ", 6.5
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
                 // 最後の着手点。
-                {ApplicationObjectModel.MoveOutsideName, new PropertyString() }, // "着手", "---"
+                {MoveRealName.Value, new PropertyString() }, // "着手", "---"
 
                 // 黒の選手名。
-                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString() }, // "名前", "player1"
+                {BlackNameRealName.Value, new PropertyString() }, // "名前", "player1"
 
                 // 黒の残り時間。
-                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString() }, // "残り時間", "00:00"
+                {BlackTimeRealName.Value, new PropertyString() }, // "残り時間", "00:00"
 
                 // 白の選手名。
-                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString() }, // "名前", "player2"
+                {WhiteNameRealName.Value, new PropertyString() }, // "名前", "player2"
 
                 // 白の残り時間。
-                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString() }, // "残り時間", "00:00"
+                {WhiteTimeRealName.Value, new PropertyString() }, // "残り時間", "00:00"
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
-                {ApplicationObjectModel.InfoOutsideName, new PropertyString("#info", string.Empty) },
+                {InfoRealName.Value, new PropertyString("#info", string.Empty) },
             };
 
             this.StringLists = new Dictionary<string, PropertyStringList>()
@@ -104,9 +136,9 @@
                 // 各列番号☆（＾～＾）
                 // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
                 {
-                    ColumnNumbersController.OutsideName,
+                    ColumnNumbersRealName.Value,
                     new PropertyStringList(
-                        $"#{ColumnNumbersController.OutsideName}",
+                        $"#{ColumnNumbersRealName.Value}",
                         new List<string>(){
                             "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
                         }
@@ -117,9 +149,9 @@
                 // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
-                    RowNumbersController.OutsideName,
+                    RowNumbersRealName.Value,
                     new PropertyStringList(
-                        $"#{RowNumbersController.OutsideName}",
+                        $"#{RowNumbersRealName.Value}",
                         new List<string>(){
                             "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
                         }
@@ -130,9 +162,9 @@
                 // 初期値は19路盤だぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
-                    StarsController.OutsideName,
+                    StarsRealName.Value,
                     new PropertyStringList(
-                        $"#{StarsController.OutsideName}",
+                        $"#{StarsRealName.Value}",
                         new List<string>(){
                             "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
                         }

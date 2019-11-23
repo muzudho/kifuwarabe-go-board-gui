@@ -18,7 +18,7 @@
             }
 
             // インターバル・ミリ秒☆（＾～＾）
-            appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.Numbers[ApplicationObjectModel.IntervalMsecOutsideName].Value);
+            appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
             // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
 
             // 列番号
@@ -35,16 +35,16 @@
             }
 
             // TODO UIウィジェット
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.PlyOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.MoveOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackNameOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackTimeOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.BlackHamaOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteNameOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteTimeOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.WhiteHamaOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.KomiOutsideName);
-            PropertyController.RepaintByOutsideName(appModel, appView, ApplicationObjectModel.InfoOutsideName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.PlyRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.MoveRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackNameRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackTimeRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackHamaRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteNameRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteTimeRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteHamaRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.KomiRealName);
+            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.InfoRealName);
 
             // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
             appView.FitSizeToWindow();

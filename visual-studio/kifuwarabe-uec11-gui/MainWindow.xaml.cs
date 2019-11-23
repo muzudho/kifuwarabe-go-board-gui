@@ -206,9 +206,9 @@
             LastMoveMarkerController.Repaint(this.Model, this);
 
             // 何手目か表示しようぜ☆（＾～＾）？
-            if (this.Model.Numbers.ContainsKey(ApplicationObjectModel.PlyOutsideName))
+            if (this.Model.ContainsKeyOfNumbers(ApplicationObjectModel.PlyRealName))
             {
-                this.top2Value.Content = $"{this.Model.Numbers[ApplicationObjectModel.PlyOutsideName].ValueAsText()}";
+                this.top2Value.Content = $"{this.Model.GetNumber(ApplicationObjectModel.PlyRealName).ValueAsText()}";
             }
         }
 
@@ -231,7 +231,7 @@
                 this.DispatchTimer = new DispatcherTimer();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.Numbers[ApplicationObjectModel.IntervalMsecOutsideName].Value);
+                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
@@ -254,46 +254,51 @@
                             },
                             (args) =>
                             {
+                                var aliasName = new AliasName(args.Name);
+
+                                // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                                RealName realName = this.Model.GetObjectRealName(args.Name);
+
                                 PropertyController.MatchCanvasBy(
                                     this.Model,
                                     this,
-                                    args.Name,
-                                    (propModel, propView, insideStem) =>
+                                    realName,
+                                    (propModel, propView) =>
                                     {
                                         this.Model.GetProperty(
-                                            args.Name,
+                                            realName,
                                             (b) =>
                                             {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Booleans[args.Name].ValueAsText()}");
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetBool(realName).ValueAsText()}");
                                             },
                                             (n) =>
                                             {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Numbers[args.Name].ValueAsText()}");
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetNumber(realName).ValueAsText()}");
                                             },
                                             (s) =>
                                             {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Strings[args.Name].ValueAsText()}");
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetString(realName).ValueAsText()}");
                                             },
                                             (sList) =>
                                             {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.StringLists[args.Name].ValueAsText()}");
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetStringList(realName).ValueAsText()}");
                                             }
                                             );
                                     },
                                     (err) =>
                                     {
-                                        Trace.WriteLine($"NotFound        | args.Name=[{args.Name}] in mainWindow.");
+                                        Trace.WriteLine($"Warning         | Not found object. args.Name=[{args.Name}] aliasName=[{aliasName.Value}] realName=[{realName.Value}] in mainWindow.");
 
                                         // Not found property.
-                                        if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                        if (realName.Value == ApplicationObjectModel.IntervalMsecRealName.Value)
                                         {
                                             // インターバル・ミリ秒☆（＾～＾）
                                             if (double.TryParse(args.Value, out double outValue))
                                             {
-                                                this.Model.Numbers[args.Name].Value = outValue;
+                                                this.Model.GetNumber(realName).Value = outValue;
                                             }
                                         }
-                                        else if (args.Name == ApplicationObjectModel.MoveOutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.MoveRealName.Value)
                                         {
                                             // 着手マーカー☆（＾～＾）
                                             var start = 0;
@@ -305,12 +310,12 @@
                                                 }
 
                                                 var text1 = cellAddress.ToDisplayTrimed(this.Model);
-                                                this.Model.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
+                                                this.Model.GetString(realName).Value = text1;
                                                 this.top1Value.Content = text1;
                                                 return curr;
                                             });
                                         }
-                                        else if (args.Name == ApplicationObjectModel.RowSizeOutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
                                         {
                                             // 行サイズ☆（＾～＾）
                                             if (int.TryParse(args.Value, out int outValue))
@@ -322,7 +327,7 @@
                                                 }
                                             }
                                         }
-                                        else if (args.Name == ApplicationObjectModel.ColumnSizeOutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
                                         {
                                             // 列サイズ☆（＾～＾）
                                             if (int.TryParse(args.Value, out int outValue))
@@ -334,17 +339,17 @@
                                                 }
                                             }
                                         }
-                                        else if (args.Name == ColumnNumbersController.OutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
                                         {
                                             // 列番号☆（＾～＾）
                                             ColumnNumbersController.ChangeModel(this.Model, args);
                                         }
-                                        else if (args.Name == RowNumbersController.OutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
                                         {
                                             // 行番号☆（＾～＾）
                                             RowNumbersController.ChangeModel(this.Model, args);
                                         }
-                                        else if (args.Name == StarsController.OutsideName)
+                                        else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
                                         {
                                             // 盤上の星☆（＾～＾）
                                             StarsController.ChangeModel(this.Model, args);

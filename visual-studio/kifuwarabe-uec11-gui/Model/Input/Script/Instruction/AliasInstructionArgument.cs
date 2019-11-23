@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）
@@ -18,14 +19,14 @@
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string RealName { get; private set; }
+        public RealName RealName { get; private set; }
 
         /// <summary>
         /// 別名の空白区切りのリスト☆（＾～＾） 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public List<string> AliasList { get; private set; }
+        public List<AliasName> AliasList { get; private set; }
 
-        public AliasInstructionArgument(string realName, List<string> aliasList)
+        public AliasInstructionArgument(RealName realName, List<AliasName> aliasList)
         {
             this.RealName = realName;
             this.AliasList = aliasList;
@@ -34,44 +35,46 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="line"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (AliasInstructionArgument, int) Parse(string text, int start)
+        public static (AliasInstructionArgument, int) Parse(string line, int start)
         {
-            if (text == null)
+            if (line == null)
             {
-                throw new ArgumentNullException(nameof(text));
+                throw new ArgumentNullException(nameof(line));
             }
 
             AliasInstructionArgument aliasInstructionArgument = null;
 
-            var next = WhiteSpace.Parse(text, start,
+            var next = WhiteSpace.Parse(line, start,
                 (_, curr) =>
                 {
                     // 最初のスペースは読み飛ばした☆（＾～＾）
 
                     // 次のイコールの手前までを読み取るぜ☆（＾～＾）
-                    return WordUpToDelimiter.Parse("=", text, curr, (leftSide, curr) =>
+                    return WordUpToDelimiter.Parse("=", line, curr, (leftSide, curr) =>
                     {
                         // イコールの手前は、本名☆（＾～＾）
-                        var realName = leftSide.Text.Trim();
+                        var realName = new RealName(leftSide.Text.Trim());
 
                         // イコールは読み飛ばすぜ☆（＾～＾）
                         curr++;
 
                         // 次のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpace.Parse(text, curr,
+                        return WhiteSpace.Parse(line, curr,
                             (_, curr) =>
                             {
                                 // 行の残り全部を読み取るぜ☆（＾～＾）
-                                string value = text.Substring(curr);
+                                string value = line.Substring(curr);
 
                                 // 空白が連続していたら空文字列とか拾ってしまうが……☆（＾～＾）
-                                var aliasList = new List<string>(value.Split(' '));
+                                var aliasListAsString = new List<string>(value.Split(' '));
 
                                 // 空白要素は削除しようぜ☆（＾～＾）
-                                aliasList.RemoveAll(s => string.IsNullOrWhiteSpace(s));
+                                aliasListAsString.RemoveAll(s => string.IsNullOrWhiteSpace(s));
+
+                                var aliasList = aliasListAsString.ConvertAll(s => new AliasName(s));
 
                                 aliasInstructionArgument = new AliasInstructionArgument(realName, aliasList);
                                 return curr + value.Length;
@@ -88,7 +91,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.RealName} = {string.Join(' ', this.AliasList)}";
+            return $"{this.RealName.Value} = {string.Join(' ', this.AliasList)}";
         }
     }
 }

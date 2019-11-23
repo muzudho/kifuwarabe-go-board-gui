@@ -31,7 +31,7 @@
             this.Board = new BoardModelWrapper(this.ApplicationObjectModel.Board);
 
             this.rowNumbersTrimed = new List<string>();
-            this.StringLists[RowNumbersController.OutsideName].SetAfterSetsValueCallback((value) =>
+            this.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback((value) =>
             {
                 // 位置調整のためのスペースが含まれていると　検索のとき、やっかい☆（＾～＾）取り除いたリストも作っておくぜ☆（＾～＾）
                 this.rowNumbersTrimed = new List<string>();
@@ -41,120 +41,153 @@
                 }
             });
             // イベント・ハンドラーを起こすぜ☆（＾～＾）
-            this.StringLists[RowNumbersController.OutsideName].Value = this.StringLists[RowNumbersController.OutsideName].Value;
+            this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
         }
 
         public ApplicationObjectModel ApplicationObjectModel { get; private set; }
 
         public BoardModelWrapper Board { get; private set; }
 
-        /// <summary>
-        /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, string> ObjectRealNames
-        {
-            get
-            {
-                return this.ApplicationObjectModel.ObjectRealName;
-            }
-            set
-            {
-                this.ApplicationObjectModel.ObjectRealName = value;
-            }
-        }
-
-        /// <summary>
-        /// 論理値型を持つウィジェット☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, PropertyBool> Booleans
-        {
-            get
-            {
-                return this.ApplicationObjectModel.Booleans;
-            }
-            set
-            {
-                this.ApplicationObjectModel.Booleans = value;
-            }
-        }
-
-        /// <summary>
-        /// 数値型を持つウィジェット☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, PropertyNumber> Numbers
-        {
-            get
-            {
-                return this.ApplicationObjectModel.Numbers;
-            }
-            set
-            {
-                this.ApplicationObjectModel.Numbers = value;
-            }
-        }
-
-        /// <summary>
-        /// 文字列型を持つウィジェット☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, PropertyString> Strings
-        {
-            get
-            {
-                return this.ApplicationObjectModel.Strings;
-            }
-            set
-            {
-                this.ApplicationObjectModel.Strings = value;
-            }
-        }
-
-        /// <summary>
-        /// 文字列リストを持つウィジェット☆（＾～＾）
-        /// </summary>
-        public Dictionary<string, PropertyStringList> StringLists
-        {
-            get
-            {
-                return this.ApplicationObjectModel.StringLists;
-            }
-            set
-            {
-                this.ApplicationObjectModel.StringLists = value;
-            }
-        }
-
         public delegate void BoolCallback(PropertyBool value);
         public delegate void NumberCallback(PropertyNumber value);
         public delegate void StringCallback(PropertyString value);
         public delegate void StringListCallback(PropertyStringList value);
 
-        public (PropertyType, IPropertyValue) GetProperty(string name)
+        public bool TryAddObjectRealName(AliasName aliasName, RealName realName)
         {
-            if (this.Booleans.ContainsKey(name))
+            return this.ApplicationObjectModel.ObjectRealName.TryAdd(aliasName.Value, realName.Value);
+        }
+
+        public bool ContainsKeyOfObjectRealName(AliasName aliasName)
+        {
+            return this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value);
+        }
+
+        public RealName GetObjectRealName(string name)
+        {
+            AliasName aliasName = new AliasName(name);
+
+            // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+            RealName realName;
+            if (this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value))
             {
-                return (PropertyType.Bool, this.Booleans[name]);
+                realName = new RealName(this.ApplicationObjectModel.ObjectRealName[aliasName.Value]);
+            }
+            else
+            {
+                realName = new RealName(name);
             }
 
-            if (this.Numbers.ContainsKey(name))
+            return realName;
+        }
+
+        public bool ContainsKeyOfBooleans(RealName realName)
+        {
+            return this.ApplicationObjectModel.Booleans.ContainsKey(realName.Value);
+        }
+
+        public bool ContainsKeyOfNumbers(RealName realName)
+        {
+            return this.ApplicationObjectModel.Numbers.ContainsKey(realName.Value);
+        }
+
+        public bool ContainsKeyOfStrings(RealName realName)
+        {
+            return this.ApplicationObjectModel.Strings.ContainsKey(realName.Value);
+        }
+
+        public bool ContainsKeyOfStringLists(RealName realName)
+        {
+            return this.ApplicationObjectModel.StringLists.ContainsKey(realName.Value);
+        }
+
+        public PropertyBool GetBool(RealName realName)
+        {
+            return this.ApplicationObjectModel.Booleans[realName.Value];
+        }
+
+        public PropertyNumber GetNumber(RealName realName)
+        {
+            return this.ApplicationObjectModel.Numbers[realName.Value];
+        }
+
+        public PropertyString GetString(RealName realName)
+        {
+            return this.ApplicationObjectModel.Strings[realName.Value];
+        }
+
+        public PropertyStringList GetStringList(RealName realName)
+        {
+            return this.ApplicationObjectModel.StringLists[realName.Value];
+        }
+
+        public void AddBool(RealName realName, PropertyBool value)
+        {
+            this.ApplicationObjectModel.Booleans[realName.Value] = value;
+        }
+
+        public void AddNumber(RealName realName, PropertyNumber value)
+        {
+            this.ApplicationObjectModel.Numbers[realName.Value] = value;
+        }
+
+        public void AddString(RealName realName, PropertyString value)
+        {
+            this.ApplicationObjectModel.Strings[realName.Value] = value;
+        }
+
+        public void AddStringList(RealName realName, PropertyStringList value)
+        {
+            this.ApplicationObjectModel.StringLists[realName.Value] = value;
+        }
+
+        public bool RemoveBool(RealName realName)
+        {
+            return this.ApplicationObjectModel.Booleans.Remove(realName.Value);
+        }
+
+        public bool RemoveNumber(RealName realName)
+        {
+            return this.ApplicationObjectModel.Numbers.Remove(realName.Value);
+        }
+
+        public bool RemoveString(RealName realName)
+        {
+            return this.ApplicationObjectModel.Strings.Remove(realName.Value);
+        }
+
+        public bool RemoveStringList(RealName realName)
+        {
+            return this.ApplicationObjectModel.StringLists.Remove(realName.Value);
+        }
+
+        public (PropertyType, IPropertyValue) GetProperty(RealName realName)
+        {
+            if (this.ContainsKeyOfBooleans(realName))
             {
-                return (PropertyType.Number, this.Numbers[name]);
+                return (PropertyType.Bool, this.GetBool(realName));
             }
 
-            if (this.Strings.ContainsKey(name))
+            if (this.ContainsKeyOfNumbers(realName))
             {
-                return (PropertyType.StringType, this.Strings[name]);
+                return (PropertyType.Number, this.GetNumber(realName));
             }
 
-            if (this.StringLists.ContainsKey(name))
+            if (this.ContainsKeyOfStrings(realName))
             {
-                return (PropertyType.StringList, this.StringLists[name]);
+                return (PropertyType.StringType, this.GetString(realName));
+            }
+
+            if (this.ContainsKeyOfStringLists(realName))
+            {
+                return (PropertyType.StringList, this.GetStringList(realName));
             }
 
             // 該当なし。
             return (PropertyType.None, null);
         }
 
-        public void GetProperty(string name, BoolCallback boolCallback, NumberCallback numberCallback, StringCallback stringCallback, StringListCallback stringListCallback)
+        public void GetProperty(RealName realName, BoolCallback boolCallback, NumberCallback numberCallback, StringCallback stringCallback, StringListCallback stringListCallback)
         {
             if (boolCallback == null)
             {
@@ -176,85 +209,81 @@
                 throw new ArgumentNullException(nameof(stringListCallback));
             }
 
-            if (this.Booleans.ContainsKey(name))
+            if (this.ContainsKeyOfBooleans(realName))
             {
-                boolCallback(this.Booleans[name]);
+                boolCallback(this.GetBool(realName));
             }
-            else if (this.Numbers.ContainsKey(name))
+            else if (this.ContainsKeyOfNumbers(realName))
             {
-                numberCallback(this.Numbers[name]);
+                numberCallback(this.GetNumber(realName));
             }
-            else if (this.Strings.ContainsKey(name))
+            else if (this.ContainsKeyOfStrings(realName))
             {
-                stringCallback(this.Strings[name]);
+                stringCallback(this.GetString(realName));
             }
-            else if (this.StringLists.ContainsKey(name))
+            else if (this.ContainsKeyOfStringLists(realName))
             {
-                stringListCallback(this.StringLists[name]);
+                stringListCallback(this.GetStringList(realName));
             }
         }
 
         /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
         /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
+        /// <param name="realName"></param>
         /// <returns></returns>
         public void AddProperty(
-            string alias,
+            RealName realName,
             IPropertyValue value
         )
         {
             if (value is PropertyString)
             {
-                this.Strings.Add(alias, (PropertyString)value);
+                this.AddString(realName, (PropertyString)value);
             }
             else if (value is PropertyNumber)
             {
-                this.Numbers.Add(alias, (PropertyNumber)value);
+                this.AddNumber(realName, (PropertyNumber)value);
             }
             else if (value is PropertyBool)
             {
-                this.Booleans.Add(alias, (PropertyBool)value);
+                this.AddBool(realName, (PropertyBool)value);
             }
             else if (value is PropertyStringList)
             {
-                this.StringLists.Add(alias, (PropertyStringList)value);
+                this.AddStringList(realName, (PropertyStringList)value);
             }
         }
 
         /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
         /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
+        /// <param name="realName"></param>
         /// <returns></returns>
         public (PropertyType, IPropertyValue) RemoveProperty(
-            string alias
+            RealName realName
         )
         {
-            if (this.Strings.ContainsKey(alias))
+            if (this.ContainsKeyOfStrings(realName))
             {
-                var old = this.Strings[alias];
-                this.Strings.Remove(alias);
+                var old = this.GetString(realName);
+                this.RemoveString(realName);
                 return (PropertyType.StringType, old);
             }
-            else if (this.Numbers.ContainsKey(alias))
+            else if (this.ContainsKeyOfNumbers(realName))
             {
-                var old = this.Numbers[alias];
-                this.Numbers.Remove(alias);
+                var old = this.GetNumber(realName);
+                this.RemoveNumber(realName);
                 return (PropertyType.Number, old);
             }
-            else if (this.Booleans.ContainsKey(alias))
+            else if (this.ContainsKeyOfBooleans(realName))
             {
-                var old = this.Booleans[alias];
-                this.Booleans.Remove(alias);
+                var old = this.GetBool(realName);
+                this.RemoveBool(realName);
                 return (PropertyType.Bool, old);
             }
-            else if (this.StringLists.ContainsKey(alias))
+            else if (this.ContainsKeyOfStringLists(realName))
             {
-                var old = this.StringLists[alias];
-                this.StringLists.Remove(alias);
+                var old = this.GetStringList(realName);
+                this.RemoveStringList(realName);
                 return (PropertyType.StringList, old);
             }
 
@@ -262,33 +291,31 @@
         }
 
         /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
         /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
+        /// <param name="realName"></param>
         /// <returns></returns>
         public (PropertyType, IPropertyValue) FindProperty(
-            string alias
+            RealName realName
         )
         {
-            if (this.Strings.ContainsKey(alias))
+            if (this.ContainsKeyOfStrings(realName))
             {
-                return (PropertyType.StringType, this.Strings[alias]);
+                return (PropertyType.StringType, this.GetString(realName));
             }
 
-            if (this.Numbers.ContainsKey(alias))
+            if (this.ContainsKeyOfNumbers(realName))
             {
-                return (PropertyType.Number, this.Numbers[alias]);
+                return (PropertyType.Number, this.GetNumber(realName));
             }
 
-            if (this.Booleans.ContainsKey(alias))
+            if (this.ContainsKeyOfBooleans(realName))
             {
-                return (PropertyType.Bool, this.Booleans[alias]);
+                return (PropertyType.Bool, this.GetBool(realName));
             }
 
-            if (this.StringLists.ContainsKey(alias))
+            if (this.ContainsKeyOfStringLists(realName))
             {
-                return (PropertyType.StringList, this.StringLists[alias]);
+                return (PropertyType.StringList, this.GetStringList(realName));
             }
 
             return (PropertyType.None, null);

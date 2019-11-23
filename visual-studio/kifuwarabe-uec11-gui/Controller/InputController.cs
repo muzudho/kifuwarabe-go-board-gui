@@ -99,7 +99,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
+                                appModel.GetString(ApplicationObjectModel.MoveRealName).Value = text1;
                                 movesViewCallback(text1);
                             }
                         }
@@ -117,7 +117,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
+                                appModel.GetString(ApplicationObjectModel.MoveRealName).Value = text1;
                                 movesViewCallback(text1);
                             }
                         }
@@ -181,38 +181,34 @@
                     else if (instruction.Command == InputScriptDocument.AliasCommand)
                     {
                         var args = (AliasInstructionArgument)instruction.Argument;
-                        Trace.WriteLine($"Alias 1         | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Alias 1         | RealName=[{args.RealName.Value}] AliasList=[{string.Join(' ', args.AliasList)}]");
 
                         foreach (var alias in args.AliasList)
                         {
-                            Trace.WriteLine($"Alias 2         | [{alias}] = [{args.RealName}]");
-                            appModel.ObjectRealNames.Add(alias, args.RealName);
+                            Trace.WriteLine($"Alias 2         | [{alias}] = [{args.RealName.Value}]");
+                            if (!appModel.TryAddObjectRealName(alias, args.RealName))
+                            {
+                                Trace.WriteLine($"Alias 2b        | [{alias}] is already exists.");
+                            }
                         }
-                        Trace.WriteLine($"Alias 3         | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Alias 3         | {instruction.Command} args.RealName={args.RealName.Value} args.AliasList=[{string.Join(' ', args.AliasList)}]");
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
                         // モデルに値をセット☆（＾～＾）
                         var args = (SetsInstructionArgument)instruction.Argument;
 
+                        // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                        RealName realName = appModel.GetObjectRealName(args.Name);
+
                         // これが参照渡しになっているつもりだが……☆（＾～＾）
-                        var (type, propModel) = appModel.GetProperty(args.Name);
+                        var (type, propModel) = appModel.GetProperty(realName);
 
-                        if (propModel==null)
-                        {
-                            // Trace.WriteLine($"Error           | {instruction.Command} {args.Name} property is not found.");
+                        // .typeプロパティなら、propModelはヌルで構わない。
+                        PropertyController.ChangeModel(appModel, realName, propModel, args);
 
-                            // UI になくても、Boardにあるプロパティもある。
-                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                            setsViewCallback(args);
-                        }
-                        else
-                        {
-                            PropertyController.ChangeModel(appModel, args.Name, propModel, args);
-
-                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                            setsViewCallback(args);
-                        }
+                        // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                        setsViewCallback(args);
                     }
                     else if (instruction.Command == InputScriptDocument.ExitsCommand)
                     {

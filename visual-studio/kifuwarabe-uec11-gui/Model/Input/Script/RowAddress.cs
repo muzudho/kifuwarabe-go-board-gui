@@ -102,7 +102,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumbers = model.StringLists[RowNumbersController.OutsideName].Value;
+            var rowNumbers = model.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
 
             if (this.NumberO0 < 0 || rowNumbers.Count <= this.NumberO0)
             {
