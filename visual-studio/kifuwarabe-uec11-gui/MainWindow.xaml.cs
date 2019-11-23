@@ -316,27 +316,43 @@
                                         else if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
                                         {
                                             // 行サイズ☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Row size.");
                                             if (int.TryParse(args.Value, out int outValue))
                                             {
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                                if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
                                                 {
                                                     this.Model.Board.RowSize = outValue;
+                                                    Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
                                                 }
+                                                else
+                                                {
+                                                    Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
                                             }
                                         }
                                         else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
                                         {
                                             // 列サイズ☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Column size.");
                                             if (int.TryParse(args.Value, out int outValue))
                                             {
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                                if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
                                                 {
                                                     this.Model.Board.ColumnSize = outValue;
+                                                    Trace.WriteLine($"Info            | Column size {outValue}.");
                                                 }
+                                                else
+                                                {
+                                                    Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
                                             }
                                         }
                                         else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)

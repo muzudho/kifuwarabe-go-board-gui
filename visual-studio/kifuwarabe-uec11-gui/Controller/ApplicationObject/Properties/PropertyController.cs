@@ -11,14 +11,46 @@
     public static class PropertyController
     {
         public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view);
-        public delegate void MatchCanvasCallbackErr(string message);
+        public delegate void CallbackErr(string message);
+
+        /// <summary>
+        /// モデルに入っていないビューを非表示にするぜ☆（＾～＾）
+        /// </summary>
+        /// <param name="appView"></param>
+        /// <param name="realName"></param>
+        /// <param name="callbackErr"></param>
+        public static void InvisibleNoModel(
+            MainWindow appView,
+            RealName realName,
+            CallbackErr callbackErr)
+        {
+            if (appView == null)
+            {
+                throw new ArgumentNullException(nameof(appView));
+            }
+
+            if (realName == null)
+            {
+                throw new ArgumentNullException(nameof(realName));
+            }
+
+            Canvas propView = (Canvas)appView.FindName($"{realName.Value}Canvas");
+            if (propView == null)
+            {
+                callbackErr($"realName=[{realName.Value}] is not found in xaml.");
+            }
+            else
+            {
+                propView.Visibility = Visibility.Hidden;
+            }
+        }
 
         public static void MatchCanvasBy(
             ApplicationObjectModelWrapper appModel,
             MainWindow appView,
             RealName realName,
             MatchCanvasCallbackDone callbackDone,
-            MatchCanvasCallbackErr callbackErr)
+            CallbackErr callbackErr)
         {
             if (appModel == null)
             {
@@ -53,7 +85,7 @@
 
                 if (propModel == null)
                 {
-                    callbackErr($"realName=[{realName.Value}] is null in model.");
+                    callbackErr($"realName=[{realName.Value}] is null in the model.");
                 }
                 else
                 {
@@ -133,7 +165,7 @@
                 },
                 (err) =>
                 {
-                    Trace.WriteLine($"Repaint Error   | {err} In PropertyController.Repaint.");
+                    Trace.WriteLine($"Repaint Warning | {err} In PropertyController.Repaint.");
                 });
         }
 
@@ -167,7 +199,7 @@
                     // モデルにタイトルをセット☆（＾～＾）
                     if (propModel == null)
                     {
-                        Trace.WriteLine($"Error           | {realName.Value}.title is fail. {realName.Value} is not found.");
+                        Trace.WriteLine($"Warning         | {realName.Value}.title is fail. {realName.Value} is not found.");
                     }
                     else if (propModel is PropertyBool)
                     {
@@ -207,6 +239,10 @@
                         var brandnew = new PropertyString(title);
                         appModel.AddProperty(realName, brandnew);
                     }
+                    else if (args.Value == ApplicationObjectModel.NullType)
+                    {
+                        // どこにも追加しないぜ☆（＾～＾）
+                    }
                     else if (args.Value == ApplicationObjectModel.NumberType)
                     {
                         var brandnew = new PropertyNumber(title);
@@ -224,7 +260,7 @@
                     }
                     else
                     {
-                        Trace.WriteLine($"Error           | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
+                        Trace.WriteLine($"Warning         | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
                     }
 
                     break;
@@ -233,7 +269,7 @@
                     // モデルに値をセット☆（＾～＾）
                     if (propModel == null)
                     {
-                        Trace.WriteLine($"Error           | {realName.Value}.value is fail. {realName.Value} is not found.");
+                        Trace.WriteLine($"Warning         | {realName.Value}.value is fail. {realName.Value} is not found.");
                     }
                     else if (propModel is PropertyBool)
                     {
@@ -263,7 +299,7 @@
                 case "visible":
                     if (propModel == null)
                     {
-                        Trace.WriteLine($"Error           | {realName}.visible is fail. {realName} is not found.");
+                        Trace.WriteLine($"Warning         | {realName.Value}.visible is fail. {realName.Value} is not found.");
                     }
                     else
                     {
@@ -271,11 +307,9 @@
                         {
                             case "true":
                                 propModel.Visible = true;
-                                // propView.Visibility = Visibility.Visible;
                                 break;
                             case "false":
                                 propModel.Visible = false;
-                                // propView.Visibility = Visibility.Hidden;
                                 break;
                         }
                     }

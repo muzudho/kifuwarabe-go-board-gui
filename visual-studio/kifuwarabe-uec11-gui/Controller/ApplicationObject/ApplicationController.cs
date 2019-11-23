@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
+    using System.Diagnostics;
     using KifuwarabeUec11Gui.Model;
 
     public static class ApplicationController
@@ -35,16 +36,37 @@
             }
 
             // TODO UIウィジェット
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.PlyRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.MoveRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackNameRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackTimeRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.BlackHamaRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteNameRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteTimeRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.WhiteHamaRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.KomiRealName);
-            PropertyController.RepaintByName(appModel, appView, ApplicationObjectModel.InfoRealName);
+            {
+                var names = new RealName[]
+                {
+                    ApplicationObjectModel.Top1RealName,
+                    ApplicationObjectModel.Top2RealName,
+                    ApplicationObjectModel.Right1RealName,
+                    ApplicationObjectModel.Right2RealName,
+                    ApplicationObjectModel.Right3RealName,
+                    ApplicationObjectModel.Left1RealName,
+                    ApplicationObjectModel.Left2RealName,
+                    ApplicationObjectModel.Left3RealName,
+                    ApplicationObjectModel.Left4RealName,
+                    ApplicationObjectModel.InfoRealName,
+                };
+
+                foreach (var name in names)
+                {
+                    if (appModel.ContainsKeyOfProperty(name))
+                    {
+                        PropertyController.RepaintByName(appModel, appView, name);
+                    }
+                    else
+                    {
+                        // モデルに入ってなければ、非表示にするぜ☆（＾～＾）
+                        PropertyController.InvisibleNoModel(appView, name, (errMsg)=>
+                        {
+                            Trace.WriteLine(errMsg);
+                        });
+                    }
+                }
+            }
 
             // 画面のサイズに合わせて再描画しようぜ☆（＾～＾）
             appView.FitSizeToWindow();

@@ -12,6 +12,7 @@
     /// </summary>
     public class ApplicationObjectModel
     {
+        public static string NullType = "null";
         public static string BoolType = "bool";
         public static string NumberType = "number";
         public static string StringType = "string";
@@ -22,30 +23,39 @@
         /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
+        public static RealName Top1RealName => new RealName("top1");
         public static RealName MoveRealName => new RealName("top1");
         public static AliasName MoveAliasName => new AliasName("move");
 
+        public static RealName Top2RealName => new RealName("top2");
         public static RealName PlyRealName => new RealName("top2");
         public static AliasName PlyAliasName => new AliasName("ply");
 
+        public static RealName Right1RealName => new RealName("right1");
         public static RealName BlackHamaRealName => new RealName("right1");
         public static AliasName BlackHamaAliasName => new AliasName("b-hama");
 
+        public static RealName Right2RealName => new RealName("right2");
         public static RealName BlackTimeRealName => new RealName("right2");
         public static AliasName BlackTimeAliasName => new AliasName("b-time");
 
+        public static RealName Right3RealName => new RealName("right3");
         public static RealName BlackNameRealName => new RealName("right3");
         public static AliasName BlackNameAliasName => new AliasName("b-name");
 
+        public static RealName Left1RealName => new RealName("left1");
         public static RealName WhiteNameRealName => new RealName("left1");
         public static AliasName WhiteNameAliasName => new AliasName("w-name");
 
+        public static RealName Left2RealName => new RealName("left2");
         public static RealName WhiteTimeRealName => new RealName("left2");
         public static AliasName WhiteTimeAliasName => new AliasName("w-time");
 
+        public static RealName Left3RealName => new RealName("left3");
         public static RealName WhiteHamaRealName => new RealName("left3");
         public static AliasName WhiteHamaAliasName => new AliasName("w-hama");
 
+        public static RealName Left4RealName => new RealName("left4");
         public static RealName KomiRealName => new RealName("left4");
         public static AliasName KomiAliasName => new AliasName("komi");
 

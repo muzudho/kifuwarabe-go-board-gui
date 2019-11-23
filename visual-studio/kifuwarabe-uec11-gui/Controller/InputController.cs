@@ -72,7 +72,7 @@
 
                 foreach (var instruction in scriptDocument.Instructions)
                 {
-                    Trace.WriteLine($"Command         | {instruction.Command}");
+                    // Trace.WriteLine($"Command         | {instruction.Command}");
 
                     if (instruction.Command == InputScriptDocument.InfoCommand)
                     {

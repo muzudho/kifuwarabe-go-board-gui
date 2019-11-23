@@ -322,6 +322,18 @@
         }
 
         /// <summary>
+        /// </summary>
+        /// <param name="realName"></param>
+        /// <returns></returns>
+        public bool ContainsKeyOfProperty(RealName realName)
+        {
+            return this.ContainsKeyOfStrings(realName) ||
+                this.ContainsKeyOfNumbers(realName) ||
+                this.ContainsKeyOfBooleans(realName) ||
+                this.ContainsKeyOfStringLists(realName);
+        }
+
+        /// <summary>
         /// 各行番号☆（＾～＾）トリムしているやつだぜ☆（＾～＾）
         /// JSONにシリアライズ（出力）されないように、フィールドとメソッドにしているぜ☆（＾～＾）
         /// </summary>

@@ -61,7 +61,7 @@
 
                 return StartsWithKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
                 {
-                    Trace.WriteLine($"Info            | Line ISD=[{line}]");
+                    // Trace.WriteLine($"Info            | Line ISD=[{line}]");
 
                     if (commentSymbol != null)
                     {
@@ -74,7 +74,7 @@
 
                     return Word.Parse(line, curr, (commandName, curr) =>
                     {
-                        Trace.WriteLine($"Info            | Command-ISD=[{commandName?.Text}]");
+                        // Trace.WriteLine($"Info            | Command-ISD=[{commandName?.Text}]");
 
                         if (commandName != null)
                         {
