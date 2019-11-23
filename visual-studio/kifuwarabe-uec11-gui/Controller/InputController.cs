@@ -46,16 +46,23 @@
             }
         }
 
-        public static void ParseByLine(ApplicationObjectModelWrapper appModel, MainWindow appView, string line)
+        public delegate void InfoViewCallback(string text);
+        public delegate void JsonViewCallback(ApplicationObjectModelWrapper appModel);
+        public delegate void MovesViewCallback(string text);
+        public delegate void SetsViewCallback(SetsInstructionArgument args);
+
+        public static void ParseByLine(
+            ApplicationObjectModelWrapper appModel,
+            string line,
+            InfoViewCallback infoViewCallback,
+            JsonViewCallback jsonViewCallback,
+            MovesViewCallback movesViewCallback,
+            SetsViewCallback setsViewCallback
+        )
         {
             if (null == appModel)
             {
                 throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (null == appView)
-            {
-                throw new ArgumentNullException(nameof(appView));
             }
 
             InputScriptDocument.ParseByLine(line, appModel, (scriptDocument) =>
@@ -67,6 +74,8 @@
 
                 foreach (var instruction in scriptDocument.Instructions)
                 {
+                    Trace.WriteLine($"Command         | {instruction.Command}");
+
                     if (instruction.Command == InputScriptDocument.InfoCommand)
                     {
                         // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
@@ -75,7 +84,7 @@
                         var args = (InfoInstructionArgument)instruction.Argument;
 
                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                        appView.infoValue.Content = MainWindow.SoluteNewline(args.Text);
+                        infoViewCallback(MainWindow.SoluteNewline(args.Text));
                     }
                     else if (instruction.Command == InputScriptDocument.BlackCommand)
                     {
@@ -91,7 +100,7 @@
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
                                 appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
-                                appView.top1Value.Content = text1;
+                                movesViewCallback(text1);
                             }
                         }
                     }
@@ -109,7 +118,7 @@
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
                                 appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
-                                appView.top1Value.Content = text1;
+                                movesViewCallback(text1);
                             }
                         }
                     }
@@ -165,125 +174,45 @@
                     else if (instruction.Command == InputScriptDocument.JsonCommand)
                     {
                         var args = (JsonInstructionArgument)instruction.Argument;
-                        Trace.WriteLine($"Command            | {instruction.Command} args.Json.Length={args.Json.Length}");
+                        Trace.WriteLine($"Json            | {instruction.Command} args.Json.Length={args.Json.Length}");
 
-                        appView.SetModel(new ApplicationObjectModelWrapper(ApplicationObjectModel.Parse(args.Json)));
+                        jsonViewCallback(new ApplicationObjectModelWrapper(ApplicationObjectModel.Parse(args.Json)));
                     }
                     else if (instruction.Command == InputScriptDocument.AliasCommand)
                     {
                         var args = (AliasInstructionArgument)instruction.Argument;
-                        Trace.WriteLine($"Command 1          | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Alias 1         | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
 
                         foreach (var alias in args.AliasList)
                         {
+                            Trace.WriteLine($"Alias 2         | [{alias}] = [{args.RealName}]");
                             appModel.ObjectRealNames.Add(alias, args.RealName);
                         }
-                        Trace.WriteLine($"After   2          | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Alias 3         | {instruction.Command} args.RealName={args.RealName} args.AliasList=[{string.Join(' ', args.AliasList)}]");
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
-                        // モデルに値を設定するコマンドだぜ☆（＾～＾）
-                        // ビューは、ここでは更新しないぜ☆（＾～＾）
+                        // モデルに値をセット☆（＾～＾）
                         var args = (SetsInstructionArgument)instruction.Argument;
 
-                        PropertyController.MatchCanvasBy(appModel, appView, args.Name,
-                            (propModel, propView, insideStem) =>
-                            {
-                                // モデルに値をセット☆（＾～＾）
-                                PropertyController.ChangeModel(appModel, args.Name, propModel, propView, args);
+                        // これが参照渡しになっているつもりだが……☆（＾～＾）
+                        var (type, propModel) = appModel.GetProperty(args.Name);
 
-                                appModel.ReadProperty(
-                                    args.Name,
-                                    (b) =>
-                                    {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Booleans[args.Name].ValueAsText()}");
-                                    },
-                                    (n) =>
-                                    {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Numbers[args.Name].ValueAsText()}");
-                                    },
-                                    (s) =>
-                                    {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.Strings[args.Name].ValueAsText()}");
-                                    },
-                                    (sList) =>
-                                    {
-                                        Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={appModel.StringLists[args.Name].ValueAsText()}");
-                                    }
-                                    );
-                            },
-                            (err) =>
-                            {
-                                // Not found property.
-                                if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
-                                {
-                                    // インターバル・ミリ秒☆（＾～＾）
-                                    if (double.TryParse(args.Value, out double outValue))
-                                    {
-                                        appModel.Numbers[args.Name].Value = outValue;
-                                    }
-                                }
-                                else if (args.Name == ApplicationObjectModel.MoveOutsideName)
-                                {
-                                    // 着手マーカー☆（＾～＾）
-                                    var start = 0;
-                                    CellAddress.Parse(args.Value, start, appModel, (cellAddress, curr) =>
-                                    {
-                                        if (cellAddress == null)
-                                        {
-                                            return start;
-                                        }
+                        if (propModel==null)
+                        {
+                            // Trace.WriteLine($"Error           | {instruction.Command} {args.Name} property is not found.");
 
-                                        var text1 = cellAddress.ToDisplayTrimed(appModel);
-                                        appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
-                                        appView.top1Value.Content = text1;
-                                        return curr;
-                                    });
-                                }
-                                else if (args.Name == ApplicationObjectModel.RowSizeOutsideName)
-                                {
-                                    // 行サイズ☆（＾～＾）
-                                    if (int.TryParse(args.Value, out int outValue))
-                                    {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue < HyperParameter.MaxRowSize)
-                                        {
-                                            appModel.Board.RowSize = outValue;
-                                        }
-                                    }
-                                }
-                                else if (args.Name == ApplicationObjectModel.ColumnSizeOutsideName)
-                                {
-                                    // 列サイズ☆（＾～＾）
-                                    if (int.TryParse(args.Value, out int outValue))
-                                    {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
-                                        {
-                                            appModel.Board.ColumnSize = outValue;
-                                        }
-                                    }
-                                }
-                                else if (args.Name == ColumnNumbersController.OutsideName)
-                                {
-                                    // 列番号☆（＾～＾）
-                                    ColumnNumbersController.ChangeModel(appModel, args);
-                                }
-                                else if (args.Name == RowNumbersController.OutsideName)
-                                {
-                                    // 行番号☆（＾～＾）
-                                    RowNumbersController.ChangeModel(appModel, args);
-                                }
-                                else if (args.Name == StarsController.OutsideName)
-                                {
-                                    // 盤上の星☆（＾～＾）
-                                    StarsController.ChangeModel(appModel, args);
-                                }
-                                else
-                                {
-                                    Trace.WriteLine($"Error           | {err} In InputController.Go.");
-                                }
-                            });
+                            // UI になくても、Boardにあるプロパティもある。
+                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                            setsViewCallback(args);
+                        }
+                        else
+                        {
+                            PropertyController.ChangeModel(appModel, args.Name, propModel, args);
+
+                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                            setsViewCallback(args);
+                        }
                     }
                     else if (instruction.Command == InputScriptDocument.ExitsCommand)
                     {

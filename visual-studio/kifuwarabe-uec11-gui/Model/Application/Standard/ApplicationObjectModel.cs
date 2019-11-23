@@ -60,8 +60,10 @@
                 // 初期値は 2 秒☆（＾～＾）
                 {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber("#intervalMSec", 2000) },
 
+                //*
                 // 何手目か。
                 {ApplicationObjectModel.PlyOutsideName, new PropertyNumber() }, // "手目", 0
+                // */
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）

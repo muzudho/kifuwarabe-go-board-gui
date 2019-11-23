@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.Controller;
+    using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
     /// <summary>
@@ -204,6 +206,7 @@
             LastMoveMarkerController.Repaint(this.Model, this);
 
             // 何手目か表示しようぜ☆（＾～＾）？
+            if (this.Model.Numbers.ContainsKey(ApplicationObjectModel.PlyOutsideName))
             {
                 this.top2Value.Content = $"{this.Model.Numbers[ApplicationObjectModel.PlyOutsideName].ValueAsText()}";
             }
@@ -232,9 +235,127 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
-                    InputController.Read(this.Model, this, (text)=>
+                    InputController.Read(this.Model, this, (text) =>
                     {
-                        InputController.ParseByLine(this.Model, this, text);
+                        InputController.ParseByLine(
+                            this.Model,
+                            text,
+                            (infoText) =>
+                            {
+                                this.infoValue.Content = infoText;
+                            },
+                            (newAppModel) =>
+                            {
+                                this.SetModel(newAppModel);
+                            },
+                            (textOfMove) =>
+                            {
+                                this.top1Value.Content = textOfMove;
+                            },
+                            (args) =>
+                            {
+                                PropertyController.MatchCanvasBy(
+                                    this.Model,
+                                    this,
+                                    args.Name,
+                                    (propModel, propView, insideStem) =>
+                                    {
+                                        this.Model.GetProperty(
+                                            args.Name,
+                                            (b) =>
+                                            {
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Booleans[args.Name].ValueAsText()}");
+                                            },
+                                            (n) =>
+                                            {
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Numbers[args.Name].ValueAsText()}");
+                                            },
+                                            (s) =>
+                                            {
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.Strings[args.Name].ValueAsText()}");
+                                            },
+                                            (sList) =>
+                                            {
+                                                Trace.WriteLine($"Found           | Outside:{args.Name}, Inside:{insideStem} In InputController.Go. Updated={this.Model.StringLists[args.Name].ValueAsText()}");
+                                            }
+                                            );
+                                    },
+                                    (err) =>
+                                    {
+                                        Trace.WriteLine($"NotFound        | args.Name=[{args.Name}] in mainWindow.");
+
+                                        // Not found property.
+                                        if (args.Name == ApplicationObjectModel.IntervalMsecOutsideName)
+                                        {
+                                            // インターバル・ミリ秒☆（＾～＾）
+                                            if (double.TryParse(args.Value, out double outValue))
+                                            {
+                                                this.Model.Numbers[args.Name].Value = outValue;
+                                            }
+                                        }
+                                        else if (args.Name == ApplicationObjectModel.MoveOutsideName)
+                                        {
+                                            // 着手マーカー☆（＾～＾）
+                                            var start = 0;
+                                            CellAddress.Parse(args.Value, start, this.Model, (cellAddress, curr) =>
+                                            {
+                                                if (cellAddress == null)
+                                                {
+                                                    return start;
+                                                }
+
+                                                var text1 = cellAddress.ToDisplayTrimed(this.Model);
+                                                this.Model.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
+                                                this.top1Value.Content = text1;
+                                                return curr;
+                                            });
+                                        }
+                                        else if (args.Name == ApplicationObjectModel.RowSizeOutsideName)
+                                        {
+                                            // 行サイズ☆（＾～＾）
+                                            if (int.TryParse(args.Value, out int outValue))
+                                            {
+                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                if (0 < outValue && outValue < HyperParameter.MaxRowSize)
+                                                {
+                                                    this.Model.Board.RowSize = outValue;
+                                                }
+                                            }
+                                        }
+                                        else if (args.Name == ApplicationObjectModel.ColumnSizeOutsideName)
+                                        {
+                                            // 列サイズ☆（＾～＾）
+                                            if (int.TryParse(args.Value, out int outValue))
+                                            {
+                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                if (0 < outValue && outValue < HyperParameter.MaxColumnSize)
+                                                {
+                                                    this.Model.Board.ColumnSize = outValue;
+                                                }
+                                            }
+                                        }
+                                        else if (args.Name == ColumnNumbersController.OutsideName)
+                                        {
+                                            // 列番号☆（＾～＾）
+                                            ColumnNumbersController.ChangeModel(this.Model, args);
+                                        }
+                                        else if (args.Name == RowNumbersController.OutsideName)
+                                        {
+                                            // 行番号☆（＾～＾）
+                                            RowNumbersController.ChangeModel(this.Model, args);
+                                        }
+                                        else if (args.Name == StarsController.OutsideName)
+                                        {
+                                            // 盤上の星☆（＾～＾）
+                                            StarsController.ChangeModel(this.Model, args);
+                                        }
+                                        else
+                                        {
+                                            Trace.WriteLine($"Error           | {err} In InputController.Go.");
+                                        }
+                                    });
+                            }
+                        );
 
                         // すべてのコマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
                         ApplicationController.RepaintAllViews(this.Model, this);

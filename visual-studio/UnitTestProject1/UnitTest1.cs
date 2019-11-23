@@ -3,11 +3,10 @@ namespace UnitTestProject1
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text;
-    using KifuwarabeUec11Gui;
+    using KifuwarabeUec11Gui.Controller;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using KifuwarabeUec11Gui.Controller;
 
     [TestClass]
     public class UnitTest1
@@ -49,8 +48,9 @@ namespace UnitTestProject1
         /// aliasコマンドの引数をテスト☆（＾～＾）
         /// </summary>
         [TestMethod]
-        public void TestAliasesInstructionArgumentTest()
+        public void TestAliasInstructionArgumentTest()
         {
+            Assert.AreEqual("top2 = ply", AliasInstructionArgument.Parse("alias top2 = ply", 5).Item1?.ToDisplay());
             Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias right3 = b-name black-name player1-name", 5).Item1?.ToDisplay());
             Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias  right3  =  b-name  black-name  player1-name  ", 5).Item1?.ToDisplay());
         }

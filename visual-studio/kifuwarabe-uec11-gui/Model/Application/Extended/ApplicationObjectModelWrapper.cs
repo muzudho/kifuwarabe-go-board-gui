@@ -123,50 +123,38 @@
             }
         }
 
-
-        /* TODO
-        public void WriteProperty(string name, object value)
-        {
-            var name2 = name;
-            if (this.ObjectRealNames.ContainsKey(name))
-            {
-                name2 = this.ObjectRealNames[name];
-            }
-        }
-        */
-
         public delegate void BoolCallback(PropertyBool value);
         public delegate void NumberCallback(PropertyNumber value);
         public delegate void StringCallback(PropertyString value);
         public delegate void StringListCallback(PropertyStringList value);
 
-        public IPropertyValue ReadProperty(string name)
+        public (PropertyType, IPropertyValue) GetProperty(string name)
         {
             if (this.Booleans.ContainsKey(name))
             {
-                return this.Booleans[name];
+                return (PropertyType.Bool, this.Booleans[name]);
             }
 
             if (this.Numbers.ContainsKey(name))
             {
-                return this.Numbers[name];
+                return (PropertyType.Number, this.Numbers[name]);
             }
 
             if (this.Strings.ContainsKey(name))
             {
-                return this.Strings[name];
+                return (PropertyType.StringType, this.Strings[name]);
             }
 
             if (this.StringLists.ContainsKey(name))
             {
-                return this.StringLists[name];
+                return (PropertyType.StringList, this.StringLists[name]);
             }
 
             // 該当なし。
-            return null;
+            return (PropertyType.None, null);
         }
 
-        public void ReadProperty(string name, BoolCallback boolCallback, NumberCallback numberCallback, StringCallback stringCallback, StringListCallback stringListCallback)
+        public void GetProperty(string name, BoolCallback boolCallback, NumberCallback numberCallback, StringCallback stringCallback, StringListCallback stringListCallback)
         {
             if (boolCallback == null)
             {
@@ -204,6 +192,106 @@
             {
                 stringListCallback(this.StringLists[name]);
             }
+        }
+
+        /// <summary>
+        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
+        /// </summary>
+        /// <param name="appModel"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        public void AddProperty(
+            string alias,
+            IPropertyValue value
+        )
+        {
+            if (value is PropertyString)
+            {
+                this.Strings.Add(alias, (PropertyString)value);
+            }
+            else if (value is PropertyNumber)
+            {
+                this.Numbers.Add(alias, (PropertyNumber)value);
+            }
+            else if (value is PropertyBool)
+            {
+                this.Booleans.Add(alias, (PropertyBool)value);
+            }
+            else if (value is PropertyStringList)
+            {
+                this.StringLists.Add(alias, (PropertyStringList)value);
+            }
+        }
+
+        /// <summary>
+        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
+        /// </summary>
+        /// <param name="appModel"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        public (PropertyType, IPropertyValue) RemoveProperty(
+            string alias
+        )
+        {
+            if (this.Strings.ContainsKey(alias))
+            {
+                var old = this.Strings[alias];
+                this.Strings.Remove(alias);
+                return (PropertyType.StringType, old);
+            }
+            else if (this.Numbers.ContainsKey(alias))
+            {
+                var old = this.Numbers[alias];
+                this.Numbers.Remove(alias);
+                return (PropertyType.Number, old);
+            }
+            else if (this.Booleans.ContainsKey(alias))
+            {
+                var old = this.Booleans[alias];
+                this.Booleans.Remove(alias);
+                return (PropertyType.Bool, old);
+            }
+            else if (this.StringLists.ContainsKey(alias))
+            {
+                var old = this.StringLists[alias];
+                this.StringLists.Remove(alias);
+                return (PropertyType.StringList, old);
+            }
+
+            return (PropertyType.None, null);
+        }
+
+        /// <summary>
+        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
+        /// </summary>
+        /// <param name="appModel"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        public (PropertyType, IPropertyValue) FindProperty(
+            string alias
+        )
+        {
+            if (this.Strings.ContainsKey(alias))
+            {
+                return (PropertyType.StringType, this.Strings[alias]);
+            }
+
+            if (this.Numbers.ContainsKey(alias))
+            {
+                return (PropertyType.Number, this.Numbers[alias]);
+            }
+
+            if (this.Booleans.ContainsKey(alias))
+            {
+                return (PropertyType.Bool, this.Booleans[alias]);
+            }
+
+            if (this.StringLists.ContainsKey(alias))
+            {
+                return (PropertyType.StringList, this.StringLists[alias]);
+            }
+
+            return (PropertyType.None, null);
         }
 
         /// <summary>

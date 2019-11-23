@@ -13,124 +13,6 @@
         public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view, string insideStem);
         public delegate void MatchCanvasCallbackErr(string message);
 
-        /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
-        /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
-        /// <returns></returns>
-        public static (PropertyType, IPropertyValue) FindProperty(
-            ApplicationObjectModelWrapper appModel,
-            string alias
-        )
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appModel.Strings.ContainsKey(alias))
-            {
-                return (PropertyType.StringType, appModel.Strings[alias]);
-            }
-
-            if (appModel.Numbers.ContainsKey(alias))
-            {
-                return (PropertyType.Number, appModel.Numbers[alias]);
-            }
-
-            if (appModel.Booleans.ContainsKey(alias))
-            {
-                return (PropertyType.Bool, appModel.Booleans[alias]);
-            }
-
-            if (appModel.StringLists.ContainsKey(alias))
-            {
-                return (PropertyType.StringList, appModel.StringLists[alias]);
-            }
-
-            return (PropertyType.None, null);
-        }
-
-        /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
-        /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
-        /// <returns></returns>
-        public static (PropertyType, IPropertyValue) RemoveProperty(
-            ApplicationObjectModelWrapper appModel,
-            string alias
-        )
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appModel.Strings.ContainsKey(alias))
-            {
-                var old = appModel.Strings[alias];
-                appModel.Strings.Remove(alias);
-                return (PropertyType.StringType, old);
-            }
-            else if (appModel.Numbers.ContainsKey(alias))
-            {
-                var old = appModel.Numbers[alias];
-                appModel.Numbers.Remove(alias);
-                return (PropertyType.Number, old);
-            }
-            else if (appModel.Booleans.ContainsKey(alias))
-            {
-                var old = appModel.Booleans[alias];
-                appModel.Booleans.Remove(alias);
-                return (PropertyType.Bool, old);
-            }
-            else if (appModel.StringLists.ContainsKey(alias))
-            {
-                var old = appModel.StringLists[alias];
-                appModel.StringLists.Remove(alias);
-                return (PropertyType.StringList, old);
-            }
-
-            return (PropertyType.None, null);
-        }
-
-        /// <summary>
-        /// TODO 内部では Alias ではなく、 RealName の方を使いたい☆（＾～＾）
-        /// </summary>
-        /// <param name="appModel"></param>
-        /// <param name="alias"></param>
-        /// <returns></returns>
-        public static void AddProperty(
-            ApplicationObjectModelWrapper appModel,
-            string alias,
-            IPropertyValue value
-        )
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (value is PropertyString)
-            {
-                appModel.Strings.Add(alias, (PropertyString)value);
-            }
-            else if (value is PropertyNumber)
-            {
-                appModel.Numbers.Add(alias, (PropertyNumber)value);
-            }
-            else if (appModel.Booleans.ContainsKey(alias))
-            {
-                appModel.Booleans.Add(alias, (PropertyBool)value);
-            }
-            else if (appModel.StringLists.ContainsKey(alias))
-            {
-                appModel.StringLists.Add(alias, (PropertyStringList)value);
-            }
-        }
-
         public static void MatchCanvasBy(
             ApplicationObjectModelWrapper appModel,
             MainWindow appView,
@@ -169,16 +51,16 @@
             Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
             if (propView == null)
             {
-                callbackErr($"outsideName:[{outsideName}] is not found in xaml.");
+                callbackErr($"outsideName=[{outsideName}] insideStem=[{insideStem}] is not found in xaml.");
             }
             else
             {
                 // これが参照渡しになっているつもりだが……☆（＾～＾）
-                IPropertyValue propModel = appModel.ReadProperty(outsideName);
+                var (type, propModel) = appModel.GetProperty(outsideName);
 
                 if (propModel == null)
                 {
-                    callbackErr($"outsideName:[{outsideName}] is null in model.");
+                    callbackErr($"outsideName=[{outsideName}] insideStem=[{insideStem}] is null in model.");
                 }
                 else
                 {
@@ -257,16 +139,21 @@
                 });
         }
 
-        public static void ChangeModel(ApplicationObjectModelWrapper appModel, string alias, IPropertyValue propModel, Canvas propView, SetsInstructionArgument args)
+        public static void ChangeModel(
+            ApplicationObjectModelWrapper appModel,
+            string alias,
+            IPropertyValue propModel,
+            SetsInstructionArgument args
+        )
         {
+            if (appModel == null)
+            {
+                throw new ArgumentNullException(nameof(appModel));
+            }
+
             if (propModel == null)
             {
                 throw new ArgumentNullException(nameof(propModel));
-            }
-
-            if (propView == null)
-            {
-                throw new ArgumentNullException(nameof(propView));
             }
 
             if (args == null)
@@ -300,7 +187,7 @@
                 case "type":
                     // TODO 型を変更☆（＾～＾） Value はクリアーされるぜ☆（＾～＾）
                     // var (propType, propValue) = FindProperty(appModel, alias);
-                    var (propType, old) = RemoveProperty(appModel, alias);
+                    var (propType, old) = appModel.RemoveProperty(alias);
 
                     // 新しい型のオブジェクトに換装☆（＾～＾）
                     switch (propType)
@@ -308,25 +195,25 @@
                         case PropertyType.StringType:
                             {
                                 var brandnew = new PropertyString(old.Title);
-                                AddProperty(appModel, alias, brandnew);
+                                appModel.AddProperty(alias, brandnew);
                             }
                             break;
                         case PropertyType.Number:
                             {
                                 var brandnew = new PropertyNumber(old.Title);
-                                AddProperty(appModel, alias, brandnew);
+                                appModel.AddProperty(alias, brandnew);
                             }
                             break;
                         case PropertyType.Bool:
                             {
                                 var brandnew = new PropertyBool(old.Title);
-                                AddProperty(appModel, alias, brandnew);
+                                appModel.AddProperty(alias, brandnew);
                             }
                             break;
                         case PropertyType.StringList:
                             {
                                 var brandnew = new PropertyStringList(old.Title, new List<string>());
-                                AddProperty(appModel, alias, brandnew);
+                                appModel.AddProperty(alias, brandnew);
                             }
                             break;
                         default:

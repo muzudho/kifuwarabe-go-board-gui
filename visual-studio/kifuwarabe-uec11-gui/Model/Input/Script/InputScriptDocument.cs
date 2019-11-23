@@ -57,14 +57,16 @@
             var start = 0;
             WhiteSpace.Parse(line, start, (whiteSpace, curr) =>
             {
-                    // 行頭のスペースは読み飛ばすぜ☆（＾～＾）
+                // 行頭のスペースは読み飛ばすぜ☆（＾～＾）
 
-                    return StartsWithKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
+                return StartsWithKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
                 {
+                    Trace.WriteLine($"Line ISD        | {line}");
+
                     if (commentSymbol != null)
                     {
-                            // 行頭が `#` なら、その行は読み飛ばせだぜ☆（＾～＾）
-                            Trace.WriteLine($"Comment         | {line}");
+                        // 行頭が `#` なら、その行は読み飛ばせだぜ☆（＾～＾）
+                        Trace.WriteLine($"Comment         | {line}");
                         return curr;
                     }
 

@@ -37,41 +37,41 @@ alias left2 = w-time
 alias left3 = w-hama
 alias left4 = komi
 
-# UIの初期表示
-set move.title = 着手
+# UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
 set move.type  = string
+set move.title = 着手
 set move       = ---
 
-set ply.title = 手目
 set ply.type  = number
+set ply.title = 手目
 set ply       = 0
 
-set b-name.title = 名前
 set b-name.type  = string
+set b-name.title = 名前
 set b-name       = player1
 
-set b-time.title = 残り時間
 set b-time.type  = string
+set b-time.title = 残り時間
 set b-time       = 00:00
 
-set b-hama.title = 黒アゲハマ
 set b-hama.type  = number
+set b-hama.title = 黒アゲハマ
 set b-hama       = 0
 
-set w-name.title = 名前
 set w-name.type  = string
+set w-name.title = 名前
 set w-name       = player2
 
-set w-time.title = 残り時間
 set w-time.type  = string
+set w-time.title = 残り時間
 set w-time       = 00:00
 
+set w-hama.type  = number
 set w-hama.title = 白アゲハマ
-set w-time.type  = number
 set w-hama       = 0
 
-set komi.title = コミ
 set komi.type  = number
+set komi.title = コミ
 set komi       = 6.5
 ```
 
