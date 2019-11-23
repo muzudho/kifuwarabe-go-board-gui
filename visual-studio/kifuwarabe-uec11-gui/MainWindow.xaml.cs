@@ -7,9 +7,8 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeUec11Gui.Model;
     using KifuwarabeUec11Gui.Controller;
-    using System.Diagnostics;
+    using KifuwarabeUec11Gui.Model;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml

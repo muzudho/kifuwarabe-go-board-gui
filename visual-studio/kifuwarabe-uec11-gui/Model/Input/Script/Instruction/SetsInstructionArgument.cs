@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.InputScript
 {
     using System;
-    using System.Diagnostics;
 
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）

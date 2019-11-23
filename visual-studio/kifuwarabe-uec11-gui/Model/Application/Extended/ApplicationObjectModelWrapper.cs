@@ -151,6 +151,7 @@
                 return this.StringLists[name];
             }
 
+            // 該当なし。
             return null;
         }
 

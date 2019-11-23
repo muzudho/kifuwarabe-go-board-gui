@@ -10,6 +10,7 @@
     {
         public PropertyBool()
         {
+            this.Title = string.Empty;
             // this.Value = false;
             this.Visible = true;
         }

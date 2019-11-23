@@ -28,7 +28,11 @@
 
             var property = appModel.ReadProperty(ApplicationObjectModel.MoveOutsideName);
 
-            if (property.Visible)
+            if (property == null)
+            {
+                lastMoveMarker.Visibility = Visibility.Hidden;
+            }
+            else if (property.Visible)
             {
                 lastMoveMarker.Visibility = Visibility.Visible;
 

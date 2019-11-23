@@ -19,6 +19,7 @@
 
         public PropertyStringList()
         {
+            this.Title = string.Empty;
             this.Value = new List<string>();
             this.Visible = true;
         }

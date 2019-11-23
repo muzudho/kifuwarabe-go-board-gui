@@ -8,6 +8,7 @@
     {
         public PropertyString()
         {
+            this.Title = string.Empty;
             this.Value = string.Empty;
             this.Visible = true;
         }

@@ -59,40 +59,40 @@
                 {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber("#intervalMSec", 2000) },
 
                 // 何手目か。
-                {ApplicationObjectModel.PlyOutsideName, new PropertyNumber("手目", 0) },
+                {ApplicationObjectModel.PlyOutsideName, new PropertyNumber() }, // "手目", 0
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber("黒アゲハマ", 0) },
+                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber() }, // "黒アゲハマ", 0
 
                 // 白のアゲハマ。
-                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber("白アゲハマ", 0) },
+                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber() }, // "白アゲハマ", 0
 
                 // 白のコミ。
-                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber("コミ", 6.5) },
+                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber() }, // "コミ", 6.5
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
                 // 最後の着手点。
-                {ApplicationObjectModel.MoveOutsideName, new PropertyString("着手", "---") },
+                {ApplicationObjectModel.MoveOutsideName, new PropertyString() }, // "着手", "---"
 
                 // 黒の選手名。
-                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString("名前", "player1") },
+                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString() }, // "名前", "player1"
 
                 // 黒の残り時間。
-                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString() }, // "残り時間", "00:00"
 
                 // 白の選手名。
-                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString("名前", "player2") },
+                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString() }, // "名前", "player2"
 
                 // 白の残り時間。
-                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString() }, // "残り時間", "00:00"
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
-                {ApplicationObjectModel.InfoOutsideName, new PropertyString("#info", "") },
+                {ApplicationObjectModel.InfoOutsideName, new PropertyString("#info", string.Empty) },
             };
 
             this.StringLists = new Dictionary<string, PropertyStringList>()

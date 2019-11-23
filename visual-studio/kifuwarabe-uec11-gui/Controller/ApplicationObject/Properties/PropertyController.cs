@@ -57,7 +57,14 @@
                 // これが参照渡しになっているつもりだが……☆（＾～＾）
                 IPropertyValue propModel = appModel.ReadProperty(outsideName);
 
-                callbackDone(propModel, propView, insideStem);
+                if (propModel == null)
+                {
+                    callbackErr($"outsideName:[{outsideName}] is null in model.");
+                }
+                else
+                {
+                    callbackDone(propModel, propView, insideStem);
+                }
             }
         }
 

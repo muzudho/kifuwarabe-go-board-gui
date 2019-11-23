@@ -10,6 +10,7 @@
     {
         public PropertyNumber()
         {
+            this.Title = string.Empty;
             // this.Value = 0.0;
             this.Visible = true;
         }
