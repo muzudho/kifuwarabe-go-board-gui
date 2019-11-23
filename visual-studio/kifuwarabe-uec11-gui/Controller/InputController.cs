@@ -181,21 +181,21 @@
                     else if (instruction.Command == InputScriptDocument.AliasCommand)
                     {
                         var args = (AliasInstructionArgument)instruction.Argument;
-                        Trace.WriteLine($"Alias 1         | RealName=[{args.RealName.Value}] AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Info            | Alias1 RealName=[{args.RealName.Value}] args=[{args.ToDisplay()}]");
 
                         foreach (var alias in args.AliasList)
                         {
-                            Trace.WriteLine($"Alias 2         | [{alias}] = [{args.RealName.Value}]");
+                            Trace.WriteLine($"Info            | Alias2 [{alias}] = [{args.RealName.Value}]");
                             if (!appModel.TryAddObjectRealName(alias, args.RealName))
                             {
-                                Trace.WriteLine($"Alias 2b        | [{alias}] is already exists.");
+                                Trace.WriteLine($"Info            | Alias2b [{alias}] is already exists.");
                             }
                         }
-                        Trace.WriteLine($"Alias 3         | {instruction.Command} args.RealName={args.RealName.Value} args.AliasList=[{string.Join(' ', args.AliasList)}]");
+                        Trace.WriteLine($"Info            | Alias3 {instruction.Command} RealName={args.RealName.Value} args=[{args.ToDisplay()}]");
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {
-                        // モデルに値をセット☆（＾～＾）
+                        // モデルに値をセットしようぜ☆（＾～＾）
                         var args = (SetsInstructionArgument)instruction.Argument;
 
                         // エイリアスが設定されていれば変換するぜ☆（＾～＾）

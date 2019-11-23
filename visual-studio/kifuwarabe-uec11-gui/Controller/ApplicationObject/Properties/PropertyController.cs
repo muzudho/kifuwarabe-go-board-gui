@@ -133,7 +133,7 @@
                 },
                 (err) =>
                 {
-                    Trace.WriteLine($"Error           | {err} In PropertyController.Repaint.");
+                    Trace.WriteLine($"Repaint Error   | {err} In PropertyController.Repaint.");
                 });
         }
 
@@ -189,41 +189,44 @@
                     break;
 
                 case "type":
-                    // TODO 型を変更☆（＾～＾） Value はクリアーされるぜ☆（＾～＾）
-                    // var (propType, propValue) = FindProperty(appModel, alias);
-                    var (propType, old) = appModel.RemoveProperty(realName);
+                    // TODO 型を変更☆（＾～＾）既存のものがあればタイトルは引き継ぐが、 Value はクリアーされるぜ☆（＾～＾）
+                    var title = string.Empty;
+
+                    {
+                        var (_propType, old) = appModel.RemoveProperty(realName);
+
+                        if (old != null)
+                        {
+                            title = old.Title;
+                        }
+                    }
 
                     // 新しい型のオブジェクトに換装☆（＾～＾）
-                    switch (propType)
+                    if (args.Value == ApplicationObjectModel.StringType)
                     {
-                        case PropertyType.StringType:
-                            {
-                                var brandnew = new PropertyString(old.Title);
-                                appModel.AddProperty(realName, brandnew);
-                            }
-                            break;
-                        case PropertyType.Number:
-                            {
-                                var brandnew = new PropertyNumber(old.Title);
-                                appModel.AddProperty(realName, brandnew);
-                            }
-                            break;
-                        case PropertyType.Bool:
-                            {
-                                var brandnew = new PropertyBool(old.Title);
-                                appModel.AddProperty(realName, brandnew);
-                            }
-                            break;
-                        case PropertyType.StringList:
-                            {
-                                var brandnew = new PropertyStringList(old.Title, new List<string>());
-                                appModel.AddProperty(realName, brandnew);
-                            }
-                            break;
-                        default:
-                            Trace.WriteLine($"Error           | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
-                            break;
+                        var brandnew = new PropertyString(title);
+                        appModel.AddProperty(realName, brandnew);
                     }
+                    else if (args.Value == ApplicationObjectModel.NumberType)
+                    {
+                        var brandnew = new PropertyNumber(title);
+                        appModel.AddProperty(realName, brandnew);
+                    }
+                    else if (args.Value == ApplicationObjectModel.BoolType)
+                    {
+                        var brandnew = new PropertyBool(title);
+                        appModel.AddProperty(realName, brandnew);
+                    }
+                    else if (args.Value == ApplicationObjectModel.StringListType)
+                    {
+                        var brandnew = new PropertyStringList(title, new List<string>());
+                        appModel.AddProperty(realName, brandnew);
+                    }
+                    else
+                    {
+                        Trace.WriteLine($"Error           | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
+                    }
+
                     break;
 
                 case "value":

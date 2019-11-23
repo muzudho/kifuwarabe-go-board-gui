@@ -91,7 +91,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.RealName.Value} = {string.Join(' ', this.AliasList)}";
+            return $"{this.RealName.Value} = {string.Join(' ', this.AliasList.ConvertAll(s=>s.Value))}";
         }
     }
 }

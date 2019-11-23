@@ -12,6 +12,11 @@
     /// </summary>
     public class ApplicationObjectModel
     {
+        public static string BoolType = "bool";
+        public static string NumberType = "number";
+        public static string StringType = "string";
+        public static string StringListType = "string-list";
+
         /// <summary>
         /// リアルネームは、後ろに Canvas を付けてXMLタグ名に使う☆（＾～＾） top2 なら top2Canvas だぜ☆（＾～＾）
         /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
@@ -92,7 +97,7 @@
                 // 初期値は 2 秒☆（＾～＾）
                 {IntervalMsecRealName.Value, new PropertyNumber("#intervalMSec", 2000) },
 
-                //*
+                /*
                 // 何手目か。
                 {PlyRealName.Value, new PropertyNumber() }, // "手目", 0
                 // */

@@ -235,25 +235,31 @@
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
+                    // input.txt読取。
                     InputController.Read(this.Model, this, (text) =>
                     {
+                        // 1行ずつ解析☆（＾～＾）
                         InputController.ParseByLine(
                             this.Model,
                             text,
                             (infoText) =>
                             {
+                                // infoなら☆（＾～＾）
                                 this.infoValue.Content = infoText;
                             },
                             (newAppModel) =>
                             {
+                                // モデルの差し替えなら☆（＾～＾）
                                 this.SetModel(newAppModel);
                             },
                             (textOfMove) =>
                             {
+                                // 指し手なら☆（＾～＾）
                                 this.top1Value.Content = textOfMove;
                             },
                             (args) =>
                             {
+                                // setコマンドのあとのビュー設定なら☆（＾～＾）
                                 var aliasName = new AliasName(args.Name);
 
                                 // エイリアスが設定されていれば変換するぜ☆（＾～＾）
@@ -287,12 +293,14 @@
                                     },
                                     (err) =>
                                     {
+                                        // アプリケーション・オブジェクト・モデルの型別ディクショナリーには無かった☆（＾～＾）
+
                                         Trace.WriteLine($"Warning         | Not found object. args.Name=[{args.Name}] aliasName=[{aliasName.Value}] realName=[{realName.Value}] in mainWindow.");
 
-                                        // Not found property.
                                         if (realName.Value == ApplicationObjectModel.IntervalMsecRealName.Value)
                                         {
                                             // インターバル・ミリ秒☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Interval milli seconds.");
                                             if (double.TryParse(args.Value, out double outValue))
                                             {
                                                 this.Model.GetNumber(realName).Value = outValue;
@@ -301,6 +309,7 @@
                                         else if (realName.Value == ApplicationObjectModel.MoveRealName.Value)
                                         {
                                             // 着手マーカー☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Last move marker.");
                                             var start = 0;
                                             CellAddress.Parse(args.Value, start, this.Model, (cellAddress, curr) =>
                                             {
@@ -318,6 +327,7 @@
                                         else if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
                                         {
                                             // 行サイズ☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Row size.");
                                             if (int.TryParse(args.Value, out int outValue))
                                             {
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
@@ -330,6 +340,7 @@
                                         else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
                                         {
                                             // 列サイズ☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Column size.");
                                             if (int.TryParse(args.Value, out int outValue))
                                             {
                                                 // 一応サイズに制限を付けておくぜ☆（＾～＾）
@@ -342,21 +353,25 @@
                                         else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
                                         {
                                             // 列番号☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Column numbers.");
                                             ColumnNumbersController.ChangeModel(this.Model, args);
                                         }
                                         else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
                                         {
                                             // 行番号☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Row numbers.");
                                             RowNumbersController.ChangeModel(this.Model, args);
                                         }
                                         else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
                                         {
                                             // 盤上の星☆（＾～＾）
+                                            Trace.WriteLine($"Info            | Stars.");
                                             StarsController.ChangeModel(this.Model, args);
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Error           | {err} In InputController.Go.");
+                                            // ビューには無かった☆（＾～＾）
+                                            Trace.WriteLine($"Warning         | realName=[{realName.Value}] is not exists on view. {err} In InputController.Go.");
                                         }
                                     });
                             }

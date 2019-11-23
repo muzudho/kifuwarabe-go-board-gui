@@ -12,7 +12,7 @@
         /// 数値型プロパティの ply の追加☆（＾～＾）
         /// </summary>
         [TestMethod]
-        public void PlyTestByCommand()
+        public void PlyTestByCommand2()
         {
             var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
             var plyRealName = new RealName("top2");
@@ -50,6 +50,43 @@ set top2.value = 2
             var (type, value) = appModel.GetProperty(plyRealName);
             Assert.AreEqual(PropertyType.Number, type);
             Assert.AreEqual("手目", value.Title);
+            Assert.AreEqual("0", value.ValueAsText());
+        }
+
+        /// <summary>
+        /// 数値型プロパティの ply の追加☆（＾～＾）
+        /// </summary>
+        [TestMethod]
+        public void PlyTestByCommand1()
+        {
+            var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
+            var plyRealName = new RealName("top2");
+
+            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
+
+            var line = "alias top2 = ply";
+
+            InputController.ParseByLine(
+                appModel,
+                line,
+                (infoText) =>
+                {
+                },
+                (newAppModel) =>
+                {
+                },
+                (textOfMove) =>
+                {
+                },
+                (args) =>
+                {
+                });
+
+            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
+
+            var (type, value) = appModel.GetProperty(plyRealName);
+            Assert.AreEqual(PropertyType.Number, type);
+            Assert.AreEqual("", value.Title);
             Assert.AreEqual("0", value.ValueAsText());
         }
 
