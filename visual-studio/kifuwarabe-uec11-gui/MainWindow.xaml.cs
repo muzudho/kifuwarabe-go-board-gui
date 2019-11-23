@@ -152,6 +152,7 @@
                 var line = this.HorizontalLines[row];
                 if (row < this.Model.Board.RowSize)
                 {
+                    line.Visibility = Visibility.Visible;
                     Canvas.SetLeft(line, 0);
                     Canvas.SetTop(line, 0);
                     line.Width = grid.RenderSize.Width;
