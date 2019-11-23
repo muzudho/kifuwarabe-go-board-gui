@@ -88,7 +88,6 @@
 
             this.Booleans = new Dictionary<string, PropertyBool>()
             {
-
             };
 
             this.Numbers = new Dictionary<string, PropertyNumber>()
@@ -96,41 +95,10 @@
                 // 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
                 // 初期値は 2 秒☆（＾～＾）
                 {IntervalMsecRealName.Value, new PropertyNumber("#intervalMSec", 2000) },
-
-                /*
-                // 何手目か。
-                {PlyRealName.Value, new PropertyNumber() }, // "手目", 0
-                // */
-
-                // 黒のアゲハマ。
-                // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
-                // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {BlackHamaRealName.Value, new PropertyNumber() }, // "黒アゲハマ", 0
-
-                // 白のアゲハマ。
-                {WhiteHamaRealName.Value, new PropertyNumber() }, // "白アゲハマ", 0
-
-                // 白のコミ。
-                {KomiRealName.Value, new PropertyNumber() }, // "コミ", 6.5
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
-                // 最後の着手点。
-                {MoveRealName.Value, new PropertyString() }, // "着手", "---"
-
-                // 黒の選手名。
-                {BlackNameRealName.Value, new PropertyString() }, // "名前", "player1"
-
-                // 黒の残り時間。
-                {BlackTimeRealName.Value, new PropertyString() }, // "残り時間", "00:00"
-
-                // 白の選手名。
-                {WhiteNameRealName.Value, new PropertyString() }, // "名前", "player2"
-
-                // 白の残り時間。
-                {WhiteTimeRealName.Value, new PropertyString() }, // "残り時間", "00:00"
-
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
                 {InfoRealName.Value, new PropertyString("#info", string.Empty) },
@@ -145,12 +113,13 @@
                     new PropertyStringList(
                         $"#{ColumnNumbersRealName.Value}",
                         new List<string>(){
-                            "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+                            /* "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" */
                         }
                     )
                 },
 
-                // 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしてるんだろ、トリムしてないやつだぜ☆（＾～＾）
+                // 各行番号☆（＾～＾）半角スペースで位置調整するとか前時代的なことしたいだろ☆（＾～＾）
+                // 初期状態で入れ物だけ作っておくぜ☆（＾～＾）あとでイベント・ハンドラを追加したいからな☆（＾～＾）
                 // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
@@ -158,7 +127,7 @@
                     new PropertyStringList(
                         $"#{RowNumbersRealName.Value}",
                         new List<string>(){
-                            "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+                            /* "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1" */
                         }
                     )
                 },
@@ -171,7 +140,7 @@
                     new PropertyStringList(
                         $"#{StarsRealName.Value}",
                         new List<string>(){
-                            "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
+                            /* "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4" */
                         }
                     )
                 },
