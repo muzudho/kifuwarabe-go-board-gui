@@ -15,7 +15,7 @@
             this.Visible = true;
         }
 
-        public PropertyBool(string title, bool value)
+        public PropertyBool(string title, bool value = false)
         {
             this.Title = title;
             this.Value = value;

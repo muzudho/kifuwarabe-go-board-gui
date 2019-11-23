@@ -190,7 +190,7 @@
                             (propModel, propView, insideStem) =>
                             {
                                 // モデルに値をセット☆（＾～＾）
-                                PropertyController.ChangeModel(propModel, propView, args);
+                                PropertyController.ChangeModel(appModel, args.Name, propModel, propView, args);
 
                                 appModel.ReadProperty(
                                     args.Name,

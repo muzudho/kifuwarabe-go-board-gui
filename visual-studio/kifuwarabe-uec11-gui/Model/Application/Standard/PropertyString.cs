@@ -13,7 +13,7 @@
             this.Visible = true;
         }
 
-        public PropertyString(string title, string value)
+        public PropertyString(string title, string value = "")
         {
             this.Title = title;
             this.Value = value;

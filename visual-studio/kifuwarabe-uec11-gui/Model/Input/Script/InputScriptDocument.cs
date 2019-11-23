@@ -19,12 +19,12 @@
 
         public static string AliasCommand => "alias";
         public static string BlackCommand => "black";
-        public static string WhiteCommand => "white";
-        public static string SpaceCommand => "space";
         public static string BoardCommand => "board";
+        public static string ExitsCommand => "exit";
         public static string JsonCommand => "json";
         public static string SetsCommand => "set";
-        public static string ExitsCommand => "exit";
+        public static string SpaceCommand => "space";
+        public static string WhiteCommand => "white";
 
         /// <summary>
         /// オブジェクトの名前☆（＾～＾）　コマンド名とは別ものだぜ☆（＾～＾）

@@ -124,6 +124,17 @@
         }
 
 
+        /* TODO
+        public void WriteProperty(string name, object value)
+        {
+            var name2 = name;
+            if (this.ObjectRealNames.ContainsKey(name))
+            {
+                name2 = this.ObjectRealNames[name];
+            }
+        }
+        */
+
         public delegate void BoolCallback(PropertyBool value);
         public delegate void NumberCallback(PropertyNumber value);
         public delegate void StringCallback(PropertyString value);

@@ -15,7 +15,7 @@
             this.Visible = true;
         }
 
-        public PropertyNumber(string title, double value)
+        public PropertyNumber(string title, double value = 0)
         {
             this.Title = title;
             this.Value = value;

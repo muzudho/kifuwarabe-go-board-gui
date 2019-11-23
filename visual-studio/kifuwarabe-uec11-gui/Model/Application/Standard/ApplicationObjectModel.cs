@@ -17,7 +17,9 @@
         /// プログラム中で使えるエイリアス☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
+        public static string MoveInsideName => "top1";
         public static string MoveOutsideName => "move";
+
         public static string PlyOutsideName => "ply";
         public static string BlackHamaOutsideName => "b-hama";
         public static string BlackTimeOutsideName => "b-time";

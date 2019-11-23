@@ -6,6 +6,6 @@
         StringType,
         Number,
         Bool,
-        StringLiest
+        StringList
     }
 }
