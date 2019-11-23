@@ -48,7 +48,6 @@
 
         public delegate void InfoViewCallback(string text);
         public delegate void JsonViewCallback(ApplicationObjectModelWrapper appModel);
-        public delegate void MovesViewCallback(string text);
         public delegate void SetsViewCallback(SetsInstructionArgument args);
 
         public static void ParseByLine(
@@ -56,7 +55,6 @@
             string line,
             InfoViewCallback infoViewCallback,
             JsonViewCallback jsonViewCallback,
-            MovesViewCallback movesViewCallback,
             SetsViewCallback setsViewCallback
         )
         {
@@ -96,11 +94,6 @@
                             {
                                 // 黒石にするぜ☆（＾～＾）
                                 StoneController.ChangeModelToBlack(appModel, zShapedIndex);
-
-                                // 最後の着手点☆（＾～＾）
-                                var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.GetString(ApplicationObjectModel.MoveRealName).Value = text1;
-                                movesViewCallback(text1);
                             }
                         }
                     }
@@ -114,11 +107,6 @@
                             {
                                 // 白石にするぜ☆（＾～＾）
                                 StoneController.ChangeModelToWhite(appModel, zShapedIndex);
-
-                                // 最後の着手点☆（＾～＾）
-                                var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.GetString(ApplicationObjectModel.MoveRealName).Value = text1;
-                                movesViewCallback(text1);
                             }
                         }
                     }

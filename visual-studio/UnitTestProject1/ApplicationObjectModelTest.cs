@@ -37,9 +37,6 @@ set top2.value = 2
                     (newAppModel) =>
                     {
                     },
-                    (textOfMove) =>
-                    {
-                    },
                     (args) =>
                     {
                     });
@@ -73,9 +70,6 @@ set top2.value = 2
                 {
                 },
                 (newAppModel) =>
-                {
-                },
-                (textOfMove) =>
                 {
                 },
                 (args) =>

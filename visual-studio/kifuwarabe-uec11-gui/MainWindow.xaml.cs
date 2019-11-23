@@ -204,12 +204,6 @@
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
             LastMoveMarkerController.Repaint(this.Model, this);
-
-            // 何手目か表示しようぜ☆（＾～＾）？
-            if (this.Model.ContainsKeyOfNumbers(ApplicationObjectModel.PlyRealName))
-            {
-                this.top2Value.Content = $"{this.Model.GetNumber(ApplicationObjectModel.PlyRealName).ValueAsText()}";
-            }
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -251,11 +245,6 @@
                             {
                                 // モデルの差し替えなら☆（＾～＾）
                                 this.SetModel(newAppModel);
-                            },
-                            (textOfMove) =>
-                            {
-                                // 指し手なら☆（＾～＾）
-                                this.top1Value.Content = textOfMove;
                             },
                             (args) =>
                             {

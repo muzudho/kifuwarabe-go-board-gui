@@ -153,9 +153,10 @@ Example:
 
 
 ```
-set move = K10
-set move.title = 着手
+set move.type    = string
+set move.title   = 着手
 set move.visible = true
+set move         = K10
 ```
 
 
@@ -201,6 +202,12 @@ white A1 B2:D4 E5 F6:H8
 ```
 
 お絵描きができるな☆（＾～＾）
+
+UIに 着手の符号を 自動的に表示してくれたりはしない☆（＾～＾） コマンドを打てだぜ☆（＾～＾）
+
+```
+set move = K10
+```
 
 
 # ウィジェットを非表示にしたいなら `set ～.visible` コマンドを使えだぜ☆（＾～＾）
