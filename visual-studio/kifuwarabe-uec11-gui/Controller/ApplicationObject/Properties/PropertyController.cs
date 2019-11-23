@@ -10,24 +10,6 @@
 
     public static class PropertyController
     {
-        /// <summary>
-        /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
-        /// 行番号など　１つの Canvas にまとまっていないものは　ここに入ってないぜ☆（＾～＾）
-        /// </summary>
-        private static Dictionary<string, string> inwardCanvasStemDictionary = new Dictionary<string, string>()
-            {
-                { ApplicationObjectModel.Top1OutsideName, "top1" },
-                { ApplicationObjectModel.Top2OutsideName, "top2" },
-                { ApplicationObjectModel.Right1OutsideName, "right1" },
-                { ApplicationObjectModel.Right2OutsideName, "right2" },
-                { ApplicationObjectModel.Right3OutsideName, "right3" },
-                { ApplicationObjectModel.Left1OutsideName, "left1" },
-                { ApplicationObjectModel.Left2OutsideName, "left2" },
-                { ApplicationObjectModel.Left3OutsideName, "left3" },
-                { ApplicationObjectModel.Left4OutsideName, "left4" },
-                { ApplicationObjectModel.InfoOutsideName, "info" },
-            };
-
         public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view, string insideStem);
         public delegate void MatchCanvasCallbackErr(string message);
 
@@ -58,25 +40,25 @@
                 throw new ArgumentNullException(nameof(callbackErr));
             }
 
-            if (inwardCanvasStemDictionary.ContainsKey(outsideName))
+            // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+            var insideStem = string.Empty;
+            if (appModel.ObjectRealName.ContainsKey(outsideName))
             {
-                var insideStem = inwardCanvasStemDictionary[outsideName];
-                Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
-                if (propView == null)
-                {
-                    callbackErr($"outsideName:[{outsideName}] is not found in xaml.");
-                }
-                else
-                {
-                    // これが参照渡しになっているつもりだが……☆（＾～＾）
-                    IPropertyValue propModel = appModel.ReadProperty(outsideName);
+                insideStem = appModel.ObjectRealName[outsideName];
+            }
 
-                    callbackDone(propModel, propView, insideStem);
-                }
+            // UIオブジェクトを検索するぜ☆（＾～＾）
+            Canvas propView = (Canvas)appView.FindName($"{insideStem}Canvas");
+            if (propView == null)
+            {
+                callbackErr($"outsideName:[{outsideName}] is not found in xaml.");
             }
             else
             {
-                callbackErr($"outsideName:[{outsideName}] is not found in dictionary.");
+                // これが参照渡しになっているつもりだが……☆（＾～＾）
+                IPropertyValue propModel = appModel.ReadProperty(outsideName);
+
+                callbackDone(propModel, propView, insideStem);
             }
         }
 

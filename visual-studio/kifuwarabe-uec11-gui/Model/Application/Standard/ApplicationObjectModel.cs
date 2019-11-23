@@ -14,17 +14,18 @@
     public class ApplicationObjectModel
     {
         /// <summary>
+        /// プログラム中で使えるエイリアス☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
-        public static string Top1OutsideName => "top1";
-        public static string Top2OutsideName => "top2";
-        public static string Right1OutsideName => "right1";
-        public static string Right2OutsideName => "right2";
-        public static string Right3OutsideName => "right3";
-        public static string Left1OutsideName => "left1";
-        public static string Left2OutsideName => "left2";
-        public static string Left3OutsideName => "left3";
-        public static string Left4OutsideName => "left4";
+        public static string MoveOutsideName => "move";
+        public static string PlyOutsideName => "ply";
+        public static string BlackHamaOutsideName => "b-hama";
+        public static string BlackTimeOutsideName => "b-time";
+        public static string BlackNameOutsideName => "b-name";
+        public static string WhiteNameOutsideName => "w-name";
+        public static string WhiteTimeOutsideName => "w-time";
+        public static string WhiteHamaOutsideName => "w-hama";
+        public static string KomiOutsideName => "komi";
         public static string InfoOutsideName => "info";
         public static string ColumnSizeOutsideName => "column-size";
         public static string RowSizeOutsideName => "row-size";
@@ -46,36 +47,36 @@
                 {ApplicationObjectModel.IntervalMsecOutsideName, new PropertyNumber("#intervalMSec", 2000) },
 
                 // 何手目か。
-                {ApplicationObjectModel.Top2OutsideName, new PropertyNumber("手目", 0) },
+                {ApplicationObjectModel.PlyOutsideName, new PropertyNumber("手目", 0) },
 
                 // 黒のアゲハマ。
                 // 囲碁の白石がハマグリで作られているから石のことをハマと呼ぶが、取り揚げた石はアゲハマと呼ぶ☆（＾～＾）
                 // でもアゲハマは、略してハマと呼ばれる☆（＾～＾）
-                {ApplicationObjectModel.Right1OutsideName, new PropertyNumber("黒アゲハマ", 0) },
+                {ApplicationObjectModel.BlackHamaOutsideName, new PropertyNumber("黒アゲハマ", 0) },
 
                 // 白のアゲハマ。
-                {ApplicationObjectModel.Left3OutsideName, new PropertyNumber("白アゲハマ", 0) },
+                {ApplicationObjectModel.WhiteHamaOutsideName, new PropertyNumber("白アゲハマ", 0) },
 
                 // 白のコミ。
-                {ApplicationObjectModel.Left4OutsideName, new PropertyNumber("コミ", 6.5) },
+                {ApplicationObjectModel.KomiOutsideName, new PropertyNumber("コミ", 6.5) },
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
                 // 最後の着手点。
-                {ApplicationObjectModel.Top1OutsideName, new PropertyString("着手", "---") },
+                {ApplicationObjectModel.MoveOutsideName, new PropertyString("着手", "---") },
 
                 // 黒の選手名。
-                {ApplicationObjectModel.Right3OutsideName, new PropertyString("名前", "player1") },
+                {ApplicationObjectModel.BlackNameOutsideName, new PropertyString("名前", "player1") },
 
                 // 黒の残り時間。
-                {ApplicationObjectModel.Right2OutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.BlackTimeOutsideName, new PropertyString("残り時間", "00:00") },
 
                 // 白の選手名。
-                {ApplicationObjectModel.Left1OutsideName, new PropertyString("名前", "player2") },
+                {ApplicationObjectModel.WhiteNameOutsideName, new PropertyString("名前", "player2") },
 
                 // 白の残り時間。
-                {ApplicationObjectModel.Left2OutsideName, new PropertyString("残り時間", "00:00") },
+                {ApplicationObjectModel.WhiteTimeOutsideName, new PropertyString("残り時間", "00:00") },
 
                 // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
@@ -128,6 +129,23 @@
         /// 盤☆（＾～＾）
         /// </summary>
         public BoardModel Board { get; set; }
+
+        /// <summary>
+        /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
+        /// </summary>
+        public Dictionary<string, string> ObjectRealName { get; set; } = new Dictionary<string, string>()
+        {
+            { ApplicationObjectModel.MoveOutsideName, "top1" },
+            { ApplicationObjectModel.PlyOutsideName, "top2" },
+            { ApplicationObjectModel.BlackHamaOutsideName, "right1" },
+            { ApplicationObjectModel.BlackTimeOutsideName, "right2" },
+            { ApplicationObjectModel.BlackNameOutsideName, "right3" },
+            { ApplicationObjectModel.WhiteNameOutsideName, "left1" },
+            { ApplicationObjectModel.WhiteTimeOutsideName, "left2" },
+            { ApplicationObjectModel.WhiteHamaOutsideName, "left3" },
+            { ApplicationObjectModel.KomiOutsideName, "left4" },
+            { ApplicationObjectModel.InfoOutsideName, "info" },
+        };
 
         /// <summary>
         /// 論理値型を持つウィジェット☆（＾～＾）

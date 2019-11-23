@@ -49,6 +49,21 @@
         public BoardModelWrapper Board { get; private set; }
 
         /// <summary>
+        /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
+        /// </summary>
+        public Dictionary<string, string> ObjectRealName
+        {
+            get
+            {
+                return this.ApplicationObjectModel.ObjectRealName;
+            }
+            set
+            {
+                this.ApplicationObjectModel.ObjectRealName = value;
+            }
+        }
+
+        /// <summary>
         /// 論理値型を持つウィジェット☆（＾～＾）
         /// </summary>
         public Dictionary<string, PropertyBool> Booleans

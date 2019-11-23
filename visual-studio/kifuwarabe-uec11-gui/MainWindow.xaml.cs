@@ -206,7 +206,7 @@
 
             // 何手目か表示しようぜ☆（＾～＾）？
             {
-                this.top2Value.Content = $"{this.Model.Numbers[ApplicationObjectModel.Top2OutsideName].ValueAsText()}";
+                this.top2Value.Content = $"{this.Model.Numbers[ApplicationObjectModel.PlyOutsideName].ValueAsText()}";
             }
         }
 

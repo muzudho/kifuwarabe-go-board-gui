@@ -26,7 +26,7 @@
             // Trace.WriteLine($"state.LastMoveIndex | {model.LastMoveIndex}");
             var lastMoveMarker = appView.lastMoveMarker;
 
-            var property = appModel.ReadProperty(ApplicationObjectModel.Top1OutsideName);
+            var property = appModel.ReadProperty(ApplicationObjectModel.MoveOutsideName);
 
             if (property.Visible)
             {

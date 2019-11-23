@@ -90,7 +90,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
                                 appView.top1Value.Content = text1;
                             }
                         }
@@ -108,7 +108,7 @@
 
                                 // 最後の着手点☆（＾～＾）
                                 var text1 = CellAddress.FromIndex(zShapedIndex, appModel).ToDisplayTrimed(appModel);
-                                appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
                                 appView.top1Value.Content = text1;
                             }
                         }
@@ -212,7 +212,7 @@
                                         appModel.Numbers[args.Name].Value = outValue;
                                     }
                                 }
-                                else if (args.Name == ApplicationObjectModel.Top1OutsideName)
+                                else if (args.Name == ApplicationObjectModel.MoveOutsideName)
                                 {
                                     // 着手マーカー☆（＾～＾）
                                     var start = 0;
@@ -224,7 +224,7 @@
                                         }
 
                                         var text1 = cellAddress.ToDisplayTrimed(appModel);
-                                        appModel.Strings[ApplicationObjectModel.Top1OutsideName].Value = text1;
+                                        appModel.Strings[ApplicationObjectModel.MoveOutsideName].Value = text1;
                                         appView.top1Value.Content = text1;
                                         return curr;
                                     });
