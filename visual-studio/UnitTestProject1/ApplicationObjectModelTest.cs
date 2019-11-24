@@ -15,9 +15,6 @@
         public void PlyTestByCommand2()
         {
             var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
-            var plyRealName = new RealName("top2");
-
-            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
 
             var text = @"
 alias top2 = ply
@@ -42,18 +39,24 @@ set top2.value = 2
                     });
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
+            var plyAliasName = new AliasName("ply");
+            appModel.MatchObjectRealName(
+                plyAliasName.Value,
+                (plyRealName) =>
+                {
+                    Assert.IsTrue(appModel.ContainsKeyOfProperty(plyRealName));
 
-            appModel.MatchPropertyOption(
-                plyRealName,
-                (type, value) =>
-                {
-                    Assert.AreEqual(PropertyType.Number, type);
-                    Assert.AreEqual("手目", value.Title);
-                    Assert.AreEqual("0", value.ValueAsText());
-                },
-                () =>
-                {
+                    appModel.MatchPropertyOption(
+                        plyRealName,
+                        (type, value) =>
+                        {
+                            Assert.AreEqual(PropertyType.Number, type);
+                            Assert.AreEqual("手目", value.Title);
+                            Assert.AreEqual("2", value.ValueAsText());
+                        },
+                        () =>
+                        {
+                        });
                 });
         }
 
@@ -61,15 +64,21 @@ set top2.value = 2
         /// 数値型プロパティの ply の追加☆（＾～＾）
         /// </summary>
         [TestMethod]
-        public void PlyTestByCommand1()
+        public void RealNameTest()
         {
             var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
-            var plyRealName = new RealName("top2");
+            var top2RealName = new RealName("top2");
+            Assert.IsFalse(appModel.ContainsKeyOfNumbers(top2RealName));
 
-            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
+            appModel.MatchObjectRealName(
+                top2RealName.Value,
+                (RealName realName)=>
+                {
+                    // 指定した文字列が、そのまま出てくる☆（＾～＾）
+                    Assert.AreEqual("top2", realName.Value);
+                });
 
             var line = "alias top2 = ply";
-
             InputController.ParseByLine(
                 appModel,
                 line,
@@ -83,18 +92,21 @@ set top2.value = 2
                 {
                 });
 
-            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
+            var plyAliasName = new AliasName("ply");
+            appModel.MatchObjectRealName(
+                plyAliasName.Value,
+                (RealName realName) =>
+                {
+                    // 本名に変換されて出てくる☆（＾～＾）
+                    Assert.AreEqual("top2", realName.Value);
+                });
 
-            appModel.MatchPropertyOption(
-                plyRealName,
-                (type, value) =>
+            appModel.MatchObjectRealName(
+                top2RealName.Value,
+                (RealName realName) =>
                 {
-                    Assert.AreEqual(PropertyType.Number, type);
-                    Assert.AreEqual("", value.Title);
-                    Assert.AreEqual("0", value.ValueAsText());
-                },
-                () =>
-                {
+                    // 本名は、そのまま出てくる☆（＾～＾）
+                    Assert.AreEqual("top2", realName.Value);
                 });
         }
 

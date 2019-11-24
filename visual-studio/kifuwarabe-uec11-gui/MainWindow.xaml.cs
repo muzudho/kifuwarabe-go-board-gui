@@ -253,68 +253,71 @@
                                 var aliasName = new AliasName(args.Name);
 
                                 // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                                RealName realName = this.Model.GetObjectRealName(args.Name);
-
-                                // 行サイズ☆（＾～＾）
-                                if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
-                                {
-                                    if (int.TryParse(args.Value, out int outValue))
+                                this.Model.MatchObjectRealName(
+                                    args.Name,
+                                    (RealName realName) =>
                                     {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
+                                        // 行サイズ☆（＾～＾）
+                                        if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
                                         {
-                                            this.Model.Board.RowSize = outValue;
-                                            Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
+                                            if (int.TryParse(args.Value, out int outValue))
+                                            {
+                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
+                                                {
+                                                    this.Model.Board.RowSize = outValue;
+                                                    Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
+                                                }
+                                                else
+                                                {
+                                                    Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
+                                            }
                                         }
-                                        else
+                                        // 列サイズ☆（＾～＾）
+                                        else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
                                         {
-                                            Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
+                                            if (int.TryParse(args.Value, out int outValue))
+                                            {
+                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                                if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
+                                                {
+                                                    this.Model.Board.ColumnSize = outValue;
+                                                    Trace.WriteLine($"Info            | Column size {outValue}.");
+                                                }
+                                                else
+                                                {
+                                                    Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
-                                    }
-                                }
-                                // 列サイズ☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
-                                {
-                                    if (int.TryParse(args.Value, out int outValue))
-                                    {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
+                                        // 列番号☆（＾～＾）
+                                        else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
                                         {
-                                            this.Model.Board.ColumnSize = outValue;
-                                            Trace.WriteLine($"Info            | Column size {outValue}.");
+                                            Trace.WriteLine($"Info            | Column numbers.");
+                                            ColumnNumbersController.ChangeModel(this.Model, args);
                                         }
-                                        else
+                                        // 行番号☆（＾～＾）
+                                        else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
                                         {
-                                            Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
+                                            Trace.WriteLine($"Info            | Row numbers.");
+                                            RowNumbersController.ChangeModel(this.Model, args);
                                         }
-                                    }
-                                    else
-                                    {
-                                        Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
-                                    }
-                                }
-                                // 列番号☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
-                                {
-                                    Trace.WriteLine($"Info            | Column numbers.");
-                                    ColumnNumbersController.ChangeModel(this.Model, args);
-                                }
-                                // 行番号☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
-                                {
-                                    Trace.WriteLine($"Info            | Row numbers.");
-                                    RowNumbersController.ChangeModel(this.Model, args);
-                                }
-                                // 盤上の星☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
-                                {
-                                    Trace.WriteLine($"Info            | Stars.");
-                                    StarsController.ChangeModel(this.Model, args);
-                                }
+                                        // 盤上の星☆（＾～＾）
+                                        else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
+                                        {
+                                            Trace.WriteLine($"Info            | Stars.");
+                                            StarsController.ChangeModel(this.Model, args);
+                                        }
+                                    });
                             }
                         );
 

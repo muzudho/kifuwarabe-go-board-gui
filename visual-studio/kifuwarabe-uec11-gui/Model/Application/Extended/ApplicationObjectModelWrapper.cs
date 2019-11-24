@@ -62,22 +62,30 @@
             return this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value);
         }
 
-        public RealName GetObjectRealName(string name)
+        public delegate void RealNameCallback(RealName realName);
+        public void MatchObjectRealName(string name, RealNameCallback callback)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             AliasName aliasName = new AliasName(name);
 
             // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-            RealName realName;
             if (this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value))
             {
-                realName = new RealName(this.ApplicationObjectModel.ObjectRealName[aliasName.Value]);
+                callback(new RealName(this.ApplicationObjectModel.ObjectRealName[aliasName.Value]));
             }
             else
             {
-                realName = new RealName(name);
+                callback(new RealName(name));
             }
-
-            return realName;
         }
 
         public bool ContainsKeyOfBooleans(RealName realName)

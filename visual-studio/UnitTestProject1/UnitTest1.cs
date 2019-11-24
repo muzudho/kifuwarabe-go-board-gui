@@ -1,5 +1,6 @@
 namespace UnitTestProject1
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text;
@@ -73,17 +74,41 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColorInstructionArgumentTest()
         {
-            var model = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectModelWrapper();
 
-            Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black A19 K1 T1", 5, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white B19 K2 S1", 5, model).Item1?.ToDisplay(model));
-            Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space C19 K3 R1", 5, model).Item1?.ToDisplay(model));
+            {
+                var text = @"
+# çëç€àÕåÈÇ≈ÇÕ IóÒÇÕñ≥Ç¢ÇÒÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
+
+            Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black A19 K1 T1", 5, appModel).Item1?.ToDisplay(appModel));
+            Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white B19 K2 S1", 5, appModel).Item1?.ToDisplay(appModel));
+            Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space C19 K3 R1", 5, appModel).Item1?.ToDisplay(appModel));
 
             // ç¨çáå^ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space A2:B1 C4:D3 E5", 5, model).Item1?.ToDisplay(model));
+            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space A2:B1 C4:D3 E5", 5, appModel).Item1?.ToDisplay(appModel));
 
             // ëÂï∂éöÅEè¨ï∂éöÇÕãÊï Ç∑ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj
-            Assert.AreNotEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5, model).Item1?.ToDisplay(model));
+            Assert.AreNotEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5, appModel).Item1?.ToDisplay(appModel));
         }
 
         /// <summary>
@@ -92,14 +117,38 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellRange()
         {
-            var model = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectModelWrapper();
+
+            {
+                var text = @"
+# çëç€àÕåÈÇ≈ÇÕ IóÒÇÕñ≥Ç¢ÇÒÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
 
             // Ç∆ÇËÇ†Ç¶Ç∏Ç±ÇÃÉeÉXÉgÇÃÉXÉ^Å[ÉgÇÕ0Ç…ëµÇ¶ÇƒÇ®Ç±Ç§ÅôÅiÅOÅ`ÅOÅj
             var start = 0;
 
-            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, model, (matched, curr) =>
+            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, appModel, (matched, curr) =>
             {
-                Assert.AreEqual("C7:E9", matched?.ToDisplay(model));
+                Assert.AreEqual("C7:E9", matched?.ToDisplay(appModel));
                 if (matched == null)
                 {
                     return start;
@@ -108,9 +157,9 @@ namespace UnitTestProject1
                 return curr;
             }));
 
-            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, model, (matched, curr) =>
+            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, appModel, (matched, curr) =>
             {
-                Assert.AreEqual("E9:C7", matched?.ToDisplay(model));
+                Assert.AreEqual("E9:C7", matched?.ToDisplay(appModel));
                 if (matched == null)
                 {
                     return start;
@@ -120,9 +169,9 @@ namespace UnitTestProject1
             }));
 
             // íZèkï\ãLÅôÅiÅOÅ`ÅOÅj
-            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, model, (matched, curr) =>
+            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, appModel, (matched, curr) =>
             {
-                Assert.AreEqual("F5", matched?.ToDisplay(model));
+                Assert.AreEqual("F5", matched?.ToDisplay(appModel));
                 if (matched == null)
                 {
                     return start;
@@ -160,15 +209,15 @@ namespace UnitTestProject1
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
                 // âEå®è„Ç™ÇËÅôÅiÅOÅ`ÅOÅj
-                CellRange.Parse("H7:K9", start, model, (matched, curr) =>
+                CellRange.Parse("H7:K9", start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual("H7:K9", matched?.ToDisplay(model));
+                    Assert.AreEqual("H7:K9", matched?.ToDisplay(appModel));
                     if (matched == null)
                     {
                         return start;
                     }
 
-                    matched.Foreach(model, (index) =>
+                    matched.Foreach(appModel, (index) =>
                     {
                         indexes.Add(index);
                     });
@@ -184,15 +233,15 @@ namespace UnitTestProject1
                 var indexes = new List<int>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("K9:H7", start, model, (matched, curr) =>
+                CellRange.Parse("K9:H7", start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
+                    Assert.AreEqual("K9:H7", matched?.ToDisplay(appModel));
                     if (matched == null)
                     {
                         return start;
                     }
 
-                    matched.Foreach(model, (index) =>
+                    matched.Foreach(appModel, (index) =>
                     {
                         indexes.Add(index);
                     });
@@ -209,17 +258,17 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("H7:K9", start, model, (matched, curr) =>
+                CellRange.Parse("H7:K9", start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual("H7:K9", matched?.ToDisplay(model));
+                    Assert.AreEqual("H7:K9", matched?.ToDisplay(appModel));
                     if (matched == null)
                     {
                         return start;
                     }
 
-                    matched.Foreach(model, (indexO0) =>
+                    matched.Foreach(appModel, (indexO0) =>
                     {
-                        signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                        signs.Add(CellAddress.FromIndex(indexO0, appModel).ToDisplayTrimed(appModel));
                     });
 
                     return curr;
@@ -232,17 +281,17 @@ namespace UnitTestProject1
                 var signs = new List<string>();
 
                 // IóÒÇÕñ≥Ç¢Ç±Ç∆Ç…íçà”ÅôÅiÅOÅ`ÅOÅjÅI
-                CellRange.Parse("K9:H7", start, model, (matched, curr) =>
+                CellRange.Parse("K9:H7", start, appModel, (matched, curr) =>
                 {
-                    Assert.AreEqual("K9:H7", matched?.ToDisplay(model));
+                    Assert.AreEqual("K9:H7", matched?.ToDisplay(appModel));
                     if (matched == null)
                     {
                         return start;
                     }
 
-                    matched.Foreach(model, (indexO0) =>
+                    matched.Foreach(appModel, (indexO0) =>
                     {
-                        signs.Add(CellAddress.FromIndex(indexO0, model).ToDisplayTrimed(model));
+                        signs.Add(CellAddress.FromIndex(indexO0, appModel).ToDisplayTrimed(appModel));
                     });
 
                     return curr;
@@ -260,13 +309,37 @@ namespace UnitTestProject1
         {
             var appModel = new ApplicationObjectModelWrapper();
 
+            {
+                var text = @"
+# çëç€àÕåÈÇ≈ÇÕ IóÒÇÕñ≥Ç¢ÇÒÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
+
             // Ç∆ÇËÇ†Ç¶Ç∏Ç±ÇÃÉeÉXÉgÇÃÉXÉ^Å[ÉgÇÕ0Ç…ëµÇ¶ÇƒÇ®Ç±Ç§ÅôÅiÅOÅ`ÅOÅj
             var start = 0;
 
             // 2åÖÅôÅiÅOÅ`ÅOÅj
             var list1 = new List<string>()
             {
-                "A1","B2","C3",                          "D4",                          "E5",                          "F6",                          "G7",                          "H8",                          "J9"
+                "A1","B2","C3","D4","E5","F6","G7","H8","J9"
             };
 
             foreach (var item in list1)
@@ -347,6 +420,29 @@ namespace UnitTestProject1
         {
             var appModel = new ApplicationObjectModelWrapper();
 
+            {
+                var text = @"
+# çëç€àÕåÈÇ≈ÇÕ IóÒÇÕñ≥Ç¢ÇÒÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
+
             var start = 0;
             Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr) =>
             {
@@ -392,6 +488,29 @@ namespace UnitTestProject1
         public void TestRowAddress()
         {
             var appModel = new ApplicationObjectModelWrapper();
+
+            {
+                var text = @"
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
+
             int start;
 
             // ÉCÉìÉfÉbÉNÉXämîFÅôÅiÅOÅ`ÅOÅjì‡ïîìIÇ…ÇÕçsî‘çÜÇÕÅ@Ç–Ç¡Ç≠ÇËï‘Ç¡ÇƒÇ¢ÇÈÇ∫ÅôÅiÅOÅ`ÅOÅj"19" Ç™ 0çsñ⁄ÅA "1" Ç™ 18çsñ⁄ÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
@@ -599,8 +718,32 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestColumnNumbers()
         {
-            var model = new ApplicationObjectModelWrapper();
-            var columnNumbers = model.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
+            var appModel = new ApplicationObjectModelWrapper();
+
+            {
+                var text = @"
+# çëç€àÕåÈÇ≈ÇÕ IóÒÇÕñ≥Ç¢ÇÒÇæÇ∫ÅôÅiÅOÅ`ÅOÅj
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputController.ParseByLine(
+                        appModel,
+                        line,
+                        (infoText) =>
+                        {
+                        },
+                        (newAppModel) =>
+                        {
+                        },
+                        (args) =>
+                        {
+                        });
+                }
+            }
+
+            var columnNumbers = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));

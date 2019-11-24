@@ -187,20 +187,23 @@
                         var args = (SetsInstructionArgument)instruction.Argument;
 
                         // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                        RealName realName = appModel.GetObjectRealName(args.Name);
-
-                        // これが参照渡しになっているつもりだが……☆（＾～＾）
-                        appModel.MatchPropertyOption(
-                            realName,
-                            (type, propModel) =>
+                        appModel.MatchObjectRealName(
+                            args.Name,
+                            (RealName realName) =>
                             {
+                                // これが参照渡しになっているつもりだが……☆（＾～＾）
+                                appModel.MatchPropertyOption(
+                                    realName,
+                                    (type, propModel) =>
+                                    {
                                 // .typeプロパティなら、propModelはヌルで構わない。
                                 PropertyController.ChangeModel(appModel, realName, propModel, args);
-                            },
-                            () =>
-                            {
+                                    },
+                                    () =>
+                                    {
                                 // モデルが無くても働くプロパティはある☆（＾～＾）
                                 PropertyController.ChangeModel(appModel, realName, null, args);
+                                    });
                             });
 
                         // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
