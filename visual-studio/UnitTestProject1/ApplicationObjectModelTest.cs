@@ -48,9 +48,9 @@ set top2.value = 2
 
                     appModel.MatchPropertyOption(
                         plyRealName,
-                        (type, value) =>
+                        (value) =>
                         {
-                            Assert.AreEqual(PropertyType.Number, type);
+                            Assert.IsTrue(value is PropertyNumber);
                             Assert.AreEqual("手目", value.Title);
                             Assert.AreEqual("2", value.ValueAsText());
                         },
@@ -123,10 +123,17 @@ set top2.value = 2
             appModel.AddProperty(plyRealName, new PropertyNumber("手目"));
             Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            var (type, value) = appModel.RemoveProperty(plyRealName);
-            Assert.AreEqual(PropertyType.Number, type);
-            Assert.AreEqual("手目", value.Title);
-            Assert.AreEqual("0", value.ValueAsText());
+            appModel.RemoveProperty(
+                plyRealName,
+                (value) =>
+                {
+                    Assert.IsTrue(value is PropertyNumber);
+                    Assert.AreEqual("手目", value.Title);
+                    Assert.AreEqual("0", value.ValueAsText());
+                },
+                ()=>
+                {
+                });
         }
 
         /// <summary>
@@ -142,10 +149,17 @@ set top2.value = 2
             appModel.AddProperty(infoRealName, new PropertyString("#info", "Hello, world!"));
             Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
 
-            var (type, value) = appModel.RemoveProperty(infoRealName);
-            Assert.AreEqual(PropertyType.StringType, type);
-            Assert.AreEqual("#info", value.Title);
-            Assert.AreEqual("Hello, world!", value.ValueAsText());
+            appModel.RemoveProperty(
+                infoRealName,
+                (value) =>
+                {
+                    Assert.IsTrue(value is PropertyString);
+                    Assert.AreEqual("#info", value.Title);
+                    Assert.AreEqual("Hello, world!", value.ValueAsText());
+                },
+                ()=>
+                {
+                });
         }
     }
 }

@@ -14,7 +14,6 @@
         public ApplicationObjectModelWrapper()
             : this(new ApplicationObjectModel())
         {
-
         }
 
         public ApplicationObjectModelWrapper(ApplicationObjectModel applicationObjectModel)
@@ -168,7 +167,7 @@
             return this.ApplicationObjectModel.StringLists.Remove(realName.Value);
         }
 
-        public delegate void SomeModelCallback(PropertyType type, IPropertyValue value);
+        public delegate void SomeModelCallback(IPropertyValue value);
         public delegate void NoneModelCallback();
 
         public void MatchPropertyOption(
@@ -179,26 +178,25 @@
         {
             if (this.ContainsKeyOfBooleans(realName))
             {
-                someCallback(PropertyType.Bool, this.GetBool(realName));
+                someCallback(this.GetBool(realName));
             }
-
-            if (this.ContainsKeyOfNumbers(realName))
+            else if (this.ContainsKeyOfNumbers(realName))
             {
-                someCallback(PropertyType.Number, this.GetNumber(realName));
+                someCallback(this.GetNumber(realName));
             }
-
-            if (this.ContainsKeyOfStrings(realName))
+            else if (this.ContainsKeyOfStrings(realName))
             {
-                someCallback(PropertyType.StringType, this.GetString(realName));
+                someCallback(this.GetString(realName));
             }
-
-            if (this.ContainsKeyOfStringLists(realName))
+            else if (this.ContainsKeyOfStringLists(realName))
             {
-                someCallback(PropertyType.StringList, this.GetStringList(realName));
+                someCallback(this.GetStringList(realName));
             }
-
-            // 該当なし。
-            noneCallback();
+            else
+            {
+                // 該当なし。
+                noneCallback();
+            }
         }
 
         public void MatchPropertyByType(
@@ -278,67 +276,92 @@
         /// </summary>
         /// <param name="realName"></param>
         /// <returns></returns>
-        public (PropertyType, IPropertyValue) RemoveProperty(
-            RealName realName
+        public void RemoveProperty(
+            RealName realName,
+            SomeModelCallback someCallback,
+            NoneModelCallback noneCallback
         )
         {
+            if (someCallback == null)
+            {
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
             if (this.ContainsKeyOfStrings(realName))
             {
                 var old = this.GetString(realName);
                 this.RemoveString(realName);
-                return (PropertyType.StringType, old);
+                someCallback(old);
             }
             else if (this.ContainsKeyOfNumbers(realName))
             {
                 var old = this.GetNumber(realName);
                 this.RemoveNumber(realName);
-                return (PropertyType.Number, old);
+                someCallback(old);
             }
             else if (this.ContainsKeyOfBooleans(realName))
             {
                 var old = this.GetBool(realName);
                 this.RemoveBool(realName);
-                return (PropertyType.Bool, old);
+                someCallback(old);
             }
             else if (this.ContainsKeyOfStringLists(realName))
             {
                 var old = this.GetStringList(realName);
                 this.RemoveStringList(realName);
-                return (PropertyType.StringList, old);
+                someCallback(old);
             }
-
-            return (PropertyType.None, null);
+            else
+            {
+                noneCallback();
+            }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="realName"></param>
         /// <returns></returns>
-        public (PropertyType, IPropertyValue) FindProperty(
-            RealName realName
+        public void FindProperty(
+            RealName realName,
+            SomeModelCallback someCallback,
+            NoneModelCallback noneCallback
         )
         {
+            if (someCallback == null)
+            {
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
             if (this.ContainsKeyOfStrings(realName))
             {
-                return (PropertyType.StringType, this.GetString(realName));
+                someCallback(this.GetString(realName));
             }
-
-            if (this.ContainsKeyOfNumbers(realName))
+            else if (this.ContainsKeyOfNumbers(realName))
             {
-                return (PropertyType.Number, this.GetNumber(realName));
+                someCallback(this.GetNumber(realName));
             }
-
-            if (this.ContainsKeyOfBooleans(realName))
+            else if (this.ContainsKeyOfBooleans(realName))
             {
-                return (PropertyType.Bool, this.GetBool(realName));
+                someCallback(this.GetBool(realName));
             }
-
-            if (this.ContainsKeyOfStringLists(realName))
+            else if (this.ContainsKeyOfStringLists(realName))
             {
-                return (PropertyType.StringList, this.GetStringList(realName));
+                someCallback(this.GetStringList(realName));
             }
-
-            return (PropertyType.None, null);
+            else
+            {
+                noneCallback();
+            }
         }
 
         /// <summary>

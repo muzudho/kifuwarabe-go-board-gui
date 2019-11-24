@@ -28,7 +28,7 @@
 
             appModel.MatchPropertyOption(
                 ApplicationObjectModel.MoveRealName,
-                (type, property) =>
+                (property) =>
                 {
                     if (property.Visible)
                     {

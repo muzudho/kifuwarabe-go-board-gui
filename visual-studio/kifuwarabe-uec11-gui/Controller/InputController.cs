@@ -194,15 +194,15 @@
                                 // これが参照渡しになっているつもりだが……☆（＾～＾）
                                 appModel.MatchPropertyOption(
                                     realName,
-                                    (type, propModel) =>
+                                    (propModel) =>
                                     {
-                                // .typeプロパティなら、propModelはヌルで構わない。
-                                PropertyController.ChangeModel(appModel, realName, propModel, args);
+                                        // .typeプロパティなら、propModelはヌルで構わない。
+                                        PropertyController.ChangeModel(appModel, realName, propModel, args);
                                     },
                                     () =>
                                     {
-                                // モデルが無くても働くプロパティはある☆（＾～＾）
-                                PropertyController.ChangeModel(appModel, realName, null, args);
+                                        // モデルが無くても働くプロパティはある☆（＾～＾）
+                                        PropertyController.ChangeModel(appModel, realName, null, args);
                                     });
                             });
 

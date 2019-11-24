@@ -45,7 +45,7 @@
                     // これが参照渡しになっているつもりだが……☆（＾～＾）
                     appModel.MatchPropertyOption(
                         realName,
-                        (type, propModel) =>
+                        (propModel) =>
                         {
                             // あればタイトル☆（＾～＾）
                             {
@@ -93,7 +93,7 @@
                             Trace.WriteLine($"Repaint Warning | [{realName.Value}] model is not found. In PropertyController.Repaint.");
                         });
                 },
-                (err)=>
+                (err) =>
                 {
                     // ビューがないなら何もできん☆（＾～＾）
                     Trace.WriteLine(err);
@@ -156,12 +156,18 @@
                     var title = string.Empty;
 
                     {
-                        var (_propType, old) = appModel.RemoveProperty(realName);
-
-                        if (old != null)
-                        {
-                            title = old.Title;
-                        }
+                        appModel.RemoveProperty(
+                            realName,
+                            (old) =>
+                            {
+                                if (old != null)
+                                {
+                                    title = old.Title;
+                                }
+                            },
+                            () =>
+                            {
+                            });
                     }
 
                     // 新しい型のオブジェクトに換装☆（＾～＾）
