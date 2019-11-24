@@ -14,87 +14,6 @@
         public delegate void CallbackErr(string message);
 
         /// <summary>
-        /// モデルに入っていないビューを非表示にするぜ☆（＾～＾）
-        /// </summary>
-        /// <param name="appView"></param>
-        /// <param name="realName"></param>
-        /// <param name="callbackErr"></param>
-        public static void InvisibleNoModel(
-            MainWindow appView,
-            RealName realName,
-            CallbackErr callbackErr)
-        {
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            if (realName == null)
-            {
-                throw new ArgumentNullException(nameof(realName));
-            }
-
-            Canvas propView = (Canvas)appView.FindName($"{realName.Value}Canvas");
-            if (propView == null)
-            {
-                callbackErr($"realName=[{realName.Value}] is not found in xaml.");
-            }
-            else
-            {
-                propView.Visibility = Visibility.Hidden;
-            }
-        }
-
-        public static void MatchCanvasBy(
-            ApplicationObjectModelWrapper appModel,
-            MainWindow appView,
-            RealName realName,
-            MatchCanvasCallbackDone callbackDone,
-            CallbackErr callbackErr)
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            if (callbackDone == null)
-            {
-                throw new ArgumentNullException(nameof(callbackDone));
-            }
-
-            if (callbackErr == null)
-            {
-                throw new ArgumentNullException(nameof(callbackErr));
-            }
-
-            // UIオブジェクトを検索するぜ☆（＾～＾）
-            Canvas propView = (Canvas)appView.FindName($"{realName.Value}Canvas");
-            if (propView == null)
-            {
-                callbackErr($"realName=[{realName.Value}] is not found in xaml.");
-            }
-            else
-            {
-                // これが参照渡しになっているつもりだが……☆（＾～＾）
-                var (type, propModel) = appModel.GetProperty(realName);
-
-                if (propModel == null)
-                {
-                    callbackErr($"realName=[{realName.Value}] is null in the model.");
-                }
-                else
-                {
-                    callbackDone(propModel, propView);
-                }
-            }
-        }
-
-        /// <summary>
         /// モデルに合わせるように、ビューを更新するぜ☆（＾～＾）
         /// </summary>
         /// <param name="appModel"></param>
@@ -118,54 +37,66 @@
             }
 
             // JSONで使われている名前と、内部で使われている名前は分けるぜ☆（＾～＾）
-            MatchCanvasBy(appModel, appView, realName,
-                (propModel, propView) =>
+            ApplicationViewController.MatchCanvasBy(
+                appView,
+                realName,
+                (propView) =>
                 {
-                    // あればタイトル☆（＾～＾）
-                    {
-                        var tagName = $"{realName.Value}Title";
-                        var tagView = (Label)propView.FindName(tagName);
-                        if (tagView != null)
+                    // これが参照渡しになっているつもりだが……☆（＾～＾）
+                    appModel.MatchPropertyOption(
+                        realName,
+                        (type, propModel) =>
                         {
-                            // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                            tagView.Content = MainWindow.SoluteNewline(propModel.Title);
-                        }
-                        else
+                            // あればタイトル☆（＾～＾）
+                            {
+                                var tagName = $"{realName.Value}Title";
+                                var tagView = (Label)propView.FindName(tagName);
+                                if (tagView != null)
+                                {
+                                    // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                                    tagView.Content = MainWindow.SoluteNewline(propModel.Title);
+                                }
+                                else
+                                {
+                                    Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
+                                }
+                            }
+
+                            // あれば値☆（＾～＾）
+                            {
+                                var tagName = $"{realName.Value}Value";
+                                var tagView = (Label)propView.FindName(tagName);
+                                if (tagView != null)
+                                {
+                                    // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
+                                    tagView.Content = MainWindow.SoluteNewline(propModel.ValueAsText());
+                                }
+                                else
+                                {
+                                    Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
+                                }
+                            }
+
+                            // 表示・非表示☆（＾～＾）
+                            if (propModel.Visible)
+                            {
+                                propView.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                propView.Visibility = Visibility.Hidden;
+                            }
+                        },
+                        () =>
                         {
-                            Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
-                        }
-                    }
-
-                    // あれば値☆（＾～＾）
-                    {
-                        var tagName = $"{realName.Value}Value";
-                        var tagView = (Label)propView.FindName(tagName);
-                        if (tagView != null)
-                        {
-                            // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
-                            tagView.Content = MainWindow.SoluteNewline(propModel.ValueAsText());
-                        }
-                        else
-                        {
-                            Trace.WriteLine($"Warning         | [{tagName}] tag is not found in xaml.");
-                        }
-                    }
-
-
-
-                    // 表示・非表示☆（＾～＾）
-                    if (propModel.Visible)
-                    {
-                        propView.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        propView.Visibility = Visibility.Hidden;
-                    }
+                            // モデルが無いなら値が分からん☆（＾～＾）
+                            Trace.WriteLine($"Repaint Warning | [{realName.Value}] model is not found. In PropertyController.Repaint.");
+                        });
                 },
-                (err) =>
+                (err)=>
                 {
-                    Trace.WriteLine($"Repaint Warning | {err} In PropertyController.Repaint.");
+                    // ビューがないなら何もできん☆（＾～＾）
+                    Trace.WriteLine(err);
                 });
         }
 

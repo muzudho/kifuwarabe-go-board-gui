@@ -173,10 +173,10 @@
 
                         foreach (var alias in args.AliasList)
                         {
-                            Trace.WriteLine($"Info            | Alias2 [{alias}] = [{args.RealName.Value}]");
+                            Trace.WriteLine($"Info            | Alias2 [{alias.Value}] = [{args.RealName.Value}]");
                             if (!appModel.TryAddObjectRealName(alias, args.RealName))
                             {
-                                Trace.WriteLine($"Info            | Alias2b [{alias}] is already exists.");
+                                Trace.WriteLine($"Info            | Alias2b [{alias.Value}] is already exists.");
                             }
                         }
                         Trace.WriteLine($"Info            | Alias3 {instruction.Command} RealName={args.RealName.Value} args=[{args.ToDisplay()}]");
@@ -190,10 +190,18 @@
                         RealName realName = appModel.GetObjectRealName(args.Name);
 
                         // これが参照渡しになっているつもりだが……☆（＾～＾）
-                        var (type, propModel) = appModel.GetProperty(realName);
-
-                        // .typeプロパティなら、propModelはヌルで構わない。
-                        PropertyController.ChangeModel(appModel, realName, propModel, args);
+                        appModel.MatchPropertyOption(
+                            realName,
+                            (type, propModel) =>
+                            {
+                                // .typeプロパティなら、propModelはヌルで構わない。
+                                PropertyController.ChangeModel(appModel, realName, propModel, args);
+                            },
+                            () =>
+                            {
+                                // モデルが無くても働くプロパティはある☆（＾～＾）
+                                PropertyController.ChangeModel(appModel, realName, null, args);
+                            });
 
                         // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
                         setsViewCallback(args);

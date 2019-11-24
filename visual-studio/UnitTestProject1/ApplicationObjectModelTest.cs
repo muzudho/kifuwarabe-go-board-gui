@@ -44,10 +44,17 @@ set top2.value = 2
 
             Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            var (type, value) = appModel.GetProperty(plyRealName);
-            Assert.AreEqual(PropertyType.Number, type);
-            Assert.AreEqual("手目", value.Title);
-            Assert.AreEqual("0", value.ValueAsText());
+            appModel.MatchPropertyOption(
+                plyRealName,
+                (type, value) =>
+                {
+                    Assert.AreEqual(PropertyType.Number, type);
+                    Assert.AreEqual("手目", value.Title);
+                    Assert.AreEqual("0", value.ValueAsText());
+                },
+                () =>
+                {
+                });
         }
 
         /// <summary>
@@ -78,10 +85,17 @@ set top2.value = 2
 
             Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
 
-            var (type, value) = appModel.GetProperty(plyRealName);
-            Assert.AreEqual(PropertyType.Number, type);
-            Assert.AreEqual("", value.Title);
-            Assert.AreEqual("0", value.ValueAsText());
+            appModel.MatchPropertyOption(
+                plyRealName,
+                (type, value) =>
+                {
+                    Assert.AreEqual(PropertyType.Number, type);
+                    Assert.AreEqual("", value.Title);
+                    Assert.AreEqual("0", value.ValueAsText());
+                },
+                () =>
+                {
+                });
         }
 
         /// <summary>
@@ -101,6 +115,25 @@ set top2.value = 2
             Assert.AreEqual(PropertyType.Number, type);
             Assert.AreEqual("手目", value.Title);
             Assert.AreEqual("0", value.ValueAsText());
+        }
+
+        /// <summary>
+        /// 文字列型プロパティの info の追加☆（＾～＾）
+        /// </summary>
+        [TestMethod]
+        public void InfoTest()
+        {
+            var appModel = new ApplicationObjectModelWrapper(new ApplicationObjectModel());
+            var infoRealName = new RealName("info");
+            Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
+
+            appModel.AddProperty(infoRealName, new PropertyString("#info", "Hello, world!"));
+            Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
+
+            var (type, value) = appModel.RemoveProperty(infoRealName);
+            Assert.AreEqual(PropertyType.StringType, type);
+            Assert.AreEqual("#info", value.Title);
+            Assert.AreEqual("Hello, world!", value.ValueAsText());
         }
     }
 }

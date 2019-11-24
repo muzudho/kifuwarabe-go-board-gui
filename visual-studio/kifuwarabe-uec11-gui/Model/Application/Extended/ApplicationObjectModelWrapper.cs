@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Controller;
 
     /// <summary>
     /// `output.json` をこれで作ろうぜ☆（＾～＾）
@@ -161,33 +160,46 @@
             return this.ApplicationObjectModel.StringLists.Remove(realName.Value);
         }
 
-        public (PropertyType, IPropertyValue) GetProperty(RealName realName)
+        public delegate void SomeModelCallback(PropertyType type, IPropertyValue value);
+        public delegate void NoneModelCallback();
+
+        public void MatchPropertyOption(
+            RealName realName,
+            SomeModelCallback someCallback,
+            NoneModelCallback noneCallback
+        )
         {
             if (this.ContainsKeyOfBooleans(realName))
             {
-                return (PropertyType.Bool, this.GetBool(realName));
+                someCallback(PropertyType.Bool, this.GetBool(realName));
             }
 
             if (this.ContainsKeyOfNumbers(realName))
             {
-                return (PropertyType.Number, this.GetNumber(realName));
+                someCallback(PropertyType.Number, this.GetNumber(realName));
             }
 
             if (this.ContainsKeyOfStrings(realName))
             {
-                return (PropertyType.StringType, this.GetString(realName));
+                someCallback(PropertyType.StringType, this.GetString(realName));
             }
 
             if (this.ContainsKeyOfStringLists(realName))
             {
-                return (PropertyType.StringList, this.GetStringList(realName));
+                someCallback(PropertyType.StringList, this.GetStringList(realName));
             }
 
             // 該当なし。
-            return (PropertyType.None, null);
+            noneCallback();
         }
 
-        public void GetProperty(RealName realName, BoolCallback boolCallback, NumberCallback numberCallback, StringCallback stringCallback, StringListCallback stringListCallback)
+        public void MatchPropertyByType(
+            RealName realName,
+            BoolCallback boolCallback,
+            NumberCallback numberCallback,
+            StringCallback stringCallback,
+            StringListCallback stringListCallback
+        )
         {
             if (boolCallback == null)
             {

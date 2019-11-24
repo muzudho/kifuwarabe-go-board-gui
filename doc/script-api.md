@@ -75,6 +75,11 @@ set komi.type  = number
 set komi.title = コミ
 set komi       = 6.5
 
+# WIP
+# set move-marker.type    = string
+# set move-marker         = A1
+# set move-marker.visible = false
+
 # 特殊な設定☆（＾～＾）
 set row-size = 19
 set column-size = 19

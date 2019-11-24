@@ -94,7 +94,7 @@
         {
             var grid = this.grid;
             var board = this.board;
-            var lastMoveMarker = this.lastMoveMarker;
+            var moveMarker = this.moveMarker;
 
             // Trace.WriteLine($"サイズチェンジ 横幅={window.Width} 縦幅={window.Height} グリッド {grid.RenderSize.Width}, {grid.RenderSize.Height}");
 
@@ -204,7 +204,7 @@
             StarController.Repaint(this.Model, this);
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            LastMoveMarkerController.Repaint(this.Model, this);
+            MoveMarkerController.Repaint(this.Model, this);
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -255,131 +255,66 @@
                                 // エイリアスが設定されていれば変換するぜ☆（＾～＾）
                                 RealName realName = this.Model.GetObjectRealName(args.Name);
 
-                                PropertyController.MatchCanvasBy(
-                                    this.Model,
-                                    this,
-                                    realName,
-                                    (propModel, propView) =>
+                                // 行サイズ☆（＾～＾）
+                                if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
+                                {
+                                    if (int.TryParse(args.Value, out int outValue))
                                     {
-                                        this.Model.GetProperty(
-                                            realName,
-                                            (b) =>
-                                            {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetBool(realName).ValueAsText()}");
-                                            },
-                                            (n) =>
-                                            {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetNumber(realName).ValueAsText()}");
-                                            },
-                                            (s) =>
-                                            {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetString(realName).ValueAsText()}");
-                                            },
-                                            (sList) =>
-                                            {
-                                                Trace.WriteLine($"Found           | Outside:{args.Name}, realName:{realName.Value} In InputController.Go. Updated={this.Model.GetStringList(realName).ValueAsText()}");
-                                            }
-                                            );
-                                    },
-                                    (err) =>
-                                    {
-                                        // アプリケーション・オブジェクト・モデルの型別ディクショナリーには無かった☆（＾～＾）
-
-                                        Trace.WriteLine($"Warning         | Not found object. args.Name=[{args.Name}] aliasName=[{aliasName.Value}] realName=[{realName.Value}] in mainWindow.");
-
-                                        if (realName.Value == ApplicationObjectModel.IntervalMsecRealName.Value)
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
                                         {
-                                            // インターバル・ミリ秒☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Interval milli seconds.");
-                                            if (double.TryParse(args.Value, out double outValue))
-                                            {
-                                                this.Model.GetNumber(realName).Value = outValue;
-                                            }
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.MoveRealName.Value)
-                                        {
-                                            // 着手マーカー☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Last move marker.");
-                                            var start = 0;
-                                            CellAddress.Parse(args.Value, start, this.Model, (cellAddress, curr) =>
-                                            {
-                                                if (cellAddress == null)
-                                                {
-                                                    return start;
-                                                }
-
-                                                var text1 = cellAddress.ToDisplayTrimed(this.Model);
-                                                this.Model.GetString(realName).Value = text1;
-                                                this.top1Value.Content = text1;
-                                                return curr;
-                                            });
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
-                                        {
-                                            // 行サイズ☆（＾～＾）
-                                            if (int.TryParse(args.Value, out int outValue))
-                                            {
-                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
-                                                {
-                                                    this.Model.Board.RowSize = outValue;
-                                                    Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
-                                                }
-                                                else
-                                                {
-                                                    Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
-                                            }
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
-                                        {
-                                            // 列サイズ☆（＾～＾）
-                                            if (int.TryParse(args.Value, out int outValue))
-                                            {
-                                                // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                                if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
-                                                {
-                                                    this.Model.Board.ColumnSize = outValue;
-                                                    Trace.WriteLine($"Info            | Column size {outValue}.");
-                                                }
-                                                else
-                                                {
-                                                    Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
-                                            }
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
-                                        {
-                                            // 列番号☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Column numbers.");
-                                            ColumnNumbersController.ChangeModel(this.Model, args);
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
-                                        {
-                                            // 行番号☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Row numbers.");
-                                            RowNumbersController.ChangeModel(this.Model, args);
-                                        }
-                                        else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
-                                        {
-                                            // 盤上の星☆（＾～＾）
-                                            Trace.WriteLine($"Info            | Stars.");
-                                            StarsController.ChangeModel(this.Model, args);
+                                            this.Model.Board.RowSize = outValue;
+                                            Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
                                         }
                                         else
                                         {
-                                            // ビューには無かった☆（＾～＾）
-                                            Trace.WriteLine($"Warning         | realName=[{realName.Value}] is not exists on view. {err} In InputController.Go.");
+                                            Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
                                         }
-                                    });
+                                    }
+                                    else
+                                    {
+                                        Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
+                                    }
+                                }
+                                // 列サイズ☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
+                                {
+                                    if (int.TryParse(args.Value, out int outValue))
+                                    {
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
+                                        {
+                                            this.Model.Board.ColumnSize = outValue;
+                                            Trace.WriteLine($"Info            | Column size {outValue}.");
+                                        }
+                                        else
+                                        {
+                                            Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
+                                    }
+                                }
+                                // 列番号☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Column numbers.");
+                                    ColumnNumbersController.ChangeModel(this.Model, args);
+                                }
+                                // 行番号☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Row numbers.");
+                                    RowNumbersController.ChangeModel(this.Model, args);
+                                }
+                                // 盤上の星☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Stars.");
+                                    StarsController.ChangeModel(this.Model, args);
+                                }
                             }
                         );
 
@@ -498,7 +433,7 @@
             RowNumberController.Initialize(this.Model.Board, this);
 
             // 着手のマーカー☆（＾～＾）
-            Panel.SetZIndex(lastMoveMarker, (int)ZOrder.MoveMarker);
+            Panel.SetZIndex(moveMarker, (int)ZOrder.MoveMarker);
 
             // UI表示物☆（＾～＾）
             {

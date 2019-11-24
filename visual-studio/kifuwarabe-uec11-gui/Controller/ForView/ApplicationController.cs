@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Windows;
     using KifuwarabeUec11Gui.Model;
 
     public static class ApplicationController
@@ -51,19 +52,29 @@
                     ApplicationObjectModel.InfoRealName,
                 };
 
-                foreach (var name in names)
+                foreach (var realName in names)
                 {
-                    if (appModel.ContainsKeyOfProperty(name))
+                    if (appModel.ContainsKeyOfProperty(realName))
                     {
-                        PropertyController.RepaintByName(appModel, appView, name);
+                        // モデルにあるなら、再描画処理をするぜ☆（＾～＾）
+                        PropertyController.RepaintByName(appModel, appView, realName);
                     }
                     else
                     {
-                        // モデルに入ってなければ、非表示にするぜ☆（＾～＾）
-                        PropertyController.InvisibleNoModel(appView, name, (errMsg)=>
-                        {
-                            Trace.WriteLine(errMsg);
-                        });
+                        // モデルにないなら、非表示処理をするぜ☆（＾～＾）
+                        ApplicationViewController.MatchCanvasBy(
+                            appView,
+                            realName,
+                            (propView) =>
+                            {
+                                // ビューがあるのに、モデルがないなら、ビューを非表示にするぜ☆（＾～＾）
+                                propView.Visibility = Visibility.Hidden;
+                            },
+                            (err) =>
+                            {
+                                // ビューが無いなら非表示にもできん☆（＾～＾）
+                                Trace.WriteLine(err);
+                            });
                     }
                 }
             }
@@ -75,7 +86,7 @@
             StarController.Repaint(appModel, appView);
 
             // 着手マーカー
-            LastMoveMarkerController.Repaint(appModel, appView);
+            MoveMarkerController.Repaint(appModel, appView);
 
             appView.InvalidateVisual();
         }
