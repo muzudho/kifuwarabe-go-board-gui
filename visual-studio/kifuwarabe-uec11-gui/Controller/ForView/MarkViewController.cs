@@ -7,7 +7,7 @@
     using System.Windows.Shapes;
     using KifuwarabeUec11Gui.Model;
 
-    public static class StoneViewController
+    public static class MarkViewController
     {
         /// <summary>
         /// 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
@@ -44,7 +44,7 @@
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(stone, 0);
                 Canvas.SetTop(stone, 0);
-                appView.Stones.Add(stone);
+                appView.Marks.Add(stone);
                 appView.canvas.Children.Add(stone);
             }
         }
@@ -103,17 +103,17 @@
         {
             for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
-                var stone = appView.Stones[zShapedIndex];
+                var mark = appView.Marks[zShapedIndex];
                 if (zShapedIndex < appModel.Board.GetCellCount())
                 {
                     appView.PutAnythingOnNode(zShapedIndex, (left, top) =>
                     {
                         // 大きさ☆（＾～＾）
-                        stone.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.8;
-                        stone.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.8;
+                        mark.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.8;
+                        mark.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.8;
 
-                        Canvas.SetLeft(stone, left - stone.Width / 2);
-                        Canvas.SetTop(stone, top - stone.Height / 2);
+                        Canvas.SetLeft(mark, left - mark.Width / 2);
+                        Canvas.SetTop(mark, top - mark.Height / 2);
                     });
                 }
                 else

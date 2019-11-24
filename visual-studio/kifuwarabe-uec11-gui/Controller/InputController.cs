@@ -48,6 +48,7 @@
 
         public delegate void InfoViewCallback(string text);
         public delegate void JsonViewCallback(ApplicationObjectModelWrapper appModel);
+        public delegate void PutsViewCallback(PutsInstructionArgument args);
         public delegate void SetsViewCallback(SetsInstructionArgument args);
 
         public static void ParseByLine(
@@ -55,6 +56,7 @@
             string line,
             InfoViewCallback infoViewCallback,
             JsonViewCallback jsonViewCallback,
+            PutsViewCallback putsViewCallback,
             SetsViewCallback setsViewCallback
         )
         {
@@ -180,6 +182,36 @@
                             }
                         }
                         Trace.WriteLine($"Info            | Alias3 {instruction.Command} RealName={args.RealName.Value} args=[{args.ToDisplay()}]");
+                    }
+                    else if (instruction.Command == InputScriptDocument.PutsCommand)
+                    {
+                        // モデルに値をセットしようぜ☆（＾～＾）
+                        var args = (PutsInstructionArgument)instruction.Argument;
+
+                        // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                        appModel.MatchObjectRealName(
+                            args.Name,
+                            (RealName realName) =>
+                            {
+                                /*
+                                // これが参照渡しになっているつもりだが……☆（＾～＾）
+                                appModel.MatchPropertyOption(
+                                    realName,
+                                    (propModel) =>
+                                    {
+                                        // .typeプロパティなら、propModelはヌルで構わない。
+                                        PropertyController.ChangeModel(appModel, realName, propModel, args);
+                                    },
+                                    () =>
+                                    {
+                                        // モデルが無くても働くプロパティはある☆（＾～＾）
+                                        PropertyController.ChangeModel(appModel, realName, null, args);
+                                    });
+                                */
+                            });
+
+                        // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                        putsViewCallback(args);
                     }
                     else if (instruction.Command == InputScriptDocument.SetsCommand)
                     {

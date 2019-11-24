@@ -22,6 +22,7 @@
         public static string BoardCommand => "board";
         public static string ExitsCommand => "exit";
         public static string JsonCommand => "json";
+        public static string PutsCommand => "put";
         public static string SetsCommand => "set";
         public static string SpaceCommand => "space";
         public static string WhiteCommand => "white";

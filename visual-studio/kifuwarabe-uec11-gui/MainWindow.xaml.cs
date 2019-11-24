@@ -43,7 +43,10 @@
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
+
         public List<Ellipse> Stones { get; private set; }
+        public List<Shape> Marks { get; private set; }
+
         public List<Ellipse> Stars { get; private set; }
         public List<Label> RowLabels { get; private set; }
         public List<Label> ColumnLabels { get; private set; }
@@ -60,7 +63,10 @@
 
             this.VerticalLines = new List<Line>();
             this.HorizontalLines = new List<Line>();
+
             this.Stones = new List<Ellipse>();
+            this.Marks = new List<Shape>();
+
             this.Stars = new List<Ellipse>();
             this.RowLabels = new List<Label>();
             this.ColumnLabels = new List<Label>();
@@ -224,6 +230,10 @@
                             },
                             (args) =>
                             {
+                                // put コマンド☆（＾～＾）
+                            },
+                            (args) =>
+                            {
                                 // setコマンドのあとのビュー設定なら☆（＾～＾）
                                 var aliasName = new AliasName(args.Name);
 
@@ -381,6 +391,7 @@
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
             StoneViewController.Initialize(this.Model, this);
+            MarkViewController.Initialize(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
             ColumnNumberViewController.Initialize(this);

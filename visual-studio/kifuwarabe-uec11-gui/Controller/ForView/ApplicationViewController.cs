@@ -81,6 +81,13 @@
                 StoneViewController.Repaint(appModel, zShapedIndex, stone);
             }
 
+            // マーク
+            for (int zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
+            {
+                var mark = appView.Marks[zShapedIndex];
+                MarkViewController.Repaint(appModel, zShapedIndex, mark);
+            }
+
             // TODO UIウィジェット
             {
                 var names = new RealName[]
