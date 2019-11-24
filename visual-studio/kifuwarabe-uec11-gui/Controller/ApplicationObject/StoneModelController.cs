@@ -11,51 +11,8 @@
     /// こっちを設定して、あっちを設定して、また　こっちに戻ってきて設定して、というような
     /// 無限ループしないようにセットするのもコントローラーのメリットだぜ☆（＾～＾）
     /// </summary>
-    public static class StoneController
+    public static class StoneModelController
     {
-        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView, int zShapedIndex)
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            // ビュー☆（＾～＾）
-            {
-                var stone = appView.GetStone(zShapedIndex);
-
-                if (zShapedIndex < appModel.Board.Stones.Count)
-                {
-                    switch (appModel.Board.Stones[zShapedIndex])
-                    {
-                        case Stone.Black:
-                            stone.Fill = Brushes.Black;
-                            stone.Stroke = Brushes.White;
-                            stone.Visibility = Visibility.Visible;
-                            break;
-                        case Stone.White:
-                            stone.Fill = Brushes.White;
-                            stone.Stroke = Brushes.Black;
-                            stone.Visibility = Visibility.Visible;
-                            break;
-                        case Stone.None:
-                            stone.Visibility = Visibility.Hidden;
-                            break;
-                    }
-                }
-                else
-                {
-                    // 範囲外☆（＾～＾）
-                    stone.Visibility = Visibility.Hidden;
-                }
-            }
-        }
-
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>

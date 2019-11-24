@@ -9,7 +9,6 @@
     using System.Windows.Shapes;
     using System.Windows.Threading;
     using KifuwarabeUec11Gui.Controller;
-    using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
     /// <summary>
@@ -44,7 +43,7 @@
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
-        private List<Ellipse> Stones { get; set; }
+        public List<Ellipse> Stones { get; private set; }
         public List<Ellipse> Stars { get; private set; }
         public List<Label> RowLabels { get; private set; }
         public List<Label> ColumnLabels { get; private set; }
@@ -75,11 +74,6 @@
         public void SetModel(ApplicationObjectModelWrapper model)
         {
             this.Model = model;
-        }
-
-        public Ellipse GetStone(int zShapedIndex)
-        {
-            return this.Stones[zShapedIndex];
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -172,39 +166,20 @@
             }
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
-            // 石を描こうぜ☆（＾～＾）？
-            for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
-            {
-                var stone = this.Stones[zShapedIndex];
-                if (zShapedIndex < this.Model.Board.GetCellCount())
-                {
-                    PutAnythingOnNode(this, zShapedIndex, (left, top) =>
-                    {
-                        // 大きさ☆（＾～＾）
-                        stone.Width = board.Width / this.Model.Board.GetColumnDiv() * 0.8;
-                        stone.Height = board.Height / this.Model.Board.GetRowDiv() * 0.8;
-
-                        Canvas.SetLeft(stone, left - stone.Width / 2);
-                        Canvas.SetTop(stone, top - stone.Height / 2);
-                    });
-                }
-                else
-                {
-                    StoneController.ChangeModelToSpace(this.Model, zShapedIndex);
-                }
-            }
+            // 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
+            StoneViewController.FitSizeToWindow(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberController.Repaint(this.Model, this);
+            ColumnNumberViewController.Repaint(this.Model, this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberController.Repaint(this.Model, this);
+            RowNumberViewController.Repaint(this.Model, this);
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
-            StarController.Repaint(this.Model, this);
+            StarViewController.Repaint(this.Model, this);
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            MoveMarkerController.Repaint(this.Model, this);
+            MoveMarkerViewController.Repaint(this.Model, this);
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -322,7 +297,7 @@
                         );
 
                         // すべてのコマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
-                        ApplicationController.RepaintAllViews(this.Model, this);
+                        ApplicationViewController.RepaintAllViews(this.Model, this);
 
                         // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
                         // あとは　モデルに合わせてビューを更新するだけだな☆（＾～＾）！
@@ -402,38 +377,16 @@
             }
 
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
-            StarController.Initialize(this.Model.Board, this);
+            StarViewController.Initialize(this.Model.Board, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            for (var i = 0; i < HyperParameter.MaxCellCount; i++)
-            {
-                var row = i / Model.Board.ColumnSize;
-                var column = i % Model.Board.ColumnSize;
-
-                var stone = new Ellipse();
-                stone.Name = $"stone{i}";
-                stone.Width = 10;
-                stone.Height = 10;
-                stone.StrokeThickness = 1.5;
-                stone.Visibility = Visibility.Hidden;
-                Panel.SetZIndex(stone, (int)ZOrder.Stone);
-
-                // とりあえず黒石にして作っておこうぜ☆（＾～＾）
-                stone.Fill = Brushes.Black;
-                stone.Stroke = Brushes.White;
-
-                // 盤☆（＾～＾）
-                Canvas.SetLeft(stone, 0);
-                Canvas.SetTop(stone, 0);
-                this.Stones.Add(stone);
-                canvas.Children.Add(stone);
-            }
+            StoneViewController.Initialize(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberController.Initialize(this);
+            ColumnNumberViewController.Initialize(this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberController.Initialize(this.Model.Board, this);
+            RowNumberViewController.Initialize(this);
 
             // 着手のマーカー☆（＾～＾）
             Panel.SetZIndex(moveMarker, (int)ZOrder.MoveMarker);
@@ -480,23 +433,17 @@
         /// 碁盤の線上の交点に何か置くぜ☆（＾～＾）
         /// 石１個置くたびに再計算するのは　無駄な気もするが、GUIでは、コーディングの楽さ優先だぜ☆（＾～＾）
         /// </summary>
-        /// <param name="appView"></param>
         /// <param name="index"></param>
-        public static void PutAnythingOnNode(MainWindow appView, int index, NodeCallback stoneCallback)
+        public void PutAnythingOnNode(int index, NodeCallback stoneCallback)
         {
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
             if (stoneCallback == null)
             {
                 throw new ArgumentNullException(nameof(stoneCallback));
             }
 
             // 盤☆（＾～＾）
-            var board = appView.board;
-            var grid = appView.grid;
+            var board = this.board;
+            var grid = this.grid;
             var centerX = grid.RenderSize.Width / 2;
             var centerY = grid.RenderSize.Height / 2;
 
@@ -507,11 +454,11 @@
             var boardTop = centerY - shortenEdge / 2;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / appView.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / appView.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
+            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
 
-            var row = index / appView.Model.Board.ColumnSize;
-            var column = index % appView.Model.Board.ColumnSize + SignLen;
+            var row = index / this.Model.Board.ColumnSize;
+            var column = index % this.Model.Board.ColumnSize + SignLen;
 
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;
@@ -520,7 +467,7 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationController.RepaintAllViews(this.Model, this);
+            ApplicationViewController.RepaintAllViews(this.Model, this);
         }
     }
 }

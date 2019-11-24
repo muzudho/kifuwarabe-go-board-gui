@@ -11,7 +11,7 @@
     /// <summary>
     /// 星を操作するぜ☆（＾～＾）
     /// </summary>
-    public static class StarController
+    public static class StarViewController
     {
         public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
@@ -41,7 +41,7 @@
                             return start;
                         }
 
-                        MainWindow.PutAnythingOnNode(appView, cellAddress.ToIndex(appModel), (left, top) =>
+                        appView.PutAnythingOnNode(cellAddress.ToIndex(appModel), (left, top) =>
                         {
                             // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
                             starView.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.3;
@@ -61,22 +61,22 @@
             }
         }
 
-        public static void Initialize(BoardModelWrapper model, MainWindow view)
+        public static void Initialize(BoardModelWrapper boardModel, MainWindow appView)
         {
-            if (model == null)
+            if (boardModel == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(boardModel));
             }
 
-            if (view == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var row = i / model.ColumnSize;
-                var column = i % model.ColumnSize;
+                var row = i / boardModel.ColumnSize;
+                var column = i % boardModel.ColumnSize;
 
                 var star = new Ellipse();
                 star.Name = $"star{i}";
@@ -90,8 +90,8 @@
                 // 盤☆（＾～＾）
                 Canvas.SetLeft(star, 0);
                 Canvas.SetTop(star, 0);
-                view.Stars.Add(star);
-                view.canvas.Children.Add(star);
+                appView.Stars.Add(star);
+                appView.canvas.Children.Add(star);
             }
         }
     }

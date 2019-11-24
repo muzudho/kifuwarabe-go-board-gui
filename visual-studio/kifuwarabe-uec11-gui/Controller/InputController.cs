@@ -93,7 +93,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneController.ChangeModelToBlack(appModel, zShapedIndex);
+                                StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
                             }
                         }
                     }
@@ -106,7 +106,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 白石にするぜ☆（＾～＾）
-                                StoneController.ChangeModelToWhite(appModel, zShapedIndex);
+                                StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
                             }
                         }
                     }
@@ -119,7 +119,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 石を取り除くぜ☆（＾～＾）
-                                StoneController.ChangeModelToSpace(appModel, zShapedIndex);
+                                StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
                             }
                         }
                     }
@@ -143,17 +143,17 @@
                             {
                                 case 'b':
                                     // 黒石にするぜ☆（＾～＾）
-                                    StoneController.ChangeModelToBlack(appModel, zShapedIndex);
+                                    StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
                                     zShapedIndex++;
                                     break;
                                 case 'w':
                                     // 白石にするぜ☆（＾～＾）
-                                    StoneController.ChangeModelToWhite(appModel, zShapedIndex);
+                                    StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
                                     zShapedIndex++;
                                     break;
                                 case '.':
                                     // 空点にするぜ☆（＾～＾）
-                                    StoneController.ChangeModelToSpace(appModel, zShapedIndex);
+                                    StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
                                     zShapedIndex++;
                                     break;
                             }

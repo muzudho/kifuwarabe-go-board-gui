@@ -5,7 +5,7 @@
     using System.Windows.Controls;
     using KifuwarabeUec11Gui.Model;
 
-    public static class RowNumberController
+    public static class RowNumberViewController
     {
         public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
@@ -60,16 +60,11 @@
             }
         }
 
-        public static void Initialize(BoardModelWrapper model, MainWindow view)
+        public static void Initialize(MainWindow appView)
         {
-            if (model == null)
+            if (appView == null)
             {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            if (view == null)
-            {
-                throw new ArgumentNullException(nameof(view));
+                throw new ArgumentNullException(nameof(appView));
             }
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
@@ -78,8 +73,8 @@
                 var label = new Label();
                 label.Name = $"rowLabel{number}";
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                view.RowLabels.Add(label);
-                view.canvas.Children.Add(label);
+                appView.RowLabels.Add(label);
+                appView.canvas.Children.Add(label);
             }
         }
     }

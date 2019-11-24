@@ -9,7 +9,7 @@
     /// <summary>
     /// 最後の着手のマーカー☆（＾～＾）
     /// </summary>
-    public static class MoveMarkerController
+    public static class MoveMarkerViewController
     {
         public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
@@ -43,7 +43,7 @@
                                 return start;
                             }
 
-                            MainWindow.PutAnythingOnNode(appView, moveCellAddress.ToIndex(appModel), (left, top) =>
+                            appView.PutAnythingOnNode(moveCellAddress.ToIndex(appModel), (left, top) =>
                             {
                                 // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
