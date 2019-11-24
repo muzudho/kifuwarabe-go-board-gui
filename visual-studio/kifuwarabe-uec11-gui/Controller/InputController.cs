@@ -86,45 +86,6 @@
                         // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                         infoViewCallback(MainWindow.SoluteNewline(args.Text));
                     }
-                    else if (instruction.Command == InputScriptDocument.BlackCommand)
-                    {
-                        var args = (CellRangeListArgument)instruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                            {
-                                // 黒石にするぜ☆（＾～＾）
-                                StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
-                            }
-                        }
-                    }
-                    else if (instruction.Command == InputScriptDocument.WhiteCommand)
-                    {
-                        var args = (CellRangeListArgument)instruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                            {
-                                // 白石にするぜ☆（＾～＾）
-                                StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
-                            }
-                        }
-                    }
-                    else if (instruction.Command == InputScriptDocument.SpaceCommand)
-                    {
-                        var args = (CellRangeListArgument)instruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                            {
-                                // 石を取り除くぜ☆（＾～＾）
-                                StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
-                            }
-                        }
-                    }
                     else if (instruction.Command == InputScriptDocument.BoardCommand)
                     {
                         var args = (BoardInstructionArgument)instruction.Argument;
@@ -193,21 +154,49 @@
                             args.Name,
                             (RealName realName) =>
                             {
-                                /*
-                                // これが参照渡しになっているつもりだが……☆（＾～＾）
-                                appModel.MatchPropertyOption(
-                                    realName,
-                                    (propModel) =>
+                                if (realName.Value == InputScriptDocument.BlackObject)
+                                {
+                                    var args = (PutsInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.Destination.CellRanges)
                                     {
-                                        // .typeプロパティなら、propModelはヌルで構わない。
-                                        PropertyController.ChangeModel(appModel, realName, propModel, args);
-                                    },
-                                    () =>
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                        {
+                                            // 黒石にするぜ☆（＾～＾）
+                                            StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
+                                        }
+                                    }
+                                }
+                                else if (realName.Value == InputScriptDocument.WhiteObject)
+                                {
+                                    var args = (PutsInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.Destination.CellRanges)
                                     {
-                                        // モデルが無くても働くプロパティはある☆（＾～＾）
-                                        PropertyController.ChangeModel(appModel, realName, null, args);
-                                    });
-                                */
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                        {
+                                            // 白石にするぜ☆（＾～＾）
+                                            StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
+                                        }
+                                    }
+                                }
+                                else if (realName.Value == InputScriptDocument.SpaceObject)
+                                {
+                                    var args = (PutsInstructionArgument)instruction.Argument;
+                                    // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                    foreach (var cellRange in args.Destination.CellRanges)
+                                    {
+                                        foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                        {
+                                            // 石を取り除くぜ☆（＾～＾）
+                                            StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Trace.WriteLine($"Warning         | {instruction.Command} RealName=[{realName.Value}] args=[{args.ToDisplay(appModel)}] are not implemented.");
+                                }
                             });
 
                         // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）

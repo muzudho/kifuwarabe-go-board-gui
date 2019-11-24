@@ -8,10 +8,21 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="matched"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(SetsInstructionArgument matched, int curr);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
-        /// <returns></returns>
-        public static (SetsInstructionArgument, int) Parse(string text, int start)
+        /// <returns>Next.</returns>
+        public static int Parse(
+            string text,
+            int start,
+            ParsesCallback callbackDone)
         {
             if (text == null)
             {
@@ -77,7 +88,7 @@
                     });
                 });
 
-            return (setsInstructionArgument, next);
+            return callbackDone(setsInstructionArgument, next);
         }
     }
 }

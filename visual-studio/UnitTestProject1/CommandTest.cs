@@ -125,10 +125,38 @@ put black to A10
         [TestMethod]
         public void TestSetsInstructionArgument()
         {
-            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgumentParser.Parse("set b-name.value = Kifuwarabe", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgumentParser.Parse("set b-name = Kifuwarabe", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-time.value = 10:00", SetsInstructionArgumentParser.Parse("set  b-time  =  10:00  ", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-hama.value = ", SetsInstructionArgumentParser.Parse("set b-hama =", 3).Item1?.ToDisplay());
+            SetsInstructionArgumentParser.Parse(
+                "set b-name.value = Kifuwarabe",
+                3,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("b-name.value = Kifuwarabe", matched?.ToDisplay());
+                    return curr;
+                });
+            SetsInstructionArgumentParser.Parse(
+                "set b-name = Kifuwarabe",
+                3,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("b-name.value = Kifuwarabe", matched?.ToDisplay());
+                    return curr;
+                });
+            SetsInstructionArgumentParser.Parse(
+                "set  b-time  =  10:00  ",
+                3,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("b-time.value = 10:00", matched?.ToDisplay());
+                    return curr;
+                });
+            SetsInstructionArgumentParser.Parse(
+                "set b-hama =",
+                3,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("b-hama.value = ", matched?.ToDisplay());
+                    return curr;
+                });
         }
 
         /// <summary>

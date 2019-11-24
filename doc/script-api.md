@@ -109,6 +109,14 @@ board  4 ...................
 board  3 ...................
 board  2 ...................
 board  1 ...................
+
+# 指し手でもあれば入れとけだぜ☆（＾～＾）
+put black to D16
+set move = D16
+put white to Q4
+set move = Q4
+put black to P4
+set move = P4
 ```
 
 すると２秒後ぐらいには `input.txt` は読み取られて空っぽのファイルになっている☆（＾～＾）
@@ -119,7 +127,7 @@ board  1 ...................
 石を置くときは　以下のコマンドを打てだぜ☆（＾～＾）
 
 ```
-black D16
+put black to D16
 set move = D16
 ```
 
@@ -130,7 +138,7 @@ set move = D16
 
 # 連珠盤に変える例
 
-初期状態を連珠盤にしたかったら こう書き替えろだぜ☆（＾～＾）
+初期状態を連珠盤にしたかったら これを続けて入力しろだぜ☆（＾～＾）ダイナミックだろ☆（＾～＾）
 
 Example:
 
@@ -207,11 +215,11 @@ board  2 ...............
 board  1 ...............
 
 # 指し手でもあれば入れとけだぜ☆（＾～＾）
-black h8
+put black to h8
 set move = h8
-white h9
+put white to h9
 set move = h9
-black i10
+put black to i10
 set move = i10
 ```
 
@@ -346,7 +354,7 @@ set move         = K10
 | w-time        | string | 白番の持ち時間☆（＾～＾）                                                                                                                                                                                                                                                                                                                                   |
 
 
-# 盤に石を置くなら `space`、 `black`、 `white` を使いこなせだぜ☆（＾～＾）
+# 盤に石を置くなら `put ~ to ~` を使いこなせだぜ☆（＾～＾）
 
 
 大文字、小文字は区別する☆（＾～＾）　列には１桁のアルファベット、行には１～２桁の自然数があるものとするぜ☆（＾～＾）
@@ -356,18 +364,18 @@ Example:
 
 ```
 # 1個
-black H1
-white J10
-space T19
+put black to H1
+put white to J10
+put space to T19
 
 # 複数個
-black A1 B2 C3 D4
+put black to A1 B2 C3 D4
 
 # 矩形塗りつぶし
-black A1:C3
+put black to A1:C3
 
 # 混合
-white A1 B2:D4 E5 F6:H8
+put white to A1 B2:D4 E5 F6:H8
 ```
 
 お絵描きができるな☆（＾～＾）
