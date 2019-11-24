@@ -4,15 +4,27 @@
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class ColorInstructionArgumentParser
+    public static class CellRangeListArgumentParser
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matched"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(CellRangeListArgument matched, int curr);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
-        /// <returns></returns>
-        public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModelWrapper model)
+        /// <returns>Next.</returns>
+        public static int Parse(
+            string text,
+            int start,
+            ApplicationObjectModelWrapper appModel,
+            ParsesCallback callbackDone)
         {
             var cellRanges = new List<CellRange>();
             var nextSum = start;
@@ -21,6 +33,7 @@
             bool repeatsColor = true;
             while (repeatsColor)
             {
+                // 最初のスペースを読み飛ばすぜ☆（＾～＾）
                 nextSum = WhiteSpaceParser.Parse(text, nextSum,
                     (whiteSpace, curr) =>
                     {
@@ -32,7 +45,7 @@
                         }
 
                         // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
-                        return CellRangeParser.Parse(text, curr, model, (cellRange, curr) =>
+                        return CellRangeParser.Parse(text, curr, appModel, (cellRange, curr) =>
                         {
                             if (cellRange == null)
                             {
@@ -51,7 +64,7 @@
             }
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new ColorInstructionArgument(cellRanges), nextSum);
+            return callbackDone(new CellRangeListArgument(cellRanges), nextSum);
         }
     }
 }

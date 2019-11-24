@@ -1,4 +1,6 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿using KifuwarabeUec11Gui.Model;
+
+namespace KifuwarabeUec11Gui.InputScript
 {
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）
@@ -22,9 +24,9 @@
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string Destination { get; private set; }
+        public CellRangeListArgument Destination { get; private set; }
 
-        public PutsInstructionArgument(string name, string destination)
+        public PutsInstructionArgument(string name, CellRangeListArgument destination)
         {
             this.Name = name;
             this.Destination = destination;
@@ -34,9 +36,9 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay()
+        public string ToDisplay(ApplicationObjectModelWrapper appModel)
         {
-            return $"{this.Name} to {this.Destination}";
+            return $"{this.Name} to {this.Destination.ToDisplay(appModel)}";
         }
     }
 }

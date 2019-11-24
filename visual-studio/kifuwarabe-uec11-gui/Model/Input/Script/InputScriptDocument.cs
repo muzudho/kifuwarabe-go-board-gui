@@ -98,17 +98,24 @@
                                 commandName.Text == InputScriptDocument.WhiteCommand ||
                                 commandName.Text == InputScriptDocument.SpaceCommand)
                             {
-                                ColorInstructionArgument argument;
-                                (argument, curr) = ColorInstructionArgumentParser.Parse(line, curr, appModel);
-                                if (argument == null)
-                                {
-                                    Trace.WriteLine($"Error           | {line}");
-                                }
-                                else
-                                {
-                                    Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
-                                    instructions.Add(new Instruction(commandName.Text, argument));
-                                }
+                                CellRangeListArgumentParser.Parse(
+                                    line,
+                                    curr,
+                                    appModel,
+                                    (argument, curr) =>
+                                    {
+                                        if (argument == null)
+                                        {
+                                            Trace.WriteLine($"Error           | {line}");
+                                        }
+                                        else
+                                        {
+                                            Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            instructions.Add(new Instruction(commandName.Text, argument));
+                                        }
+
+                                        return curr;
+                                    });
                             }
                             else if (commandName.Text == InputScriptDocument.BoardCommand)
                             {

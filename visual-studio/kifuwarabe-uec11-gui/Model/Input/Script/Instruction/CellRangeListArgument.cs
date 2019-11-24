@@ -11,14 +11,14 @@
     /// 
     /// `black m10 n1:n3 o11` のような混合型にも対応させようぜ☆（＾～＾）
     /// </summary>
-    public class ColorInstructionArgument
+    public class CellRangeListArgument
     {
         /// <summary>
         /// セル範囲のリスト☆（＾～＾）
         /// </summary>
         public List<CellRange> CellRanges { get; private set; }
 
-        public ColorInstructionArgument(List<CellRange> cellRanges)
+        public CellRangeListArgument(List<CellRange> cellRanges)
         {
             this.CellRanges = cellRanges;
         }
@@ -29,14 +29,11 @@
         /// <returns></returns>
         public string ToDisplay(ApplicationObjectModelWrapper model)
         {
-            // Python言語の mapコンビネーター とかあれば１行で書けるんだが、無いからforeachループで回そうぜ☆（＾～＾）
-            var tokens = new List<string>();
-            foreach (var cellRange in this.CellRanges)
-            {
-                tokens.Add(cellRange.ToDisplay(model));
-            }
+            // CellRange型のリストを、CellRangeを.ToDisplay()した結果のリストに変換するぜ☆（＾～＾） S -> T は、こういうやつを言う☆（＾～＾）
+            var displays = this.CellRanges.ConvertAll(s => s.ToDisplay(model));
 
-            return $"{string.Join(' ', tokens)}";
+            // スペース区切りで返すぜ☆（＾～＾）
+            return string.Join(' ', displays);
         }
     }
 }

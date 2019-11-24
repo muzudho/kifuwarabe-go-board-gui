@@ -90,9 +90,33 @@ put black to A10
                 }
             }
 
-            Assert.AreEqual("black to A19", PutsInstructionArgumentParser.Parse("put black to A19", 3).Item1?.ToDisplay());
-            Assert.AreEqual("white to T1", PutsInstructionArgumentParser.Parse("put white to T1", 3).Item1?.ToDisplay());
-            Assert.AreEqual("space to K11", PutsInstructionArgumentParser.Parse("put space to K11", 3).Item1?.ToDisplay());
+            PutsInstructionArgumentParser.Parse(
+                "put black to A19",
+                3,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("black to A19", matched?.ToDisplay(appModel));
+                    return curr;
+                });
+            PutsInstructionArgumentParser.Parse(
+                "put white to A1:B4 K11 S16:T19",
+                3,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("white to A1:B4 K11 S16:T19", matched?.ToDisplay(appModel));
+                    return curr;
+                });
+            PutsInstructionArgumentParser.Parse(
+                "put space to K11",
+                3,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("space to K11", matched?.ToDisplay(appModel));
+                    return curr;
+                });
         }
 
         /// <summary>
@@ -144,15 +168,55 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            Assert.AreEqual("A19 K1 T1", ColorInstructionArgumentParser.Parse("black A19 K1 T1", 5, appModel).Item1?.ToDisplay(appModel));
-            Assert.AreEqual("B19 K2 S1", ColorInstructionArgumentParser.Parse("white B19 K2 S1", 5, appModel).Item1?.ToDisplay(appModel));
-            Assert.AreEqual("C19 K3 R1", ColorInstructionArgumentParser.Parse("space C19 K3 R1", 5, appModel).Item1?.ToDisplay(appModel));
+            CellRangeListArgumentParser.Parse(
+                "black A19 K1 T1",
+                5,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("A19 K1 T1", matched?.ToDisplay(appModel));
+                    return curr;
+                });
+            CellRangeListArgumentParser.Parse(
+                "white B19 K2 S1",
+                5,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("B19 K2 S1", matched?.ToDisplay(appModel));
+                    return curr;
+                });
+            CellRangeListArgumentParser.Parse(
+                "space C19 K3 R1",
+                5,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("C19 K3 R1", matched?.ToDisplay(appModel));
+                    return curr;
+                });
 
             // 混合型☆（＾～＾）
-            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgumentParser.Parse("space A2:B1 C4:D3 E5", 5, appModel).Item1?.ToDisplay(appModel));
+            CellRangeListArgumentParser.Parse(
+                "space A2:B1 C4:D3 E5",
+                5,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreEqual("A2:B1 C4:D3 E5", matched?.ToDisplay(appModel));
+                    return curr;
+                });
 
             // 大文字・小文字は区別するぜ☆（＾～＾）
-            Assert.AreNotEqual("A19 K1 T1", ColorInstructionArgumentParser.Parse("black a19 k1 t1", 5, appModel).Item1?.ToDisplay(appModel));
+            CellRangeListArgumentParser.Parse(
+                "black a19 k1 t1",
+                5,
+                appModel,
+                (matched, curr) =>
+                {
+                    Assert.AreNotEqual("A19 K1 T1", matched?.ToDisplay(appModel));
+                    return curr;
+                });
         }
     }
 }

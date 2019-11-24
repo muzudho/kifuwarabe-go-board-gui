@@ -2,16 +2,30 @@
 {
     using System;
     using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.Model;
 
     public static class PutsInstructionArgumentParser
     {
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="matched"></param>
+        /// <param name="curr">Current.</param>
+        /// <returns>Next.</returns>
+        public delegate int ParsesCallback(PutsInstructionArgument matched, int curr);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (PutsInstructionArgument, int) Parse(string text, int start)
+        public static int Parse(
+            string text,
+            int start,
+            ApplicationObjectModelWrapper appModel,
+            ParsesCallback doneCallback
+            )
         {
             if (text == null)
             {
@@ -41,22 +55,19 @@
                         curr += "to".Length;
                         // Trace.WriteLine($"curr            | {curr}");
 
-                        // 次のスペースは読み飛ばすぜ☆（＾～＾）
-                        return WhiteSpaceParser.Parse(text, curr,
-                            (_, curr) =>
-                            {
-                                // 行の残り全部を読み取るぜ☆（＾～＾）
-                                string destination = text.Substring(curr);
-                                // Trace.WriteLine($"value           | {value}");
-
-                                // 列と行の両方マッチ☆（＾～＾）
-                                putsInstructionArgument = new PutsInstructionArgument(objectName, destination.Trim());
-                                return curr + destination.Length;
+                        // 残りはセル範囲のリストだぜ☆（＾～＾）
+                        return CellRangeListArgumentParser.Parse(
+                            text,
+                            curr,
+                            appModel,
+                            (arg, curr) => {
+                                putsInstructionArgument = new PutsInstructionArgument(objectName, arg);
+                                return curr;
                             });
                     });
                 });
 
-            return (putsInstructionArgument, next);
+            return doneCallback(putsInstructionArgument, next);
         }
     }
 }

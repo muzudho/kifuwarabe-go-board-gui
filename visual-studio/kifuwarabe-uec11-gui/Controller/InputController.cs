@@ -88,7 +88,7 @@
                     }
                     else if (instruction.Command == InputScriptDocument.BlackCommand)
                     {
-                        var args = (ColorInstructionArgument)instruction.Argument;
+                        var args = (CellRangeListArgument)instruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
@@ -101,7 +101,7 @@
                     }
                     else if (instruction.Command == InputScriptDocument.WhiteCommand)
                     {
-                        var args = (ColorInstructionArgument)instruction.Argument;
+                        var args = (CellRangeListArgument)instruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
@@ -114,7 +114,7 @@
                     }
                     else if (instruction.Command == InputScriptDocument.SpaceCommand)
                     {
-                        var args = (ColorInstructionArgument)instruction.Argument;
+                        var args = (CellRangeListArgument)instruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                         foreach (var cellRange in args.CellRanges)
                         {
