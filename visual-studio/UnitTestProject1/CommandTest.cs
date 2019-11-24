@@ -61,6 +61,9 @@ black K10
 
             {
                 var text = @"
+# 国際囲碁では I列は無いんだぜ☆（＾～＾）
+set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 put black to A10
 ";
 
@@ -86,6 +89,10 @@ put black to A10
                         });
                 }
             }
+
+            Assert.AreEqual("black to A19", PutsInstructionArgumentParser.Parse("put black to A19", 3).Item1?.ToDisplay());
+            Assert.AreEqual("white to T1", PutsInstructionArgumentParser.Parse("put white to T1", 3).Item1?.ToDisplay());
+            Assert.AreEqual("space to K11", PutsInstructionArgumentParser.Parse("put space to K11", 3).Item1?.ToDisplay());
         }
 
         /// <summary>

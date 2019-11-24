@@ -36,7 +36,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.Name} = {this.Destination}";
+            return $"{this.Name} to {this.Destination}";
         }
     }
 }
