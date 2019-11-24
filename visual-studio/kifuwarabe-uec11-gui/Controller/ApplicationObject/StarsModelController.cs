@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
-    public static class StarsController
+    public static class StarsModelController
     {
         public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
         {
@@ -33,6 +34,7 @@
                         }
                     }
 
+                    Trace.WriteLine($"Change          | Stars value.");
                     appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value = new List<string>(cellAddresses);
                     break;
             }

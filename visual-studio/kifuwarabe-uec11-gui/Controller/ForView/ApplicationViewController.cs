@@ -109,7 +109,7 @@
                     if (appModel.ContainsKeyOfProperty(realName))
                     {
                         // モデルにあるなら、再描画処理をするぜ☆（＾～＾）
-                        PropertyController.RepaintByName(appModel, appView, realName);
+                        PropertyViewController.RepaintByName(appModel, appView, realName);
                     }
                     else
                     {

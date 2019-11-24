@@ -1,8 +1,7 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
-    using System.Windows;
-    using System.Windows.Media;
+    using System.Diagnostics;
     using KifuwarabeUec11Gui.Model;
 
     /// <summary>
@@ -23,7 +22,7 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            // モデル☆（＾～＾）
+            Trace.WriteLine($"Change          | Stone to black.");
             appModel.Board.SetStone(zShapedIndex, Stone.Black);
         }
 
@@ -34,7 +33,7 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            // モデル☆（＾～＾）
+            Trace.WriteLine($"Change          | Stone to white.");
             appModel.Board.SetStone(zShapedIndex, Stone.White);
         }
 
@@ -45,7 +44,7 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            // モデル☆（＾～＾）
+            Trace.WriteLine($"Change          | Stone to space.");
             appModel.Board.SetStone(zShapedIndex, Stone.None);
         }
     }

@@ -72,6 +72,7 @@
                         return curr;
                     }
 
+                    // 読み込んだ行はトレース表示しようぜ☆（＾～＾）
                     Trace.WriteLine($"Read            | {line}");
 
                     return WordParser.Parse(line, curr, (commandName, curr) =>
@@ -90,7 +91,7 @@
                                 }
                                 else
                                 {
-                                    Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                    // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
                                     instructions.Add(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -104,7 +105,7 @@
                                 }
                                 else
                                 {
-                                    Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
+                                    // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
                                     instructions.Add(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -136,7 +137,7 @@
                                 }
                                 else
                                 {
-                                    Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                    // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
                                     instructions.Add(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -154,7 +155,7 @@
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
                                             instructions.Add(new Instruction(commandName.Text, argument));
                                         }
 
@@ -174,7 +175,7 @@
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                            // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
                                             instructions.Add(new Instruction(commandName.Text, argument));
                                         }
 

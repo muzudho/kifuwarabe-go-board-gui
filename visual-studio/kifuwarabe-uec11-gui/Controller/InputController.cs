@@ -218,12 +218,12 @@
                                     (propModel) =>
                                     {
                                         // .typeプロパティなら、propModelはヌルで構わない。
-                                        PropertyController.ChangeModel(appModel, realName, propModel, args);
+                                        PropertyModelController.ChangeModel(appModel, realName, propModel, args);
                                     },
                                     () =>
                                     {
                                         // モデルが無くても働くプロパティはある☆（＾～＾）
-                                        PropertyController.ChangeModel(appModel, realName, null, args);
+                                        PropertyModelController.ChangeModel(appModel, realName, null, args);
                                     });
                             });
 

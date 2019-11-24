@@ -288,19 +288,19 @@
                                         else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
                                         {
                                             Trace.WriteLine($"Info            | Column numbers.");
-                                            ColumnNumbersController.ChangeModel(this.Model, args);
+                                            ColumnNumbersModelController.ChangeModel(this.Model, args);
                                         }
                                         // 行番号☆（＾～＾）
                                         else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
                                         {
                                             Trace.WriteLine($"Info            | Row numbers.");
-                                            RowNumbersController.ChangeModel(this.Model, args);
+                                            RowNumbersModelController.ChangeModel(this.Model, args);
                                         }
                                         // 盤上の星☆（＾～＾）
                                         else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
                                         {
                                             Trace.WriteLine($"Info            | Stars.");
-                                            StarsController.ChangeModel(this.Model, args);
+                                            StarsModelController.ChangeModel(this.Model, args);
                                         }
                                     });
                             }
