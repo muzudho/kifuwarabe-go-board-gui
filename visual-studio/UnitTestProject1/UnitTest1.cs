@@ -5,6 +5,7 @@ namespace UnitTestProject1
     using System.Diagnostics;
     using System.Text;
     using KifuwarabeUec11Gui.Controller;
+    using KifuwarabeUec11Gui.Controller.Parser;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,69 +52,9 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestAliasInstructionArgumentTest()
         {
-            Assert.AreEqual("top2 = ply", AliasInstructionArgument.Parse("alias top2 = ply", 5).Item1?.ToDisplay());
-            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias right3 = b-name black-name player1-name", 5).Item1?.ToDisplay());
-            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgument.Parse("alias  right3  =  b-name  black-name  player1-name  ", 5).Item1?.ToDisplay());
-        }
-
-        /// <summary>
-        /// setコマンドの引数をテスト☆（＾～＾）
-        /// </summary>
-        [TestMethod]
-        public void TestSetsInstructionArgumentTest()
-        {
-            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgument.Parse("set b-name.value = Kifuwarabe", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-name.value = Kifuwarabe", SetsInstructionArgument.Parse("set b-name = Kifuwarabe", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-time.value = 10:00", SetsInstructionArgument.Parse("set  b-time  =  10:00  ", 3).Item1?.ToDisplay());
-            Assert.AreEqual("b-hama.value = ", SetsInstructionArgument.Parse("set b-hama =", 3).Item1?.ToDisplay());
-        }
-
-        /// <summary>
-        /// 国際式囲碁のセル番地表記をテスト☆（＾～＾）
-        /// </summary>
-        [TestMethod]
-        public void TestColorInstructionArgumentTest()
-        {
-            var appModel = new ApplicationObjectModelWrapper();
-
-            {
-                var text = @"
-# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
-";
-
-                foreach (var line in text.Split(Environment.NewLine))
-                {
-                    InputController.ParseByLine(
-                        appModel,
-                        line,
-                        (infoText) =>
-                        {
-                        },
-                        (newAppModel) =>
-                        {
-                        },
-                        (args) =>
-                        {
-                            // Puts.
-                        },
-                        (args) =>
-                        {
-                            // Sets.
-                        });
-                }
-            }
-
-            Assert.AreEqual("A19 K1 T1", ColorInstructionArgument.Parse("black A19 K1 T1", 5, appModel).Item1?.ToDisplay(appModel));
-            Assert.AreEqual("B19 K2 S1", ColorInstructionArgument.Parse("white B19 K2 S1", 5, appModel).Item1?.ToDisplay(appModel));
-            Assert.AreEqual("C19 K3 R1", ColorInstructionArgument.Parse("space C19 K3 R1", 5, appModel).Item1?.ToDisplay(appModel));
-
-            // 混合型☆（＾～＾）
-            Assert.AreEqual("A2:B1 C4:D3 E5", ColorInstructionArgument.Parse("space A2:B1 C4:D3 E5", 5, appModel).Item1?.ToDisplay(appModel));
-
-            // 大文字・小文字は区別するぜ☆（＾～＾）
-            Assert.AreNotEqual("A19 K1 T1", ColorInstructionArgument.Parse("black a19 k1 t1", 5, appModel).Item1?.ToDisplay(appModel));
+            Assert.AreEqual("top2 = ply", AliasInstructionArgumentParser.Parse("alias top2 = ply", 5).Item1?.ToDisplay());
+            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgumentParser.Parse("alias right3 = b-name black-name player1-name", 5).Item1?.ToDisplay());
+            Assert.AreEqual("right3 = b-name black-name player1-name", AliasInstructionArgumentParser.Parse("alias  right3  =  b-name  black-name  player1-name  ", 5).Item1?.ToDisplay());
         }
 
         /// <summary>
@@ -156,7 +97,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             // とりあえずこのテストのスタートは0に揃えておこう☆（＾～＾）
             var start = 0;
 
-            Assert.AreEqual(5, CellRange.Parse("C7:E9", start, appModel, (matched, curr) =>
+            Assert.AreEqual(5, CellRangeParser.Parse("C7:E9", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("C7:E9", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -167,7 +108,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 return curr;
             }));
 
-            Assert.AreEqual(5, CellRange.Parse("E9:C7", start, appModel, (matched, curr) =>
+            Assert.AreEqual(5, CellRangeParser.Parse("E9:C7", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("E9:C7", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -179,7 +120,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }));
 
             // 短縮表記☆（＾～＾）
-            Assert.AreEqual(5, CellRange.Parse("F5:F5", start, appModel, (matched, curr) =>
+            Assert.AreEqual(5, CellRangeParser.Parse("F5:F5", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("F5", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -219,7 +160,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 // I列は無いことに注意☆（＾～＾）！
                 // 右肩上がり☆（＾～＾）
-                CellRange.Parse("H7:K9", start, appModel, (matched, curr) =>
+                CellRangeParser.Parse("H7:K9", start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual("H7:K9", matched?.ToDisplay(appModel));
                     if (matched == null)
@@ -243,7 +184,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 var indexes = new List<int>();
 
                 // I列は無いことに注意☆（＾～＾）！
-                CellRange.Parse("K9:H7", start, appModel, (matched, curr) =>
+                CellRangeParser.Parse("K9:H7", start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual("K9:H7", matched?.ToDisplay(appModel));
                     if (matched == null)
@@ -268,7 +209,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 var signs = new List<string>();
 
                 // I列は無いことに注意☆（＾～＾）！
-                CellRange.Parse("H7:K9", start, appModel, (matched, curr) =>
+                CellRangeParser.Parse("H7:K9", start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual("H7:K9", matched?.ToDisplay(appModel));
                     if (matched == null)
@@ -291,7 +232,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 var signs = new List<string>();
 
                 // I列は無いことに注意☆（＾～＾）！
-                CellRange.Parse("K9:H7", start, appModel, (matched, curr) =>
+                CellRangeParser.Parse("K9:H7", start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual("K9:H7", matched?.ToDisplay(appModel));
                     if (matched == null)
@@ -359,7 +300,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             foreach (var item in list1)
             {
-                Assert.AreEqual(2, CellAddress.Parse(item, start, appModel, (matched, curr) =>
+                Assert.AreEqual(2, CellAddressParser.Parse(item, start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual(item, matched?.ToDisplayTrimed(appModel));
                     if (matched != null)
@@ -390,7 +331,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             foreach (var item in list2)
             {
-                Assert.AreEqual(3, CellAddress.Parse(item, start, appModel, (matched, curr) =>
+                Assert.AreEqual(3, CellAddressParser.Parse(item, start, appModel, (matched, curr) =>
                 {
                     Assert.AreEqual(item, matched?.ToDisplayTrimed(appModel));
                     if (matched == null)
@@ -403,7 +344,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }
 
             // 大文字・小文字は区別するぜ☆（＾～＾）初期セットの列番号に小文字は無いぜ☆（＾～＾）
-            Assert.AreEqual(start, CellAddress.Parse("a1", 0, appModel, (matched, curr) =>
+            Assert.AreEqual(start, CellAddressParser.Parse("a1", 0, appModel, (matched, curr) =>
             {
                 Assert.IsNull(matched?.ToDisplayTrimed(appModel));
                 if (matched == null)
@@ -415,7 +356,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }));
 
             // 大文字・小文字は区別するぜ☆（＾～＾）
-            Assert.AreEqual(3, CellAddress.Parse("T19", 0, appModel, (matched, curr) =>
+            Assert.AreEqual(3, CellAddressParser.Parse("T19", 0, appModel, (matched, curr) =>
             {
                 Assert.AreNotEqual("t19", matched?.ToDisplayTrimed(appModel));
                 if (matched == null)
@@ -464,7 +405,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             }
 
             var start = 0;
-            Assert.AreEqual(1, ColumnAddress.Parse("A", start, appModel, (matched, curr) =>
+            Assert.AreEqual(1, ColumnAddressParser.Parse("A", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("A", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -476,7 +417,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             }));
 
             start = 3;
-            Assert.AreEqual(4, ColumnAddress.Parse("ABCDEFGHIJKLMNOPQRST", start, appModel, (matched, curr) =>
+            Assert.AreEqual(4, ColumnAddressParser.Parse("ABCDEFGHIJKLMNOPQRST", start, appModel, (matched, curr) =>
             {
                 Assert.AreEqual("D", matched?.ToDisplay(appModel));
                 if (matched == null)
@@ -489,7 +430,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
             // I is a null.
             start = 0;
-            Assert.AreEqual(start, ColumnAddress.Parse("I", start, appModel, (matched, curr) =>
+            Assert.AreEqual(start, ColumnAddressParser.Parse("I", start, appModel, (matched, curr) =>
             {
                 Assert.IsNull(matched);
                 if (matched == null)
@@ -540,7 +481,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             // インデックス確認☆（＾～＾）内部的には行番号は　ひっくり返っているぜ☆（＾～＾）"19" が 0行目、 "1" が 18行目だぜ☆（＾～＾）
             start = 0;
-            Assert.AreEqual(start + 1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
+            Assert.AreEqual(start + 1, RowAddressParser.Parse("1", start, appModel, (matched, curr) =>
               {
                   Assert.AreEqual(18, matched?.NumberO0);
                   if (matched == null)
@@ -553,7 +494,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             // インデックス確認☆（＾～＾）内部的には行番号は　ひっくり返っているぜ☆（＾～＾） "15" は 4行目だぜ☆（＾～＾）
             start = 14;
-            Assert.AreEqual(start + 2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+            Assert.AreEqual(start + 2, RowAddressParser.Parse("1234567890123415", start, appModel, (matched, curr) =>
               {
                   Assert.AreEqual(4, matched?.NumberO0);
                   if (matched == null)
@@ -566,7 +507,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             // 表記確認☆（＾～＾）
             start = 0;
-            Assert.AreEqual(start + 1, RowAddress.Parse("1", start, appModel, (matched, curr) =>
+            Assert.AreEqual(start + 1, RowAddressParser.Parse("1", start, appModel, (matched, curr) =>
               {
                   Assert.AreEqual("1", matched?.ToDisplayTrimed(appModel));
                   if (matched == null)
@@ -578,7 +519,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
               }));
 
             start = 14;
-            Assert.AreEqual(start + 2, RowAddress.Parse("1234567890123415", start, appModel, (matched, curr) =>
+            Assert.AreEqual(start + 2, RowAddressParser.Parse("1234567890123415", start, appModel, (matched, curr) =>
               {
                   Assert.AreEqual("15", matched?.ToDisplayTrimed(appModel));
                   if (matched == null)
@@ -600,7 +541,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             var start = 0;
 
             // 単語完全一致のテスト☆（＾～＾）
-            Assert.AreEqual(5, StartsWithKeyword.Parse("black", "black", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeywordParser.Parse("black", "black", start, (matched, curr) =>
             {
                 Assert.AreEqual("black", matched?.ToDisplay());
                 if (matched == null)
@@ -611,7 +552,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 return curr;
             }));
 
-            Assert.AreEqual(5, StartsWithKeyword.Parse("white", "white", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeywordParser.Parse("white", "white", start, (matched, curr) =>
             {
                 Assert.AreEqual("white", matched?.ToDisplay());
                 if (matched == null)
@@ -622,7 +563,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 return curr;
             }));
 
-            Assert.AreEqual(5, StartsWithKeyword.Parse("start", "start", start, (matched, curr) =>
+            Assert.AreEqual(5, StartsWithKeywordParser.Parse("start", "start", start, (matched, curr) =>
             {
                 Assert.AreEqual("start", matched?.ToDisplay());
                 if (matched == null)
@@ -634,7 +575,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }));
 
             // ホワイトスペースのテスト☆（*＾～＾*）
-            Assert.AreEqual(5, WhiteSpace.Parse("     ", start, (matched, curr) =>
+            Assert.AreEqual(5, WhiteSpaceParser.Parse("     ", start, (matched, curr) =>
             {
                 Assert.AreEqual("     ", matched?.ToDisplay());
                 if (matched == null)
@@ -646,7 +587,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }));
 
             // 最初にマッチする単語のテスト☆（＾～＾）
-            Assert.AreEqual(5, Word.Parse("black a19 k10 t1", 0, (matched, curr) =>
+            Assert.AreEqual(5, WordParser.Parse("black a19 k10 t1", 0, (matched, curr) =>
             {
                 Assert.AreEqual("black", matched?.ToDisplay());
                 if (matched == null)
@@ -657,7 +598,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 return curr;
             }));
 
-            Assert.AreEqual(12, WordUpToDelimiter.Parse("!", "Hello, world!", 0, (matched, curr) =>
+            Assert.AreEqual(12, WordUpToDelimiterParser.Parse("!", "Hello, world!", 0, (matched, curr) =>
             {
                 Assert.AreEqual("Hello, world", matched?.ToDisplay());
                 if (matched == null)

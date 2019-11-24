@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using KifuwarabeUec11Gui.Controller.Parser;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
@@ -35,7 +36,7 @@
                         moveMarker.Visibility = Visibility.Visible;
 
                         var start = 0;
-                        CellAddress.Parse(property.ValueAsText(), start, appModel, (moveCellAddress, curr) =>
+                        CellAddressParser.Parse(property.ValueAsText(), start, appModel, (moveCellAddress, curr) =>
                         {
                             if (moveCellAddress == null)
                             {

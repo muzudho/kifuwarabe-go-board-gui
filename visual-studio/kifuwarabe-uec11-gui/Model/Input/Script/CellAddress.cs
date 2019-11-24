@@ -10,14 +10,6 @@
     /// </summary>
     public class CellAddress
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="matched"></param>
-        /// <param name="curr">Current.</param>
-        /// <returns>Next.</returns>
-        public delegate int ParsesCallback(CellAddress matched, int curr);
-
         public ColumnAddress ColumnAddress { get; private set; }
         public RowAddress RowAddress { get; private set; }
 
@@ -25,42 +17,6 @@
         {
             this.RowAddress = rowAddress;
             this.ColumnAddress = columnAddress;
-        }
-
-        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
-        {
-            if (callback == null)
-            {
-                throw new ArgumentNullException(nameof(callback));
-            }
-
-            CellAddress cellAddress = null;
-
-            var next = ColumnAddress.Parse(text, start, appModel, (columnAddress, curr) =>
-                {
-                    if (columnAddress == null)
-                    {
-                        // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                        return start;
-                    }
-
-                    // 列はマッチ☆（＾～＾）
-
-                    return RowAddress.Parse(text, curr, appModel, (rowAddress, curr) =>
-                    {
-                        if (rowAddress == null)
-                        {
-                            // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                            return start;
-                        }
-
-                        // 列と行の両方マッチ☆（＾～＾）
-                        cellAddress = new CellAddress(rowAddress, columnAddress);
-                        return curr;
-                    });
-                });
-
-            return callback(cellAddress, next);
         }
 
         public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModelWrapper model)

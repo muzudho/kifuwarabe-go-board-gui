@@ -10,43 +10,6 @@
     public class ApplicationObjectModelTest
     {
         /// <summary>
-        /// Putsコマンドのテスト☆（＾～＾）
-        /// </summary>
-        [TestMethod]
-        public void PutsCommand()
-        {
-            var appModel = new ApplicationObjectModelWrapper();
-
-            {
-                var text = @"
-put black to A10
-";
-
-                foreach (var line in text.Split(Environment.NewLine))
-                {
-                    InputController.ParseByLine(
-                        appModel,
-                        line,
-                        (infoText) =>
-                        {
-                        },
-                        (newAppModel) =>
-                        {
-                        },
-                        (args) =>
-                        {
-                            // Puts.
-                            Assert.IsTrue(args is PutsInstructionArgument);
-                        },
-                        (args) =>
-                        {
-                            // Sets.
-                        });
-                }
-            }
-        }
-
-        /// <summary>
         /// 数値型プロパティの ply の追加☆（＾～＾）
         /// </summary>
         [TestMethod]

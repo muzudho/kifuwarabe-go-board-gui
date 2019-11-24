@@ -7,6 +7,7 @@
     using System.Windows.Shapes;
     using KifuwarabeUec11Gui.Model;
     using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeUec11Gui.Controller.Parser;
 
     /// <summary>
     /// 星を操作するぜ☆（＾～＾）
@@ -34,7 +35,7 @@
                 {
                     starView.Visibility = Visibility.Visible;
                     var start = 0;
-                    CellAddress.Parse(starsModel[i], start, appModel, (cellAddress, curr) =>
+                    CellAddressParser.Parse(starsModel[i], start, appModel, (cellAddress, curr) =>
                     {
                         if (cellAddress == null)
                         {

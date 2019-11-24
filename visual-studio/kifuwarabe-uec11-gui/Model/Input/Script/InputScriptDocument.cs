@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using KifuwarabeUec11Gui.Controller.Parser;
     using KifuwarabeUec11Gui.Model;
 
     /// <summary>
@@ -56,11 +57,11 @@
             var instructions = new List<Instruction>();
 
             var start = 0;
-            WhiteSpace.Parse(line, start, (whiteSpace, curr) =>
+            WhiteSpaceParser.Parse(line, start, (whiteSpace, curr) =>
             {
                 // 行頭のスペースは読み飛ばすぜ☆（＾～＾）
 
-                return StartsWithKeyword.Parse("#", line, curr, (commentSymbol, curr) =>
+                return StartsWithKeywordParser.Parse("#", line, curr, (commentSymbol, curr) =>
                 {
                     // Trace.WriteLine($"Info            | Line ISD=[{line}]");
 
@@ -73,7 +74,7 @@
 
                     Trace.WriteLine($"Read            | {line}");
 
-                    return Word.Parse(line, curr, (commandName, curr) =>
+                    return WordParser.Parse(line, curr, (commandName, curr) =>
                     {
                         // Trace.WriteLine($"Info            | Command-ISD=[{commandName?.Text}]");
 
@@ -82,7 +83,7 @@
                             if (commandName.Text == InputScriptDocument.InfoCommand)
                             {
                                 InfoInstructionArgument argument;
-                                (argument, curr) = InfoInstructionArgument.Parse(line, curr);
+                                (argument, curr) = InfoInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
@@ -98,7 +99,7 @@
                                 commandName.Text == InputScriptDocument.SpaceCommand)
                             {
                                 ColorInstructionArgument argument;
-                                (argument, curr) = ColorInstructionArgument.Parse(line, curr, appModel);
+                                (argument, curr) = ColorInstructionArgumentParser.Parse(line, curr, appModel);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
@@ -112,7 +113,7 @@
                             else if (commandName.Text == InputScriptDocument.BoardCommand)
                             {
                                 BoardInstructionArgument argument;
-                                (argument, curr) = BoardInstructionArgument.Parse(line, curr, appModel);
+                                (argument, curr) = BoardInstructionArgumentParser.Parse(line, curr, appModel);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
@@ -126,7 +127,7 @@
                             else if (commandName.Text == InputScriptDocument.JsonCommand)
                             {
                                 JsonInstructionArgument argument;
-                                (argument, curr) = JsonInstructionArgument.Parse(line, curr);
+                                (argument, curr) = JsonInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
@@ -140,7 +141,7 @@
                             else if (commandName.Text == InputScriptDocument.AliasCommand)
                             {
                                 AliasInstructionArgument argument;
-                                (argument, curr) = AliasInstructionArgument.Parse(line, curr);
+                                (argument, curr) = AliasInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");
@@ -154,7 +155,7 @@
                             else if (commandName.Text == InputScriptDocument.SetsCommand)
                             {
                                 SetsInstructionArgument argument;
-                                (argument, curr) = SetsInstructionArgument.Parse(line, curr);
+                                (argument, curr) = SetsInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
                                     Trace.WriteLine($"Error           | {line}");

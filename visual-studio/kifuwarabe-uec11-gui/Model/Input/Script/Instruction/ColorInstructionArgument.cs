@@ -24,54 +24,6 @@
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="start"></param>
-        /// <returns></returns>
-        public static (ColorInstructionArgument, int) Parse(string text, int start, ApplicationObjectModelWrapper model)
-        {
-            var cellRanges = new List<CellRange>();
-            var nextSum = start;
-
-            // リスト☆（＾～＾）
-            bool repeatsColor = true;
-            while (repeatsColor)
-            {
-                nextSum = WhiteSpace.Parse(text, nextSum,
-                    (whiteSpace, curr) =>
-                    {
-                        if (whiteSpace == null)
-                        {
-                            // 最初にスペースなんか無かった☆（＾～＾）ここで成功終了☆（＾～＾）
-                            repeatsColor = false;
-                            return curr;
-                        }
-
-                        // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
-                        return CellRange.Parse(text, curr, model, (cellRange, curr) =>
-                        {
-                            if (cellRange == null)
-                            {
-                                    // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
-                                    repeatsColor = false;
-                            }
-                            else
-                            {
-                                    // セル番地指定があった☆（＾～＾）マッチで成功終了☆（＾～＾）
-                                    cellRanges.Add(cellRange);
-                            }
-
-                            return curr;
-                        });
-                    });
-            }
-
-            // 列と行の両方マッチ☆（＾～＾）
-            return (new ColorInstructionArgument(cellRanges), nextSum);
-        }
-
-        /// <summary>
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
