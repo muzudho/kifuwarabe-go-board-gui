@@ -40,7 +40,15 @@
             });
             // イベント・ハンドラーを起こすぜ☆（＾～＾）
             this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+
+            // モデル変更のログを書き込むやつ☆（＾～＾）
+            this.ModelChangeLogWriter = new ModelChangeLogWriter("model-change.log");
         }
+
+        /// <summary>
+        /// モデル変更ログ を書き込むやつ☆（＾～＾）
+        /// </summary>
+        public ModelChangeLogWriter ModelChangeLogWriter { get; private set; }
 
         public ApplicationObjectModel ApplicationObjectModel { get; private set; }
 

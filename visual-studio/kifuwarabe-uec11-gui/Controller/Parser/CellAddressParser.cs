@@ -12,42 +12,71 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(CellAddress matched, int curr);
+        public delegate int SomeCallback(CellAddress matched, int curr);
+        public delegate int NoneCallback();
 
-        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
+        public static int Parse(
+            string text,
+            int start,
+            ApplicationObjectModelWrapper appModel,
+            SomeCallback someCallback,
+            NoneCallback noneCallback
+            )
         {
-            if (callback == null)
+            if (someCallback == null)
             {
-                throw new ArgumentNullException(nameof(callback));
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
             }
 
             CellAddress cellAddress = null;
 
-            var next = ColumnAddressParser.Parse(text, start, appModel, (columnAddress, curr) =>
-            {
-                if (columnAddress == null)
+            var next = ColumnAddressParser.Parse(
+                text,
+                start,
+                appModel,
+                (columnAddress, curr) =>
+                {
+                    // 列はマッチ☆（＾～＾）
+                    return RowAddressParser.Parse(
+                        text,
+                        curr,
+                        appModel,
+                        (rowAddress, curr) =>
+                        {
+                            if (rowAddress == null)
+                            {
+                                // 片方でもマッチしなければ、非マッチ☆（＾～＾）
+                                return start;
+                            }
+
+                            // 列と行の両方マッチ☆（＾～＾）
+                            cellAddress = new CellAddress(rowAddress, columnAddress);
+                            return curr;
+                        },
+                        ()=>
+                        {
+                            return curr;
+                        });
+                },
+                ()=>
                 {
                     // 片方でもマッチしなければ、非マッチ☆（＾～＾）
                     return start;
-                }
-
-                // 列はマッチ☆（＾～＾）
-
-                return RowAddressParser.Parse(text, curr, appModel, (rowAddress, curr) =>
-                {
-                    if (rowAddress == null)
-                    {
-                        // 片方でもマッチしなければ、非マッチ☆（＾～＾）
-                        return start;
-                    }
-
-                    // 列と行の両方マッチ☆（＾～＾）
-                    cellAddress = new CellAddress(rowAddress, columnAddress);
-                    return curr;
                 });
-            });
 
-            return callback(cellAddress, next);
+            if (cellAddress!=null)
+            {
+                return someCallback(cellAddress, next);
+            }
+            else
+            {
+                return noneCallback();
+            }
         }
     }
 }

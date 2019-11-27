@@ -36,27 +36,36 @@
                         moveMarker.Visibility = Visibility.Visible;
 
                         var start = 0;
-                        CellAddressParser.Parse(property.ValueAsText(), start, appModel, (moveCellAddress, curr) =>
-                        {
-                            if (moveCellAddress == null)
+                        CellAddressParser.Parse(
+                            property.ValueAsText(),
+                            start,
+                            appModel,
+                            (moveCellAddress, curr) =>
                             {
-                                moveMarker.Visibility = Visibility.Hidden;
+                                if (moveCellAddress == null)
+                                {
+                                    moveMarker.Visibility = Visibility.Hidden;
+                                    return start;
+                                }
+
+                                appView.PutAnythingOnNode(moveCellAddress.ToIndex(appModel), (left, top) =>
+                                {
+                                    // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
+
+                                    moveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
+                                    moveMarker.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.4;
+
+                                    Canvas.SetLeft(moveMarker, left - moveMarker.Width / 2);
+                                    Canvas.SetTop(moveMarker, top - moveMarker.Height / 2);
+                                });
+
+                                return curr;
+                            },
+                            ()=>
+                            {
+                                // パース失敗☆（＾～＾）
                                 return start;
-                            }
-
-                            appView.PutAnythingOnNode(moveCellAddress.ToIndex(appModel), (left, top) =>
-                            {
-                                // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
-
-                                moveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
-                                moveMarker.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.4;
-
-                                Canvas.SetLeft(moveMarker, left - moveMarker.Width / 2);
-                                Canvas.SetTop(moveMarker, top - moveMarker.Height / 2);
                             });
-
-                            return curr;
-                        });
                     }
                     else
                     {

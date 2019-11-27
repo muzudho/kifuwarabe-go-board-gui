@@ -13,13 +13,24 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(RowAddress matched, int curr);
+        public delegate int SomeCallback(RowAddress matched, int curr);
+        public delegate int NoneCallback();
 
-        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
+        public static int Parse(
+            string text,
+            int start,
+            ApplicationObjectModelWrapper appModel,
+            SomeCallback someCallback,
+            NoneCallback noneCallback)
         {
-            if (callback == null)
+            if (someCallback == null)
             {
-                throw new ArgumentNullException(nameof(callback));
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
             }
 
             if (text == null)
@@ -29,7 +40,7 @@
 
             if (text.Length < start + 1 || appModel == null)
             {
-                return callback(null, start);
+                return noneCallback();
             }
 
             // 複数桁の数字☆（＾～＾）
@@ -45,7 +56,7 @@
                 else
                 {
                     // 1文字もヒットしなかった場合☆（＾～＾）
-                    return callback(null, start);
+                    return noneCallback();
                 }
             }
 
@@ -69,11 +80,13 @@
             if (index < 0)
             {
                 // 該当なし☆（＾～＾）
-                return callback(null, start);
+                return noneCallback();
             }
-
-            // 内部的には行番号は 0 から持つぜ☆（＾～＾）
-            return callback(new RowAddress(index), start);
+            else
+            {
+                // 内部的には行番号は 0 から持つぜ☆（＾～＾）
+                return someCallback(new RowAddress(index), start);
+            }
         }
     }
 }

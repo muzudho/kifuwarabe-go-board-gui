@@ -1,5 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Controller.Parser
 {
+    using System;
     using System.Collections.Generic;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
@@ -12,7 +13,8 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(CellRangeListArgument matched, int curr);
+        public delegate int SomeCallback(CellRangeListArgument matched, int curr);
+        public delegate int NoneCallback();
 
         /// <summary>
         /// 
@@ -24,47 +26,67 @@
             string text,
             int start,
             ApplicationObjectModelWrapper appModel,
-            ParsesCallback callbackDone)
+            SomeCallback someCallback,
+            NoneCallback noneCallback)
         {
+            if (someCallback==null)
+            {
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
             var cellRanges = new List<CellRange>();
-            var nextSum = start;
+            var curr = start;
 
             // リスト☆（＾～＾）
-            bool repeatsColor = true;
-            while (repeatsColor)
+            bool isRepeats = true;
+            while (isRepeats)
             {
                 // 最初のスペースを読み飛ばすぜ☆（＾～＾）
-                nextSum = WhiteSpaceParser.Parse(text, nextSum,
+                curr = WhiteSpaceParser.Parse(
+                    text,
+                    curr,
                     (whiteSpace, curr) =>
                     {
-                        if (whiteSpace == null)
-                        {
-                            // 最初にスペースなんか無かった☆（＾～＾）ここで成功終了☆（＾～＾）
-                            repeatsColor = false;
-                            return curr;
-                        }
+                        return curr;
+                    },
+                    ()=>
+                    {
+                        return curr;
+                    });
 
-                        // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
-                        return CellRangeParser.Parse(text, curr, appModel, (cellRange, curr) =>
-                        {
-                            if (cellRange == null)
-                            {
-                                // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
-                                repeatsColor = false;
-                            }
-                            else
-                            {
-                                // セル番地指定があった☆（＾～＾）マッチで成功終了☆（＾～＾）
-                                cellRanges.Add(cellRange);
-                            }
-
-                            return curr;
-                        });
+                // 最初のスペースを読み飛ばしたぜ☆（＾～＾）
+                curr = CellRangeParser.Parse(
+                    text,
+                    curr,
+                    appModel,
+                    (cellRange, curr) =>
+                    {
+                        // セル番地指定があった☆（＾～＾）続行☆（＾～＾）
+                        cellRanges.Add(cellRange);
+                        return curr;
+                    },
+                    () =>
+                    {
+                        // セル番地指定なんて無かった☆（＾～＾）ここで成功終了☆（＾～＾）
+                        isRepeats = false;
+                        return curr;
                     });
             }
 
-            // 列と行の両方マッチ☆（＾～＾）
-            return callbackDone(new CellRangeListArgument(cellRanges), nextSum);
+            if (cellRanges.Count<1)
+            {
+                return noneCallback();
+            }
+            else
+            {
+                // 列と行の両方マッチ☆（＾～＾）
+                return someCallback(new CellRangeListArgument(cellRanges), curr);
+            }
         }
     }
 }

@@ -26,6 +26,10 @@
 
         public bool Visible { get; set; }
 
+        /// <summary>
+        /// JSONで出力されないようにメソッドにしているんだぜ☆（＾～＾）
+        /// </summary>
+        /// <returns></returns>
         public string ValueAsText()
         {
             return this.Value;

@@ -87,11 +87,9 @@
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
-                /*
-                // GUIの画面上にメッセージを表示するぜ☆（＾～＾）
+                // 'info' は初期実装☆（＾～＾） GUIの画面上にメッセージを表示するぜ☆（＾～＾）
                 // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
                 {InfoRealName.Value, new PropertyString(string.Empty, string.Empty) },
-                */
             };
 
             this.StringLists = new Dictionary<string, PropertyStringList>()

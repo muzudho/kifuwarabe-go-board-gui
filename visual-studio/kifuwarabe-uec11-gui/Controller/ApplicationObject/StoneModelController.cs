@@ -22,8 +22,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            Trace.WriteLine($"Change          | Stone to black.");
-            appModel.Board.SetStone(zShapedIndex, Stone.Black);
+            var oldValue = appModel.Board.GetStone(zShapedIndex);
+            var newValue = Stone.Black;
+            // TODO: ログが大量になってしまう☆（＾～＾）
+            // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
+            appModel.Board.SetStone(zShapedIndex, newValue);
         }
 
         public static void ChangeModelToWhite(ApplicationObjectModelWrapper appModel, int zShapedIndex)
@@ -33,8 +36,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            Trace.WriteLine($"Change          | Stone to white.");
-            appModel.Board.SetStone(zShapedIndex, Stone.White);
+            var oldValue = appModel.Board.GetStone(zShapedIndex);
+            var newValue = Stone.White;
+            // TODO: ログが大量になってしまう☆（＾～＾）
+            // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
+            appModel.Board.SetStone(zShapedIndex, newValue);
         }
 
         public static void ChangeModelToSpace(ApplicationObjectModelWrapper appModel, int zShapedIndex)
@@ -44,8 +50,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            Trace.WriteLine($"Change          | Stone to space.");
-            appModel.Board.SetStone(zShapedIndex, Stone.None);
+            var oldValue = appModel.Board.GetStone(zShapedIndex);
+            var newValue = Stone.None;
+            // TODO: ログが大量になってしまう☆（＾～＾）
+            // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
+            appModel.Board.SetStone(zShapedIndex, newValue);
         }
     }
 }

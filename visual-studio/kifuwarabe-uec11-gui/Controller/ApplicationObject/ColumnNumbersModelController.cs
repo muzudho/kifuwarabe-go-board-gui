@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeUec11Gui.Controller
 {
     using System;
-    using System.Diagnostics;
     using KifuwarabeUec11Gui.InputScript;
     using KifuwarabeUec11Gui.Model;
 
@@ -22,8 +21,10 @@
             switch (args.Property)
             {
                 case "value":
-                    Trace.WriteLine($"Change          | Column numbers value.");
-                    appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value = PropertyStringList.FromString(args.Value);
+                    var oldValue = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
+                    var newValue = PropertyStringList.FromString(args.Value);
+                    appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
+                    appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value = newValue;
                     break;
             }
         }

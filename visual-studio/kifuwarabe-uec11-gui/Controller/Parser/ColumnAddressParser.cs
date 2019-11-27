@@ -13,7 +13,8 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(ColumnAddress matched, int curr);
+        public delegate int SomeCallback(ColumnAddress matched, int curr);
+        public delegate int NoneCallback();
 
         /// <summary>
         /// 列番号の文字をパースして数にするぜ☆（＾～＾）
@@ -21,21 +22,32 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static int Parse(string text, int start, ApplicationObjectModelWrapper appModel, ParsesCallback callback)
+        public static int Parse(
+            string text,
+            int start,
+            ApplicationObjectModelWrapper appModel,
+            SomeCallback someCallback,
+            NoneCallback noneCallback
+            )
         {
-            if (callback == null)
-            {
-                throw new ArgumentNullException(nameof(callback));
-            }
-
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
 
+            if (someCallback == null)
+            {
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
             if (text.Length < start + 1 || appModel == null)
             {
-                return callback(null, start);
+                return noneCallback();
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
@@ -44,10 +56,10 @@
             if (index < 0)
             {
                 // 該当なし☆（＾～＾）
-                return callback(null, start);
+                return noneCallback();
             }
 
-            return callback(new ColumnAddress(index), start + 1);
+            return someCallback(new ColumnAddress(index), start + 1);
         }
     }
 }

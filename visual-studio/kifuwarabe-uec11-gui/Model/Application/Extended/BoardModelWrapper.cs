@@ -100,5 +100,10 @@
         {
             this.Stones[zShapedIndex] = stone;
         }
+
+        public Stone GetStone(int zShapedIndex)
+        {
+            return this.Stones[zShapedIndex];
+        }
     }
 }

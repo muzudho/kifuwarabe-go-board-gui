@@ -11,29 +11,43 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(StartsWithKeyword matched, int curr);
+        public delegate int SomeCallback(StartsWithKeyword matched, int curr);
+        public delegate int NoneCallback();
 
-        public static int Parse(string keyword, string text, int start, ParsesCallback callback)
+        public static int Parse(
+            string keyword,
+            string text,
+            int start,
+            SomeCallback someCallback,
+            NoneCallback noneCallback
+            )
         {
-            if (callback == null)
+            if (someCallback == null)
             {
-                throw new ArgumentNullException(nameof(callback));
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
             }
 
             if (keyword == null || text == null || text.Length < start + keyword.Length)
             {
-                return callback(null, start);
+                return noneCallback();
             }
 
             if (text.Substring(start).StartsWith(keyword, StringComparison.Ordinal))
             {
                 // 一致。
                 // Trace.WriteLine($"ExactlyKeyword  | keyword=[{keyword}] text=[{text}] start={start}");
-                return callback(new StartsWithKeyword(keyword), start + keyword.Length);
+                return someCallback(new StartsWithKeyword(keyword), start + keyword.Length);
             }
-
-            // Trace.WriteLine($"NoExactlyKeyword| keyword=[{keyword}] text=[{text}] start={start}");
-            return callback(null, start);
+            else
+            {
+                // Trace.WriteLine($"NoExactlyKeyword| keyword=[{keyword}] text=[{text}] start={start}");
+                return noneCallback();
+            }
         }
     }
 }

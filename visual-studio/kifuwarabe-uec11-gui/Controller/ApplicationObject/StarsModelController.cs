@@ -34,8 +34,10 @@
                         }
                     }
 
-                    Trace.WriteLine($"Change          | Stars value.");
-                    appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value = new List<string>(cellAddresses);
+                    var oldValue = appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value;
+                    var newValue = new List<string>(cellAddresses);
+                    appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
+                    appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value = newValue;
                     break;
             }
         }

@@ -22,8 +22,10 @@
             switch (args.Property)
             {
                 case "value":
-                    Trace.WriteLine($"Change          | Row numbers value.");
-                    appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = PropertyStringList.FromString(args.Value);
+                    var oldValue = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+                    var newValue = PropertyStringList.FromString(args.Value);
+                    appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
+                    appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = newValue;
                     break;
             }
         }

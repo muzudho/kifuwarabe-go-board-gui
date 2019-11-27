@@ -30,9 +30,9 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelWrapper model)
+        public string ToDisplay(ApplicationObjectModelWrapper appModel)
         {
-            return $"{this.RowAddress.ToDisplayTrimed(model)} {this.Columns}";
+            return $"{this.RowAddress.ToDisplayTrimed(appModel)} {this.Columns}";
         }
     }
 }

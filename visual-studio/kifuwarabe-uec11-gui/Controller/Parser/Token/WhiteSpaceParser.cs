@@ -12,7 +12,8 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int ParsesCallback(WhiteSpace matched, int curr);
+        public delegate int SomeCallback(WhiteSpace matched, int curr);
+        public delegate int NoneCallback();
 
         /// <summary>
         /// ホワイト・スペース☆（＾～＾）
@@ -24,18 +25,27 @@
         /// </summary>
         /// <param name="text"></param>
         /// <param name="start"></param>
-        /// <param name="callback"></param>
+        /// <param name="someCallback"></param>
         /// <returns>Next.</returns>
-        public static int Parse(string text, int start, ParsesCallback callback)
+        public static int Parse(
+            string text,
+            int start,
+            SomeCallback someCallback,
+            NoneCallback noneCallback)
         {
-            if (callback == null)
+            if (someCallback == null)
             {
-                throw new ArgumentNullException(nameof(callback));
+                throw new ArgumentNullException(nameof(someCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
             }
 
             if (text == null || text.Length <= start)
             {
-                return callback(null, start);
+                return noneCallback();
             }
 
             var m = regex.Match(text.Substring(start));
@@ -43,10 +53,12 @@
             {
                 // 一致。
                 var whiteSpaces = m.Groups[1].Value;
-                return callback(new WhiteSpace(whiteSpaces), start + whiteSpaces.Length);
+                return someCallback(new WhiteSpace(whiteSpaces), start + whiteSpaces.Length);
             }
-
-            return callback(null, start);
+            else
+            {
+                return noneCallback();
+            }
         }
     }
 }

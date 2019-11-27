@@ -35,25 +35,33 @@
                 {
                     starView.Visibility = Visibility.Visible;
                     var start = 0;
-                    CellAddressParser.Parse(starsModel[i], start, appModel, (cellAddress, curr) =>
-                    {
-                        if (cellAddress == null)
+                    CellAddressParser.Parse(
+                        starsModel[i],
+                        start,
+                        appModel,
+                        (cellAddress, curr) =>
+                        {
+                            if (cellAddress == null)
+                            {
+                                return start;
+                            }
+
+                            appView.PutAnythingOnNode(cellAddress.ToIndex(appModel), (left, top) =>
+                            {
+                                // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
+                                starView.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.3;
+                                starView.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.3;
+
+                                Canvas.SetLeft(starView, left - starView.Width / 2);
+                                Canvas.SetTop(starView, top - starView.Height / 2);
+                            });
+
+                            return curr;
+                        },
+                        ()=>
                         {
                             return start;
-                        }
-
-                        appView.PutAnythingOnNode(cellAddress.ToIndex(appModel), (left, top) =>
-                        {
-                            // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                            starView.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.3;
-                            starView.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.3;
-
-                            Canvas.SetLeft(starView, left - starView.Width / 2);
-                            Canvas.SetTop(starView, top - starView.Height / 2);
                         });
-
-                        return curr;
-                    });
                 }
                 else
                 {

@@ -31,6 +31,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
+            if (realName == null)
+            {
+                throw new ArgumentNullException(nameof(realName));
+            }
+
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));
@@ -46,23 +51,31 @@
                     }
                     else if (propModel is PropertyBool)
                     {
-                        Trace.WriteLine($"Change          | PropertyBool title.");
-                        ((PropertyBool)propModel).Title = args.Value;
+                        var oldValue = ((PropertyBool)propModel).Title;
+                        var newValue = args.Value;
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue, newValue);
+                        ((PropertyBool)propModel).Title = newValue;
                     }
                     else if (propModel is PropertyNumber)
                     {
-                        Trace.WriteLine($"Change          | PropertyNumber title.");
-                        ((PropertyNumber)propModel).Title = args.Value;
+                        var oldValue = ((PropertyNumber)propModel).Title;
+                        var newValue = args.Value;
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue, newValue);
+                        ((PropertyNumber)propModel).Title = newValue;
                     }
                     else if (propModel is PropertyString)
                     {
-                        Trace.WriteLine($"Change          | PropertyString title.");
-                        ((PropertyString)propModel).Title = args.Value;
+                        var oldValue = ((PropertyString)propModel).Title;
+                        var newValue = args.Value;
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue, newValue);
+                        ((PropertyString)propModel).Title = newValue;
                     }
                     else if (propModel is PropertyStringList)
                     {
-                        Trace.WriteLine($"Change          | PropertyStringList title.");
-                        ((PropertyStringList)propModel).Title = args.Value;
+                        var oldValue = ((PropertyStringList)propModel).Title;
+                        var newValue = args.Value;
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue, newValue);
+                        ((PropertyStringList)propModel).Title = newValue;
                     }
 
                     break;
@@ -89,9 +102,9 @@
                     // 新しい型のオブジェクトに換装☆（＾～＾）
                     if (args.Value == ApplicationObjectModel.StringType)
                     {
-                        Trace.WriteLine($"Change          | Add new PropertyString.");
-                        var brandnew = new PropertyString(title);
-                        appModel.AddProperty(realName, brandnew);
+                        var newValue = new PropertyString(title);
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
+                        appModel.AddProperty(realName, newValue);
                     }
                     else if (args.Value == ApplicationObjectModel.NullType)
                     {
@@ -99,60 +112,25 @@
                     }
                     else if (args.Value == ApplicationObjectModel.NumberType)
                     {
-                        Trace.WriteLine($"Change          | Add new PropertyNumber.");
-                        var brandnew = new PropertyNumber(title);
-                        appModel.AddProperty(realName, brandnew);
+                        var newValue = new PropertyNumber(title);
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
+                        appModel.AddProperty(realName, newValue);
                     }
                     else if (args.Value == ApplicationObjectModel.BoolType)
                     {
-                        Trace.WriteLine($"Change          | Add new PropertyBool.");
-                        var brandnew = new PropertyBool(title);
-                        appModel.AddProperty(realName, brandnew);
+                        var newValue = new PropertyBool(title);
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
+                        appModel.AddProperty(realName, newValue);
                     }
                     else if (args.Value == ApplicationObjectModel.StringListType)
                     {
-                        Trace.WriteLine($"Change          | Add new PropertyStringList.");
-                        var brandnew = new PropertyStringList(title, new List<string>());
-                        appModel.AddProperty(realName, brandnew);
+                        var newValue = new PropertyStringList(title, new List<string>());
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
+                        appModel.AddProperty(realName, newValue);
                     }
                     else
                     {
                         Trace.WriteLine($"Warning         | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
-                    }
-
-                    break;
-
-                case "value":
-                    // モデルに値をセット☆（＾～＾）
-                    if (propModel == null)
-                    {
-                        Trace.WriteLine($"Warning         | {realName.Value}.value is fail. {realName.Value} is not found.");
-                    }
-                    else if (propModel is PropertyBool)
-                    {
-                        if (bool.TryParse(args.Value, out bool outValue))
-                        {
-                            Trace.WriteLine($"Change          | PropertyBool value.");
-                            ((PropertyBool)propModel).Value = outValue;
-                        }
-                    }
-                    else if (propModel is PropertyNumber)
-                    {
-                        if (double.TryParse(args.Value, out double outValue))
-                        {
-                            Trace.WriteLine($"Change          | PropertyNumber value.");
-                            ((PropertyNumber)propModel).Value = outValue;
-                        }
-                    }
-                    else if (propModel is PropertyString)
-                    {
-                        Trace.WriteLine($"Change          | PropertyString value.");
-                        ((PropertyString)propModel).Value = args.Value;
-                    }
-                    else if (propModel is PropertyStringList)
-                    {
-                        Trace.WriteLine($"Change          | PropertyStringList value.");
-                        ((PropertyStringList)propModel).Value = PropertyStringList.FromString(args.Value);
                     }
 
                     break;
@@ -167,16 +145,70 @@
                         switch (args.Value)
                         {
                             case "true":
-                                Trace.WriteLine($"Change          | Property visible true.");
-                                propModel.Visible = true;
+                                {
+                                    var oldValue = propModel.Visible;
+                                    var newValue = true;
+                                    appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue.ToString(), newValue.ToString());
+                                    propModel.Visible = newValue;
+                                }
                                 break;
                             case "false":
-                                Trace.WriteLine($"Change          | Property visible false.");
-                                propModel.Visible = false;
+                                {
+                                    var oldValue = propModel.Visible;
+                                    var newValue = false;
+                                    appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue.ToString(), newValue.ToString());
+                                    propModel.Visible = newValue;
+                                }
+                                break;
+                            default:
+                                Trace.WriteLine($"Warning         | {realName.Value}.visible is fail. {realName.Value} are not implemented.");
                                 break;
                         }
                     }
                     break;
+
+                case "value": // thru
+                default:
+                    // モデルに値をセット☆（＾～＾）
+                    if (propModel == null)
+                    {
+                        Trace.WriteLine($"Warning         | {realName.Value}.value is fail. {realName.Value} is not found.");
+                    }
+                    else if (propModel is PropertyBool)
+                    {
+                        if (bool.TryParse(args.Value, out bool newValue))
+                        {
+                            var oldValue = ((PropertyBool)propModel).Value;
+                            appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue.ToString(), newValue.ToString());
+                            ((PropertyBool)propModel).Value = newValue;
+                        }
+                    }
+                    else if (propModel is PropertyNumber)
+                    {
+                        if (double.TryParse(args.Value, out double newValue))
+                        {
+                            var oldValue = ((PropertyNumber)propModel).Value;
+                            appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue.ToString(), newValue.ToString());
+                            ((PropertyNumber)propModel).Value = newValue;
+                        }
+                    }
+                    else if (propModel is PropertyString)
+                    {
+                        var oldValue = ((PropertyString)propModel).Value;
+                        var newValue = args.Value;
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue, newValue);
+                        ((PropertyString)propModel).Value = newValue;
+                    }
+                    else if (propModel is PropertyStringList)
+                    {
+                        var oldValue = ((PropertyStringList)propModel).Value;
+                        var newValue = PropertyStringList.FromString(args.Value);
+                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
+                        ((PropertyStringList)propModel).Value = newValue;
+                    }
+
+                    break;
+
             }
         }
     }
