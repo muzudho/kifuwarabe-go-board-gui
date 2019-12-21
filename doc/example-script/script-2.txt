@@ -1,0 +1,119 @@
+﻿# 盤設定☆（＾～＾）
+set row-size.type = number
+set row-size = 10
+
+set column-size.type = number
+set column-size = 10
+
+set column-numbers.type = string-list
+set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
+
+# 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
+set row-numbers.type = string-list
+set row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+# 星は要らね☆（＾～＾）
+
+# UIは何も出さない☆（＾～＾）
+
+# 盤の初期配置☆（＾～＾） 行番号を決めたあとにしろだぜ☆（＾～＾）
+board 10 ....b.....
+board  9 ...b.b....
+board  8 ...b.b....
+board  7 bbb...bbbb
+board  6 b........b
+board  5 .b......b.
+board  4 ..b....b..
+board  3 .b..bb..b.
+board  2 b.bb..bb.b
+board  1 .b......b.
+#        abcdefghij
+
+# ここから動画☆（＾～＾）
+put white to e9
+# 200ミリ秒待機☆（＾～＾） 精度はあんまりない☆（＾～＾）
+sleep 200
+
+put white to e8
+sleep 200
+
+put white to d7
+sleep 200
+
+put white to e7
+sleep 200
+
+put white to f7
+sleep 200
+
+put white to b6
+sleep 200
+
+put white to c6
+sleep 200
+
+put white to d6
+sleep 200
+
+put white to e6
+sleep 200
+
+put white to f6
+sleep 200
+
+put white to g6
+sleep 200
+
+put white to h6
+sleep 200
+
+put white to i6
+sleep 200
+
+put white to c5
+sleep 200
+
+put white to d5
+sleep 200
+
+put white to e5
+sleep 200
+
+put white to f5
+sleep 200
+
+put white to g5
+sleep 200
+
+put white to h5
+sleep 200
+
+put white to d4
+sleep 200
+
+put white to e4
+sleep 200
+
+put white to f4
+sleep 200
+
+put white to g4
+sleep 200
+
+put white to c3
+sleep 200
+
+put white to d3
+sleep 200
+
+put white to g3
+sleep 200
+
+put white to h3
+sleep 200
+
+put white to b2
+sleep 200
+
+put white to i2
+sleep 200

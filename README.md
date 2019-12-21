@@ -13,6 +13,10 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 
 [Script API](./doc/script-api.md)
 
+# Example script
+
+[Example-1 Horizon](./doc/example-script/example-1.txt)
+[Example-2 Star](./doc/example-script/example-2.txt)
 
 # Output JSON
 
