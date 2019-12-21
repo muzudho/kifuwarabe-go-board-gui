@@ -39,6 +39,8 @@ alias left3 = w-hama
 alias left4 = komi
 
 # UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+set info.type = string
+
 set move.type  = string
 set move.title = 着手
 set move       = ---
@@ -152,6 +154,8 @@ alias left1 = w-name
 alias left2 = w-time
 
 # UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+set info.type = string
+
 set move.type       = string
 set move.title      = 着手
 set move            = ---
