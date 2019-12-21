@@ -798,7 +798,7 @@ output.txt ファイルが存在する間は、 input.txt を読み込まない�
 OutputJsonDocument.cs:
 
 ```
-namespace KifuwarabeUec11Gui.Script
+namespace KifuwarabeGoBoardGui.Script
 {
     using System.Text.Json;
 

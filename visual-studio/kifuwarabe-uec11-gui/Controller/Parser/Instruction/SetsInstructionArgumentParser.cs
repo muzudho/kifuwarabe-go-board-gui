@@ -1,7 +1,7 @@
-﻿namespace KifuwarabeUec11Gui.Controller.Parser
+﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeUec11Gui.InputScript;
+    using KifuwarabeGoBoardGui.InputScript;
 
     public static class SetsInstructionArgumentParser
     {

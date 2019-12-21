@@ -1,10 +1,10 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     public delegate void SomeViewCallback(Canvas canvas);
     public delegate void NoneViewCallback(string err);

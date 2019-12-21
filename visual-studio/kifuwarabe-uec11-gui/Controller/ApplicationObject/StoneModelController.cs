@@ -1,8 +1,8 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Diagnostics;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// 石を操作するぜ☆（＾～＾）

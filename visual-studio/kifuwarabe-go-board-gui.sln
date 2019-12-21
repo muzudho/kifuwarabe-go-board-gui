@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kifuwarabe-uec11-gui", "kifuwarabe-uec11-gui\kifuwarabe-uec11-gui.csproj", "{D547CB62-D9A0-4537-90F2-E6214F60484B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kifuwarabe-go-board-gui", "kifuwarabe-uec11-gui\kifuwarabe-go-board-gui.csproj", "{D547CB62-D9A0-4537-90F2-E6214F60484B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{96933693-4831-4AEF-B65E-DA92C2C56633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{96933693-4831-4AEF-B65E-DA92C2C56633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

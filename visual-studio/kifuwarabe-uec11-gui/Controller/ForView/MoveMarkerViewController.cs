@@ -1,11 +1,11 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using KifuwarabeUec11Gui.Controller.Parser;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller.Parser;
+    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// 最後の着手のマーカー☆（＾～＾）

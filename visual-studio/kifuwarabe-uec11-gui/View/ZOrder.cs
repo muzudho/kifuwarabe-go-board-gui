@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeGoBoardGui
 {
     /// <summary>
     /// Zインデックスのことだぜ☆（＾～＾）名前被りを避けた☆（＾～＾）

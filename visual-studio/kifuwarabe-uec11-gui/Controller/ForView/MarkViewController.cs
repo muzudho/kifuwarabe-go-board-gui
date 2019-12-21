@@ -1,11 +1,11 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     public static class MarkViewController
     {

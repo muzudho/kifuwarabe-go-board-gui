@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeGoBoardGui
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +8,8 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeUec11Gui.Controller;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -196,7 +196,7 @@
             // 通信ログを書き込むやつ☆（＾～＾）
             {
                 this.CommunicationLogWriter = new CommunicationLogWriter("communication.log");
-                this.CommunicationLogWriter.WriteLine("> I am a KifuwarabeUEC11Gui!");
+                this.CommunicationLogWriter.WriteLine("> I am a KifuwarabeGoBoardGui!");
                 this.CommunicationLogWriter.Flush();
             }
 

@@ -1,10 +1,10 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Diagnostics;
-    using KifuwarabeUec11Gui.Controller.Parser;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller.Parser;
+    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// メイン・ウィンドウがでかくなるから　こっちへ切り離すぜ☆（＾～＾）

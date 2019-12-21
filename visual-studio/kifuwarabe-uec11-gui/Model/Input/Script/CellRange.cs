@@ -1,9 +1,9 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Controller.Parser;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller.Parser;
+    using KifuwarabeGoBoardGui.Model;
 
     public delegate void IndexCallback(int index);
 

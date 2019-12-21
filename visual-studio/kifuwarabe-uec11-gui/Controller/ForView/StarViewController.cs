@@ -1,13 +1,13 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using KifuwarabeUec11Gui.Model;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Controller.Parser;
+    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Controller.Parser;
 
     /// <summary>
     /// 星を操作するぜ☆（＾～＾）

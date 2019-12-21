@@ -1,11 +1,11 @@
-﻿namespace KifuwarabeUec11Gui.Controller
+﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows.Controls;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model;
 
     public static class PropertyModelController
     {

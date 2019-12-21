@@ -1,8 +1,8 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     using System;
     using System.Globalization;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// Z字方向式の列アドレスだぜ☆（＾～＾） A ～ T みたいなやつだぜ☆（＾～＾）

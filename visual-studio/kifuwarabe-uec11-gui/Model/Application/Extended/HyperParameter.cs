@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeGoBoardGui
 {
     /// <summary>
     /// 決め打ちで固定のものだぜ☆（＾～＾）

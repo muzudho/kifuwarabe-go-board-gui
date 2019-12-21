@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Model
+﻿namespace KifuwarabeGoBoardGui.Model
 {
     /// <summary>
     /// 石だぜ☆（＾～＾）

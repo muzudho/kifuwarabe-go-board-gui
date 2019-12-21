@@ -1,8 +1,8 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     using System;
-    using KifuwarabeUec11Gui.Controller.Parser;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller.Parser;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// `board 19 .www.bbb...........` みたいなコマンドの引数☆（＾～＾）

@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Model
+﻿namespace KifuwarabeGoBoardGui.Model
 {
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）

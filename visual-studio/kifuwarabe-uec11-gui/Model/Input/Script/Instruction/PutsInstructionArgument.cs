@@ -1,6 +1,6 @@
-﻿using KifuwarabeUec11Gui.Model;
+﻿using KifuwarabeGoBoardGui.Model;
 
-namespace KifuwarabeUec11Gui.InputScript
+namespace KifuwarabeGoBoardGui.InputScript
 {
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）

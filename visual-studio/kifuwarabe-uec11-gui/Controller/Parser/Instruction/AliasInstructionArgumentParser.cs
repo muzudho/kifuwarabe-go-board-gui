@@ -1,9 +1,9 @@
-﻿namespace KifuwarabeUec11Gui.Controller.Parser
+﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.InputScript;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model;
 
     public static class AliasInstructionArgumentParser
     {

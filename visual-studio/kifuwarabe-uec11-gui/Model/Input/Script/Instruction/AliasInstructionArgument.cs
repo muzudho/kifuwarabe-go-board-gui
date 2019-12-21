@@ -1,7 +1,7 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     using System.Collections.Generic;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）

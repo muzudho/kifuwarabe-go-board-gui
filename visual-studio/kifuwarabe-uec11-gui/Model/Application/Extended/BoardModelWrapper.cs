@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.Model
+﻿namespace KifuwarabeGoBoardGui.Model
 {
     using System;
     using System.Collections.Generic;

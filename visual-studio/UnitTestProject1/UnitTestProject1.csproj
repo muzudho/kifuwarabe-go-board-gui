@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\kifuwarabe-uec11-gui\kifuwarabe-uec11-gui.csproj" />
+    <ProjectReference Include="..\kifuwarabe-uec11-gui\kifuwarabe-go-board-gui.csproj" />
   </ItemGroup>
 
 </Project>

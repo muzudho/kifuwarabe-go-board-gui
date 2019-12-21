@@ -1,8 +1,8 @@
 ﻿namespace UnitTestProject1
 {
     using System;
-    using KifuwarabeUec11Gui.Controller;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Controller;
+    using KifuwarabeGoBoardGui.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     /// <summary>
     /// キーワードの完全一致☆（＾～＾）

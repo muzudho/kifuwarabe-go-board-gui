@@ -1,8 +1,8 @@
-﻿namespace KifuwarabeUec11Gui.InputScript
+﻿namespace KifuwarabeGoBoardGui.InputScript
 {
     using System;
     using System.Globalization;
-    using KifuwarabeUec11Gui.Model;
+    using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
     /// 行番号だぜ☆（＾～＾）

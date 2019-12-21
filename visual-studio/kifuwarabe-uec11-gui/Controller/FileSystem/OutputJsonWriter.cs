@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeUec11Gui
+﻿namespace KifuwarabeGoBoardGui
 {
     using System;
     using System.IO;
