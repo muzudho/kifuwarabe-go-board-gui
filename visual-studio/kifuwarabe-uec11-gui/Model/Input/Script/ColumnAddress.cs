@@ -25,14 +25,14 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelWrapper model)
+        public string ToDisplay(ApplicationObjectDtoWrapper model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var columnNumbers = model.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
+            var columnNumbers = model.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
 
             if (this.NumberO0 < 0 || columnNumbers.Count <= this.NumberO0)
             {

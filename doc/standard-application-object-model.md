@@ -1,10 +1,10 @@
-# Standard application object model
+# Standard application dto(data transfer object)
 
 
 C# と Rust でデータ構造を共通化させるための仕様だぜ☆（＾～＾） JSONで投げつけてデシリアライズを狙うぜ☆（＾～＾）
 
 
-# Application object model
+# Application dto
 
 ## 定数
 

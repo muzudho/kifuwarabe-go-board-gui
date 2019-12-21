@@ -6,7 +6,7 @@
 
     public static class RowNumbersModelController
     {
-        public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, SetsInstructionArgument args)
         {
             if (appModel==null)
             {
@@ -22,17 +22,17 @@
             {
                 case "value": // thru
                 case "":
-                    var oldValue = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+                    var oldValue = appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
 
                     // 特殊処理
                     {
-                        appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback(appModel.TrimRowNumbers);
+                        appModel.GetStringList(ApplicationDto.RowNumbersRealName).SetAfterSetsValueCallback(appModel.TrimRowNumbers);
                     }
 
                     // イベント・ハンドラーを起こすぜ☆（＾～＾）
-                    appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = newValue;
+                    appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value = newValue;
                     break;
             }
         }

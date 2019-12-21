@@ -25,7 +25,7 @@
         public static int Parse(
             string text,
             int start,
-            ApplicationObjectModelWrapper appModel,
+            ApplicationObjectDtoWrapper appModel,
             SomeCallback someCallback,
             NoneCallback noneCallback
             )
@@ -51,7 +51,7 @@
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
-            var index = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value.IndexOf(oneChar);
+            var index = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value.IndexOf(oneChar);
 
             if (index < 0)
             {

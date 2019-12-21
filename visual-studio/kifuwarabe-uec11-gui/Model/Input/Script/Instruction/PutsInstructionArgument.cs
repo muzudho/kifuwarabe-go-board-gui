@@ -36,7 +36,7 @@ namespace KifuwarabeGoBoardGui.InputScript
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelWrapper appModel)
+        public string ToDisplay(ApplicationObjectDtoWrapper appModel)
         {
             return $"{this.Name} to {this.Destination.ToDisplay(appModel)}";
         }

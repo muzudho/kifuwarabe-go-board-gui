@@ -10,7 +10,7 @@
     /// </summary>
     public static class ColumnNumberViewController
     {
-        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -22,7 +22,7 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            var columnNumbers = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
+            var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {

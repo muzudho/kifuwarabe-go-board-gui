@@ -14,7 +14,7 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeModelToBlack(ApplicationObjectModelWrapper appModel, int zShapedIndex)
+        public static void ChangeModelToBlack(ApplicationObjectDtoWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {
@@ -28,7 +28,7 @@
             appModel.Board.SetStone(zShapedIndex, newValue);
         }
 
-        public static void ChangeModelToWhite(ApplicationObjectModelWrapper appModel, int zShapedIndex)
+        public static void ChangeModelToWhite(ApplicationObjectDtoWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {
@@ -42,7 +42,7 @@
             appModel.Board.SetStone(zShapedIndex, newValue);
         }
 
-        public static void ChangeModelToSpace(ApplicationObjectModelWrapper appModel, int zShapedIndex)
+        public static void ChangeModelToSpace(ApplicationObjectDtoWrapper appModel, int zShapedIndex)
         {
             if (appModel == null)
             {

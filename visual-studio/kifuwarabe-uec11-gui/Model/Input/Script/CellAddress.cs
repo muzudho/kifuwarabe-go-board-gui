@@ -19,7 +19,7 @@
             this.ColumnAddress = columnAddress;
         }
 
-        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectModelWrapper model)
+        public static int ToIndex(int rowNumberO0, int columnNumberO0, ApplicationObjectDtoWrapper model)
         {
             if (model == null)
             {
@@ -29,7 +29,7 @@
             return rowNumberO0 * model.ColumnSize + columnNumberO0;
         }
 
-        public static CellAddress FromIndex(int indexO0, ApplicationObjectModelWrapper model)
+        public static CellAddress FromIndex(int indexO0, ApplicationObjectDtoWrapper model)
         {
             if (model == null)
             {
@@ -41,7 +41,7 @@
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 
-        public int ToIndex(ApplicationObjectModelWrapper model)
+        public int ToIndex(ApplicationObjectDtoWrapper model)
         {
             return ToIndex(this.RowAddress.NumberO0, this.ColumnAddress.NumberO0, model);
         }
@@ -50,7 +50,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(ApplicationObjectModelWrapper model)
+        public string ToDisplayNoTrim(ApplicationObjectDtoWrapper model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayNoTrim(model)}";
         }
@@ -59,7 +59,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(ApplicationObjectModelWrapper model)
+        public string ToDisplayTrimed(ApplicationObjectDtoWrapper model)
         {
             return $"{this.ColumnAddress.ToDisplay(model)}{this.RowAddress.ToDisplayTrimed(model)}";
         }

@@ -12,7 +12,7 @@
         /// <summary>
         /// 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
         /// </summary>
-        public static void Initialize(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Initialize(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -55,7 +55,7 @@
         /// <param name="appModel"></param>
         /// <param name="zShapedIndex"></param>
         /// <param name="stone"></param>
-        public static void Repaint(ApplicationObjectModelWrapper appModel, int zShapedIndex, Shape stone)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, int zShapedIndex, Shape stone)
         {
             if (appModel == null)
             {
@@ -99,7 +99,7 @@
         /// <summary>
         /// 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
         /// </summary>
-        public static void FitSizeToWindow(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void FitSizeToWindow(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {

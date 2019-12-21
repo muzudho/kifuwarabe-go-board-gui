@@ -10,7 +10,7 @@
     /// C#とRustで互換できるデータ形式にすること、JSONに出力される書式も気にして　構造化している☆（＾～＾）
     /// TODO JSONをデシリアライズできる方法が分かれば set を private アクセスにしたいが……☆（＾～＾）
     /// </summary>
-    public class ApplicationObjectModel
+    public class ApplicationDto
     {
         public static string NullType = "null";
         public static string BoolType = "bool";
@@ -69,9 +69,9 @@
         /// alias left3 = w-hama
         /// alias left4 = komi
         /// </summary>
-        public ApplicationObjectModel()
+        public ApplicationDto()
         {
-            this.Board = new BoardModel();
+            this.Board = new BoardDto();
             this.ObjectRealName = new Dictionary<string, string>();
 
             this.Booleans = new Dictionary<string, PropertyBool>()
@@ -147,7 +147,7 @@
         /// <summary>
         /// 盤☆（＾～＾）
         /// </summary>
-        public BoardModel Board { get; set; }
+        public BoardDto Board { get; set; }
 
         /// <summary>
         /// 外向きの名前（JSON用）を、内向きの名前（XAML用）に変換だぜ☆（＾～＾）
@@ -238,14 +238,14 @@
             return RowSize * ColumnSize;
         }
 
-        public static ApplicationObjectModel Parse(string json)
+        public static ApplicationDto Parse(string json)
         {
             Trace.WriteLine($"json input      | {json}");
 
             var option1 = new JsonSerializerOptions();
             option1.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
-            var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationObjectModel), option1) as ApplicationObjectModel;
+            var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationDto), option1) as ApplicationDto;
             Trace.WriteLine($"ColumnSize      | {newModel.ColumnSize}");
             Trace.WriteLine($"RowSize         | {newModel.RowSize}");
 

@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui
 {
     using System;
+    using System.Timers;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows;
@@ -34,12 +35,22 @@
         /// <summary>
         /// UIスレッドで動くタイマー☆（＾～＾）
         /// </summary>
-        public DispatcherTimer DispatchTimer { get; private set; }
+        public DispatcherTimer TimerForGui { get; private set; }
+
+        /// <summary>
+        /// 普通のタイマー☆（＾～＾）
+        /// </summary>
+        public Timer TimerForFile { get; private set; }
+
+        /// <summary>
+        /// ファイルを読み込む手番なら真、GUIを更新する手番なら偽☆（＾～＾）
+        /// </summary>
+        public bool TimerFileTurn { get; private set; }
 
         /// <summary>
         /// このアプリケーションのデータ☆（＾～＾）
         /// </summary>
-        public ApplicationObjectModelWrapper Model { get; private set; }
+        public ApplicationObjectDtoWrapper Model { get; private set; }
 
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
@@ -59,7 +70,7 @@
 
         public MainWindow()
         {
-            this.Model = new ApplicationObjectModelWrapper();
+            this.Model = new ApplicationObjectDtoWrapper();
 
             // このアプリケーションの他に、ファイルにアクセスしないなら真で☆（＾～＾）
             this.Model.ModelChangeLogWriter.Enable = true;
@@ -80,7 +91,7 @@
             InitializeComponent();
         }
 
-        public void SetModel(ApplicationObjectModelWrapper model)
+        public void SetModel(ApplicationObjectDtoWrapper model)
         {
             this.Model = model;
         }
@@ -191,6 +202,102 @@
             MoveMarkerViewController.Repaint(this.Model, this);
         }
 
+        private void TickForFile()
+        {
+            // input.txt読取。
+            InputLineModelController.Read(this.Model, this, (text) =>
+            {
+                // 1行ずつ解析☆（＾～＾）
+                InputLineModelController.ParseLine(
+                    this.Model,
+                    text,
+                    (inputLineModelController) =>
+                    {
+                        inputLineModelController.ThenAlias(
+                                (aliasInstruction) =>
+                    {
+                    },
+                                () =>
+                    {
+
+                    }).ThenComment(
+                                (commentLine) =>
+                    {
+                        Trace.WriteLine($"Info    | Comment=[{commentLine}].");
+                    },
+                                () =>
+                    {
+
+                    }).ThenInfo(
+                                (infoText) =>
+                    {
+                        // infoなら☆（＾～＾）
+                        this.infoValue.Content = infoText;
+                    },
+                                () =>
+                    {
+
+                    }).ThenJson(
+                                (jsonAppModel) =>
+                    {
+                        // モデルの差し替えなら☆（＾～＾）
+                        this.SetModel(jsonAppModel);
+                    },
+                                () =>
+                    {
+
+                    }).ThenPut(
+                                (putsArgs) =>
+                    {
+                        // put コマンド☆（＾～＾）
+                    },
+                                () =>
+                    {
+
+                    }).ThenSet(
+                                (setsArgs) =>
+                    {
+                    },
+                                () =>
+                    {
+                    }).ThenSleep(
+                                    (sleepsArgs) =>
+                        {
+                            // 一時的に、インターバルを変更☆（＾～＾）
+                            if (0 < sleepsArgs.MilliSeconds)
+                            {
+                                this.TimerForFile.Interval = sleepsArgs.MilliSeconds;
+                                this.TimerForGui.Interval = TimeSpan.FromMilliseconds(sleepsArgs.MilliSeconds);
+                            }
+                        },
+                                    () =>
+                        {
+                        });
+                    });
+
+                // 盤のサイズ
+                this.Model.Board.Resize(this.Model.RowSize, this.Model.ColumnSize);
+
+                // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
+                {
+                    // GUI出力 を書き込むやつ☆（＾～＾）
+                    // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
+                    // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
+                    using (var outputJsonWriter = new OutputJsonWriter("output.json"))
+                    {
+                        outputJsonWriter.WriteLine(this.Model.ApplicationObjectModel.ToJson());
+                        outputJsonWriter.Flush();
+                    }
+                }
+            });
+        }
+
+        private void TickForGui()
+        {
+            // モデルに合わせてビューを更新するだけだな☆（＾～＾）！
+            ApplicationViewController.RepaintAllViews(this.Model, this);
+        }
+
         private void Window_Initialized(object sender, System.EventArgs e)
         {
             // 通信ログを書き込むやつ☆（＾～＾）
@@ -205,109 +312,58 @@
                 this.InputTextReader = new InputTextReader("input.txt");
             }
 
-            // UIスレッドで動くタイマー☆（＾～＾）
+            // 普通のタイマー☆（＾～＾）
             {
-                this.DispatchTimer = new DispatcherTimer();
+                this.TimerForFile = new Timer(this.Model.GetNumber(ApplicationDto.IntervalMsecRealName).Value);
+                this.TimerForFile.Elapsed += (sender, e) =>
+                {
+                    this.TimerForFile.Enabled = false;
+
+                    if (this.TimerFileTurn)
+                    {
+                        // （スリープでいじった）インターバルを元に戻します。
+                        if (0 < this.Model.IntervalTimeSpan.Milliseconds)
+                        {
+                            this.TimerForFile.Interval = this.Model.IntervalTimeSpan.Milliseconds;
+                        }
+
+                        this.TickForFile();
+
+                        this.TimerFileTurn = false;
+                    }
+
+                    this.TimerForFile.Enabled = true;
+                };
+                this.TimerForFile.Start();
+            }
+
+            // UIディスパッチ・スレッドのタイマー☆（＾～＾）
+            {
+                this.TimerForGui = new DispatcherTimer();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                this.Model.IntervalTimeSpan = TimeSpan.FromMilliseconds(this.Model.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
-                this.DispatchTimer.Interval = this.Model.IntervalTimeSpan;
+                this.Model.IntervalTimeSpan = TimeSpan.FromMilliseconds(this.Model.GetNumber(ApplicationDto.IntervalMsecRealName).Value);
+                this.TimerForGui.Interval = this.Model.IntervalTimeSpan;
 
-                this.DispatchTimer.Tick += (s, e) =>
+                this.TimerForGui.Tick += (s, e) =>
                 {
-                    // （スリープでいじった）インターバルを元に戻します。
-                    this.DispatchTimer.Interval = this.Model.IntervalTimeSpan;
+                    this.TimerForGui.IsEnabled = false;
 
-                    // input.txt読取。
-                    InputLineModelController.Read(this.Model, this, (text) =>
+                    if (!this.TimerFileTurn)
                     {
-                        // 1行ずつ解析☆（＾～＾）
-                        InputLineModelController.ParseLine(
-                            this.Model,
-                            text,
-                            (inputLineModelController) =>
-                        {
-                            inputLineModelController.ThenAlias(
-                            (aliasInstruction) =>
-                            {
-                            },
-                            () =>
-                            {
+                        // （スリープでいじった）インターバルを元に戻します。
+                        this.TimerForGui.Interval = this.Model.IntervalTimeSpan;
 
-                            }).ThenComment(
-                            (commentLine) =>
-                            {
-                                Trace.WriteLine($"Info    | Comment=[{commentLine}].");
-                            },
-                            () =>
-                            {
+                        this.TickForGui();
 
-                            }).ThenInfo(
-                            (infoText) =>
-                            {
-                                // infoなら☆（＾～＾）
-                                this.infoValue.Content = infoText;
-                            },
-                            () =>
-                            {
+                        this.TimerFileTurn = true;
+                    }
 
-                            }).ThenJson(
-                            (jsonAppModel) =>
-                            {
-                                // モデルの差し替えなら☆（＾～＾）
-                                this.SetModel(jsonAppModel);
-                            },
-                            () =>
-                            {
-
-                            }).ThenPut(
-                            (putsArgs) =>
-                            {
-                                // put コマンド☆（＾～＾）
-                            },
-                            () =>
-                            {
-
-                            }).ThenSet(
-                            (setsArgs) =>
-                            {
-                            },
-                            () =>
-                            {
-                            }).ThenSleep(
-                                (sleepsArgs) =>
-                                {
-                                    // 一時的に、インターバルを変更☆（＾～＾）
-                                    this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(sleepsArgs.MilliSeconds);
-                                },
-                                () =>
-                                {
-                                });
-                        });
-
-                        // 盤のサイズ
-                        this.Model.Board.Resize(this.Model.RowSize, this.Model.ColumnSize);
-
-                        // コマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
-                        ApplicationViewController.RepaintAllViews(this.Model, this);
-
-                        // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
-                        // あとは　モデルに合わせてビューを更新するだけだな☆（＾～＾）！
-                        {
-                            // GUI出力 を書き込むやつ☆（＾～＾）
-                            // Tickイベントでファイルの入出力するのも度胸があるよな☆（＾～＾）
-                            // using文を使えば、開いたファイルは 終わったらすぐ閉じるぜ☆（＾～＾）
-                            using (var outputJsonWriter = new OutputJsonWriter("output.json"))
-                            {
-                                outputJsonWriter.WriteLine(this.Model.ApplicationObjectModel.ToJson());
-                                outputJsonWriter.Flush();
-                            }
-                        }
-                    });
+                    this.TimerForGui.IsEnabled = true;
                 };
 
                 // さっそく常駐☆（＾～＾）
-                this.DispatchTimer.Start();
+                this.TimerForGui.Start();
             }
 
             // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）

@@ -6,14 +6,14 @@
     /// 盤だぜ☆（＾～＾）　
     /// 大きなオブジェクトのわりに頻繁に更新されるぜ☆（＾～＾）
     /// </summary>
-    public class BoardModelWrapper
+    public class BoardDtoWrapper
     {
-        public BoardModelWrapper(BoardModel boardModel)
+        public BoardDtoWrapper(BoardDto boardModel)
         {
             this.BoardModel = boardModel;
         }
 
-        public BoardModel BoardModel { get; private set; }
+        public BoardDto BoardModel { get; private set; }
 
         /// <summary>
         /// 置いている石☆（＾～＾）

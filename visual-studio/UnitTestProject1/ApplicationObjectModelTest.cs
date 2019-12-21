@@ -15,7 +15,7 @@
         [TestMethod]
         public void TestBoolProperty()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             appModel.AddBool(new RealName("my-visible"), new PropertyBool("", true));
 
@@ -31,7 +31,7 @@
         [TestMethod]
         public void TestNumberProperty()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             appModel.AddNumber(new RealName("my-age"), new PropertyNumber("", 39));
 
@@ -47,7 +47,7 @@
         [TestMethod]
         public void TestStringProperty()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             appModel.AddString(new RealName("my-name"), new PropertyString("", "warabemoti"));
 
@@ -63,7 +63,7 @@
         [TestMethod]
         public void TestStringListProperty()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             appModel.AddStringList(new RealName("my-array"), new PropertyStringList("", new List<string>() { "a", "b", "c" }));
 
@@ -83,7 +83,7 @@
         [TestMethod]
         public void TestBoolType()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-visible.type = bool";
@@ -102,7 +102,7 @@
         [TestMethod]
         public void TestNumberType()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-age.type = number";
@@ -121,7 +121,7 @@
         [TestMethod]
         public void TestStringType()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-name.type = string";
@@ -140,7 +140,7 @@
         [TestMethod]
         public void TestStringListType()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-array.type = string-list";
@@ -163,7 +163,7 @@
         [TestMethod]
         public void TestBoolValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-visible.type = bool
@@ -186,7 +186,7 @@ set my-visible.value = true";
         [TestMethod]
         public void TestNumberValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-age.type = number
@@ -209,7 +209,7 @@ set my-age.value = 39";
         [TestMethod]
         public void TestStringValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-name.type = string
@@ -233,7 +233,7 @@ set my-name.value = warabemoti";
         [TestMethod]
         public void TestStringListValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-array.type = string-list
@@ -260,7 +260,7 @@ set my-array.value = ""a"",""b"",""c""";
         [TestMethod]
         public void TestBoolValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-visible.type = bool
@@ -283,7 +283,7 @@ set my-visible = true";
         [TestMethod]
         public void TestNumberValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-age.type = number
@@ -306,7 +306,7 @@ set my-age = 39";
         [TestMethod]
         public void TestStringValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-name.type = string
@@ -330,7 +330,7 @@ set my-name = warabemoti";
         [TestMethod]
         public void TestStringListValue()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set my-array.type = string-list
@@ -357,7 +357,7 @@ set my-array = ""a"",""b"",""c""";
         [TestMethod]
         public void PlyTestByCommand2()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var text = @"
 alias top2 = ply
@@ -395,7 +395,7 @@ set top2.value = 2
         [TestMethod]
         public void RealNameTest()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var top2RealName = new RealName("top2");
             Assert.IsFalse(appModel.ContainsKeyOfNumbers(top2RealName));
@@ -424,7 +424,7 @@ set top2.value = 2
         [TestMethod]
         public void PlyTest()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var plyRealName = new RealName("top2");
             Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
@@ -451,7 +451,7 @@ set top2.value = 2
         [TestMethod]
         public void InfoTest()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var infoRealName = new RealName("info");
             Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));

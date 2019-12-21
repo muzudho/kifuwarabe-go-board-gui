@@ -16,7 +16,7 @@
         [TestMethod]
         public void TestComment()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 "# This is a comment.",
@@ -43,7 +43,7 @@
         [TestMethod]
         public void TestAlias()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 "alias top2 = ply sasite",
@@ -72,7 +72,7 @@
         [TestMethod]
         public void TestBoard()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -114,7 +114,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestExit()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 "exit",
@@ -142,7 +142,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestInfo()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 "info This is a my banana!",
@@ -171,7 +171,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestJson()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 @"json {""uso"":800}",
@@ -200,7 +200,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestPut()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -242,7 +242,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestSet()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -284,7 +284,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestZzz()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             InputLineParser.ParseByLine(
                 @"わはは☆ｍ９（＾▽＾）！",

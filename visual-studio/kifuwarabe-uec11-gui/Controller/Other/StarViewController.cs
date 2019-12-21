@@ -14,7 +14,7 @@
     /// </summary>
     public static class StarViewController
     {
-        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -26,7 +26,7 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            var starsModel = appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value;
+            var starsModel = appModel.GetStringList(ApplicationDto.StarsRealName).Value;
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
@@ -70,7 +70,7 @@
             }
         }
 
-        public static void Initialize(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Initialize(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {

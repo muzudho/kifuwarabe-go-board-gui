@@ -51,7 +51,7 @@
             }
         }
 
-        public static void RepaintAllViews(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void RepaintAllViews(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (null == appModel)
             {
@@ -92,16 +92,16 @@
             {
                 var names = new RealName[]
                 {
-                    ApplicationObjectModel.Top1RealName,
-                    ApplicationObjectModel.Top2RealName,
-                    ApplicationObjectModel.Right1RealName,
-                    ApplicationObjectModel.Right2RealName,
-                    ApplicationObjectModel.Right3RealName,
-                    ApplicationObjectModel.Left1RealName,
-                    ApplicationObjectModel.Left2RealName,
-                    ApplicationObjectModel.Left3RealName,
-                    ApplicationObjectModel.Left4RealName,
-                    ApplicationObjectModel.InfoRealName,
+                    ApplicationDto.Top1RealName,
+                    ApplicationDto.Top2RealName,
+                    ApplicationDto.Right1RealName,
+                    ApplicationDto.Right2RealName,
+                    ApplicationDto.Right3RealName,
+                    ApplicationDto.Left1RealName,
+                    ApplicationDto.Left2RealName,
+                    ApplicationDto.Left3RealName,
+                    ApplicationDto.Left4RealName,
+                    ApplicationDto.InfoRealName,
                 };
 
                 foreach (var realName in names)

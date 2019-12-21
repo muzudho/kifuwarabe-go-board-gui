@@ -11,7 +11,7 @@
         [TestMethod]
         public void TestAliasModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var line = @"alias top2 = ply sasite";
 
@@ -48,7 +48,7 @@
         [TestMethod]
         public void TestCommentModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var line = @"# This is a comment line.";
 
@@ -83,7 +83,7 @@
         [TestMethod]
         public void TestInfoModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var line = "info This is a information.";
 
@@ -118,7 +118,7 @@
         [TestMethod]
         public void TestJsonModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var line = @"json {""uso"":800}";
 
@@ -153,7 +153,7 @@
         [TestMethod]
         public void TestPutsModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
@@ -199,7 +199,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestSetsModel()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"

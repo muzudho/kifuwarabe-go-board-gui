@@ -14,7 +14,7 @@
         /// <param name="appModel"></param>
         /// <param name="appView"></param>
         /// <param name="outsideName"></param>
-        public static void RepaintByName(ApplicationObjectModelWrapper appModel, MainWindow appView, RealName realName)
+        public static void RepaintByName(ApplicationObjectDtoWrapper appModel, MainWindow appView, RealName realName)
         {
             if (appModel == null)
             {

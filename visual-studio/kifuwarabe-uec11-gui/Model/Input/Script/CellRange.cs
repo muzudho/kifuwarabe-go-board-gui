@@ -28,7 +28,7 @@
             this.EndsCellAddress = endsCellAddress;
         }
 
-        public void Foreach(ApplicationObjectModelWrapper model, IndexCallback callback)
+        public void Foreach(ApplicationObjectDtoWrapper model, IndexCallback callback)
         {
             // Trace.WriteLine($"Foreach         | {this.ToDisplay()} | sr={this.StartsCellAddress.RowAddress.ToDisplay()} sc={this.StartsCellAddress.ColumnAddress.ToDisplay()} er={this.EndsCellAddress.RowAddress.ToDisplay()} ec={this.EndsCellAddress.ColumnAddress.ToDisplay()}");
 
@@ -77,7 +77,7 @@
             }
         }
 
-        public HashSet<int> ToIndexes(ApplicationObjectModelWrapper model)
+        public HashSet<int> ToIndexes(ApplicationObjectDtoWrapper model)
         {
             var hash = new HashSet<int>();
 
@@ -93,7 +93,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelWrapper model)
+        public string ToDisplay(ApplicationObjectDtoWrapper model)
         {
             var starts = this.StartsCellAddress.ToDisplayTrimed(model);
             var ends = this.EndsCellAddress.ToDisplayTrimed(model);

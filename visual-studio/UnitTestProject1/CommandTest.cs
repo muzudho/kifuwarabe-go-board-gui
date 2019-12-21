@@ -40,7 +40,7 @@
         [TestMethod]
         public void TestSetRowNumbers()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set row-numbers.type = string-list
@@ -54,7 +54,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             Assert.AreEqual(
                 @"""19"",""18"",""17"",""16"",""15"",""14"",""13"",""12"",""11"",""10"",""  9"",""  8"",""  7"",""  6"",""  5"",""  4"",""  3"",""  2"",""  1""",
-                appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).ValueAsText());
+                appModel.GetStringList(ApplicationDto.RowNumbersRealName).ValueAsText());
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestPutBlackToA19()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）

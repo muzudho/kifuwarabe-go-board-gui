@@ -9,14 +9,14 @@
     /// C#とRustで互換できるデータ形式にすること、JSONに出力される書式も気にして　構造化している☆（＾～＾）
     /// TODO JSONをデシリアライズできる方法が分かれば set を private アクセスにしたいが……☆（＾～＾）
     /// </summary>
-    public class ApplicationObjectModelWrapper
+    public class ApplicationObjectDtoWrapper
     {
-        public ApplicationObjectModelWrapper()
-            : this(new ApplicationObjectModel())
+        public ApplicationObjectDtoWrapper()
+            : this(new ApplicationDto())
         {
         }
 
-        public ApplicationObjectModelWrapper(ApplicationObjectModel applicationObjectModel)
+        public ApplicationObjectDtoWrapper(ApplicationDto applicationObjectModel)
         {
             if (applicationObjectModel == null)
             {
@@ -26,15 +26,15 @@
             this.ApplicationObjectModel = applicationObjectModel;
 
             // 盤ラッパー☆（＾～＾）
-            this.Board = new BoardModelWrapper(this.ApplicationObjectModel.Board);
+            this.Board = new BoardDtoWrapper(this.ApplicationObjectModel.Board);
 
             this.rowNumbersTrimed = new List<string>();
 
             // 特殊処理
             {
-                this.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback(this.TrimRowNumbers);
+                this.GetStringList(ApplicationDto.RowNumbersRealName).SetAfterSetsValueCallback(this.TrimRowNumbers);
                 // イベント・ハンドラーを起こすぜ☆（＾～＾）
-                this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+                this.GetStringList(ApplicationDto.RowNumbersRealName).Value = this.GetStringList(ApplicationDto.RowNumbersRealName).Value;
             }
 
             // モデル変更のログを書き込むやつ☆（＾～＾）
@@ -56,9 +56,9 @@
         /// </summary>
         public ModelChangeLogWriter ModelChangeLogWriter { get; private set; }
 
-        public ApplicationObjectModel ApplicationObjectModel { get; private set; }
+        public ApplicationDto ApplicationObjectModel { get; private set; }
 
-        public BoardModelWrapper Board { get; private set; }
+        public BoardDtoWrapper Board { get; private set; }
 
         /// <summary>
         /// UIタイマーのTick。

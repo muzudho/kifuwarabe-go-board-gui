@@ -20,7 +20,7 @@
         /// <param name="propModel">.typeプロパティを最初に設定するときはヌルで構わない。</param>
         /// <param name="args"></param>
         public static void ChangeModel(
-            ApplicationObjectModelWrapper appModel,
+            ApplicationObjectDtoWrapper appModel,
             RealName realName,
             IPropertyValue propModel,
             SetsInstructionArgument args
@@ -100,29 +100,29 @@
                     }
 
                     // 新しい型のオブジェクトに換装☆（＾～＾）
-                    if (args.Value == ApplicationObjectModel.StringType)
+                    if (args.Value == ApplicationDto.StringType)
                     {
                         var newValue = new PropertyString(title);
                         appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
                         appModel.AddProperty(realName, newValue);
                     }
-                    else if (args.Value == ApplicationObjectModel.NullType)
+                    else if (args.Value == ApplicationDto.NullType)
                     {
                         // どこにも追加しないぜ☆（＾～＾）
                     }
-                    else if (args.Value == ApplicationObjectModel.NumberType)
+                    else if (args.Value == ApplicationDto.NumberType)
                     {
                         var newValue = new PropertyNumber(title);
                         appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
                         appModel.AddProperty(realName, newValue);
                     }
-                    else if (args.Value == ApplicationObjectModel.BoolType)
+                    else if (args.Value == ApplicationDto.BoolType)
                     {
                         var newValue = new PropertyBool(title);
                         appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
                         appModel.AddProperty(realName, newValue);
                     }
-                    else if (args.Value == ApplicationObjectModel.StringListType)
+                    else if (args.Value == ApplicationDto.StringListType)
                     {
                         var newValue = new PropertyStringList(title, new List<string>());
                         appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
@@ -192,7 +192,7 @@
                             ((PropertyNumber)propModel).Value = newValue;
 
                             // 特殊処理
-                            if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value || realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
+                            if (realName.Value == ApplicationDto.RowSizeRealName.Value || realName.Value == ApplicationDto.ColumnSizeRealName.Value)
                             {
                                 // 盤のサイズ
                                 appModel.Board.Resize(appModel.RowSize, appModel.ColumnSize);

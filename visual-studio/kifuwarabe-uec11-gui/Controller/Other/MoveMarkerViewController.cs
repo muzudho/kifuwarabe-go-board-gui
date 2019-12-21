@@ -12,7 +12,7 @@
     /// </summary>
     public static class MoveMarkerViewController
     {
-        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -28,7 +28,7 @@
             var moveMarker = appView.moveMarker;
 
             appModel.MatchPropertyOption(
-                ApplicationObjectModel.MoveRealName,
+                ApplicationDto.MoveRealName,
                 (property) =>
                 {
                     if (property.Visible)

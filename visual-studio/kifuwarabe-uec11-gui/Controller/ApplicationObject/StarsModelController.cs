@@ -7,7 +7,7 @@
 
     public static class StarsModelController
     {
-        public static void ChangeModel(ApplicationObjectModelWrapper appModel, SetsInstructionArgument args)
+        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, SetsInstructionArgument args)
         {
             if (args == null)
             {
@@ -34,10 +34,10 @@
                         }
                     }
 
-                    var oldValue = appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value;
+                    var oldValue = appModel.GetStringList(ApplicationDto.StarsRealName).Value;
                     var newValue = new List<string>(cellAddresses);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
-                    appModel.GetStringList(ApplicationObjectModel.StarsRealName).Value = newValue;
+                    appModel.GetStringList(ApplicationDto.StarsRealName).Value = newValue;
                     break;
             }
         }

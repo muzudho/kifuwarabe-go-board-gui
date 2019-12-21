@@ -5,9 +5,9 @@
     /// <summary>
     /// Resize してから使ってください。
     /// </summary>
-    public class BoardModel
+    public class BoardDto
     {
-        public BoardModel()
+        public BoardDto()
         {
             this.Stones = new List<Stone>();
             this.Marks = new List<Mark>();

@@ -68,7 +68,7 @@
         [TestMethod]
         public void TestBoardInstructionArgumentParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -106,7 +106,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestCellRangeListArgumentParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -175,7 +175,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestInfoInstructionArgumentParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             var infoRealName = new RealName("info");
             Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
@@ -225,7 +225,7 @@ info バナナ食うか☆（＾～＾）？";
         [TestMethod]
         public void TestPutsInstructionArgumentParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -469,7 +469,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestCellAddressParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
@@ -541,7 +541,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestCellRangeParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -773,7 +773,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestColumnAddressParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -789,7 +789,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
             Assert.AreEqual(
                 @"""A"",""B"",""C"",""D"",""E"",""F"",""G"",""H"",""J"",""K"",""L"",""M"",""N"",""O"",""P"",""Q"",""R"",""S"",""T""",
-                appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).ValueAsText());
+                appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).ValueAsText());
         }
 
         /*
@@ -809,7 +809,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestRowAddressParser()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -824,7 +824,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             Assert.AreEqual(
                 @"""19"",""18"",""17"",""16"",""15"",""14"",""13"",""12"",""11"",""10"",""  9"",""  8"",""  7"",""  6"",""  5"",""  4"",""  3"",""  2"",""  1""",
-                appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).ValueAsText());
+                appModel.GetStringList(ApplicationDto.RowNumbersRealName).ValueAsText());
 
             int start;
 

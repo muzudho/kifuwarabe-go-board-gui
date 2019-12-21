@@ -25,7 +25,7 @@
         public static int Parse(
             string text,
             int start,
-            ApplicationObjectModelWrapper appModel,
+            ApplicationObjectDtoWrapper appModel,
             SomeCallback someCallback,
             NoneCallback noneCallback)
         {

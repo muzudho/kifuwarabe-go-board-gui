@@ -7,7 +7,7 @@
 
     public static class RowNumberViewController
     {
-        public static void Repaint(ApplicationObjectModelWrapper appModel, MainWindow appView)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
             if (appModel == null)
             {
@@ -38,7 +38,7 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var rowNumbers = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+                var rowNumbers = appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value;
                 if (rowNumbers.Count <= row || appModel.RowSize <= row)
                 {
                     // 範囲外アクセス。

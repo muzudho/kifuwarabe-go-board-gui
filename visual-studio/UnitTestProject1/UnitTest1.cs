@@ -19,7 +19,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test1()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             /*
             // 簡単な実行☆（＾～＾）
@@ -52,7 +52,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestInternationalCellAddress()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -184,7 +184,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         [TestMethod]
         public void TestInternationalColumnAddress()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -257,7 +257,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestReadJson()
         {
-            var appModel = ApplicationObjectModel.Parse("{\"numbers\":{\"row-size\":{\"value\":15},\"column-size\":{\"value\":13}}}");
+            var appModel = ApplicationDto.Parse("{\"numbers\":{\"row-size\":{\"value\":15},\"column-size\":{\"value\":13}}}");
             Assert.AreEqual(15, appModel.RowSize);
             Assert.AreEqual(13, appModel.ColumnSize);
         }
@@ -268,8 +268,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestReadStarsJson()
         {
-            var appModel = ApplicationObjectModel.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
-            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[ApplicationObjectModel.StarsRealName.Value].ValueAsText());
+            var appModel = ApplicationDto.Parse("{\"stringLists\":{\"stars\":{\"value\":[\"A1\",\"B2\",\"C3\"]}}}");
+            Assert.AreEqual(@"""A1"",""B2"",""C3""", appModel.StringLists[ApplicationDto.StarsRealName.Value].ValueAsText());
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestIndexOfCell()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             // インデックスは 左上を 0 とした Z字順。
 
@@ -325,7 +325,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestColumnNumbers()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"
@@ -339,7 +339,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
                 }
             }
 
-            var columnNumbers = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
+            var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));
@@ -369,7 +369,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestRowNumbers()
         {
-            var appModel = new ApplicationObjectModelWrapper();
+            var appModel = new ApplicationObjectDtoWrapper();
 
             {
                 var text = @"set row-numbers.type = string-list

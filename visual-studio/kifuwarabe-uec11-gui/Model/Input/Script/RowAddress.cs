@@ -26,14 +26,14 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayNoTrim(ApplicationObjectModelWrapper model)
+        public string ToDisplayNoTrim(ApplicationObjectDtoWrapper model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumbers = model.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+            var rowNumbers = model.GetStringList(ApplicationDto.RowNumbersRealName).Value;
 
             if (this.NumberO0 < 0 || rowNumbers.Count <= this.NumberO0)
             {
@@ -49,7 +49,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplayTrimed(ApplicationObjectModelWrapper model)
+        public string ToDisplayTrimed(ApplicationObjectDtoWrapper model)
         {
             if (model == null)
             {

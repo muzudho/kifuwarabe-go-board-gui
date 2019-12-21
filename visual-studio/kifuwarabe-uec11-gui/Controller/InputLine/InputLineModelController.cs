@@ -14,18 +14,18 @@
     {
         /// <summary>
         /// </summary>
-        private InputLineModelController(ApplicationObjectModelWrapper appModel, string line)
+        private InputLineModelController(ApplicationObjectDtoWrapper appModel, string line)
         {
             this.AppModel = appModel;
             this.Line = line;
         }
 
-        private ApplicationObjectModelWrapper AppModel { get; set; }
+        private ApplicationObjectDtoWrapper AppModel { get; set; }
         private string Line { get; set; }
 
         public delegate void ReadsCallback(string text);
 
-        public static void Read(ApplicationObjectModelWrapper appModel, MainWindow appView, ReadsCallback callback)
+        public static void Read(ApplicationObjectDtoWrapper appModel, MainWindow appView, ReadsCallback callback)
         {
             if (null == appModel)
             {
@@ -68,7 +68,7 @@
         public delegate void CommentViewCallback(string commentLine);
         public delegate void AliasViewCallback(Instruction aliasInstruction);
         public delegate void InfoViewCallback(string infoLine);
-        public delegate void JsonViewCallback(ApplicationObjectModelWrapper jsonAppModel);
+        public delegate void JsonViewCallback(ApplicationObjectDtoWrapper jsonAppModel);
         public delegate void PutsViewCallback(PutsInstructionArgument putsArgs);
         public delegate void SetsViewCallback(SetsInstructionArgument setsArgs);
         public delegate void SleepsViewCallback(SleepsInstructionArgument sleepsArgs);
@@ -77,13 +77,13 @@
 
         private Instruction AliasInstruction { get; set; }
         private string CommentLine { get; set; }
-        private ApplicationObjectModelWrapper JsonAppModel { get; set; }
+        private ApplicationObjectDtoWrapper JsonAppModel { get; set; }
         private PutsInstructionArgument PutsArg { get; set; }
         private SetsInstructionArgument SetsArg { get; set; }
         private SleepsInstructionArgument SleepsArg { get; set; }
 
         public delegate void CallbackDone(InputLineModelController inputLineModelController);
-        public static void ParseLine(ApplicationObjectModelWrapper appModel, string line, CallbackDone callbackDone)
+        public static void ParseLine(ApplicationObjectDtoWrapper appModel, string line, CallbackDone callbackDone)
         {
             if (appModel == null)
             {
@@ -175,14 +175,14 @@
 
                     // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                     var text = MainWindow.SoluteNewline(args.Text);
-                    instance.AppModel.AddString(ApplicationObjectModel.InfoRealName, new PropertyString("", text));
+                    instance.AppModel.AddString(ApplicationDto.InfoRealName, new PropertyString("", text));
                 },
                 (jsonInstruction) =>
                 {
                     var args = (JsonInstructionArgument)jsonInstruction.Argument;
                     Trace.WriteLine($"Json            | {jsonInstruction.Command} args.Json.Length={args.Json.Length}");
 
-                    instance.JsonAppModel = new ApplicationObjectModelWrapper(ApplicationObjectModel.Parse(args.Json));
+                    instance.JsonAppModel = new ApplicationObjectDtoWrapper(ApplicationDto.Parse(args.Json));
                 },
                 (putsInstruction) =>
                 {
@@ -263,19 +263,19 @@
 
                     // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
                     // 列番号☆（＾～＾）
-                    if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
+                    if (realName.Value == ApplicationDto.ColumnNumbersRealName.Value)
                     {
                         Trace.WriteLine($"Info    | Column numbers change model.");
                         ColumnNumbersModelController.ChangeModel(appModel, args1);
                     }
                     // 行番号☆（＾～＾）
-                    else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
+                    else if (realName.Value == ApplicationDto.RowNumbersRealName.Value)
                     {
                         Trace.WriteLine($"Info    | Row numbers change model.");
                         RowNumbersModelController.ChangeModel(appModel, args1);
                     }
                     // 盤上の星☆（＾～＾）
-                    else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
+                    else if (realName.Value == ApplicationDto.StarsRealName.Value)
                     {
                         Trace.WriteLine($"Info    | Stars change model.");
                         StarsModelController.ChangeModel(appModel, args1);
@@ -369,9 +369,9 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            if (this.AppModel.ContainsKeyOfStrings(ApplicationObjectModel.InfoRealName))
+            if (this.AppModel.ContainsKeyOfStrings(ApplicationDto.InfoRealName))
             {
-                var infoProperty = this.AppModel.GetString(ApplicationObjectModel.InfoRealName);
+                var infoProperty = this.AppModel.GetString(ApplicationDto.InfoRealName);
                 if (infoProperty == null)
                 {
                     noneCallback();

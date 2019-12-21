@@ -27,7 +27,7 @@
         /// デバッグ表示用☆（＾～＾）
         /// </summary>
         /// <returns></returns>
-        public string ToDisplay(ApplicationObjectModelWrapper model)
+        public string ToDisplay(ApplicationObjectDtoWrapper model)
         {
             // CellRange型のリストを、CellRangeを.ToDisplay()した結果のリストに変換するぜ☆（＾～＾） S -> T は、こういうやつを言う☆（＾～＾）
             var displays = this.CellRanges.ConvertAll(s => s.ToDisplay(model));
