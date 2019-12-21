@@ -18,15 +18,17 @@
             var appModel = new ApplicationObjectModelWrapper();
 
             {
-                var line = @"
-set row-numbers.type = stringLiest
+                var text = @"set row-numbers.type = string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
-                InputLineModelController.ParseLine(appModel, line);
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputLineModelController.ParseLine(appModel, line);
+                }
             }
 
             Assert.AreEqual(
-                @"""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""",
+                @"""19"",""18"",""17"",""16"",""15"",""14"",""13"",""12"",""11"",""10"",""  9"",""  8"",""  7"",""  6"",""  5"",""  4"",""  3"",""  2"",""  1""",
                 appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).ValueAsText());
         }
 

@@ -172,150 +172,144 @@
                 (putsInstruction) =>
                 {
                     // モデルに値をセットしようぜ☆（＾～＾）
-                    var args = (PutsInstructionArgument)putsInstruction.Argument;
+                    var args1 = (PutsInstructionArgument)putsInstruction.Argument;
 
                     // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                    appModel.MatchObjectRealName(
-                    args.Name,
-                    (RealName realName) =>
+                    var realName = appModel.GetObjectRealName(args1.Name);
+
+                    if (realName.Value == InputLineParser.BlackObject)
                     {
-                        if (realName.Value == InputLineParser.BlackObject)
+                        var args2 = (PutsInstructionArgument)putsInstruction.Argument;
+                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                        foreach (var cellRange in args2.Destination.CellRanges)
                         {
-                            var args = (PutsInstructionArgument)putsInstruction.Argument;
-                            // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                            foreach (var cellRange in args.Destination.CellRanges)
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
-                                foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                                {
-                                    // 黒石にするぜ☆（＾～＾）
-                                    StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
-                                }
+                                // 黒石にするぜ☆（＾～＾）
+                                StoneModelController.ChangeModelToBlack(appModel, zShapedIndex);
                             }
                         }
-                        else if (realName.Value == InputLineParser.WhiteObject)
+                    }
+                    else if (realName.Value == InputLineParser.WhiteObject)
+                    {
+                        var args2 = (PutsInstructionArgument)putsInstruction.Argument;
+                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                        foreach (var cellRange in args2.Destination.CellRanges)
                         {
-                            var args = (PutsInstructionArgument)putsInstruction.Argument;
-                            // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                            foreach (var cellRange in args.Destination.CellRanges)
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
-                                foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                                {
-                                    // 白石にするぜ☆（＾～＾）
-                                    StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
-                                }
+                                // 白石にするぜ☆（＾～＾）
+                                StoneModelController.ChangeModelToWhite(appModel, zShapedIndex);
                             }
                         }
-                        else if (realName.Value == InputLineParser.SpaceObject)
+                    }
+                    else if (realName.Value == InputLineParser.SpaceObject)
+                    {
+                        var args2 = (PutsInstructionArgument)putsInstruction.Argument;
+                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                        foreach (var cellRange in args2.Destination.CellRanges)
                         {
-                            var args = (PutsInstructionArgument)putsInstruction.Argument;
-                            // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                            foreach (var cellRange in args.Destination.CellRanges)
+                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
-                                foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                                {
-                                    // 石を取り除くぜ☆（＾～＾）
-                                    StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
-                                }
+                                // 石を取り除くぜ☆（＾～＾）
+                                StoneModelController.ChangeModelToSpace(appModel, zShapedIndex);
                             }
                         }
-                        else
-                        {
-                            Trace.WriteLine($"Warning         | {putsInstruction.Command} RealName=[{realName.Value}] args=[{args.ToDisplay(appModel)}] are not implemented.");
-                        }
-                    });
+                    }
+                    else
+                    {
+                        Trace.WriteLine($"Warning         | {putsInstruction.Command} RealName=[{realName.Value}] args=[{args1.ToDisplay(appModel)}] are not implemented.");
+                    }
 
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                    instance.PutsArg = args;
+                    instance.PutsArg = args1;
                 },
                 (setsInstruction) =>
                 {
                     // モデルに値をセットしようぜ☆（＾～＾）
-                    var args = (SetsInstructionArgument)setsInstruction.Argument;
+                    var args1 = (SetsInstructionArgument)setsInstruction.Argument;
 
                     // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                    appModel.MatchObjectRealName(
-                        args.Name,
-                        (RealName realName) =>
-                        {
-                            // これが参照渡しになっているつもりだが……☆（＾～＾）
-                            appModel.MatchPropertyOption(
-                                realName,
-                                (propModel) =>
-                                {
-                                    // .typeプロパティなら、propModelはヌルで構わない。
-                                    PropertyModelController.ChangeModel(appModel, realName, propModel, args);
-                                },
-                                () =>
-                                {
-                                    // モデルが無くても .typeプロパティ は働く☆（＾～＾）
-                                    PropertyModelController.ChangeModel(appModel, realName, null, args);
+                    var realName = appModel.GetObjectRealName(args1.Name);
 
-                                    // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
-                                    // 行サイズ☆（＾～＾）
-                                    if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
+                        // これが参照渡しになっているつもりだが……☆（＾～＾）
+                        appModel.MatchPropertyOption(
+                            realName,
+                            (propModel) =>
+                            {
+                                // .typeプロパティなら、propModelはヌルで構わない。
+                                PropertyModelController.ChangeModel(appModel, realName, propModel, args1);
+                            },
+                            () =>
+                            {
+                                // モデルが無くても .typeプロパティ は働く☆（＾～＾）
+                                PropertyModelController.ChangeModel(appModel, realName, null, args1);
+
+                                // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
+                                // 行サイズ☆（＾～＾）
+                                if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
+                                {
+                                    if (int.TryParse(args1.Value, out int outValue))
                                     {
-                                        if (int.TryParse(args.Value, out int outValue))
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
                                         {
-                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                            if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
-                                            {
-                                                appModel.Board.RowSize = outValue;
-                                                Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
-                                            }
-                                            else
-                                            {
-                                                Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
-                                            }
+                                            appModel.Board.RowSize = outValue;
+                                            Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Warning         | Row size parse fail. value=[{args.Value}]");
+                                            Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
                                         }
                                     }
-                                    // 列サイズ☆（＾～＾）
-                                    else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
+                                    else
                                     {
-                                        if (int.TryParse(args.Value, out int outValue))
+                                        Trace.WriteLine($"Warning         | Row size parse fail. value=[{args1.Value}]");
+                                    }
+                                }
+                                // 列サイズ☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
+                                {
+                                    if (int.TryParse(args1.Value, out int outValue))
+                                    {
+                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
+                                        if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
                                         {
-                                            // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                            if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
-                                            {
-                                                appModel.Board.ColumnSize = outValue;
-                                                Trace.WriteLine($"Info            | Column size {outValue}.");
-                                            }
-                                            else
-                                            {
-                                                Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
-                                            }
+                                            appModel.Board.ColumnSize = outValue;
+                                            Trace.WriteLine($"Info            | Column size {outValue}.");
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Warning         | Column size parse fail. value=[{args.Value}]");
+                                            Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
                                         }
                                     }
-                                    // 列番号☆（＾～＾）
-                                    else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
+                                    else
                                     {
-                                        Trace.WriteLine($"Info            | Column numbers.");
-                                        ColumnNumbersModelController.ChangeModel(appModel, args);
+                                        Trace.WriteLine($"Warning         | Column size parse fail. value=[{args1.Value}]");
                                     }
-                                    // 行番号☆（＾～＾）
-                                    else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
-                                    {
-                                        Trace.WriteLine($"Info            | Row numbers.");
-                                        RowNumbersModelController.ChangeModel(appModel, args);
-                                    }
-                                    // 盤上の星☆（＾～＾）
-                                    else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
-                                    {
-                                        Trace.WriteLine($"Info            | Stars.");
-                                        StarsModelController.ChangeModel(appModel, args);
-                                    }
-                                });
-                        });
+                                }
+                                // 列番号☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Column numbers.");
+                                    ColumnNumbersModelController.ChangeModel(appModel, args1);
+                                }
+                                // 行番号☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Row numbers.");
+                                    RowNumbersModelController.ChangeModel(appModel, args1);
+                                }
+                                // 盤上の星☆（＾～＾）
+                                else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
+                                {
+                                    Trace.WriteLine($"Info            | Stars.");
+                                    StarsModelController.ChangeModel(appModel, args1);
+                                }
+                            });
 
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                    instance.SetsArg = args;
+                    instance.SetsArg = args1;
                 },
                 () =>
                 {

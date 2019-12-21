@@ -372,23 +372,20 @@ set top2.value = 2
             }
 
             var plyAliasName = new AliasName("ply");
-            appModel.MatchObjectRealName(
-                plyAliasName.Value,
-                (plyRealName) =>
-                {
-                    Assert.IsTrue(appModel.ContainsKeyOfProperty(plyRealName));
+            var plyRealName2 = appModel.GetObjectRealName(plyAliasName.Value);
 
-                    appModel.MatchPropertyOption(
-                        plyRealName,
-                        (value) =>
-                        {
-                            Assert.IsTrue(value is PropertyNumber);
-                            Assert.AreEqual("手目", value.Title);
-                            Assert.AreEqual("2", value.ValueAsText());
-                        },
-                        () =>
-                        {
-                        });
+            Assert.IsTrue(appModel.ContainsKeyOfProperty(plyRealName2));
+
+            appModel.MatchPropertyOption(
+                plyRealName2,
+                (value) =>
+                {
+                    Assert.IsTrue(value is PropertyNumber);
+                    Assert.AreEqual("手目", value.Title);
+                    Assert.AreEqual("2", value.ValueAsText());
+                },
+                () =>
+                {
                 });
         }
 
@@ -403,33 +400,22 @@ set top2.value = 2
             var top2RealName = new RealName("top2");
             Assert.IsFalse(appModel.ContainsKeyOfNumbers(top2RealName));
 
-            appModel.MatchObjectRealName(
-                top2RealName.Value,
-                (RealName realName) =>
-                {
-                    // 指定した文字列が、そのまま出てくる☆（＾～＾）
-                    Assert.AreEqual("top2", realName.Value);
-                });
+            var realName2 = appModel.GetObjectRealName(top2RealName.Value);
+
+            // 指定した文字列が、そのまま出てくる☆（＾～＾）
+            Assert.AreEqual("top2", realName2.Value);
 
             var line = "alias top2 = ply";
             InputLineModelController.ParseLine(appModel, line);
 
             var plyAliasName = new AliasName("ply");
-            appModel.MatchObjectRealName(
-                plyAliasName.Value,
-                (RealName realName) =>
-                {
-                    // 本名に変換されて出てくる☆（＾～＾）
-                    Assert.AreEqual("top2", realName.Value);
-                });
+            var realName3 = appModel.GetObjectRealName(plyAliasName.Value);
+            // 本名に変換されて出てくる☆（＾～＾）
+            Assert.AreEqual("top2", realName3.Value);
 
-            appModel.MatchObjectRealName(
-                top2RealName.Value,
-                (RealName realName) =>
-                {
-                    // 本名は、そのまま出てくる☆（＾～＾）
-                    Assert.AreEqual("top2", realName.Value);
-                });
+            var realName4 = appModel.GetObjectRealName(top2RealName.Value);
+            // 本名は、そのまま出てくる☆（＾～＾）
+            Assert.AreEqual("top2", realName4.Value);
         }
 
         /// <summary>

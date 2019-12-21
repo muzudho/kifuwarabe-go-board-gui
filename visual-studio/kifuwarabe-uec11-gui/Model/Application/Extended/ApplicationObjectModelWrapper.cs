@@ -69,17 +69,11 @@
             return this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value);
         }
 
-        public delegate void RealNameCallback(RealName realName);
-        public void MatchObjectRealName(string name, RealNameCallback callback)
+        public RealName GetObjectRealName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(name));
-            }
-
-            if (callback == null)
-            {
-                throw new ArgumentNullException(nameof(callback));
             }
 
             AliasName aliasName = new AliasName(name);
@@ -87,11 +81,11 @@
             // エイリアスが設定されていれば変換するぜ☆（＾～＾）
             if (this.ApplicationObjectModel.ObjectRealName.ContainsKey(aliasName.Value))
             {
-                callback(new RealName(this.ApplicationObjectModel.ObjectRealName[aliasName.Value]));
+                return new RealName(this.ApplicationObjectModel.ObjectRealName[aliasName.Value]);
             }
             else
             {
-                callback(new RealName(name));
+                return new RealName(name);
             }
         }
 
