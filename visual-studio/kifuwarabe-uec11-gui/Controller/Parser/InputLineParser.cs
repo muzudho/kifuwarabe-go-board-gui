@@ -23,7 +23,7 @@
         private static string JsonCommand => "json";
         private static string PutsCommand => "put";
         private static string SetsCommand => "set";
-        private static string SleepsCommand => "sleep";
+        public static string SleepsCommand => "sleep";
 
         public static string BlackObject => "black";
         public static string SpaceObject => "space";

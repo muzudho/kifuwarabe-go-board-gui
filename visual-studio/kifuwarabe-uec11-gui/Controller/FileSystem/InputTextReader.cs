@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Text;
+    using KifuwarabeGoBoardGui.Controller.Parser;
 
     /// <summary>
     /// `input.txt` の読取☆（＾～＾）
@@ -51,7 +52,7 @@
         /// <param name="callbackErr"></param>
         public void ReadToEnd(CallbackDone callbackDone, CallbackErr callbackErr)
         {
-            if (callbackDone==null)
+            if (callbackDone == null)
             {
                 throw new ArgumentNullException(nameof(callbackDone));
             }
@@ -63,7 +64,29 @@
 
             try
             {
-                var text = this.StreamReader.ReadToEnd();
+                var sourceText = this.StreamReader.ReadToEnd();
+                var sleeped = false;
+                var topText = new StringBuilder();
+                var bottomText = new StringBuilder();
+
+                foreach (var line in sourceText.Split(Environment.NewLine))
+                {
+                    if (sleeped)
+                    {
+                        bottomText.AppendLine(line);
+                    }
+                    else
+                    {
+                        // 特殊処理： ざっくり sleep で始まる行は、 sleep コマンドとします。
+                        if (line.TrimStart().StartsWith(InputLineParser.SleepsCommand, StringComparison.CurrentCulture))
+                        {
+                            sleeped = true;
+                        }
+
+                        topText.AppendLine(line);
+                    }
+                }
+
 
                 // ファイルの先頭に読込位置を戻す。
                 this.FileStreamR.Position = 0;
@@ -72,12 +95,12 @@
                 // Encoding.UTF8 を指定すると BOM付きUTF8、無指定だと BOM無しUTF8 だぜ☆（＾～＾）
                 using (var writer = new StreamWriter(this.File, false))
                 {
-                    // ファイルを空にするぜ☆（＾～＾）
-                    writer.Write("");
+                    // sleep 行より下で上書き、あるいはファイルを空にするぜ☆（＾～＾）
+                    writer.Write(bottomText.ToString());
                     writer.Flush();
                 }
 
-                callbackDone(text);
+                callbackDone(topText.ToString());
             }
             catch (System.IO.IOException e)
             {
