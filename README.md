@@ -15,9 +15,7 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 
 # Example script
 
-* [Example-1 Horizon](./doc/example-script/script-1.txt)  
-
-
+* ![Image](./doc/example-script/script-1.png)  [Example-1 Horizon](./doc/example-script/script-1.txt)  
 * ![Image](./doc/example-script/script-2.png)  [Example-2 Star](./doc/example-script/script-2.txt)  
 
 # Output JSON
