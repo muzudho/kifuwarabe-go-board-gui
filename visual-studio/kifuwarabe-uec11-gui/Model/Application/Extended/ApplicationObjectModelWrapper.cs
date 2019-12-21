@@ -60,6 +60,11 @@
 
         public BoardModelWrapper Board { get; private set; }
 
+        /// <summary>
+        /// UIタイマーのTick。
+        /// </summary>
+        public TimeSpan IntervalTimeSpan { get; set; }
+
         public int RowSize
         {
             get

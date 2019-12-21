@@ -1,7 +1,6 @@
 ﻿namespace UnitTestProject1
 {
     using System;
-    using System.Diagnostics;
     using KifuwarabeGoBoardGui.Controller;
     using KifuwarabeGoBoardGui.Controller.Parser;
     using KifuwarabeGoBoardGui.Model;
@@ -10,6 +9,7 @@
     [TestClass]
     public class CommandTest
     {
+        /*
         /// <summary>
         /// 指定ミリ秒待つテスト☆（＾～＾）
         /// </summary>
@@ -32,6 +32,7 @@
             var elapsedMs = stopwatch.ElapsedMilliseconds;
             Assert.IsTrue(3000 <= elapsedMs);
         }
+        */
 
         /// <summary>
         /// 国際式囲碁のセル番地表記をテスト☆（＾～＾）

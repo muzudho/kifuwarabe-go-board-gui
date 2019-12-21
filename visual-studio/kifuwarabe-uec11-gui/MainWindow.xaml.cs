@@ -210,10 +210,14 @@
                 this.DispatchTimer = new DispatcherTimer();
 
                 // 何ミリ秒ごとに `input.txt` を書くにするか☆（＾～＾）これは初期値☆（＾～＾）
-                this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(this.Model.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
+                this.Model.IntervalTimeSpan = TimeSpan.FromMilliseconds(this.Model.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
+                this.DispatchTimer.Interval = this.Model.IntervalTimeSpan;
 
                 this.DispatchTimer.Tick += (s, e) =>
                 {
+                    // （スリープでいじった）インターバルを元に戻します。
+                    this.DispatchTimer.Interval = this.Model.IntervalTimeSpan;
+
                     // input.txt読取。
                     InputLineModelController.Read(this.Model, this, (text) =>
                     {
@@ -270,7 +274,15 @@
                             },
                             () =>
                             {
-                            });
+                            }).ThenSleep(
+                                (sleepsArgs) =>
+                                {
+                                    // 一時的に、インターバルを変更☆（＾～＾）
+                                    this.DispatchTimer.Interval = TimeSpan.FromMilliseconds(sleepsArgs.MilliSeconds);
+                                },
+                                () =>
+                                {
+                                });
                         });
 
                         // 盤のサイズ

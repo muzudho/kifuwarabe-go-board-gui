@@ -64,7 +64,7 @@
             }
 
             // インターバル・ミリ秒☆（＾～＾）
-            appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
+            // appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
             // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
 
             // 列番号

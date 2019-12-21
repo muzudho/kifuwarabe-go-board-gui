@@ -125,7 +125,7 @@ board  1 ...................
 put black to D16
 # ↓こっちはUIのmove欄☆（＾～＾）
 set move = D16
-# 1000ミリ秒待機☆（＾～＾） だがまだ指定秒は機能してない☆（＾～＾）むずかしい、あとで☆（＾～＾）
+# 1000ミリ秒待機☆（＾～＾） 精度はあんまりない☆（＾～＾）
 sleep 1000
 
 put white to Q4
@@ -160,15 +160,7 @@ set move = D16
 Example:
 
 ```
-# UIの別名
-alias top1 = move
-alias top2 = ply
-alias right1 = b-time
-alias right2 = b-name
-alias left1 = w-name
-alias left2 = w-time
-
-# UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+# 変数は、 type を最初に決める必要があるぜ☆（＾～＾）
 set row-size.type = number
 set row-size = 15
 
@@ -187,6 +179,14 @@ set stars = "d4", "l4", "h8", "d12", "l12"
 
 set info.type = string
 set info =
+
+# UIの別名
+alias top1 = move
+alias top2 = ply
+alias right1 = b-time
+alias right2 = b-name
+alias left1 = w-name
+alias left2 = w-time
 
 set move.type       = string
 set move.title      = 着手
@@ -246,7 +246,7 @@ board  1 ...............
 put black to h8
 # ↓こっちはUIのmove欄☆（＾～＾）
 set move = h8
-# 1000ミリ秒待機☆（＾～＾） だがまだ指定秒は機能してない☆（＾～＾）むずかしい、あとで☆（＾～＾）
+# 1000ミリ秒待機☆（＾～＾） 精度はあんまりない☆（＾～＾）
 sleep 1000
 
 put white to h9

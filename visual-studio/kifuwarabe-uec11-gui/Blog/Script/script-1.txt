@@ -1,0 +1,61 @@
+﻿# 盤設定☆（＾～＾）
+set row-size.type = number
+set row-size = 10
+
+set column-size.type = number
+set column-size = 10
+
+set column-numbers.type = string-list
+set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
+
+# 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
+set row-numbers.type = string-list
+set row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+# 星は要らね☆（＾～＾）
+
+# UIは何も出さない☆（＾～＾）
+
+# 盤の初期配置☆（＾～＾） 行番号を決めたあとにしろだぜ☆（＾～＾）
+board 10 ..........
+board  9 ..........
+board  8 ..........
+board  7 ..........
+board  6 ..........
+board  5 ..........
+board  4 ..........
+board  3 ..........
+board  2 ..........
+board  1 ..........
+
+# ここから動画☆（＾～＾）
+put black to a5
+# 200ミリ秒待機☆（＾～＾） 精度はあんまりない☆（＾～＾）
+sleep 200
+
+put black to b5
+sleep 200
+
+put black to c5
+sleep 200
+
+put black to d5
+sleep 200
+
+put black to e5
+sleep 200
+
+put black to f5
+sleep 200
+
+put black to g5
+sleep 200
+
+put black to h5
+sleep 200
+
+put black to i5
+sleep 200
+
+put black to j5
+sleep 200

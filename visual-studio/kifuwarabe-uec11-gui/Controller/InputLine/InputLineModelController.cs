@@ -292,11 +292,14 @@
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
                     instance.SleepsArg = args1;
 
+                    // UIタイマーの方で操作することにした☆（＾～＾）
+                    /*
                     // 指定ミリ秒待機☆（＾～＾）
                     Task.Run(async () =>
                     {
                         await Task.Delay(args1.MilliSeconds).ConfigureAwait(false);
                     }).Wait();
+                    */
                 },
                 () =>
                 {
@@ -470,7 +473,7 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            if (this.SetsArg == null)
+            if (this.SleepsArg == null)
             {
                 noneCallback();
             }
