@@ -15,30 +15,34 @@
 
             var line = @"alias top2 = ply sasite";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                (aliasInstruction) =>
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
                 {
-                    Assert.IsTrue(appModel.ContainsKeyOfObjectRealName(new AliasName("ply")));
-                    Assert.IsTrue(appModel.ContainsKeyOfObjectRealName(new AliasName("sasite")));
-                    Assert.IsFalse(appModel.ContainsKeyOfObjectRealName(new AliasName("dog-food")));
-                },
-                () => { Assert.Fail(); }
-                ).ThenComment(
-                    (commentLine) => { Assert.Fail(); },
-                    () => { }
-                ).ThenInfo(
-                    (infoText) => { Assert.Fail(); },
-                    () => { }
-                ).ThenJson(
-                    (jsonAppModel) => { Assert.Fail(); },
-                    () => { }
-                ).ThenPut(
-                    (putsArgs) => { Assert.Fail(); },
-                    () => { }
-                ).ThenSet(
-                    (setsArgs) => { Assert.Fail(); },
-                    () => { }
-                );
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) =>
+                        {
+                            Assert.IsTrue(appModel.ContainsKeyOfObjectRealName(new AliasName("ply")));
+                            Assert.IsTrue(appModel.ContainsKeyOfObjectRealName(new AliasName("sasite")));
+                            Assert.IsFalse(appModel.ContainsKeyOfObjectRealName(new AliasName("dog-food")));
+                        },
+                        () => { Assert.Fail(); }
+                        ).ThenComment(
+                            (commentLine) => { Assert.Fail(); },
+                            () => { }
+                        ).ThenInfo(
+                            (infoText) => { Assert.Fail(); },
+                            () => { }
+                        ).ThenJson(
+                            (jsonAppModel) => { Assert.Fail(); },
+                            () => { }
+                        ).ThenPut(
+                            (putsArgs) => { Assert.Fail(); },
+                            () => { }
+                        ).ThenSet(
+                            (setsArgs) => { Assert.Fail(); },
+                            () => { }
+                        );
+                });
         }
 
         [TestMethod]
@@ -48,28 +52,32 @@
 
             var line = @"# This is a comment line.";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                    (aliasInstruction) => { Assert.Fail(); },
-                    () => { }
-                ).ThenComment(
-                    (commentLine) =>
-                    {
-                        Assert.AreEqual(line, commentLine);
-                    },
-                    () => { Assert.Fail(); }
-                ).ThenInfo(
-                    (infoText) => { Assert.Fail(); },
-                    () => { }
-                ).ThenJson(
-                    (jsonAppModel) => { Assert.Fail(); },
-                    () => { }
-                ).ThenPut(
-                    (putsArgs) => { Assert.Fail(); },
-                    () => { }
-                ).ThenSet(
-                    (setsArgs) => { Assert.Fail(); },
-                    () => { }
-                );
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
+                {
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenComment(
+                        (commentLine) =>
+                        {
+                            Assert.AreEqual(line, commentLine);
+                        },
+                        () => { Assert.Fail(); }
+                    ).ThenInfo(
+                        (infoText) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenJson(
+                        (jsonAppModel) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenPut(
+                        (putsArgs) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenSet(
+                        (setsArgs) => { Assert.Fail(); },
+                        () => { }
+                    );
+                });
         }
 
         [TestMethod]
@@ -79,28 +87,32 @@
 
             var line = "info This is a information.";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                    (aliasInstruction) => { Assert.Fail(); },
-                    () => { }
-                ).ThenComment(
-                    (commentLine) => { Assert.Fail(); },
-                    () => { }
-                ).ThenInfo(
-                    (infoText) =>
-                    {
-                        Assert.AreEqual("This is a information.", infoText);
-                    },
-                    () => { Assert.Fail(); }
-                ).ThenJson(
-                    (jsonAppModel) => { Assert.Fail(); },
-                    () => { }
-                ).ThenPut(
-                    (putsArgs) => { Assert.Fail(); },
-                    () => { }
-                ).ThenSet(
-                    (setsArgs) => { Assert.Fail(); },
-                    () => { }
-                );
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
+                {
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenComment(
+                        (commentLine) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenInfo(
+                        (infoText) =>
+                        {
+                            Assert.AreEqual("This is a information.", infoText);
+                        },
+                        () => { Assert.Fail(); }
+                    ).ThenJson(
+                        (jsonAppModel) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenPut(
+                        (putsArgs) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenSet(
+                        (setsArgs) => { Assert.Fail(); },
+                        () => { }
+                    );
+                });
         }
 
         [TestMethod]
@@ -110,28 +122,32 @@
 
             var line = @"json {""uso"":800}";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                    (aliasInstruction) => { Assert.Fail(); },
-                    () => { }
-                ).ThenComment(
-                    (commentLine) => { Assert.Fail(); },
-                    () => { }
-                ).ThenInfo(
-                    (infoText) => { Assert.Fail(); },
-                    () => { }
-                ).ThenJson(
-                    (jsonAppModel) =>
-                    {
-                        // TODO テストしにくいぜ☆（＾～＾）ダブルクォーテーションいっぱいあるし☆（＾～＾）
-                    },
-                    () => { Assert.Fail(); }
-                ).ThenPut(
-                    (putsArgs) => { Assert.Fail(); },
-                    () => { }
-                ).ThenSet(
-                    (setsArgs) => { Assert.Fail(); },
-                    () => { }
-                );
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
+                {
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenComment(
+                        (commentLine) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenInfo(
+                        (infoText) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenJson(
+                        (jsonAppModel) =>
+                        {
+                            // TODO テストしにくいぜ☆（＾～＾）ダブルクォーテーションいっぱいあるし☆（＾～＾）
+                        },
+                        () => { Assert.Fail(); }
+                    ).ThenPut(
+                        (putsArgs) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenSet(
+                        (setsArgs) => { Assert.Fail(); },
+                        () => { }
+                    );
+                });
         }
 
         [TestMethod]
@@ -147,33 +163,37 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             foreach (var line1 in text.Split(Environment.NewLine))
             {
-                InputLineModelController.ParseLine(appModel, line1);
+                InputLineModelController.ParseLine(appModel, line1, (inputLineModelController) => { });
             }
 
             var line = @"put black to K10";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                    (aliasInstruction) => { Assert.Fail(); },
-                    () => { }
-                ).ThenComment(
-                    (commentLine) => { Assert.Fail(); },
-                    () => { }
-                ).ThenInfo(
-                    (infoText) => { Assert.Fail(); },
-                    () => { }
-                ).ThenJson(
-                    (jsonAppModel) => { Assert.Fail(); },
-                    () => { }
-                ).ThenPut(
-                    (putsArgs) =>
-                    {
-                        Assert.AreEqual("K10", putsArgs.Destination.ToDisplay(appModel));
-                    },
-                    () => { Assert.Fail(); }
-                ).ThenSet(
-                    (setsArgs) => { Assert.Fail(); },
-                    () => { }
-                );
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
+                {
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenComment(
+                        (commentLine) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenInfo(
+                        (infoText) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenJson(
+                        (jsonAppModel) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenPut(
+                        (putsArgs) =>
+                        {
+                            Assert.AreEqual("K10", putsArgs.Destination.ToDisplay(appModel));
+                        },
+                        () => { Assert.Fail(); }
+                    ).ThenSet(
+                        (setsArgs) => { Assert.Fail(); },
+                        () => { }
+                    );
+                });
         }
 
         [TestMethod]
@@ -190,36 +210,41 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line1 in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line1);
+                    InputLineModelController.ParseLine(appModel, line1, (inputLineModelController) => { });
                 }
             }
 
             var line = @"set top2.title = バナナ";
 
-            InputLineModelController.ParseLine(appModel, line).ThenAlias(
-                    (aliasInstruction) => { Assert.Fail(); },
-                    () => { }
-                ).ThenComment(
-                    (commentLine) => { Assert.Fail(); },
-                    () => { }
-                ).ThenInfo(
-                    (infoText) => { Assert.Fail(); },
-                    () => { }
-                ).ThenJson(
-                    (jsonAppModel) => { Assert.Fail(); },
-                    () => { }
-                ).ThenPut(
-                    (putsArgs) =>
-                    {
-                        Assert.Fail();
-                    },
-                    () => { }
-                ).ThenSet(
-                    (setsArgs) => {
-                        Assert.AreEqual("バナナ", setsArgs.Value);
-                    },
-                    () => { Assert.Fail(); }
-                );
+            InputLineModelController.ParseLine(appModel, line,
+                (inputLineModelController) =>
+                {
+                    inputLineModelController.ThenAlias(
+                        (aliasInstruction) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenComment(
+                        (commentLine) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenInfo(
+                        (infoText) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenJson(
+                        (jsonAppModel) => { Assert.Fail(); },
+                        () => { }
+                    ).ThenPut(
+                        (putsArgs) =>
+                        {
+                            Assert.Fail();
+                        },
+                        () => { }
+                    ).ThenSet(
+                        (setsArgs) =>
+                        {
+                            Assert.AreEqual("バナナ", setsArgs.Value);
+                        },
+                        () => { Assert.Fail(); }
+                    );
+                });
         }
     }
 }

@@ -123,9 +123,15 @@ board  1 ...................
 
 # 指し手でもあれば入れとけだぜ☆（＾～＾）
 put black to D16
+# ↓こっちはUIのmove欄☆（＾～＾）
 set move = D16
+# 1000ミリ秒待機☆（＾～＾）
+sleep 1000
+
 put white to Q4
 set move = Q4
+sleep 1000
+
 put black to P4
 set move = P4
 ```
@@ -238,11 +244,18 @@ board  1 ...............
 
 # 指し手でもあれば入れとけだぜ☆（＾～＾）
 put black to h8
+# ↓こっちはUIのmove欄☆（＾～＾）
 set move = h8
+# 1000ミリ秒待機☆（＾～＾）
+sleep 1000
+
 put white to h9
 set move = h9
+sleep 1000
+
 put black to i10
 set move = i10
+sleep 1000
 ```
 
 

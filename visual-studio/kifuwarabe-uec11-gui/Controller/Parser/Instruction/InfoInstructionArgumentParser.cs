@@ -23,7 +23,6 @@
             // 行の残り全部を読み取るぜ☆（＾～＾）
             string value = text.Substring(next);
 
-            // 列と行の両方マッチ☆（＾～＾）
             return (new InfoInstructionArgument(value.Trim()), next);
         }
     }

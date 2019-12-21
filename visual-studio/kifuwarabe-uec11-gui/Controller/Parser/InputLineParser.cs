@@ -23,6 +23,7 @@
         private static string JsonCommand => "json";
         private static string PutsCommand => "put";
         private static string SetsCommand => "set";
+        private static string SleepsCommand => "sleep";
 
         public static string BlackObject => "black";
         public static string SpaceObject => "space";
@@ -51,6 +52,7 @@
             CommandCallback jsonCommandCallback,
             CommandCallback putsCommandCallback,
             CommandCallback setsCommandCallback,
+            CommandCallback sleepsCommandCallback,
             NoneCallback noneCallback)
         {
             if (commentCallback == null)
@@ -91,6 +93,11 @@
             if (setsCommandCallback == null)
             {
                 throw new ArgumentNullException(nameof(setsCommandCallback));
+            }
+
+            if (sleepsCommandCallback == null)
+            {
+                throw new ArgumentNullException(nameof(sleepsCommandCallback));
             }
 
             if (noneCallback == null)
@@ -255,16 +262,26 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        if (argument == null)
-                                        {
-                                            Trace.WriteLine($"Error   | {line}");
-                                        }
-                                        else
-                                        {
-                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
-                                            setsCommandCallback(new Instruction(commandName.Text, argument));
-                                        }
-
+                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        setsCommandCallback(new Instruction(commandName.Text, argument));
+                                        return curr;
+                                    },
+                                    () =>
+                                    {
+                                        // パース失敗☆（＾～＾）
+                                        Trace.WriteLine($"Error   | {line}");
+                                        return curr;
+                                    });
+                            }
+                            else if (commandName.Text == InputLineParser.SleepsCommand)
+                            {
+                                curr = SleepsInstructionArgumentParser.Parse(
+                                    line,
+                                    curr,
+                                    (argument, curr) =>
+                                    {
+                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        sleepsCommandCallback(new Instruction(commandName.Text, argument));
                                         return curr;
                                     },
                                     () =>

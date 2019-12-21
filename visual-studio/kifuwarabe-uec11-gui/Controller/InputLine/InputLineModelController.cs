@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using KifuwarabeGoBoardGui.Controller.Parser;
     using KifuwarabeGoBoardGui.InputScript;
     using KifuwarabeGoBoardGui.Model;
@@ -70,6 +71,7 @@
         public delegate void JsonViewCallback(ApplicationObjectModelWrapper jsonAppModel);
         public delegate void PutsViewCallback(PutsInstructionArgument putsArgs);
         public delegate void SetsViewCallback(SetsInstructionArgument setsArgs);
+        public delegate void SleepsViewCallback(SleepsInstructionArgument sleepsArgs);
 
         public delegate void NoneCallback();
 
@@ -78,8 +80,10 @@
         private ApplicationObjectModelWrapper JsonAppModel { get; set; }
         private PutsInstructionArgument PutsArg { get; set; }
         private SetsInstructionArgument SetsArg { get; set; }
+        private SleepsInstructionArgument SleepsArg { get; set; }
 
-        public static InputLineModelController ParseLine(ApplicationObjectModelWrapper appModel, string line)
+        public delegate void CallbackDone(InputLineModelController inputLineModelController);
+        public static void ParseLine(ApplicationObjectModelWrapper appModel, string line, CallbackDone callbackDone)
         {
             if (appModel == null)
             {
@@ -89,6 +93,11 @@
             if (line == null)
             {
                 throw new ArgumentNullException(nameof(line));
+            }
+
+            if (callbackDone == null)
+            {
+                throw new ArgumentNullException(nameof(callbackDone));
             }
 
             var instance = new InputLineModelController(appModel, line);
@@ -275,12 +284,26 @@
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
                     instance.SetsArg = args1;
                 },
+                (sleepsInstruction) =>
+                {
+                    // プロパティ☆（＾～＾）
+                    var args1 = (SleepsInstructionArgument)sleepsInstruction.Argument;
+
+                    // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                    instance.SleepsArg = args1;
+
+                    // 指定ミリ秒待機☆（＾～＾）
+                    Task.Run(async () =>
+                    {
+                        await Task.Delay(args1.MilliSeconds).ConfigureAwait(false);
+                    }).Wait();
+                },
                 () =>
                 {
                     // 何もしないぜ☆（＾～＾）
                 });
 
-            return instance;
+            callbackDone(instance);
         }
 
         public InputLineModelController ThenAlias(AliasViewCallback aliasViewCallback, NoneCallback noneCallback)
@@ -430,6 +453,30 @@
             else
             {
                 setsViewCallback(this.SetsArg);
+            }
+
+            return this;
+        }
+
+        public InputLineModelController ThenSleep(SleepsViewCallback sleepsViewCallback, NoneCallback noneCallback)
+        {
+            if (sleepsViewCallback == null)
+            {
+                throw new ArgumentNullException(nameof(sleepsViewCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
+            if (this.SetsArg == null)
+            {
+                noneCallback();
+            }
+            else
+            {
+                sleepsViewCallback(this.SleepsArg);
             }
 
             return this;

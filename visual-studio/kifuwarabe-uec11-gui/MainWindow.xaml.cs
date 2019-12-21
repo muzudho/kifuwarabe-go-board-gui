@@ -218,7 +218,12 @@
                     InputLineModelController.Read(this.Model, this, (text) =>
                     {
                         // 1行ずつ解析☆（＾～＾）
-                        InputLineModelController.ParseLine(this.Model, text).ThenAlias(
+                        InputLineModelController.ParseLine(
+                            this.Model,
+                            text,
+                            (inputLineModelController) =>
+                        {
+                            inputLineModelController.ThenAlias(
                             (aliasInstruction) =>
                             {
                             },
@@ -266,6 +271,7 @@
                             () =>
                             {
                             });
+                        });
 
                         // 盤のサイズ
                         this.Model.Board.Resize(this.Model.RowSize, this.Model.ColumnSize);

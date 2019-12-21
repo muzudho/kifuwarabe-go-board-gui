@@ -1,6 +1,7 @@
 ﻿namespace UnitTestProject1
 {
     using System;
+    using System.Diagnostics;
     using KifuwarabeGoBoardGui.Controller;
     using KifuwarabeGoBoardGui.Controller.Parser;
     using KifuwarabeGoBoardGui.Model;
@@ -9,6 +10,29 @@
     [TestClass]
     public class CommandTest
     {
+        /// <summary>
+        /// 指定ミリ秒待つテスト☆（＾～＾）
+        /// </summary>
+        [TestMethod]
+        public void TestSleep()
+        {
+            var appModel = new ApplicationObjectModelWrapper();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            {
+                // WaitFor3Seconds
+                var text = @"sleep 3000";
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                }
+            }
+
+            var elapsedMs = stopwatch.ElapsedMilliseconds;
+            Assert.IsTrue(3000 <= elapsedMs);
+        }
+
         /// <summary>
         /// 国際式囲碁のセル番地表記をテスト☆（＾～＾）
         /// </summary>
@@ -23,7 +47,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 ";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line);
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -51,13 +75,13 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 set row-size.type = number;
 set row-size = 19
 
-# set row-numbers.type = string-list
+set row-numbers.type = string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line);
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 

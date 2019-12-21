@@ -32,6 +32,7 @@
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -60,6 +61,7 @@
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -81,7 +83,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line);
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -101,6 +103,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -128,6 +131,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -156,6 +160,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -184,6 +189,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -205,7 +211,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line);
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -225,6 +231,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                     Assert.AreEqual("black to K10", ((PutsInstructionArgument)putsInstruction.Argument).ToDisplay(appModel));
                 },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -246,7 +253,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line);
+                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -266,6 +273,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                     Assert.IsTrue(setsInstruction.Argument is SetsInstructionArgument);
                     Assert.AreEqual("b-name.visible = true", ((SetsInstructionArgument)setsInstruction.Argument).ToDisplay());
                 },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }
                 );
         }
@@ -289,6 +297,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
+                (sleepsInstruction) => { Assert.Fail(); },
                 () =>
                 {
                     // 成功☆（＾～＾）
