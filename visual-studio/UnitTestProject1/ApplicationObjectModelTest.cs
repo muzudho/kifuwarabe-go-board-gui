@@ -453,9 +453,8 @@ set top2.value = 2
         {
             var appModel = new ApplicationObjectModelWrapper();
 
-            // info は初期実装☆（＾～＾）
             var infoRealName = new RealName("info");
-            Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
 
             appModel.AddProperty(infoRealName, new PropertyString("#info", "Hello, world!"));
             Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));

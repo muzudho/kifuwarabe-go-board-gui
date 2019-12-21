@@ -121,7 +121,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            var start = 5;
+            var start = 0;
             CellRangeListArgumentParser.Parse(
                 "A19 K1 T1",
                 start,
@@ -138,7 +138,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 });
 
             // 混合型☆（＾～＾）
-            start = 5;
+            start = 0;
             CellRangeListArgumentParser.Parse(
                 "A2:B1 C4:D3 E5",
                 start,
@@ -155,19 +155,19 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 });
 
             // 大文字・小文字は区別するぜ☆（＾～＾）
-            start = 5;
+            start = 0;
             CellRangeListArgumentParser.Parse(
                 "a19 k1 t1",
                 start,
                 appModel,
                 (matched, curr) =>
                 {
-                    Assert.AreNotEqual("A19 K1 T1", matched.ToDisplay(appModel));
+                    Assert.Fail();
                     return curr;
                 },
                 () =>
                 {
-                    Assert.Fail();
+                    // ここを通る。
                     return start;
                 });
         }
@@ -177,12 +177,12 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectModelWrapper();
 
-            // 'info' は初期実装☆（＾～＾）
             var infoRealName = new RealName("info");
-            Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
 
             {
-                var text = @"info バナナ食うか☆（＾～＾）？";
+                var text = @"set info.type = string
+info バナナ食うか☆（＾～＾）？";
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -782,7 +782,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             }
 
             Assert.AreEqual(
-                @"""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""",
+                @"""19"",""18"",""17"",""16"",""15"",""14"",""13"",""12"",""11"",""10"",""  9"",""  8"",""  7"",""  6"",""  5"",""  4"",""  3"",""  2"",""  1""",
                 appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).ValueAsText());
 
             int start;
