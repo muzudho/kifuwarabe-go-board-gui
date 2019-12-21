@@ -29,20 +29,26 @@
             this.Board = new BoardModelWrapper(this.ApplicationObjectModel.Board);
 
             this.rowNumbersTrimed = new List<string>();
-            this.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback((value) =>
+
+            // 特殊処理
             {
-                // 位置調整のためのスペースが含まれていると　検索のとき、やっかい☆（＾～＾）取り除いたリストも作っておくぜ☆（＾～＾）
-                this.rowNumbersTrimed = new List<string>();
-                for (int i = 0; i < value.Count; i++)
-                {
-                    this.rowNumbersTrimed.Add(value[i].Trim());
-                }
-            });
-            // イベント・ハンドラーを起こすぜ☆（＾～＾）
-            this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+                this.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback(this.TrimRowNumbers);
+                // イベント・ハンドラーを起こすぜ☆（＾～＾）
+                this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = this.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+            }
 
             // モデル変更のログを書き込むやつ☆（＾～＾）
             this.ModelChangeLogWriter = new ModelChangeLogWriter("model-change.log");
+        }
+
+        public void TrimRowNumbers(List<string> value)
+        {
+            // 位置調整のためのスペースが含まれていると　検索のとき、やっかい☆（＾～＾）取り除いたリストも作っておくぜ☆（＾～＾）
+            this.rowNumbersTrimed = new List<string>();
+            for (int i = 0; i < value.Count; i++)
+            {
+                this.rowNumbersTrimed.Add(value[i].Trim());
+            }
         }
 
         /// <summary>

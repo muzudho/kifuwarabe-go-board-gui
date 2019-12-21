@@ -39,11 +39,28 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text">読み込んだ行</param>
+        public delegate void CallbackDone(string text);
+        public delegate void CallbackErr(System.IO.IOException e);
+        /// <summary>
         /// ファイル全部読み込む。
         /// </summary>
-        /// <returns>読み込んだ行、またはヌル。</returns>
-        public string ReadToEnd()
+        /// <param name="callbackDone"></param>
+        /// <param name="callbackErr"></param>
+        public void ReadToEnd(CallbackDone callbackDone, CallbackErr callbackErr)
         {
+            if (callbackDone==null)
+            {
+                throw new ArgumentNullException(nameof(callbackDone));
+            }
+
+            if (callbackErr == null)
+            {
+                throw new ArgumentNullException(nameof(callbackErr));
+            }
+
             try
             {
                 var text = this.StreamReader.ReadToEnd();
@@ -60,13 +77,13 @@
                     writer.Flush();
                 }
 
-                return text;
+                callbackDone(text);
             }
-            catch (System.IO.IOException)
+            catch (System.IO.IOException e)
             {
                 // ファイルのロックにでも引っかかったんだろ☆（＾～＾）ミリ秒でアクセスを繰り返せば よくある☆（＾～＾）
                 // 無視するぜ☆（＾～＾）また次のループで読みにくるだろ☆（＾～＾）
-                return null;
+                callbackErr(e);
             }
         }
 

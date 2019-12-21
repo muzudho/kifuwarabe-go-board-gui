@@ -383,7 +383,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            var rowNumbers = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+            // “Áêˆ—B
+            var rowNumbers = appModel.GetRowNumbersTrimed();
 
             Assert.AreEqual(0, rowNumbers.IndexOf("19"));
             Assert.AreEqual(1, rowNumbers.IndexOf("18"));

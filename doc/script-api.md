@@ -49,6 +49,7 @@ set column-size = 19
 set column-numbers.type = string-list
 set column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
 
+# 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
 set row-numbers.type = string-list
 set row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
@@ -171,6 +172,7 @@ set column-size = 15
 set column-numbers.type = string-list
 set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
 
+# 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
 set row-numbers.type = string-list
 set row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 

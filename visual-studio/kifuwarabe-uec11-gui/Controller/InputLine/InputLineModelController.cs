@@ -41,21 +41,27 @@
                 throw new ArgumentNullException(nameof(callback));
             }
 
-            var text = appView.InputTextReader.ReadToEnd();
+            appView.InputTextReader.ReadToEnd(
+                (text) =>
+                {
+                    // 空行は無視☆（＾～＾）
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        // ログに取るぜ☆（＾～＾）
+                        Trace.WriteLine($"Text            | {text}");
+                        appView.CommunicationLogWriter.WriteLine(text);
+                        appView.CommunicationLogWriter.Flush();
+                    }
 
-            // 空行は無視☆（＾～＾）
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                // ログに取るぜ☆（＾～＾）
-                Trace.WriteLine($"Text            | {text}");
-                appView.CommunicationLogWriter.WriteLine(text);
-                appView.CommunicationLogWriter.Flush();
-            }
-
-            foreach (var line in text.Split(Environment.NewLine))
-            {
-                callback(line);
-            }
+                    foreach (var line in text.Split(Environment.NewLine))
+                    {
+                        callback(line);
+                    }
+                },
+                (e) =>
+                {
+                    // 無視。
+                });
         }
 
         public delegate void CommentViewCallback(string commentLine);

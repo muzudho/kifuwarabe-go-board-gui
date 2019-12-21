@@ -488,6 +488,23 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             var start = 0;
             CellAddressParser.Parse(
+                "A19",
+                start,
+                appModel,
+                (CellAddress matched, int curr) =>
+                {
+                    Assert.AreEqual(0, matched.ColumnAddress.NumberO0);
+                    Assert.AreEqual(0, matched.RowAddress.NumberO0);
+                    return curr;
+                },
+                () =>
+                {
+                    Assert.Fail();
+                    return start;
+                });
+
+            start = 0;
+            CellAddressParser.Parse(
                 "K10",
                 start,
                 appModel,
@@ -499,12 +516,13 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 },
                 () =>
                 {
+                    Assert.Fail();
                     return start;
                 });
 
             start = 0;
             CellAddressParser.Parse(
-                "T19",
+                "T1",
                 start,
                 appModel,
                 (CellAddress matched, int curr) =>
@@ -515,6 +533,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 },
                 () =>
                 {
+                    Assert.Fail();
                     return start;
                 });
         }

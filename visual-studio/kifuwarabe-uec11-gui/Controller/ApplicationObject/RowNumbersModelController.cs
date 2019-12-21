@@ -25,6 +25,13 @@
                     var oldValue = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
+
+                    // 特殊処理
+                    {
+                        appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).SetAfterSetsValueCallback(appModel.TrimRowNumbers);
+                    }
+
+                    // イベント・ハンドラーを起こすぜ☆（＾～＾）
                     appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value = newValue;
                     break;
             }
