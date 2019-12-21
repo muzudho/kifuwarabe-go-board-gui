@@ -1,8 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class BoardInstructionArgumentParser
     {
@@ -12,7 +11,7 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int SomeCallback(BoardInstructionArgument matched, int curr);
+        public delegate int SomeCallback(BoardArgumentDto matched, int curr);
         public delegate int NoneCallback();
 
         /// <summary>
@@ -45,7 +44,7 @@
             }
 
             // 行番号を読めだぜ☆（＾～＾）数字とは限らないからな☆ｍ９（＾～＾）
-            BoardInstructionArgument boardInstructionArgument = null;
+            BoardArgumentDto boardInstructionArgument = null;
 
             // 最初のスペースは読み飛ばすぜ☆（＾～＾）
             var curr = WhiteSpaceParser.Parse(
@@ -83,7 +82,7 @@
                     string columns = text.Substring(curr);
 
                     // 列と行の両方マッチ☆（＾～＾）
-                    boardInstructionArgument = new BoardInstructionArgument(rowAddress, columns.Trim());
+                    boardInstructionArgument = new BoardArgumentDto(rowAddress, columns.Trim());
                     return curr + columns.Length;
                 },
                 () =>

@@ -1,8 +1,8 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dao;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class CellAddressParser
     {

@@ -9,8 +9,9 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeGoBoardGui.Controller;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.View;
+    using KifuwarabeGoBoardGui.Model.Dao;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -187,28 +188,28 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
-            StoneViewController.FitSizeToWindow(this.Model, this);
+            StoneView.FitSizeToWindow(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberViewController.Repaint(this.Model, this);
+            ColumnNumberView.Repaint(this.Model, this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberViewController.Repaint(this.Model, this);
+            RowNumberView.Repaint(this.Model, this);
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
-            StarViewController.Repaint(this.Model, this);
+            StarView.Repaint(this.Model, this);
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            MoveMarkerViewController.Repaint(this.Model, this);
+            MoveMarkerView.Repaint(this.Model, this);
         }
 
         private void TickForFile()
         {
             // input.txt読取。
-            InputLineModelController.Read(this.Model, this, (text) =>
+            InputLineDao.Read(this.Model, this, (text) =>
             {
                 // 1行ずつ解析☆（＾～＾）
-                InputLineModelController.ParseLine(
+                InputLineDao.ParseLine(
                     this.Model,
                     text,
                     (inputLineModelController) =>
@@ -295,7 +296,7 @@
         private void TickForGui()
         {
             // モデルに合わせてビューを更新するだけだな☆（＾～＾）！
-            ApplicationViewController.RepaintAllViews(this.Model, this);
+            ApplicationView.RepaintAllViews(this.Model, this);
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -425,17 +426,17 @@
             }
 
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
-            StarViewController.Initialize(this.Model, this);
+            StarView.Initialize(this.Model, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            StoneViewController.Initialize(this.Model, this);
-            MarkViewController.Initialize(this.Model, this);
+            StoneView.Initialize(this.Model, this);
+            MarkView.Initialize(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberViewController.Initialize(this);
+            ColumnNumberView.Initialize(this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberViewController.Initialize(this);
+            RowNumberView.Initialize(this);
 
             // 着手のマーカー☆（＾～＾）
             Panel.SetZIndex(moveMarker, (int)ZOrder.MoveMarker);
@@ -516,7 +517,7 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationViewController.RepaintAllViews(this.Model, this);
+            ApplicationView.RepaintAllViews(this.Model, this);
         }
     }
 }

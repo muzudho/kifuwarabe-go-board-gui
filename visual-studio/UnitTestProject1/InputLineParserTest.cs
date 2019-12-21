@@ -1,10 +1,9 @@
 ﻿namespace UnitTestProject1
 {
     using System;
-    using KifuwarabeGoBoardGui.Controller;
     using KifuwarabeGoBoardGui.Controller.Parser;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dao;
+    using KifuwarabeGoBoardGui.Model.Dto;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -51,8 +50,8 @@
                 (aliasInstruction) =>
                 {
                     Assert.AreEqual("alias", aliasInstruction.Command);
-                    Assert.IsTrue(aliasInstruction.Argument is AliasInstructionArgument);
-                    Assert.AreEqual("top2 = ply sasite", ((AliasInstructionArgument)aliasInstruction.Argument).ToDisplay());
+                    Assert.IsTrue(aliasInstruction.Argument is AliasArgumentDto);
+                    Assert.AreEqual("top2 = ply sasite", ((AliasArgumentDto)aliasInstruction.Argument).ToDisplay());
                 },
                 (boardInstruction) => { Assert.Fail(); },
                 (commentLine) => { Assert.Fail(); },
@@ -83,7 +82,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -94,8 +93,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (boardInstruction) =>
                 {
                     Assert.AreEqual("board", boardInstruction.Command);
-                    Assert.IsTrue(boardInstruction.Argument is BoardInstructionArgument);
-                    Assert.AreEqual("19 ...................", ((BoardInstructionArgument)boardInstruction.Argument).ToDisplay(appModel));
+                    Assert.IsTrue(boardInstruction.Argument is BoardArgumentDto);
+                    Assert.AreEqual("19 ...................", ((BoardArgumentDto)boardInstruction.Argument).ToDisplay(appModel));
                 },
                 (commentLine) => { Assert.Fail(); },
                 (exitsInstruction) => { Assert.Fail(); },
@@ -154,8 +153,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (infoInstruction) =>
                 {
                     Assert.AreEqual("info", infoInstruction.Command);
-                    Assert.IsTrue(infoInstruction.Argument is InfoInstructionArgument);
-                    Assert.AreEqual("This is a my banana!", ((InfoInstructionArgument)infoInstruction.Argument).ToDisplay());
+                    Assert.IsTrue(infoInstruction.Argument is InfoInstructionArgumentDto);
+                    Assert.AreEqual("This is a my banana!", ((InfoInstructionArgumentDto)infoInstruction.Argument).ToDisplay());
                 },
                 (jsonInstruction) => { Assert.Fail(); },
                 (putsInstruction) => { Assert.Fail(); },
@@ -184,8 +183,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (jsonInstruction) =>
                 {
                     Assert.AreEqual("json", jsonInstruction.Command);
-                    Assert.IsTrue(jsonInstruction.Argument is JsonInstructionArgument);
-                    Assert.AreEqual(@"{""uso"":800}", ((JsonInstructionArgument)jsonInstruction.Argument).ToDisplay());
+                    Assert.IsTrue(jsonInstruction.Argument is JsonInstructionArgumentDto);
+                    Assert.AreEqual(@"{""uso"":800}", ((JsonInstructionArgumentDto)jsonInstruction.Argument).ToDisplay());
                 },
                 (putsInstruction) => { Assert.Fail(); },
                 (setsInstruction) => { Assert.Fail(); },
@@ -211,7 +210,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -227,8 +226,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (putsInstruction) =>
                 {
                     Assert.AreEqual("put", putsInstruction.Command);
-                    Assert.IsTrue(putsInstruction.Argument is PutsInstructionArgument);
-                    Assert.AreEqual("black to K10", ((PutsInstructionArgument)putsInstruction.Argument).ToDisplay(appModel));
+                    Assert.IsTrue(putsInstruction.Argument is PutsInstructionArgumentDto);
+                    Assert.AreEqual("black to K10", ((PutsInstructionArgumentDto)putsInstruction.Argument).ToDisplay(appModel));
                 },
                 (setsInstruction) => { Assert.Fail(); },
                 (sleepsInstruction) => { Assert.Fail(); },
@@ -253,7 +252,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -270,8 +269,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 (setsInstruction) =>
                 {
                     Assert.AreEqual("set", setsInstruction.Command);
-                    Assert.IsTrue(setsInstruction.Argument is SetsInstructionArgument);
-                    Assert.AreEqual("b-name.visible = true", ((SetsInstructionArgument)setsInstruction.Argument).ToDisplay());
+                    Assert.IsTrue(setsInstruction.Argument is SetsInstructionArgumentDto);
+                    Assert.AreEqual("b-name.visible = true", ((SetsInstructionArgumentDto)setsInstruction.Argument).ToDisplay());
                 },
                 (sleepsInstruction) => { Assert.Fail(); },
                 () => { Assert.Fail(); }

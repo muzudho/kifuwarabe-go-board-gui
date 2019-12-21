@@ -1,11 +1,11 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class SleepsInstructionArgumentParser
     {
-        public delegate int CallbackSome(SleepsInstructionArgument arg, int next);
+        public delegate int CallbackSome(SleepsInstructionArgumentDto arg, int next);
         public delegate int CallbackNone();
 
         /// <summary>
@@ -38,7 +38,7 @@
             // 行の残り全部を読み取るぜ☆（＾～＾）
             if (int.TryParse(text.Substring(next), out int ms))
             {
-                return callbackSome(new SleepsInstructionArgument(ms), next);
+                return callbackSome(new SleepsInstructionArgumentDto(ms), next);
             }
             else
             {

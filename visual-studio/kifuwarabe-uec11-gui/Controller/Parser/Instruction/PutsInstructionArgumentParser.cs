@@ -1,8 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class PutsInstructionArgumentParser
     {
@@ -12,7 +11,7 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int SomeCallback(PutsInstructionArgument matched, int curr);
+        public delegate int SomeCallback(PutsInstructionArgumentDto matched, int curr);
         public delegate int NoneCallback();
 
         /// <summary>
@@ -44,7 +43,7 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            PutsInstructionArgument putsInstructionArgument = null;
+            PutsInstructionArgumentDto putsInstructionArgument = null;
 
             // Trace.WriteLine($"Text            | [{text}]");
             var curr1 = WhiteSpaceParser.Parse(
@@ -87,7 +86,7 @@
                         appModel,
                         (arg, curr3) =>
                         {
-                            putsInstructionArgument = new PutsInstructionArgument(objectName, arg);
+                            putsInstructionArgument = new PutsInstructionArgumentDto(objectName, arg);
                             return curr3;
                         },
                         () =>

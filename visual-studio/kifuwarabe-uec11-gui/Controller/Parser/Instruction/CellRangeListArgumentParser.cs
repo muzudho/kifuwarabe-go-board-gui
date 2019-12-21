@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class CellRangeListArgumentParser
     {
@@ -13,7 +12,7 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int SomeCallback(CellRangeListArgument matched, int curr);
+        public delegate int SomeCallback(CellRangeListArgumentDto matched, int curr);
         public delegate int NoneCallback();
 
         /// <summary>
@@ -85,7 +84,7 @@
             else
             {
                 // 列と行の両方マッチ☆（＾～＾）
-                return someCallback(new CellRangeListArgument(cellRanges), curr);
+                return someCallback(new CellRangeListArgumentDto(cellRanges), curr);
             }
         }
     }

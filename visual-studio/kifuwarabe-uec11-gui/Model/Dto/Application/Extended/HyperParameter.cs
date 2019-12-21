@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeGoBoardGui
+﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     /// <summary>
     /// 決め打ちで固定のものだぜ☆（＾～＾）

@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class JsonInstructionArgumentParser
     {
@@ -11,7 +11,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (JsonInstructionArgument, int) Parse(string text, int start)
+        public static (JsonInstructionArgumentDto, int) Parse(string text, int start)
         {
             if (text == null)
             {
@@ -24,7 +24,7 @@
             string value = text.Substring(next);
 
             // 列と行の両方マッチ☆（＾～＾）
-            return (new JsonInstructionArgument(value.Trim()), next);
+            return (new JsonInstructionArgumentDto(value.Trim()), next);
         }
     }
 }

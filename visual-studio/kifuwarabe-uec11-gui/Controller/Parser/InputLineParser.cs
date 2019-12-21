@@ -3,8 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     /// <summary>
     /// 入力スクリプトのパーサーだぜ☆（＾～＾）
@@ -202,7 +201,7 @@
                             }
                             else if (commandName.Text == InputLineParser.InfoCommand)
                             {
-                                InfoInstructionArgument argument;
+                                InfoInstructionArgumentDto argument;
                                 (argument, curr) = InfoInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
@@ -216,7 +215,7 @@
                             }
                             else if (commandName.Text == InputLineParser.JsonCommand)
                             {
-                                JsonInstructionArgument argument;
+                                JsonInstructionArgumentDto argument;
                                 (argument, curr) = JsonInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {

@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class AliasInstructionArgumentParser
     {
@@ -13,7 +12,7 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int SomeCallback(AliasInstructionArgument matched, int curr);
+        public delegate int SomeCallback(AliasArgumentDto matched, int curr);
         public delegate int NoneCallback();
 
         /// <summary>
@@ -33,7 +32,7 @@
                 throw new ArgumentNullException(nameof(line));
             }
 
-            AliasInstructionArgument aliasInstructionArgument = null;
+            AliasArgumentDto aliasInstructionArgument = null;
 
             var curr = WhiteSpaceParser.Parse(
                 line,
@@ -83,7 +82,7 @@
 
                     var aliasList = aliasListAsString.ConvertAll(s => new AliasName(s));
 
-                    aliasInstructionArgument = new AliasInstructionArgument(realName, aliasList);
+                    aliasInstructionArgument = new AliasArgumentDto(realName, aliasList);
                     return curr + value.Length;
                 },
                 () =>

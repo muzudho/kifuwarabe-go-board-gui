@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using KifuwarabeGoBoardGui.Controller;
     using KifuwarabeGoBoardGui.Controller.Parser;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dao;
+    using KifuwarabeGoBoardGui.Model.Dto;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -79,7 +78,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -117,7 +116,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -186,7 +185,7 @@ info バナナ食うか☆（＾～＾）？";
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -236,7 +235,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -482,7 +481,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -552,7 +551,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -783,7 +782,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -818,7 +817,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 

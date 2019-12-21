@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class InfoInstructionArgumentParser
     {
@@ -11,7 +11,7 @@
         /// <param name="text"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        public static (InfoInstructionArgument, int) Parse(string text, int start)
+        public static (InfoInstructionArgumentDto, int) Parse(string text, int start)
         {
             if (text == null)
             {
@@ -23,7 +23,7 @@
             // 行の残り全部を読み取るぜ☆（＾～＾）
             string value = text.Substring(next);
 
-            return (new InfoInstructionArgument(value.Trim()), next);
+            return (new InfoInstructionArgumentDto(value.Trim()), next);
         }
     }
 }

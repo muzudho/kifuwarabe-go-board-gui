@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeGoBoardGui
+﻿namespace KifuwarabeGoBoardGui.View
 {
     /// <summary>
     /// Zインデックスのことだぜ☆（＾～＾）名前被りを避けた☆（＾～＾）

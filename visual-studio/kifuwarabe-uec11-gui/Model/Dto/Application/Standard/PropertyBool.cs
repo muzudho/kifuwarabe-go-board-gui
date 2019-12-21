@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeGoBoardGui.Model
+﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     using System.Globalization;
 

@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class SetsInstructionArgumentParser
     {
@@ -11,7 +11,7 @@
         /// <param name="matched"></param>
         /// <param name="curr">Current.</param>
         /// <returns>Next.</returns>
-        public delegate int SomeCallback(SetsInstructionArgument matched, int curr);
+        public delegate int SomeCallback(SetsInstructionArgumentDto matched, int curr);
         public delegate int NoneCallback();
 
         /// <summary>
@@ -31,7 +31,7 @@
                 throw new ArgumentNullException(nameof(text));
             }
 
-            SetsInstructionArgument setsInstructionArgument = null;
+            SetsInstructionArgumentDto setsInstructionArgument = null;
 
             // Trace.WriteLine($"Text            | [{text}]");
             var curr = WhiteSpaceParser.Parse(
@@ -106,7 +106,7 @@
                     // Trace.WriteLine($"value           | {value}");
 
                     // 列と行の両方マッチ☆（＾～＾）
-                    setsInstructionArgument = new SetsInstructionArgument(objectName, propertyName, value.Trim());
+                    setsInstructionArgument = new SetsInstructionArgumentDto(objectName, propertyName, value.Trim());
                     return curr + value.Length;
                 },
                 () =>

@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeGoBoardGui.Model
+﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）

@@ -1,7 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller.Parser
 {
     using System;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class WordUpToDelimiterParser
     {

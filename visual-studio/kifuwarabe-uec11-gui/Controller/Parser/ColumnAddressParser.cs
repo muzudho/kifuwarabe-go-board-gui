@@ -2,8 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using KifuwarabeGoBoardGui.InputScript;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class ColumnAddressParser
     {

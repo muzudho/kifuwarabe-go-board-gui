@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
-    using KifuwarabeGoBoardGui.InputScript;
+    using KifuwarabeGoBoardGui.Model.Dto;
 
     public static class WhiteSpaceParser
     {

@@ -1,8 +1,8 @@
 ﻿namespace UnitTestProject1
 {
     using System;
-    using KifuwarabeGoBoardGui.Controller;
-    using KifuwarabeGoBoardGui.Model;
+    using KifuwarabeGoBoardGui.Model.Dao;
+    using KifuwarabeGoBoardGui.Model.Dto;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -15,7 +15,7 @@
 
             var line = @"alias top2 = ply sasite";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -52,7 +52,7 @@
 
             var line = @"# This is a comment line.";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -87,7 +87,7 @@
 
             var line = "info This is a information.";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -122,7 +122,7 @@
 
             var line = @"json {""uso"":800}";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -163,12 +163,12 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             foreach (var line1 in text.Split(Environment.NewLine))
             {
-                InputLineModelController.ParseLine(appModel, line1, (inputLineModelController) => { });
+                InputLineDao.ParseLine(appModel, line1, (inputLineModelController) => { });
             }
 
             var line = @"put black to K10";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -210,13 +210,13 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line1 in text.Split(Environment.NewLine))
                 {
-                    InputLineModelController.ParseLine(appModel, line1, (inputLineModelController) => { });
+                    InputLineDao.ParseLine(appModel, line1, (inputLineModelController) => { });
                 }
             }
 
             var line = @"set top2.title = バナナ";
 
-            InputLineModelController.ParseLine(appModel, line,
+            InputLineDao.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(

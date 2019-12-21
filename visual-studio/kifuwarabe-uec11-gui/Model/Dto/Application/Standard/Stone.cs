@@ -1,4 +1,4 @@
-﻿namespace KifuwarabeGoBoardGui.Model
+﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     /// <summary>
     /// 石だぜ☆（＾～＾）
