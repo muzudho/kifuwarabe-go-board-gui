@@ -168,7 +168,7 @@
                     break;
 
                 case "value": // thru
-                default:
+                case "":
                     // モデルに値をセット☆（＾～＾）
                     if (propModel == null)
                     {
@@ -190,6 +190,13 @@
                             var oldValue = ((PropertyNumber)propModel).Value;
                             appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", oldValue.ToString(), newValue.ToString());
                             ((PropertyNumber)propModel).Value = newValue;
+
+                            // 特殊処理
+                            if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value || realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
+                            {
+                                // 盤のサイズ
+                                appModel.Board.Resize(appModel.RowSize, appModel.ColumnSize);
+                            }
                         }
                     }
                     else if (propModel is PropertyString)

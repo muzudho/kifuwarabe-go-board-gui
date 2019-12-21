@@ -70,7 +70,7 @@
                 {
                     var rowNumberO0 = this.StartsCellAddress.RowAddress.NumberO0 + verticalZoom * verticalDirection;
                     var columnNumberO0 = this.StartsCellAddress.ColumnAddress.NumberO0 + horizontalZoom * horizontalDirection;
-                    var index = rowNumberO0 * model.Board.ColumnSize + columnNumberO0;
+                    var index = rowNumberO0 * model.ColumnSize + columnNumberO0;
                     // Trace.WriteLine($"Index           | sr={this.StartsCellAddress.RowAddress.Number} vz={verticalZoom} row={rowNumber} | sc={this.StartsCellAddress.ColumnAddress.Number} hz={horizontalZoom} col={columnNumber} | index={index}.");
                     callback(index);
                 }

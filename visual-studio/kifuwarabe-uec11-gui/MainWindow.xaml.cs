@@ -121,14 +121,14 @@
             var paddingTop = board.Height * 0.05;
 
 
-            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.GetColumnDiv();
+            var rowInterval = board.Height / this.Model.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var line = this.VerticalLines[column];
-                if (column < this.Model.Board.ColumnSize)
+                if (column < this.Model.ColumnSize)
                 {
                     line.Visibility = Visibility.Visible;
                     Canvas.SetLeft(line, 0);
@@ -141,7 +141,7 @@
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * (column + SignLen);
                     line.Y1 = boardTop + board.Height * 0.05;
                     line.X2 = line.X1;
-                    line.Y2 = line.Y1 + rowInterval * this.Model.Board.GetRowLastO0();
+                    line.Y2 = line.Y1 + rowInterval * this.Model.GetRowLastO0();
                 }
                 else
                 {
@@ -153,7 +153,7 @@
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var line = this.HorizontalLines[row];
-                if (row < this.Model.Board.RowSize)
+                if (row < this.Model.RowSize)
                 {
                     line.Visibility = Visibility.Visible;
                     Canvas.SetLeft(line, 0);
@@ -165,7 +165,7 @@
                     // 盤☆（＾～＾）
                     line.X1 = boardLeft + board.Width * 0.05 + columnInterval * SignLen;
                     line.Y1 = boardTop + board.Height * 0.05 + rowInterval * row;
-                    line.X2 = line.X1 + columnInterval * this.Model.Board.GetColumnLastO0();
+                    line.X2 = line.X1 + columnInterval * this.Model.GetColumnLastO0();
                     line.Y2 = line.Y1;
                 }
                 else
@@ -217,57 +217,60 @@
                     // input.txt読取。
                     InputLineModelController.Read(this.Model, this, (text) =>
                     {
-                    // 1行ずつ解析☆（＾～＾）
-                    InputLineModelController.ParseLine(this.Model, text).ThenAlias(
-                        (aliasInstruction) =>
-                        {
-                        },
-                        () =>
-                        {
+                        // 1行ずつ解析☆（＾～＾）
+                        InputLineModelController.ParseLine(this.Model, text).ThenAlias(
+                            (aliasInstruction) =>
+                            {
+                            },
+                            () =>
+                            {
 
-                        }).ThenComment(
-                        (commentLine) =>
-                        {
-                            Trace.WriteLine($"Info            | Comment=[{commentLine}].");
-                        },
-                        () =>
-                        {
+                            }).ThenComment(
+                            (commentLine) =>
+                            {
+                                Trace.WriteLine($"Info    | Comment=[{commentLine}].");
+                            },
+                            () =>
+                            {
 
-                        }).ThenInfo(
-                        (infoText) =>
-                        {
+                            }).ThenInfo(
+                            (infoText) =>
+                            {
                                 // infoなら☆（＾～＾）
                                 this.infoValue.Content = infoText;
-                        },
-                        () =>
-                        {
+                            },
+                            () =>
+                            {
 
-                        }).ThenJson(
-                        (jsonAppModel) =>
-                        {
+                            }).ThenJson(
+                            (jsonAppModel) =>
+                            {
                                 // モデルの差し替えなら☆（＾～＾）
                                 this.SetModel(jsonAppModel);
-                        },
-                        () =>
-                        {
+                            },
+                            () =>
+                            {
 
-                        }).ThenPut(
-                        (putsArgs) =>
-                        {
+                            }).ThenPut(
+                            (putsArgs) =>
+                            {
                                 // put コマンド☆（＾～＾）
                             },
-                        () =>
-                        {
+                            () =>
+                            {
 
-                        }).ThenSet(
-                        (setsArgs) =>
-                        {
-                        },
-                        () =>
-                        {
-                        });
+                            }).ThenSet(
+                            (setsArgs) =>
+                            {
+                            },
+                            () =>
+                            {
+                            });
 
-                        // すべてのコマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
+                        // 盤のサイズ
+                        this.Model.Board.Resize(this.Model.RowSize, this.Model.ColumnSize);
+
+                        // コマンドの実行が終わったらまとめて再描画だぜ☆（＾～＾）
                         ApplicationViewController.RepaintAllViews(this.Model, this);
 
                         // 全ての入力から　モデルの変更に対応したぜ☆（＾～＾）！
@@ -300,8 +303,8 @@
             // 盤☆（＾～＾）
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
-            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.GetColumnDiv();
+            var rowInterval = board.Height / this.Model.GetRowDiv();
 
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
@@ -348,7 +351,7 @@
             }
 
             // 星を９つ描いて持っておこうぜ☆（＾～＾）？
-            StarViewController.Initialize(this.Model.Board, this);
+            StarViewController.Initialize(this.Model, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
             StoneViewController.Initialize(this.Model, this);
@@ -426,11 +429,11 @@
             var boardTop = centerY - shortenEdge / 2;
             var paddingLeft = board.Width * 0.05;
             var paddingTop = board.Height * 0.05;
-            var columnInterval = board.Width / this.Model.Board.GetColumnDiv();
-            var rowInterval = board.Height / this.Model.Board.GetRowDiv();
+            var columnInterval = board.Width / this.Model.GetColumnDiv();
+            var rowInterval = board.Height / this.Model.GetRowDiv();
 
-            var row = index / this.Model.Board.ColumnSize;
-            var column = index % this.Model.Board.ColumnSize + SignLen;
+            var row = index / this.Model.ColumnSize;
+            var column = index % this.Model.ColumnSize + SignLen;
 
             var left = boardLeft + paddingLeft + columnInterval * column;
             var top = boardTop + paddingTop + rowInterval * row;

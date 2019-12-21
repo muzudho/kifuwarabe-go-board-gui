@@ -136,7 +136,7 @@
                 {
                     // コメントではないなら。
                     // 読み込んだ行はトレース表示しようぜ☆（＾～＾）
-                    Trace.WriteLine($"Read            | {line}");
+                    Trace.WriteLine($"Info    | Read {line}");
 
                     // TODO コマンド名ごとに分けるぜ☆（＾～＾）
                     return WordParser.Parse(
@@ -144,8 +144,6 @@
                         curr,
                         (commandName, curr) =>
                         {
-                            // Trace.WriteLine($"Info            | Command-ISD=[{commandName?.Text}]");
-
                             if (commandName.Text == InputLineParser.AliasCommand)
                             {
                                 curr = AliasInstructionArgumentParser.Parse(
@@ -153,13 +151,13 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
                                         aliasCommandCallback(new Instruction(commandName.Text, argument));
                                         return curr;
                                     },
                                     () =>
                                     {
-                                        Trace.WriteLine($"Error           | {line}");
+                                        Trace.WriteLine($"Error   | {line}");
                                         return curr;
                                     });
                             }
@@ -173,11 +171,11 @@
                                     {
                                         if (argument == null)
                                         {
-                                            Trace.WriteLine($"Error           | {line}");
+                                            Trace.WriteLine($"Error   | {line}");
                                         }
                                         else
                                         {
-                                            // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
                                             boardCommandCallback(new Instruction(commandName.Text, argument));
                                         }
 
@@ -186,11 +184,13 @@
                                     () =>
                                     {
                                         // パース失敗☆（＾～＾）
+                                        Trace.WriteLine($"Error   | {line}");
                                         return curr;
                                     });
                             }
                             else if (commandName.Text == InputLineParser.ExitsCommand)
                             {
+                                Trace.WriteLine($"Info    | Arg {commandName.Text}");
                                 exitsCommandCallback(new Instruction(commandName.Text, null));
                             }
                             else if (commandName.Text == InputLineParser.InfoCommand)
@@ -199,11 +199,11 @@
                                 (argument, curr) = InfoInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
-                                    Trace.WriteLine($"Error           | {line}");
+                                    Trace.WriteLine($"Error   | {line}");
                                 }
                                 else
                                 {
-                                    Trace.WriteLine($"Info            | Arg {commandName.Text} {argument.ToDisplay()}");
+                                    Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
                                     infoCommandCallback(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -213,11 +213,11 @@
                                 (argument, curr) = JsonInstructionArgumentParser.Parse(line, curr);
                                 if (argument == null)
                                 {
-                                    Trace.WriteLine($"Error           | {line}");
+                                    Trace.WriteLine($"Error   | {line}");
                                 }
                                 else
                                 {
-                                    // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                    Trace.WriteLine($"Arg     | {commandName.Text} {argument.ToDisplay()}");
                                     jsonCommandCallback(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -231,11 +231,11 @@
                                     {
                                         if (argument == null)
                                         {
-                                            Trace.WriteLine($"Error           | {line}");
+                                            Trace.WriteLine($"Error   | Null argument. {line}");
                                         }
                                         else
                                         {
-                                            // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
                                             putsCommandCallback(new Instruction(commandName.Text, argument));
                                         }
 
@@ -243,6 +243,8 @@
                                     },
                                     () =>
                                     {
+                                        // パース失敗☆（＾～＾）
+                                        Trace.WriteLine($"Error   | Parse fail. {line}");
                                         return curr;
                                     });
                             }
@@ -255,11 +257,11 @@
                                     {
                                         if (argument == null)
                                         {
-                                            Trace.WriteLine($"Error           | {line}");
+                                            Trace.WriteLine($"Error   | {line}");
                                         }
                                         else
                                         {
-                                            // Trace.WriteLine($"Arg             | {commandName.Text} {argument.ToDisplay()}");
+                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
                                             setsCommandCallback(new Instruction(commandName.Text, argument));
                                         }
 
@@ -267,18 +269,22 @@
                                     },
                                     () =>
                                     {
+                                        // パース失敗☆（＾～＾）
+                                        Trace.WriteLine($"Error   | {line}");
                                         return curr;
                                     });
                             }
                             else
                             {
-                                Trace.WriteLine($"Warning         | [{line}] are not implemented.");
+                                Trace.WriteLine($"Warning | [{line}] are not implemented.");
                             }
 
                             return curr;
                         },
                         () =>
                         {
+                            // パース失敗☆（＾～＾）
+                            Trace.WriteLine($"Error   | {line}");
                             return curr;
                         });
                 });

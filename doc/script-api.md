@@ -39,7 +39,24 @@ alias left3 = w-hama
 alias left4 = komi
 
 # UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+set row-size.type = number
+set row-size = 19
+
+set column-type = number
+set column-size = 19
+
+# 国際囲碁では I列は無いんだぜ☆（＾～＾）
+set column-numbers.type = string-list
+set column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+
+set row-numbers.type = string-list
+set row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+set stars.type = string-list
+set stars = "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
+
 set info.type = string
+set info =
 
 set move.type  = string
 set move.title = 着手
@@ -81,15 +98,6 @@ set komi       = 6.5
 # set move-marker.type    = string
 # set move-marker         = A1
 # set move-marker.visible = false
-
-# 特殊な設定☆（＾～＾）
-set row-size = 19
-set column-size = 19
-
-# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-set column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-set row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
-set stars = "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
 
 # 盤の初期配置☆（＾～＾） 行番号を決めたあとにしろだぜ☆（＾～＾）
 board 19 ...................
@@ -154,7 +162,23 @@ alias left1 = w-name
 alias left2 = w-time
 
 # UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+set row-size.type = number
+set row-size = 15
+
+set column-size.type = number
+set column-size = 15
+
+set column-numbers.type = string-list
+set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
+
+set row-numbers.type = string-list
+set row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+set stars.type = string-list
+set stars = "d4", "l4", "h8", "d12", "l12"
+
 set info.type = string
+set info =
 
 set move.type       = string
 set move.title      = 着手
@@ -192,14 +216,6 @@ set w-time.visible  = true
 set left3.type      = null
 set left4.type      = null
 set left5.type      = null
-
-# 特殊な設定☆（＾～＾）
-set row-size = 15
-set column-size = 15
-
-set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
-set row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
-set stars = "d4", "l4", "h8", "d12", "l12"
 
 # 盤の初期配置☆（＾～＾） 行番号を決めたあとにしろだぜ☆（＾～＾）
 board 15 ...............

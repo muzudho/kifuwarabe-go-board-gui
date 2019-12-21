@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using KifuwarabeGoBoardGui.InputScript;
     using KifuwarabeGoBoardGui.Model;
 
@@ -22,7 +21,8 @@
 
             switch (args.Property)
             {
-                case "value":
+                case "value": // thru
+                case "":
                     var cellAddresses = args.Value.Split(',');
                     for (int i = 0; i < cellAddresses.Length; i++)
                     {

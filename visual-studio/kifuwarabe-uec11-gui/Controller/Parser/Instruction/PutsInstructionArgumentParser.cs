@@ -47,7 +47,7 @@
             PutsInstructionArgument putsInstructionArgument = null;
 
             // Trace.WriteLine($"Text            | [{text}]");
-            var curr = WhiteSpaceParser.Parse(
+            var curr1 = WhiteSpaceParser.Parse(
                 text,
                 start,
                 (matched, curr) =>
@@ -64,11 +64,11 @@
             var objectName = string.Empty;
 
             // 次の `to` の手前までを読み取るぜ☆（＾～＾）
-            curr = WordUpToDelimiterParser.Parse(
+            var curr4 = WordUpToDelimiterParser.Parse(
                 "to",
                 text,
-                curr,
-                (leftSide, curr) =>
+                curr1,
+                (leftSide, curr2) =>
                 {
                     // Trace.WriteLine($"Left side       | [{leftSide.Text}], curr={curr}");
 
@@ -77,34 +77,34 @@
                     // Trace.WriteLine($"objectName      | {objectName}");
 
                     // `to` は読み飛ばすぜ☆（＾～＾）
-                    curr += "to".Length;
+                    curr2 += "to".Length;
                     // Trace.WriteLine($"curr            | {curr}");
 
                     // 残りはセル範囲のリストだぜ☆（＾～＾）
                     return CellRangeListArgumentParser.Parse(
                         text,
-                        curr,
+                        curr2,
                         appModel,
-                        (arg, curr) =>
+                        (arg, curr3) =>
                         {
                             putsInstructionArgument = new PutsInstructionArgument(objectName, arg);
-                            return curr;
+                            return curr3;
                         },
                         () =>
                         {
                             // パース失敗☆（＾～＾）
-                            return curr;
+                            return curr2;
                         });
                 },
                 () =>
                 {
                     // パース失敗☆（＾～＾）
-                    return curr;
+                    return curr1;
                 });
 
             if (putsInstructionArgument != null)
             {
-                return someCallback(putsInstructionArgument, curr);
+                return someCallback(putsInstructionArgument, curr4);
             }
             else
             {

@@ -52,8 +52,8 @@
                                 {
                                     // Trace.WriteLine($"this.State.LastMoveIndex | left={left} top={top}");
 
-                                    moveMarker.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.4;
-                                    moveMarker.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.4;
+                                    moveMarker.Width = appView.board.Width / appModel.GetColumnDiv() * 0.4;
+                                    moveMarker.Height = appView.board.Height / appModel.GetRowDiv() * 0.4;
 
                                     Canvas.SetLeft(moveMarker, left - moveMarker.Width / 2);
                                     Canvas.SetTop(moveMarker, top - moveMarker.Height / 2);

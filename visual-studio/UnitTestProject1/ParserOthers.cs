@@ -211,6 +211,7 @@ info バナナ食うか☆（＾～＾）？";
                 });
         }
 
+        /*
         /// <summary>
         /// TODO JSONのテスト大変☆（＾～＾）
         /// </summary>
@@ -219,6 +220,7 @@ info バナナ食うか☆（＾～＾）？";
         {
             Assert.Fail();
         }
+        */
 
         [TestMethod]
         public void TestPutsInstructionArgumentParser()
@@ -470,9 +472,11 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             var appModel = new ApplicationObjectModelWrapper();
 
             {
-                var text = @"
-# 国際囲碁では I列は無いんだぜ☆（＾～＾）
+                var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
+set column-numbers.type = string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+
+set row-numbers.type = string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -491,6 +495,22 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 {
                     Assert.AreEqual(9, matched.ColumnAddress.NumberO0);
                     Assert.AreEqual(9, matched.RowAddress.NumberO0);
+                    return curr;
+                },
+                () =>
+                {
+                    return start;
+                });
+
+            start = 0;
+            CellAddressParser.Parse(
+                "T19",
+                start,
+                appModel,
+                (CellAddress matched, int curr) =>
+                {
+                    Assert.AreEqual(18, matched.ColumnAddress.NumberO0);
+                    Assert.AreEqual(18, matched.RowAddress.NumberO0);
                     return curr;
                 },
                 () =>
@@ -753,6 +773,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
                 appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).ValueAsText());
         }
 
+        /*
         /// <summary>
         /// TODO Inputは でかくて大変☆（＾～＾）
         /// </summary>
@@ -761,6 +782,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         {
             Assert.Fail();
         }
+        */
 
         /// <summary>
         /// 国際式囲碁の行番号をテスト☆（＾～＾）

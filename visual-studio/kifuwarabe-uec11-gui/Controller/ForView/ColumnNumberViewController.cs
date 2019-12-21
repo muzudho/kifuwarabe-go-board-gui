@@ -27,7 +27,7 @@
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = appView.ColumnLabels[column];
-                if (columnNumbers.Count <= column || appModel.Board.ColumnSize <= column)
+                if (columnNumbers.Count <= column || appModel.ColumnSize <= column)
                 {
                     // 範囲外アクセス。
                     label.Visibility = Visibility.Hidden;
@@ -49,8 +49,8 @@
                     var boardTop = centerY - shortenEdge / 2;
                     var paddingLeft = appView.board.Width * 0.05;
                     var paddingTop = appView.board.Height * 0.05;
-                    var columnInterval = appView.board.Width / appModel.Board.GetColumnDiv();
-                    var rowInterval = appView.board.Height / appModel.Board.GetRowDiv();
+                    var columnInterval = appView.board.Width / appModel.GetColumnDiv();
+                    var rowInterval = appView.board.Height / appModel.GetRowDiv();
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
@@ -58,7 +58,7 @@
                     label.Height = rowInterval * 1.8;
                     // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                     Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen));
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * appModel.Board.RowSize);
+                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * appModel.RowSize);
                 }
             }
         }

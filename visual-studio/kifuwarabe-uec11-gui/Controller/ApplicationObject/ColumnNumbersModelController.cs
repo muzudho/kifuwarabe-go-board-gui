@@ -20,7 +20,8 @@
 
             switch (args.Property)
             {
-                case "value":
+                case "value": // thru
+                case "":
                     var oldValue = appModel.GetStringList(ApplicationObjectModel.ColumnNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));

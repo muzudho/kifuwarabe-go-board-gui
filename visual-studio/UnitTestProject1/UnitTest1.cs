@@ -19,7 +19,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test1()
         {
-            var boardModel = new BoardModelWrapper(new BoardModel());
+            var appModel = new ApplicationObjectModelWrapper();
 
             /*
             // ä»íPÇ»é¿çsÅôÅiÅOÅ`ÅOÅj
@@ -37,9 +37,9 @@ namespace UnitTestProject1
             // ä»íPÇ»é¿çsÅôÅiÅOÅ`ÅOÅj
             var builder = new StringBuilder();
             builder.Append("[");
-            for (int i = 0; i < boardModel.ColumnSize; i++)
+            for (int i = 0; i < appModel.ColumnSize; i++)
             {
-                builder.Append($"{i * boardModel.ColumnSize},");
+                builder.Append($"{i * appModel.ColumnSize},");
             }
             builder.Append("]");
             Trace.WriteLine(builder.ToString());
@@ -257,10 +257,9 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestReadJson()
         {
-            var appModel = ApplicationObjectModel.Parse("{\"board\":{\"rowSize\":15,\"columnSize\":13}}");
-
-            Assert.AreEqual(15, appModel.Board.RowSize);
-            Assert.AreEqual(13, appModel.Board.ColumnSize);
+            var appModel = ApplicationObjectModel.Parse("{\"numbers\":{\"row-size\":{\"value\":15},\"column-size\":{\"value\":13}}}");
+            Assert.AreEqual(15, appModel.RowSize);
+            Assert.AreEqual(13, appModel.ColumnSize);
         }
 
         /// <summary>
@@ -284,8 +283,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             // ÉCÉìÉfÉbÉNÉXÇÕ ç∂è„Ç 0 Ç∆ÇµÇΩ ZéöèáÅB
 
             // 19òHî’
-            appModel.Board.RowSize = 19;
-            appModel.Board.ColumnSize = 19;
+            appModel.RowSize = 19;
+            appModel.ColumnSize = 19;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
             Assert.AreEqual(19 - 1, CellAddress.ToIndex(0, 19 - 1, appModel));
             Assert.AreEqual(19, CellAddress.ToIndex(1, 0, appModel));
@@ -293,8 +292,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(20 * (19 - 1), CellAddress.ToIndex(19 - 1, 19 - 1, appModel));
 
             // 15òHî’
-            appModel.Board.RowSize = 15;
-            appModel.Board.ColumnSize = 15;
+            appModel.RowSize = 15;
+            appModel.ColumnSize = 15;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
             Assert.AreEqual(15 - 1, CellAddress.ToIndex(0, 15 - 1, appModel));
             Assert.AreEqual(15, CellAddress.ToIndex(1, 0, appModel));
@@ -302,8 +301,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(16 * (15 - 1), CellAddress.ToIndex(15 - 1, 15 - 1, appModel));
 
             // 13òHî’
-            appModel.Board.RowSize = 13;
-            appModel.Board.ColumnSize = 13;
+            appModel.RowSize = 13;
+            appModel.ColumnSize = 13;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
             Assert.AreEqual(13 - 1, CellAddress.ToIndex(0, 13 - 1, appModel));
             Assert.AreEqual(13, CellAddress.ToIndex(1, 0, appModel));
@@ -311,8 +310,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(14 * (13 - 1), CellAddress.ToIndex(13 - 1, 13 - 1, appModel));
 
             // 9òHî’
-            appModel.Board.RowSize = 9;
-            appModel.Board.ColumnSize = 9;
+            appModel.RowSize = 9;
+            appModel.ColumnSize = 9;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
             Assert.AreEqual(9 - 1, CellAddress.ToIndex(0, 9 - 1, appModel));
             Assert.AreEqual(9, CellAddress.ToIndex(1, 0, appModel));
@@ -362,6 +361,49 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(16, columnNumbers.IndexOf("R"));
             Assert.AreEqual(17, columnNumbers.IndexOf("S"));
             Assert.AreEqual(18, columnNumbers.IndexOf("T"));
+        }
+
+        /// <summary>
+        /// çsî‘çÜÇÃÉeÉXÉgÅôÅiÅOÅ`ÅOÅj
+        /// </summary>
+        [TestMethod]
+        public void TestRowNumbers()
+        {
+            var appModel = new ApplicationObjectModelWrapper();
+
+            {
+                var text = @"set row-numbers.type = string-list
+set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+# set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""9"", ""8"", ""7"", ""6"", ""5"", ""4"", ""3"", ""2"", ""1""
+";
+
+                foreach (var line in text.Split(Environment.NewLine))
+                {
+                    InputLineModelController.ParseLine(appModel, line);
+                }
+            }
+
+            var rowNumbers = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
+
+            Assert.AreEqual(0, rowNumbers.IndexOf("19"));
+            Assert.AreEqual(1, rowNumbers.IndexOf("18"));
+            Assert.AreEqual(2, rowNumbers.IndexOf("17"));
+            Assert.AreEqual(3, rowNumbers.IndexOf("16"));
+            Assert.AreEqual(4, rowNumbers.IndexOf("15"));
+            Assert.AreEqual(5, rowNumbers.IndexOf("14"));
+            Assert.AreEqual(6, rowNumbers.IndexOf("13"));
+            Assert.AreEqual(7, rowNumbers.IndexOf("12"));
+            Assert.AreEqual(8, rowNumbers.IndexOf("11"));
+            Assert.AreEqual(9, rowNumbers.IndexOf("10"));
+            Assert.AreEqual(10, rowNumbers.IndexOf("9"));
+            Assert.AreEqual(11, rowNumbers.IndexOf("8"));
+            Assert.AreEqual(12, rowNumbers.IndexOf("7"));
+            Assert.AreEqual(13, rowNumbers.IndexOf("6"));
+            Assert.AreEqual(14, rowNumbers.IndexOf("5"));
+            Assert.AreEqual(15, rowNumbers.IndexOf("4"));
+            Assert.AreEqual(16, rowNumbers.IndexOf("3"));
+            Assert.AreEqual(17, rowNumbers.IndexOf("2"));
+            Assert.AreEqual(18, rowNumbers.IndexOf("1"));
         }
     }
 }

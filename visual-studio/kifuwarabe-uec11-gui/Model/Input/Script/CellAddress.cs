@@ -26,7 +26,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return rowNumberO0 * model.Board.ColumnSize + columnNumberO0;
+            return rowNumberO0 * model.ColumnSize + columnNumberO0;
         }
 
         public static CellAddress FromIndex(int indexO0, ApplicationObjectModelWrapper model)
@@ -36,8 +36,8 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumberO0 = indexO0 / model.Board.ColumnSize;
-            var columnNumberO0 = indexO0 % model.Board.ColumnSize;
+            var rowNumberO0 = indexO0 / model.ColumnSize;
+            var columnNumberO0 = indexO0 % model.ColumnSize;
             return new CellAddress(new RowAddress(rowNumberO0), new ColumnAddress(columnNumberO0));
         }
 

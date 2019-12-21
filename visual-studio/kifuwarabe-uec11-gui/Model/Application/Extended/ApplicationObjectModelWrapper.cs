@@ -54,6 +54,70 @@
 
         public BoardModelWrapper Board { get; private set; }
 
+        public int RowSize
+        {
+            get
+            {
+                return this.ApplicationObjectModel.RowSize;
+            }
+            set
+            {
+                this.ApplicationObjectModel.RowSize = value;
+            }
+        }
+
+        public int ColumnSize
+        {
+            get
+            {
+                return this.ApplicationObjectModel.ColumnSize;
+            }
+            set
+            {
+                this.ApplicationObjectModel.ColumnSize = value;
+            }
+        }
+
+        /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetRowDiv()
+        {
+            return this.ApplicationObjectModel.GetRowDiv();
+        }
+
+        /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetColumnDiv()
+        {
+            return this.ApplicationObjectModel.GetColumnDiv();
+        }
+
+        /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public int GetRowLastO0()
+        {
+            return this.ApplicationObjectModel.GetRowLastO0();
+        }
+
+        /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public int GetColumnLastO0()
+        {
+            return this.ApplicationObjectModel.GetColumnLastO0();
+        }
+
+        /// <summary>
+        /// 石を置ける場所の数☆（＾～＾）
+        /// </summary>
+        public int GetCellCount()
+        {
+            return this.ApplicationObjectModel.GetCellCount();
+        }
+
         public delegate void BoolCallback(PropertyBool value);
         public delegate void NumberCallback(PropertyNumber value);
         public delegate void StringCallback(PropertyString value);

@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
-    using System.Diagnostics;
     using KifuwarabeGoBoardGui.InputScript;
     using KifuwarabeGoBoardGui.Model;
 
@@ -21,7 +20,8 @@
 
             switch (args.Property)
             {
-                case "value":
+                case "value": // thru
+                case "":
                     var oldValue = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));

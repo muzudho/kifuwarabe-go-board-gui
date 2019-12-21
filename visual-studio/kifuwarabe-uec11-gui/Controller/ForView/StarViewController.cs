@@ -49,8 +49,8 @@
                             appView.PutAnythingOnNode(cellAddress.ToIndex(appModel), (left, top) =>
                             {
                                 // 大きさ☆（＾～＾） 黒石と間違わないぐらい小さくしないとな☆（＾～＾）
-                                starView.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.3;
-                                starView.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.3;
+                                starView.Width = appView.board.Width / appModel.GetColumnDiv() * 0.3;
+                                starView.Height = appView.board.Height / appModel.GetRowDiv() * 0.3;
 
                                 Canvas.SetLeft(starView, left - starView.Width / 2);
                                 Canvas.SetTop(starView, top - starView.Height / 2);
@@ -70,11 +70,11 @@
             }
         }
 
-        public static void Initialize(BoardModelWrapper boardModel, MainWindow appView)
+        public static void Initialize(ApplicationObjectModelWrapper appModel, MainWindow appView)
         {
-            if (boardModel == null)
+            if (appModel == null)
             {
-                throw new ArgumentNullException(nameof(boardModel));
+                throw new ArgumentNullException(nameof(appModel));
             }
 
             if (appView == null)
@@ -84,8 +84,8 @@
 
             for (var i = 0; i < HyperParameter.MaxStarCount; i++)
             {
-                var row = i / boardModel.ColumnSize;
-                var column = i % boardModel.ColumnSize;
+                var row = i / appModel.ColumnSize;
+                var column = i % appModel.ColumnSize;
 
                 var star = new Ellipse();
                 star.Name = $"star{i}";

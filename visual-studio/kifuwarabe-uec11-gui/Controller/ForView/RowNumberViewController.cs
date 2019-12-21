@@ -31,15 +31,15 @@
             var boardLeft = centerX - shortenEdge / 2;
             var boardTop = centerY - shortenEdge / 2;
 
-            var columnInterval = appView.board.Width / appModel.Board.GetColumnDiv();
-            var rowInterval = appView.board.Height / appModel.Board.GetRowDiv();
+            var columnInterval = appView.board.Width / appModel.GetColumnDiv();
+            var rowInterval = appView.board.Height / appModel.GetRowDiv();
             var paddingLeft = appView.board.Width * 0.05;
             var paddingTop = appView.board.Height * 0.05;
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var rowNumbers = appModel.GetStringList(ApplicationObjectModel.RowNumbersRealName).Value;
-                if (rowNumbers.Count <= row || appModel.Board.RowSize <= row)
+                if (rowNumbers.Count <= row || appModel.RowSize <= row)
                 {
                     // 範囲外アクセス。
                     var label = appView.RowLabels[row];

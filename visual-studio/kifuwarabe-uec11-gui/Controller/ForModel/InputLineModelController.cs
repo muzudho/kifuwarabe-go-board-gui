@@ -110,7 +110,7 @@
                 {
                     var args = (BoardInstructionArgument)boardInstruction.Argument;
                     int zShapedIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
-                    int length = zShapedIndex + appModel.Board.ColumnSize;
+                    int length = zShapedIndex + appModel.ColumnSize;
                     // Trace.WriteLine($"Command            | {instruction.Command} row={args.RowAddress.NumberO0} cellIndex={cellIndex} columns={args.Columns}");
 
                     // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -237,76 +237,34 @@
                         realName,
                         (propModel) =>
                         {
-                                // .typeプロパティなら、propModelはヌルで構わない。
-                                PropertyModelController.ChangeModel(appModel, realName, propModel, args1);
+                            // .typeプロパティなら、propModelはヌルで構わない。
+                            PropertyModelController.ChangeModel(appModel, realName, propModel, args1);
                         },
                         () =>
                         {
-                                // モデルが無くても .typeプロパティ は働く☆（＾～＾）
-                                PropertyModelController.ChangeModel(appModel, realName, null, args1);
-
-                                // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
-                                // 行サイズ☆（＾～＾）
-                                if (realName.Value == ApplicationObjectModel.RowSizeRealName.Value)
-                            {
-                                if (int.TryParse(args1.Value, out int outValue))
-                                {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue <= HyperParameter.MaxRowSize)
-                                    {
-                                        appModel.Board.RowSize = outValue;
-                                        Trace.WriteLine($"Info            | Row size. value=[{outValue}]");
-                                    }
-                                    else
-                                    {
-                                        Trace.WriteLine($"Warning         | Row size out of range. value=[{outValue}]");
-                                    }
-                                }
-                                else
-                                {
-                                    Trace.WriteLine($"Warning         | Row size parse fail. value=[{args1.Value}]");
-                                }
-                            }
-                                // 列サイズ☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.ColumnSizeRealName.Value)
-                            {
-                                if (int.TryParse(args1.Value, out int outValue))
-                                {
-                                        // 一応サイズに制限を付けておくぜ☆（＾～＾）
-                                        if (0 < outValue && outValue <= HyperParameter.MaxColumnSize)
-                                    {
-                                        appModel.Board.ColumnSize = outValue;
-                                        Trace.WriteLine($"Info            | Column size {outValue}.");
-                                    }
-                                    else
-                                    {
-                                        Trace.WriteLine($"Warning         | Column size out of range. value=[{outValue}]");
-                                    }
-                                }
-                                else
-                                {
-                                    Trace.WriteLine($"Warning         | Column size parse fail. value=[{args1.Value}]");
-                                }
-                            }
-                                // 列番号☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
-                            {
-                                Trace.WriteLine($"Info            | Column numbers.");
-                                ColumnNumbersModelController.ChangeModel(appModel, args1);
-                            }
-                                // 行番号☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
-                            {
-                                Trace.WriteLine($"Info            | Row numbers.");
-                                RowNumbersModelController.ChangeModel(appModel, args1);
-                            }
-                                // 盤上の星☆（＾～＾）
-                                else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
-                            {
-                                Trace.WriteLine($"Info            | Stars.");
-                                StarsModelController.ChangeModel(appModel, args1);
-                            }
+                            // モデルが無くても .typeプロパティ は働く☆（＾～＾）
+                            PropertyModelController.ChangeModel(appModel, realName, null, args1);
                         });
+
+                    // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
+                    // 列番号☆（＾～＾）
+                    if (realName.Value == ApplicationObjectModel.ColumnNumbersRealName.Value)
+                    {
+                        Trace.WriteLine($"Info    | Column numbers change model.");
+                        ColumnNumbersModelController.ChangeModel(appModel, args1);
+                    }
+                    // 行番号☆（＾～＾）
+                    else if (realName.Value == ApplicationObjectModel.RowNumbersRealName.Value)
+                    {
+                        Trace.WriteLine($"Info    | Row numbers change model.");
+                        RowNumbersModelController.ChangeModel(appModel, args1);
+                    }
+                    // 盤上の星☆（＾～＾）
+                    else if (realName.Value == ApplicationObjectModel.StarsRealName.Value)
+                    {
+                        Trace.WriteLine($"Info    | Stars change model.");
+                        StarsModelController.ChangeModel(appModel, args1);
+                    }
 
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
                     instance.SetsArg = args1;

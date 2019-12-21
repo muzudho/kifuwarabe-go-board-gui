@@ -1,7 +1,6 @@
 ﻿namespace KifuwarabeGoBoardGui.Controller
 {
     using System;
-    using System.Diagnostics;
     using KifuwarabeGoBoardGui.Model;
 
     /// <summary>

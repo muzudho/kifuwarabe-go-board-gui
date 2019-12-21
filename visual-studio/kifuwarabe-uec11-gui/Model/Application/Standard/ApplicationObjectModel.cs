@@ -80,9 +80,13 @@
 
             this.Numbers = new Dictionary<string, PropertyNumber>()
             {
+                // 初期値は囲碁の１９路盤☆（＾～＾）
+                {RowSizeRealName.Value, new PropertyNumber("#row-size", 19) },
+                {ColumnSizeRealName.Value, new PropertyNumber("#column-size", 19) },
+
                 // 何ミリ秒ごとに `input.txt` を確認するか（＾～＾）
                 // 初期値は 2 秒☆（＾～＾）
-                {IntervalMsecRealName.Value, new PropertyNumber("#intervalMSec", 2000) },
+                {IntervalMsecRealName.Value, new PropertyNumber("#interval-msec", 2000) },
             };
 
             this.Strings = new Dictionary<string, PropertyString>()
@@ -135,6 +139,9 @@
                     )
                 },
             };
+
+            // 盤のサイズ
+            this.Board.Resize(this.RowSize, this.ColumnSize);
         }
 
         /// <summary>
@@ -167,6 +174,70 @@
         /// </summary>
         public Dictionary<string, PropertyStringList> StringLists { get; set; }
 
+        public int RowSize
+        {
+            get
+            {
+                return (int)this.Numbers[RowSizeRealName.Value].Value;
+            }
+            set
+            {
+                this.Numbers[RowSizeRealName.Value].Value = value;
+            }
+        }
+
+        public int ColumnSize
+        {
+            get
+            {
+                return (int)this.Numbers[ColumnSizeRealName.Value].Value;
+            }
+            set
+            {
+                this.Numbers[ColumnSizeRealName.Value].Value = value;
+            }
+        }
+
+        /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetRowDiv()
+        {
+            return RowSize + MainWindow.SignLen + 1;
+        }
+
+        /// <summary>
+        /// 19本の線を引くから20分割だが、符号の列を1つ足すぜ☆（＾～＾）
+        /// </summary>
+        public int GetColumnDiv()
+        {
+            return ColumnSize + MainWindow.SignLen + 1;
+        }
+
+        /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public int GetRowLastO0()
+        {
+            return RowSize - 1;
+        }
+
+        /// <summary>
+        /// 19路盤の最終行のインデックス 0 から始まる（0 Origin）ので、 -1 する☆（＾～＾）
+        /// </summary>
+        public int GetColumnLastO0()
+        {
+            return ColumnSize - 1;
+        }
+
+        /// <summary>
+        /// 石を置ける場所の数☆（＾～＾）
+        /// </summary>
+        public int GetCellCount()
+        {
+            return RowSize * ColumnSize;
+        }
+
         public static ApplicationObjectModel Parse(string json)
         {
             Trace.WriteLine($"json input      | {json}");
@@ -175,8 +246,8 @@
             option1.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
             var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationObjectModel), option1) as ApplicationObjectModel;
-            Trace.WriteLine($"ColumnSize      | {newModel.Board.ColumnSize}");
-            Trace.WriteLine($"RowSize         | {newModel.Board.RowSize}");
+            Trace.WriteLine($"ColumnSize      | {newModel.ColumnSize}");
+            Trace.WriteLine($"RowSize         | {newModel.RowSize}");
 
             /*
             {

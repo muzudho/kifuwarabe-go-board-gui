@@ -2,43 +2,44 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Resize してから使ってください。
+    /// </summary>
     public class BoardModel
     {
         public BoardModel()
         {
-            // 初期値は囲碁の１９路盤☆（＾～＾）
-            this.RowSize = 19;
-            this.ColumnSize = 19;
-
             this.Stones = new List<Stone>();
             this.Marks = new List<Mark>();
-
-            this.Resize();
         }
 
-        private void Resize()
-        {
-            this.Stones.Clear();
-            this.Marks.Clear();
+        /// <summary>
+        /// Row * Column.
+        /// </summary>
+        public int SerialLength { get; set; }
 
-            var plain = this.RowSize * this.ColumnSize;
-            for (int i = 0; i < plain; i++)
+        public void Resize(int rowSize, int columnSize)
+        {
+            var newSerialLength = rowSize * columnSize;
+
+            if (newSerialLength < this.SerialLength)
             {
-                // 初期値は 空点 で☆（＾～＾）
-                this.Stones.Add(Stone.None);
-                this.Marks.Add(Mark.None);
+                // 短くなったのなら、リストを縮めます。
+                this.Stones.RemoveRange(newSerialLength, this.Stones.Count - newSerialLength);
+                this.Marks.RemoveRange(newSerialLength, this.Marks.Count - newSerialLength);
+            }
+            else if(this.SerialLength < newSerialLength)
+            {
+                // 長くなったのなら、要素を足します。
+                var extend = newSerialLength - this.SerialLength;
+                for (int i = 0; i < extend; i++)
+                {
+                    // 増えたところは 空点 で☆（＾～＾）
+                    this.Stones.Add(Stone.None);
+                    this.Marks.Add(Mark.None);
+                }
             }
         }
-
-        /// <summary>
-        /// デフォルトでは 19路盤☆（＾～＾）
-        /// </summary>
-        public int RowSize { get; set; }
-
-        /// <summary>
-        /// デフォルトでは 19路盤☆（＾～＾）
-        /// </summary>
-        public int ColumnSize { get; set; }
 
         /// <summary>
         /// 置いている石☆（＾～＾）

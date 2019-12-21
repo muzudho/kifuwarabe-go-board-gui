@@ -26,8 +26,8 @@
 
             for (var i = 0; i < HyperParameter.MaxCellCount; i++)
             {
-                var row = i / appModel.Board.ColumnSize;
-                var column = i % appModel.Board.ColumnSize;
+                var row = i / appModel.ColumnSize;
+                var column = i % appModel.ColumnSize;
 
                 var stone = new Ellipse();
                 stone.Name = $"stone{i}";
@@ -104,13 +104,13 @@
             for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
                 var mark = appView.Marks[zShapedIndex];
-                if (zShapedIndex < appModel.Board.GetCellCount())
+                if (zShapedIndex < appModel.GetCellCount())
                 {
                     appView.PutAnythingOnNode(zShapedIndex, (left, top) =>
                     {
                         // 大きさ☆（＾～＾）
-                        mark.Width = appView.board.Width / appModel.Board.GetColumnDiv() * 0.8;
-                        mark.Height = appView.board.Height / appModel.Board.GetRowDiv() * 0.8;
+                        mark.Width = appView.board.Width / appModel.GetColumnDiv() * 0.8;
+                        mark.Height = appView.board.Height / appModel.GetRowDiv() * 0.8;
 
                         Canvas.SetLeft(mark, left - mark.Width / 2);
                         Canvas.SetTop(mark, top - mark.Height / 2);
