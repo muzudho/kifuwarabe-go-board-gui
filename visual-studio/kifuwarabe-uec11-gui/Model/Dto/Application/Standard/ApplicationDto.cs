@@ -144,6 +144,8 @@
             this.Board.Resize(this.RowSize, this.ColumnSize);
         }
 
+        public string Version => "20191222-1011";
+
         /// <summary>
         /// 盤☆（＾～＾）
         /// </summary>

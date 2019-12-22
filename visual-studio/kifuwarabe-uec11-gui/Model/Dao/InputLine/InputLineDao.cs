@@ -188,9 +188,9 @@
                     var args1 = (PutsInstructionArgumentDto)putsInstruction.Argument;
 
                     // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                    var realName = appModel.GetObjectRealName(args1.Name);
+                    var colorRealName = appModel.GetObjectRealName(args1.ColorName);
 
-                    if (realName.Value == InputLineParser.BlackObject)
+                    if (colorRealName.Value == InputLineParser.BlackObject)
                     {
                         var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -203,7 +203,7 @@
                             }
                         }
                     }
-                    else if (realName.Value == InputLineParser.WhiteObject)
+                    else if (colorRealName.Value == InputLineParser.WhiteObject)
                     {
                         var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -216,7 +216,7 @@
                             }
                         }
                     }
-                    else if (realName.Value == InputLineParser.SpaceObject)
+                    else if (colorRealName.Value == InputLineParser.SpaceObject)
                     {
                         var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
                         // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
@@ -231,7 +231,7 @@
                     }
                     else
                     {
-                        Trace.WriteLine($"Warning         | {putsInstruction.Command} RealName=[{realName.Value}] args=[{args1.ToDisplay(appModel)}] are not implemented.");
+                        Trace.WriteLine($"Warning         | {putsInstruction.Command} RealName=[{colorRealName.Value}] args=[{args1.ToDisplay(appModel)}] are not implemented.");
                     }
 
                     // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）

@@ -16,18 +16,18 @@
         public BoardDto BoardModel { get; private set; }
 
         /// <summary>
-        /// 置いている石☆（＾～＾）
+        /// 置いている石の色☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<Stone> Stones
+        public List<ColorDto> Colors
         {
             get
             {
-                return this.BoardModel.Stones;
+                return this.BoardModel.Colors;
             }
             set
             {
-                this.BoardModel.Stones = value;
+                this.BoardModel.Colors = value;
             }
         }
 
@@ -36,14 +36,14 @@
             this.BoardModel.Resize(rowSize, columnSize);
         }
 
-        public void SetStone(int zShapedIndex, Stone stone)
+        public void SetColor(int zShapedIndex, ColorDto stoneColor)
         {
-            this.Stones[zShapedIndex] = stone;
+            this.Colors[zShapedIndex] = stoneColor;
         }
 
-        public Stone GetStone(int zShapedIndex)
+        public ColorDto GetColor(int zShapedIndex)
         {
-            return this.Stones[zShapedIndex];
+            return this.Colors[zShapedIndex];
         }
     }
 }

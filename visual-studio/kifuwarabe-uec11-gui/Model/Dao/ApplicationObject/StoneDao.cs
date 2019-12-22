@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Model.Dao
 {
     using System;
+    using System.Windows.Media;
     using KifuwarabeGoBoardGui.Model.Dto;
 
     /// <summary>
@@ -21,11 +22,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            var oldValue = appModel.Board.GetStone(zShapedIndex);
-            var newValue = Stone.Black;
+            var oldValue = appModel.Board.GetColor(zShapedIndex);
+            var newValue = ColorDto.Black;
             // TODO: ログが大量になってしまう☆（＾～＾）
             // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
-            appModel.Board.SetStone(zShapedIndex, newValue);
+            appModel.Board.SetColor(zShapedIndex, newValue);
         }
 
         public static void ChangeModelToWhite(ApplicationObjectDtoWrapper appModel, int zShapedIndex)
@@ -35,11 +36,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            var oldValue = appModel.Board.GetStone(zShapedIndex);
-            var newValue = Stone.White;
+            var oldValue = appModel.Board.GetColor(zShapedIndex);
+            var newValue = ColorDto.White;
             // TODO: ログが大量になってしまう☆（＾～＾）
             // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
-            appModel.Board.SetStone(zShapedIndex, newValue);
+            appModel.Board.SetColor(zShapedIndex, newValue);
         }
 
         public static void ChangeModelToSpace(ApplicationObjectDtoWrapper appModel, int zShapedIndex)
@@ -49,11 +50,11 @@
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            var oldValue = appModel.Board.GetStone(zShapedIndex);
-            var newValue = Stone.None;
+            var oldValue = appModel.Board.GetColor(zShapedIndex);
+            var newValue = ColorDto.Transparent;
             // TODO: ログが大量になってしまう☆（＾～＾）
             // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
-            appModel.Board.SetStone(zShapedIndex, newValue);
+            appModel.Board.SetColor(zShapedIndex, newValue);
         }
     }
 }

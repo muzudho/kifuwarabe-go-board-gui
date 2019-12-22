@@ -9,7 +9,7 @@
     {
         public BoardDto()
         {
-            this.Stones = new List<Stone>();
+            this.Colors = new List<ColorDto>();
             this.Marks = new List<Mark>();
         }
 
@@ -25,7 +25,7 @@
             if (newSerialLength < this.SerialLength)
             {
                 // 短くなったのなら、リストを縮めます。
-                this.Stones.RemoveRange(newSerialLength, this.Stones.Count - newSerialLength);
+                this.Colors.RemoveRange(newSerialLength, this.Colors.Count - newSerialLength);
                 this.Marks.RemoveRange(newSerialLength, this.Marks.Count - newSerialLength);
             }
             else if(this.SerialLength < newSerialLength)
@@ -35,17 +35,17 @@
                 for (int i = 0; i < extend; i++)
                 {
                     // 増えたところは 空点 で☆（＾～＾）
-                    this.Stones.Add(Stone.None);
+                    this.Colors.Add(ColorDto.Transparent); // 透明
                     this.Marks.Add(Mark.None);
                 }
             }
         }
 
         /// <summary>
-        /// 置いている石☆（＾～＾）
+        /// 置いている石の色☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<Stone> Stones { get; set; }
+        public List<ColorDto> Colors { get; set; }
 
         /// <summary>
         /// 置いている石☆（＾～＾）

@@ -70,23 +70,19 @@
 
             // ビュー☆（＾～＾）
             {
-                if (zShapedIndex < appModel.Board.Stones.Count)
+                if (zShapedIndex < appModel.Board.Colors.Count)
                 {
-                    switch (appModel.Board.Stones[zShapedIndex])
+                    var color = appModel.Board.Colors[zShapedIndex];
+                    if (ColorDto.Transparent.Equals(color))
                     {
-                        case Stone.Black:
-                            stone.Fill = Brushes.Black;
-                            stone.Stroke = Brushes.White;
-                            stone.Visibility = Visibility.Visible;
-                            break;
-                        case Stone.White:
-                            stone.Fill = Brushes.White;
-                            stone.Stroke = Brushes.Black;
-                            stone.Visibility = Visibility.Visible;
-                            break;
-                        case Stone.None:
-                            stone.Visibility = Visibility.Hidden;
-                            break;
+                        // 透明☆（＾～＾）
+                        stone.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        stone.Fill = new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
+                        stone.Stroke = new SolidColorBrush(Color.FromArgb(color.A, (byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B))); // 補色
+                        stone.Visibility = Visibility.Visible;
                     }
                 }
                 else

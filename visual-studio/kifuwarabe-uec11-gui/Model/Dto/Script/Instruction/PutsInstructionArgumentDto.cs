@@ -10,7 +10,7 @@
     /// 
     /// 構造としては
     /// 
-    /// `put {name} to {cellAddress}`
+    /// `put {colorName} to {cellAddress}`
     /// 
     /// だぜ☆（＾～＾）
     /// </summary>
@@ -19,16 +19,16 @@
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string Name { get; private set; }
+        public string ColorName { get; private set; }
 
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
         public CellRangeListArgumentDto Destination { get; private set; }
 
-        public PutsInstructionArgumentDto(string name, CellRangeListArgumentDto destination)
+        public PutsInstructionArgumentDto(string colorName, CellRangeListArgumentDto destination)
         {
-            this.Name = name;
+            this.ColorName = colorName;
             this.Destination = destination;
         }
 
@@ -38,7 +38,7 @@
         /// <returns></returns>
         public string ToDisplay(ApplicationObjectDtoWrapper appModel)
         {
-            return $"{this.Name} to {this.Destination.ToDisplay(appModel)}";
+            return $"{this.ColorName} to {this.Destination.ToDisplay(appModel)}";
         }
     }
 }
