@@ -139,17 +139,17 @@
                         {
                             case 'b':
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModelToBlack(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.Black, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case 'w':
                                 // 白石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModelToWhite(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.White, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case '.':
                                 // 空点にするぜ☆（＾～＾）
-                                StoneDao.ChangeModelToSpace(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                         }
@@ -199,7 +199,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModelToBlack(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.Black, zShapedIndex);
                             }
                         }
                     }
@@ -212,7 +212,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 白石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModelToWhite(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.White, zShapedIndex);
                             }
                         }
                     }
@@ -225,7 +225,7 @@
                             foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                             {
                                 // 石を取り除くぜ☆（＾～＾）
-                                StoneDao.ChangeModelToSpace(appModel, zShapedIndex);
+                                StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
                             }
                         }
                     }

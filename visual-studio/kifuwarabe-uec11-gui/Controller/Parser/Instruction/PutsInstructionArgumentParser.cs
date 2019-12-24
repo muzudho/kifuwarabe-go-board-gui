@@ -60,7 +60,7 @@
                     return start;
                 });
 
-            var objectName = string.Empty;
+            var colorName = string.Empty;
 
             // 次の `to` の手前までを読み取るぜ☆（＾～＾）
             var curr4 = WordUpToDelimiterParser.Parse(
@@ -72,7 +72,7 @@
                     // Trace.WriteLine($"Left side       | [{leftSide.Text}], curr={curr}");
 
                     // 左辺の、次のドットの手前までを読み取るぜ☆（＾～＾）
-                    objectName = leftSide.Text.Trim();
+                    colorName = leftSide.Text.Trim();
                     // Trace.WriteLine($"objectName      | {objectName}");
 
                     // `to` は読み飛ばすぜ☆（＾～＾）
@@ -86,7 +86,7 @@
                         appModel,
                         (arg, curr3) =>
                         {
-                            putsInstructionArgument = new PutsInstructionArgumentDto(objectName, arg);
+                            putsInstructionArgument = new PutsInstructionArgumentDto(colorName, arg);
                             return curr3;
                         },
                         () =>

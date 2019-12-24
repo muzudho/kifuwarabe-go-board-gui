@@ -3,7 +3,7 @@
     using KifuwarabeGoBoardGui.Model;
 
     /// <summary>
-    /// 次のようなコマンド☆（＾～＾）
+    /// 次のようなコマンド☆（＾～＾）置くのは色☆（＾～＾）
     /// 
     /// `put black to K10`
     /// `put white to L11`

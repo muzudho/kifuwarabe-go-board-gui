@@ -115,7 +115,7 @@
                 }
                 else
                 {
-                    StoneDao.ChangeModelToSpace(appModel, zShapedIndex);
+                    StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
                 }
             }
         }
