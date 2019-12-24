@@ -233,7 +233,7 @@
                                 (infoText) =>
                     {
                         // infoなら☆（＾～＾）
-                        this.infoValue.Content = infoText;
+                        // this.infoValue.Content = infoText;
                     },
                                 () =>
                     {

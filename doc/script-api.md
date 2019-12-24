@@ -27,18 +27,10 @@
 `input.txt` に以下のテキストをベタっと貼り付けて、保存しろだぜ☆（＾～＾）
 
 ```
-# UIの別名
-alias top1 = move
-alias top2 = ply
-alias right1 = b-hama
-alias right2 = b-time
-alias right3 = b-name
-alias left1 = w-name
-alias left2 = w-time
-alias left3 = w-hama
-alias left4 = komi
+#----------------------------------------
+# 盤設定☆（＾～＾）
 
-# UIの初期表示。typeを最初に決める必要があるぜ☆（＾～＾）
+# set するときは type を最初に指定する必要があるぜ☆（＾～＾）
 set row-size.type = number
 set row-size = 19
 
@@ -53,44 +45,67 @@ set column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M",
 set row-numbers.type = string-list
 set row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
+# 盤上の星☆（＾～＾）
 set stars.type = string-list
 set stars = "D16", "K16", "Q16", "D10", "K10", "Q10", "D4", "K4", "Q4"
 
+#----------------------------------------
+# UIの本名（左）に、自作の変数名（右）を紐づけろだぜ☆（＾～＾）
+alias top1 = move
+alias top2 = ply
+alias right1 = b-hama
+alias right2 = b-time
+alias right3 = b-name
+alias left1 = w-name
+alias left2 = w-time
+alias left3 = w-hama
+alias left4 = komi
+
+# 読み筋とか表示したいときに使うやつ☆（＾～＾）
 set info.type = string
 set info =
 
+# 指し手の符号を表示するやつ☆（＾～＾）
 set move.type  = string
 set move.title = 着手
 set move       = ---
 
+# 何手目かを表示するやつ☆（＾～＾）
 set ply.type  = number
 set ply.title = 手目
 set ply       = 0
 
+# プレイヤー１の名前を表示するやつ☆（＾～＾）
 set b-name.type  = string
 set b-name.title = 名前
 set b-name       = player1
 
+# プレイヤー１の残り時間を表示するやつ☆（＾～＾）
 set b-time.type  = string
 set b-time.title = 残り時間
 set b-time       = 00:00
 
+# プレイヤー１のアゲハマを表示するやつ☆（＾～＾）
 set b-hama.type  = number
 set b-hama.title = 黒アゲハマ
 set b-hama       = 0
 
+# プレイヤー２の名前を表示するやつ☆（＾～＾）
 set w-name.type  = string
 set w-name.title = 名前
 set w-name       = player2
 
+# プレイヤー２の残り時間を表示するやつ☆（＾～＾）
 set w-time.type  = string
 set w-time.title = 残り時間
 set w-time       = 00:00
 
+# プレイヤー２のアゲハマを表示するやつ☆（＾～＾）
 set w-hama.type  = number
 set w-hama.title = 白アゲハマ
 set w-hama       = 0
 
+# プレイヤー２のコミを表示するやつ☆（＾～＾）
 set komi.type  = number
 set komi.title = コミ
 set komi       = 6.5

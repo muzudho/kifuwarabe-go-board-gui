@@ -63,10 +63,6 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            // インターバル・ミリ秒☆（＾～＾）
-            // appView.DispatchTimer.Interval = TimeSpan.FromMilliseconds(appModel.GetNumber(ApplicationObjectModel.IntervalMsecRealName).Value);
-            // Trace.WriteLine($"interval-msec: {model.State.IntervalMsec}");
-
             // 列番号
             ColumnNumberView.Repaint(appModel, appView);
 
@@ -88,7 +84,7 @@
                 MarkView.Repaint(appModel, zShapedIndex, mark);
             }
 
-            // TODO UIウィジェット
+            // UIウィジェット
             {
                 var names = new RealName[]
                 {
@@ -139,6 +135,9 @@
 
             // 着手マーカー
             MoveMarkerView.Repaint(appModel, appView);
+
+            // 情報ビュー
+            InfoView.Repaint(appModel, appView);
 
             appView.InvalidateVisual();
         }
