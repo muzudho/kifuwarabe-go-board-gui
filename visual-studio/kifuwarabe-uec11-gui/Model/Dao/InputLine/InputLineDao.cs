@@ -187,55 +187,32 @@
                     // モデルに値をセットしようぜ☆（＾～＾）
                     var args1 = (PutsInstructionArgumentDto)putsInstruction.Argument;
 
-                    // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                    var colorRealName = appModel.GetObjectRealName(args1.ColorName);
+                    // TODO 色名から色オブジェクトへ変換☆（＾～＾）
+                    ColorDao.CreateColor(
+                        appModel,
+                        args1.ColorName,
+                        (colorDto) =>
+                        {
+                            // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                            var colorRealName = appModel.GetObjectRealName(args1.ColorName.Name);
 
-                    if (colorRealName.Value == InputLineParser.BlackObject)
-                    {
-                        var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args2.Destination.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                            var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
+                            // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                            foreach (var cellRange in args2.Destination.CellRanges)
                             {
-                                // 黒石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, ColorDto.Black, zShapedIndex);
+                                foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                {
+                                    StoneDao.ChangeModel(appModel, colorDto, zShapedIndex);
+                                }
                             }
-                        }
-                    }
-                    else if (colorRealName.Value == InputLineParser.WhiteObject)
-                    {
-                        var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args2.Destination.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                            {
-                                // 白石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, ColorDto.White, zShapedIndex);
-                            }
-                        }
-                    }
-                    else if (colorRealName.Value == InputLineParser.SpaceObject)
-                    {
-                        var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
-                        // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                        foreach (var cellRange in args2.Destination.CellRanges)
-                        {
-                            foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
-                            {
-                                // 石を取り除くぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Trace.WriteLine($"Warning         | {putsInstruction.Command} RealName=[{colorRealName.Value}] args=[{args1.ToDisplay(appModel)}] are not implemented.");
-                    }
 
-                    // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                    instance.PutsArg = args1;
+                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                            instance.PutsArg = args1;
+                        },
+                        (err)=>
+                        {
+                            Trace.WriteLine($"Error   | Catch.199. {err}");
+                        });
                 },
                 (setsInstruction) =>
                 {

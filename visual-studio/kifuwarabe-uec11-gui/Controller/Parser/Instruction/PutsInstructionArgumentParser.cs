@@ -60,8 +60,6 @@
                     return start;
                 });
 
-            var colorName = string.Empty;
-
             // 次の `to` の手前までを読み取るぜ☆（＾～＾）
             var curr4 = WordUpToDelimiterParser.Parse(
                 "to",
@@ -71,8 +69,8 @@
                 {
                     // Trace.WriteLine($"Left side       | [{leftSide.Text}], curr={curr}");
 
-                    // 左辺の、次のドットの手前までを読み取るぜ☆（＾～＾）
-                    colorName = leftSide.Text.Trim();
+                    // 色の表記☆（＾～＾）
+                    var colorName = new ColorNameDto(leftSide.Text.Trim());
                     // Trace.WriteLine($"objectName      | {objectName}");
 
                     // `to` は読み飛ばすぜ☆（＾～＾）

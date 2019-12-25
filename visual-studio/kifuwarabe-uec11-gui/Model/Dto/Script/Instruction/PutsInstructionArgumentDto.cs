@@ -19,14 +19,14 @@
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string ColorName { get; private set; }
+        public ColorNameDto ColorName { get; private set; }
 
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
         public CellRangeListArgumentDto Destination { get; private set; }
 
-        public PutsInstructionArgumentDto(string colorName, CellRangeListArgumentDto destination)
+        public PutsInstructionArgumentDto(ColorNameDto colorName, CellRangeListArgumentDto destination)
         {
             this.ColorName = colorName;
             this.Destination = destination;
