@@ -1,0 +1,63 @@
+﻿# 盤設定☆（＾～＾）
+set row-size.type = number
+set row-size = 10
+
+set column-size.type = number
+set column-size = 10
+
+set column-numbers.type = string-list
+set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
+
+# 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
+set row-numbers.type = string-list
+set row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+# 星は要らね☆（＾～＾）
+
+# UIは何も出さない☆（＾～＾）
+
+# 盤の初期配置☆（＾～＾） 行番号を決めたあとにしろだぜ☆（＾～＾）
+board 10 ....b.....
+board  9 ...b.b....
+board  8 ...b.b....
+board  7 bbb...bbbb
+board  6 b........b
+board  5 .b......b.
+board  4 ..b....b..
+board  3 .b..bb..b.
+board  2 b.bb..bb.b
+board  1 .b......b.
+#        abcdefghij
+
+# 200ミリ秒待機☆（＾～＾） 精度はあんまりない☆（＾～＾）
+sleep 200
+
+# ここから動画☆（＾～＾）
+# 色名は .NET Core に分かるやつなんで、わたしは知らん☆（＾～＾）　大文字・小文字とハイフンは無視するんで勘で入れてみろだぜ☆（＾～＾）
+put red to a10:d10 f10:j10
+sleep 200
+
+put orange to a9:c9 g9:j9
+sleep 200
+
+put yellow to a8:c8 g8:j8
+sleep 200
+
+sleep 200
+
+sleep 200
+
+put yellow-green to a5 j5
+sleep 200
+
+put cyan to a4:b4 i4:j4
+sleep 200
+
+put indigo to a3 j3
+sleep 200
+
+put violet to b2 e2 f2 i2
+sleep 200
+
+put purple to a1 c1:h1 j1
+sleep 200

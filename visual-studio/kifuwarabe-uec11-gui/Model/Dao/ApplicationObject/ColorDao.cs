@@ -15,7 +15,7 @@
             CallbackDone callbackSome,
             CallbackErr callbackNone)
         {
-            if (appModel==null)
+            if (appModel == null)
             {
                 throw new ArgumentNullException(nameof(appModel));
             }
@@ -36,16 +36,16 @@
             }
 
             // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-            var colorRealName = appModel.GetObjectRealName(colorName.Name);
+            var colorRealName = new ColorNameDto(appModel.GetObjectRealName(colorName.Source).Value);
 
             try
             {
-                var color = (Color)ColorConverter.ConvertFromString(colorRealName.Value);
+                var color = (Color)ColorConverter.ConvertFromString(colorRealName.TrimHyphen());
                 callbackSome(new ColorDto(color.A, color.R, color.G, color.B));
             }
             catch (FormatException e)
             {
-                callbackNone($"Warning | Invalid color name. RealName=[{colorRealName.Value}]. / {e.Message}");
+                callbackNone($"Warning | Invalid color name. colorName.Source=[{colorName.Source}]. / {e.Message}");
             }
         }
     }

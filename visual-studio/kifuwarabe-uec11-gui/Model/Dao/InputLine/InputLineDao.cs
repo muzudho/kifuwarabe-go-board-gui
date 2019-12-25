@@ -193,9 +193,6 @@
                         args1.ColorName,
                         (colorDto) =>
                         {
-                            // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                            var colorRealName = appModel.GetObjectRealName(args1.ColorName.Name);
-
                             var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
                             // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
                             foreach (var cellRange in args2.Destination.CellRanges)
@@ -209,7 +206,7 @@
                             // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
                             instance.PutsArg = args1;
                         },
-                        (err)=>
+                        (err) =>
                         {
                             Trace.WriteLine($"Error   | Catch.199. {err}");
                         });

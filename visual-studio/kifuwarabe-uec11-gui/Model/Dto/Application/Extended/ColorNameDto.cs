@@ -5,11 +5,23 @@
     /// </summary>
     public class ColorNameDto
     {
-        public ColorNameDto(string name)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        public ColorNameDto(string source)
         {
-            this.Name = name;
+            this.Source = source;
         }
 
-        public string Name { get; private set; }
+        /// <summary>
+        /// スクリプトに記入された通りの文字列☆（＾～＾）
+        /// </summary>
+        public string Source { get; private set; }
+
+        public string TrimHyphen()
+        {
+            return this.Source.Replace("-", "");
+        }
     }
 }

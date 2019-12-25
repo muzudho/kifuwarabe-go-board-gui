@@ -19,7 +19,8 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 * アニメ画像ファイル作るなら [ScreenToGif](https://www.screentogif.com/)
 * ![Image](./doc/example-script/script-1.png)  [Example-1 Horizon](./doc/example-script/script-1.txt)
 * ![Image](./doc/example-script/script-2.png)  [Example-2 Star-Foreground](./doc/example-script/script-2.txt)
-* ![Image](./doc/example-script/script-3.png)  [Example-2 Star-Background](./doc/example-script/script-3.txt)
+* ![Image](./doc/example-script/script-3.png)  [Example-3 Star-Background](./doc/example-script/script-3.txt)
+* ![Image](./doc/example-script/script-4.png)  [Example-4 Star-Background-Colored](./doc/example-script/script-4.txt)
 
 # Output JSON
 
