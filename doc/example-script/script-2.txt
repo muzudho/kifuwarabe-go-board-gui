@@ -1,4 +1,13 @@
-﻿# 盤設定☆（＾～＾）
+﻿#   +---------------+-------------------------------+
+#   | Title         | Fill star                     |
+#   | Author        | Muzudho                       |
+#   | Last update   | 2019-12-26                    |
+#   +---------------+-------------------------------+
+#   | Language      | Kifuwarabe go board script    |
+#   | License       | MIT License                   |
+#   +---------------+-------------------------------+
+
+# 盤設定☆（＾～＾）
 set row-size.type = number
 set row-size = 10
 

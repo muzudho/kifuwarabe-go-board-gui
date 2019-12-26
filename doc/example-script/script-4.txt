@@ -1,4 +1,13 @@
-﻿# 盤設定☆（＾～＾）
+﻿#   +---------------+-----------------------------------------------+
+#   | Title         | Linear drawing of star background with color  |
+#   | Author        | Muzudho                                       |
+#   | Last update   | 2019-12-26                                    |
+#   +---------------+-----------------------------------------------+
+#   | Language      | Kifuwarabe go board script                    |
+#   | License       | MIT License                                   |
+#   +---------------+-----------------------------------------------+
+
+# 盤設定☆（＾～＾）
 set row-size.type = number
 set row-size = 10
 
@@ -34,6 +43,7 @@ sleep 200
 
 # ここから動画☆（＾～＾）
 # 色名は .NET Core に分かるやつなんで、わたしは知らん☆（＾～＾）　大文字・小文字とハイフンは無視するんで勘で入れてみろだぜ☆（＾～＾）
+# `put #FFFF0000` みたいに書いてもOKのようだぜ☆（＾～＾） ARGBの順な☆（＾～＾） Alpha は大きいほど不透明☆（＾～＾）
 put red to a10:d10 f10:j10
 sleep 200
 
