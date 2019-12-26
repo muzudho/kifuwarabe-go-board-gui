@@ -3,6 +3,10 @@
 
 ![screen-shot-1a2.png](./doc/img/screen-shot-1a3.png)  
 
+## Runtime
+
+[runtime-kifuwarabe-go-board-gui](https://github.com/muzudho/runtime-kifuwarabe-go-board-gui)  
+.exe だけ欲しけりゃ持ってけだぜ☆（＾～＾）
 
 # Script API
 

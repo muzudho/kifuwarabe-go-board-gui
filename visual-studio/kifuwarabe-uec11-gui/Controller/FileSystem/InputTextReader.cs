@@ -27,16 +27,24 @@
         /// </summary>
         private string File { get; set; }
 
-        public InputTextReader(string file)
+        private InputTextReader(string file)
         {
             this.File = file;
-            this.FileStreamR = new System.IO.FileStream(
+        }
+
+        public static InputTextReader OpenOrCreate(string file)
+        {
+            var instance = new InputTextReader(file);
+
+            instance.FileStreamR = new System.IO.FileStream(
                 file,
-                FileMode.Open,
+                FileMode.OpenOrCreate,
                 FileAccess.Read,
                 FileShare.ReadWrite);
             // Encoding.UTF8 を指定すると BOM付きUTF8、無指定だと BOM無しUTF8 だぜ☆（＾～＾）
-            this.StreamReader = new System.IO.StreamReader(this.FileStreamR);
+            instance.StreamReader = new System.IO.StreamReader(instance.FileStreamR);
+
+            return instance;
         }
 
         /// <summary>

@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>KifuwarabeGoBoardGui</RootNamespace>
     <UseWPF>true</UseWPF>
+    <Authors>Muzudho</Authors>
+    <Company>Dojin circle grayscale</Company>
+    <Product>kifuwarabe go board gui</Product>
+    <Description>碁盤を表示するだけのＧＵＩ☆（＾～＾）</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -310,7 +310,7 @@
 
             // 入力を読み取るやつ☆（＾～＾）
             {
-                this.InputTextReader = new InputTextReader("input.txt");
+                this.InputTextReader = InputTextReader.OpenOrCreate("input.txt");
             }
 
             // 普通のタイマー☆（＾～＾）
