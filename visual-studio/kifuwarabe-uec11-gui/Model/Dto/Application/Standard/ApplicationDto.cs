@@ -23,16 +23,13 @@
         /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
-        public static RealName Top1RealName => new RealName("top1");
-        public static RealName MoveRealName => new RealName("top1");
+        public static RealName ColumnNumbersRealName => new RealName("column-numbers");
 
-        public static RealName Top2RealName => new RealName("top2");
+        public static RealName ColumnSizeRealName => new RealName("column-size");
 
-        public static RealName Right1RealName => new RealName("right1");
+        public static RealName InfoRealName => new RealName("info");
 
-        public static RealName Right2RealName => new RealName("right2");
-
-        public static RealName Right3RealName => new RealName("right3");
+        public static RealName IntervalMsecRealName => new RealName("interval-msec");
 
         public static RealName Left1RealName => new RealName("left1");
 
@@ -42,21 +39,24 @@
 
         public static RealName Left4RealName => new RealName("left4");
 
-        public static RealName InfoRealName => new RealName("info");
+        public static RealName MoveMarkerRealName => new RealName("moveMarker");
 
-        public static RealName ColumnSizeRealName => new RealName("column-size");
+        public static RealName Right1RealName => new RealName("right1");
 
-        public static RealName RowSizeRealName => new RealName("row-size");
+        public static RealName Right2RealName => new RealName("right2");
 
-        public static RealName IntervalMsecRealName => new RealName("interval-msec");
-
-        public static RealName ColumnNumbersRealName => new RealName("column-numbers");
+        public static RealName Right3RealName => new RealName("right3");
 
         public static RealName RowNumbersRealName => new RealName("row-numbers");
 
+        public static RealName RowSizeRealName => new RealName("row-size");
+
         public static RealName StarsRealName => new RealName("stars");
 
-        public static RealName MoveMarkerRealName => new RealName("moveMarker");
+        public static RealName Top1RealName => new RealName("top1");
+        public static RealName MoveRealName => new RealName("top1");
+
+        public static RealName Top2RealName => new RealName("top2");
 
         /// <summary>
         /// alias top1 = move

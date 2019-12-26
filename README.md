@@ -33,8 +33,8 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 [Sample](./doc/sample/output.json)
 
 
-# Application object model
+# Standard application DTO
 
 データの互換フォーマットの仕様だぜ☆（＾～＾）
 
-[Standard-application object model](./doc/standard-application-object-model.md)
+[Standard application DTO](./doc/standard-application-dto.md)
