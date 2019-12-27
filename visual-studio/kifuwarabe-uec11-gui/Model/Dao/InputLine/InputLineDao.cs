@@ -140,17 +140,17 @@
                         {
                             case 'b':
                                 // 黒石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, new PieceDto(ColorDto.Black, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Black, PieceShapes.Stone), zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case 'w':
                                 // 白石にするぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, new PieceDto(ColorDto.White, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.White, PieceShapes.Stone), zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case '.':
                                 // 空点にするぜ☆（＾～＾）
-                                StoneDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
                                 zShapedIndex++;
                                 break;
                         }
@@ -200,7 +200,7 @@
                             {
                                 foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                                 {
-                                    StoneDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), zShapedIndex);
+                                    PieceDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), zShapedIndex);
                                 }
                             }
 

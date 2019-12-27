@@ -5,12 +5,12 @@
     using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     /// <summary>
-    /// 石を操作するぜ☆（＾～＾）
+    /// ピースを操作するぜ☆（＾～＾）
     /// 
     /// こっちを設定して、あっちを設定して、また　こっちに戻ってきて設定して、というような
     /// 無限ループしないようにセットするのもコントローラーのメリットだぜ☆（＾～＾）
     /// </summary>
-    public static class StoneDao
+    public static class PieceDao
     {
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）

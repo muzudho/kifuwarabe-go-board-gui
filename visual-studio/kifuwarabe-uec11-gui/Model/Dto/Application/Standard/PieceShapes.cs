@@ -6,7 +6,7 @@
     public enum PieceShapes
     {
         /// <summary>
-        /// 無形☆（＾～＾）
+        /// 描かない☆（＾～＾）
         /// </summary>
         None,
 
@@ -24,5 +24,10 @@
         /// 将棋の駒で、下向いてるやつ☆（＾～＾）
         /// </summary>
         Downer,
+
+        /// <summary>
+        /// 小さな矩形☆（＾～＾）最後の着手の上に置いたりするのに使う☆（＾～＾）
+        /// </summary>
+        SmallRect,
     }
 }

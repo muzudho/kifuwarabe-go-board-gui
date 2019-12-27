@@ -116,7 +116,7 @@
                 }
                 else
                 {
-                    StoneDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
+                    PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
                 }
             }
         }

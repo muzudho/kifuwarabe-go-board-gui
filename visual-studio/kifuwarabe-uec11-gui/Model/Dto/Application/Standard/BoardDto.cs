@@ -12,7 +12,7 @@
         public BoardDto()
         {
             this.Layer1 = new List<PieceDto>();
-            this.Marks = new List<Mark>();
+            this.Layer2 = new List<PieceDto>();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
             {
                 // 短くなったのなら、リストを縮めます。
                 this.Layer1.RemoveRange(newSerialLength, this.Layer1.Count - newSerialLength);
-                this.Marks.RemoveRange(newSerialLength, this.Marks.Count - newSerialLength);
+                this.Layer2.RemoveRange(newSerialLength, this.Layer2.Count - newSerialLength);
             }
             else if(this.SerialLength < newSerialLength)
             {
@@ -38,7 +38,7 @@
                 {
                     // 増えたところは 空点 で☆（＾～＾）
                     this.Layer1.Add(new PieceDto()); // 透明
-                    this.Marks.Add(Mark.None);
+                    this.Layer2.Add(new PieceDto());
                 }
             }
         }
@@ -50,9 +50,8 @@
         public List<PieceDto> Layer1 { get; set; }
 
         /// <summary>
-        /// 置いている石☆（＾～＾）
-        /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
+        /// TODO 着手マークなどを置く予定で用意してあるが……☆（＾～＾）
         /// </summary>
-        public List<Mark> Marks { get; set; }
+        public List<PieceDto> Layer2 { get; set; }
     }
 }
