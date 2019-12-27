@@ -1,17 +1,19 @@
 ﻿namespace KifuwarabeGoBoardGui
 {
     using System;
-    using System.Timers;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Timers;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Shapes;
     using System.Windows.Threading;
-    using KifuwarabeGoBoardGui.View;
+    using KifuwarabeGoBoardGui.Controller.Gui;
     using KifuwarabeGoBoardGui.Model.Dao;
     using KifuwarabeGoBoardGui.Model.Dto;
+    using KifuwarabeGoBoardGui.Model.Dto.Application.Extended;
+    using KifuwarabeGoBoardGui.View;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -56,7 +58,12 @@
         private List<Line> VerticalLines { get; set; }
         private List<Line> HorizontalLines { get; set; }
 
-        public List<Ellipse> Stones { get; private set; }
+        /// <summary>
+        /// いくつかの石や駒などのまとまりだぜ☆（＾～＾）
+        /// </summary>
+        public PieceBoard PieceBoard { get; private set; }
+
+
         public List<Shape> Marks { get; private set; }
 
         public List<Ellipse> Stars { get; private set; }
@@ -79,7 +86,7 @@
             this.VerticalLines = new List<Line>();
             this.HorizontalLines = new List<Line>();
 
-            this.Stones = new List<Ellipse>();
+            this.PieceBoard = new PieceBoard();
             this.Marks = new List<Shape>();
 
             this.Stars = new List<Ellipse>();
@@ -296,7 +303,7 @@
         private void TickForGui()
         {
             // モデルに合わせてビューを更新するだけだな☆（＾～＾）！
-            ApplicationView.RepaintAllViews(this.Model, this);
+            ApplicationGuiController.RepaintAllViews(this.Model, this);
         }
 
         private void Window_Initialized(object sender, System.EventArgs e)
@@ -429,7 +436,13 @@
             StarView.Initialize(this.Model, this);
 
             // 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-            StoneView.Initialize(this.Model, this);
+            this.PieceBoard.Initialize(this.Model);
+            this.PieceBoard.ForeachPiace(
+                (piece, index) =>
+                {
+                    this.canvas.Children.Add(piece);
+                });
+
             MarkView.Initialize(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
@@ -517,7 +530,7 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationView.RepaintAllViews(this.Model, this);
+            // ApplicationGuiController.RepaintAllViews(this.Model, this);
         }
     }
 }

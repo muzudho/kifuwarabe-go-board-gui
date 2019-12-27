@@ -11,46 +11,6 @@
     public static class StoneView
     {
         /// <summary>
-        /// 黒石を描いて非表示にして持っておこうぜ☆（＾～＾）？
-        /// </summary>
-        public static void Initialize(ApplicationObjectDtoWrapper appModel, MainWindow appView)
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            for (var i = 0; i < HyperParameter.MaxCellCount; i++)
-            {
-                var row = i / appModel.ColumnSize;
-                var column = i % appModel.ColumnSize;
-
-                var stone = new Ellipse();
-                stone.Name = $"stone{i}";
-                stone.Width = 10;
-                stone.Height = 10;
-                stone.StrokeThickness = 1.5;
-                stone.Visibility = Visibility.Hidden;
-                Panel.SetZIndex(stone, (int)ZOrder.Stone);
-
-                // とりあえず黒石にして作っておこうぜ☆（＾～＾）
-                stone.Fill = Brushes.Black;
-                stone.Stroke = Brushes.White;
-
-                // 盤☆（＾～＾）
-                Canvas.SetLeft(stone, 0);
-                Canvas.SetTop(stone, 0);
-                appView.Stones.Add(stone);
-                appView.canvas.Children.Add(stone);
-            }
-        }
-
-        /// <summary>
         /// 石ならEllipse型☆（＾～＾）
         /// </summary>
         /// <param name="appModel"></param>
@@ -98,26 +58,36 @@
         /// </summary>
         public static void FitSizeToWindow(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
-            for (var zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
+            if (appModel == null)
             {
-                var stone = appView.Stones[zShapedIndex];
-                if (zShapedIndex < appModel.GetCellCount())
-                {
-                    appView.PutAnythingOnNode(zShapedIndex, (left, top) =>
-                    {
-                        // 大きさ☆（＾～＾）
-                        stone.Width = appView.board.Width / appModel.GetColumnDiv() * 0.8;
-                        stone.Height = appView.board.Height / appModel.GetRowDiv() * 0.8;
-
-                        Canvas.SetLeft(stone, left - stone.Width / 2);
-                        Canvas.SetTop(stone, top - stone.Height / 2);
-                    });
-                }
-                else
-                {
-                    StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
-                }
+                throw new ArgumentNullException(nameof(appModel));
             }
+
+            if (appView == null)
+            {
+                throw new ArgumentNullException(nameof(appView));
+            }
+
+            appView.PieceBoard.ForeachPiace(
+                (piece, zShapedIndex) =>
+                {
+                    if (zShapedIndex < appModel.GetCellCount())
+                    {
+                        appView.PutAnythingOnNode(zShapedIndex, (left, top) =>
+                        {
+                            // 大きさ☆（＾～＾）
+                            piece.Width = appView.board.Width / appModel.GetColumnDiv() * 0.8;
+                            piece.Height = appView.board.Height / appModel.GetRowDiv() * 0.8;
+
+                            Canvas.SetLeft(piece, left - piece.Width / 2);
+                            Canvas.SetTop(piece, top - piece.Height / 2);
+                        });
+                    }
+                    else
+                    {
+                        StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
+                    }
+                });
         }
     }
 }
