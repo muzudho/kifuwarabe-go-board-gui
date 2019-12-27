@@ -20,15 +20,15 @@
         /// 置いている石の色☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<PieceDto> Layer1
+        public BoardLayerDto[] Layers
         {
             get
             {
-                return this.BoardModel.Layer1;
+                return this.BoardModel.Layers;
             }
             set
             {
-                this.BoardModel.Layer1 = value;
+                this.BoardModel.Layers = value;
             }
         }
 
@@ -37,14 +37,14 @@
             this.BoardModel.Resize(rowSize, columnSize);
         }
 
-        public void SetPiece(int zShapedIndex, PieceDto piece)
+        public void SetPiece(int layerIndex, int zShapedIndex, PieceDto piece)
         {
-            this.Layer1[zShapedIndex] = piece;
+            this.Layers[layerIndex].Pieces[zShapedIndex] = piece;
         }
 
-        public PieceDto GetPiece(int zShapedIndex)
+        public PieceDto GetPiece(int layerIndex, int zShapedIndex)
         {
-            return this.Layer1[zShapedIndex];
+            return this.Layers[layerIndex].Pieces[zShapedIndex];
         }
     }
 }

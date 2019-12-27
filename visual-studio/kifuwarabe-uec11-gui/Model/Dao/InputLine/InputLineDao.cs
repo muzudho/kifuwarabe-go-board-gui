@@ -136,21 +136,24 @@
                             break;
                         }
 
+                        // TODO レイヤー番号。
+                        var layerIndex = 0;
+
                         switch (columnChar)
                         {
                             case 'b':
                                 // 黒石にするぜ☆（＾～＾）
-                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Black, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Black, PieceShapes.Stone), layerIndex, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case 'w':
                                 // 白石にするぜ☆（＾～＾）
-                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.White, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.White, PieceShapes.Stone), layerIndex, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                             case '.':
                                 // 空点にするぜ☆（＾～＾）
-                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
+                                PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), layerIndex, zShapedIndex);
                                 zShapedIndex++;
                                 break;
                         }
@@ -188,6 +191,9 @@
                     // モデルに値をセットしようぜ☆（＾～＾）
                     var args1 = (PutsInstructionArgumentDto)putsInstruction.Argument;
 
+                    // TODO レイヤー番号。
+                    var layerIndex = 0;
+
                     // TODO 色名から色オブジェクトへ変換☆（＾～＾）
                     ColorDao.CreateColor(
                         appModel,
@@ -200,7 +206,7 @@
                             {
                                 foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
                                 {
-                                    PieceDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), zShapedIndex);
+                                    PieceDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), layerIndex, zShapedIndex);
                                 }
                             }
 

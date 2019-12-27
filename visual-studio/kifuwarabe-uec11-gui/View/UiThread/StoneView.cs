@@ -17,7 +17,7 @@
         /// <param name="appModel"></param>
         /// <param name="zShapedIndex"></param>
         /// <param name="piece1"></param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, int zShapedIndex, Shape piece1)
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, int layerIndex, int zShapedIndex, Shape piece1)
         {
             if (appModel == null)
             {
@@ -31,9 +31,9 @@
 
             // ビュー☆（＾～＾）
             {
-                if (zShapedIndex < appModel.Board.Layer1.Count)
+                if (zShapedIndex < appModel.Board.Layers[layerIndex].Pieces.Count)
                 {
-                    var piece2 = appModel.Board.Layer1[zShapedIndex];
+                    var piece2 = appModel.Board.Layers[layerIndex].Pieces[zShapedIndex];
                     if (ColorDto.Transparent.Equals(piece2.Color))
                     {
                         // 透明☆（＾～＾）
@@ -69,6 +69,9 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
+            // TODO レイヤー番号。
+            var layerIndex = 0;
+
             appView.PieceBoard.ForeachPiace(
                 (piece, zShapedIndex) =>
                 {
@@ -86,7 +89,7 @@
                     }
                     else
                     {
-                        PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
+                        PieceDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), layerIndex, zShapedIndex);
                     }
                 });
         }

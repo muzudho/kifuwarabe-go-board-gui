@@ -11,8 +11,11 @@
     {
         public BoardDto()
         {
-            this.Layer1 = new List<PieceDto>();
-            this.Layer2 = new List<PieceDto>();
+            // とりあえず２階層☆（＾～＾）
+            this.Layers = new BoardLayerDto[]{
+                new BoardLayerDto(),
+                new BoardLayerDto(),
+            };
         }
 
         /// <summary>
@@ -27,31 +30,31 @@
             if (newSerialLength < this.SerialLength)
             {
                 // 短くなったのなら、リストを縮めます。
-                this.Layer1.RemoveRange(newSerialLength, this.Layer1.Count - newSerialLength);
-                this.Layer2.RemoveRange(newSerialLength, this.Layer2.Count - newSerialLength);
+                foreach(var layer in this.Layers)
+                {
+                    layer.Pieces.RemoveRange(newSerialLength, layer.Pieces.Count - newSerialLength);
+                }
             }
             else if(this.SerialLength < newSerialLength)
             {
                 // 長くなったのなら、要素を足します。
                 var extend = newSerialLength - this.SerialLength;
-                for (int i = 0; i < extend; i++)
+                foreach (var layer in this.Layers)
                 {
-                    // 増えたところは 空点 で☆（＾～＾）
-                    this.Layer1.Add(new PieceDto()); // 透明
-                    this.Layer2.Add(new PieceDto());
+                    for (int i = 0; i < extend; i++)
+                    {
+                        // 増えたところは 空点 で☆（＾～＾）
+                        layer.Pieces.Add(new PieceDto()); // 透明
+                    }
                 }
             }
         }
 
         /// <summary>
         /// 置いているピース☆（＾～＾）
+        /// TODO 着手マークなどを置く予定で複数階層、用意してあるが……☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<PieceDto> Layer1 { get; set; }
-
-        /// <summary>
-        /// TODO 着手マークなどを置く予定で用意してあるが……☆（＾～＾）
-        /// </summary>
-        public List<PieceDto> Layer2 { get; set; }
+        public BoardLayerDto[] Layers { get; set; }
     }
 }

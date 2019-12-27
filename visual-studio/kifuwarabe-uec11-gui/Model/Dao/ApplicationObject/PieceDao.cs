@@ -15,18 +15,18 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, PieceDto newPiece, int zShapedIndex)
+        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, PieceDto newPiece, int layerIndex, int zShapedIndex)
         {
             if (appModel == null)
             {
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            var oldValue = appModel.Board.GetPiece(zShapedIndex);
+            var oldValue = appModel.Board.GetPiece(layerIndex, zShapedIndex);
             // var newValue = ColorDto.Black; // ColorDto.White; // ColorDto.Transparent
             // TODO: ログが大量になってしまう☆（＾～＾）
             // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
-            appModel.Board.SetPiece(zShapedIndex, newPiece);
+            appModel.Board.SetPiece(layerIndex, zShapedIndex, newPiece);
         }
     }
 }

@@ -530,7 +530,8 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // ApplicationGuiController.RepaintAllViews(this.Model, this);
+            // 初回表示で、非表示にしたいものが一瞬見えてしまうのを防ぐぜ☆（＾～＾）
+            ApplicationGuiController.RepaintAllViews(this.Model, this);
         }
     }
 }

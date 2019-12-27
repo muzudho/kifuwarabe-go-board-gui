@@ -27,17 +27,25 @@
             RowNumberView.Repaint(appModel, appView);
 
             // 石。
-            appView.PieceBoard.ForeachPiace(
-                (piece, zShapedIndex) =>
-                {
-                    StoneView.Repaint(appModel, zShapedIndex, piece);
-                });
+            {
+                // TODO レイヤー番号。
+                var layerIndex = 0;
+                appView.PieceBoard.ForeachPiace(
+                    (piece, zShapedIndex) =>
+                    {
+                        StoneView.Repaint(appModel, layerIndex, zShapedIndex, piece);
+                    });
+            }
 
             // マーク
-            for (int zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
             {
-                var mark = appView.Marks[zShapedIndex];
-                MarkView.Repaint(appModel, zShapedIndex, mark);
+                // TODO レイヤー番号。
+                var layerIndex = 1;
+                for (int zShapedIndex = 0; zShapedIndex < HyperParameter.MaxCellCount; zShapedIndex++)
+                {
+                    var mark = appView.Marks[zShapedIndex];
+                    MarkView.Repaint(appModel, layerIndex, zShapedIndex, mark);
+                }
             }
 
             // UIウィジェット
