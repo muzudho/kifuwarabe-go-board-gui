@@ -2,6 +2,7 @@
 {
     using System;
     using KifuwarabeGoBoardGui.Model.Dto;
+    using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     /// <summary>
     /// 石を操作するぜ☆（＾～＾）
@@ -14,18 +15,18 @@
         /// <summary>
         /// 黒石に変えようぜ☆（＾～＾）
         /// </summary>
-        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, ColorDto newValue, int zShapedIndex)
+        public static void ChangeModel(ApplicationObjectDtoWrapper appModel, PieceDto newPiece, int zShapedIndex)
         {
             if (appModel == null)
             {
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            var oldValue = appModel.Board.GetColor(zShapedIndex);
+            var oldValue = appModel.Board.GetPiece(zShapedIndex);
             // var newValue = ColorDto.Black; // ColorDto.White; // ColorDto.Transparent
             // TODO: ログが大量になってしまう☆（＾～＾）
             // appModel.ModelChangeLogWriter.WriteLine($"Stones[{zShapedIndex}]", oldValue.ToString(), newValue.ToString());
-            appModel.Board.SetColor(zShapedIndex, newValue);
+            appModel.Board.SetPiece(zShapedIndex, newPiece);
         }
     }
 }

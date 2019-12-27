@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     using System.Collections.Generic;
+    using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     /// <summary>
     /// 盤だぜ☆（＾～＾）　
@@ -19,15 +20,15 @@
         /// 置いている石の色☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<ColorDto> Colors
+        public List<PieceDto> Layer1
         {
             get
             {
-                return this.BoardModel.Colors;
+                return this.BoardModel.Layer1;
             }
             set
             {
-                this.BoardModel.Colors = value;
+                this.BoardModel.Layer1 = value;
             }
         }
 
@@ -36,14 +37,14 @@
             this.BoardModel.Resize(rowSize, columnSize);
         }
 
-        public void SetColor(int zShapedIndex, ColorDto stoneColor)
+        public void SetPiece(int zShapedIndex, PieceDto piece)
         {
-            this.Colors[zShapedIndex] = stoneColor;
+            this.Layer1[zShapedIndex] = piece;
         }
 
-        public ColorDto GetColor(int zShapedIndex)
+        public PieceDto GetPiece(int zShapedIndex)
         {
-            return this.Colors[zShapedIndex];
+            return this.Layer1[zShapedIndex];
         }
     }
 }

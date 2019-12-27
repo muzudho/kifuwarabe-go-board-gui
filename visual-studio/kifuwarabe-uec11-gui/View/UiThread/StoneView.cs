@@ -7,6 +7,7 @@
     using System.Windows.Shapes;
     using KifuwarabeGoBoardGui.Model.Dao;
     using KifuwarabeGoBoardGui.Model.Dto;
+    using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     public static class StoneView
     {
@@ -15,40 +16,40 @@
         /// </summary>
         /// <param name="appModel"></param>
         /// <param name="zShapedIndex"></param>
-        /// <param name="stone"></param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, int zShapedIndex, Shape stone)
+        /// <param name="piece1"></param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, int zShapedIndex, Shape piece1)
         {
             if (appModel == null)
             {
                 throw new ArgumentNullException(nameof(appModel));
             }
 
-            if (stone == null)
+            if (piece1 == null)
             {
-                throw new ArgumentNullException(nameof(stone));
+                throw new ArgumentNullException(nameof(piece1));
             }
 
             // ビュー☆（＾～＾）
             {
-                if (zShapedIndex < appModel.Board.Colors.Count)
+                if (zShapedIndex < appModel.Board.Layer1.Count)
                 {
-                    var color = appModel.Board.Colors[zShapedIndex];
-                    if (ColorDto.Transparent.Equals(color))
+                    var piece2 = appModel.Board.Layer1[zShapedIndex];
+                    if (ColorDto.Transparent.Equals(piece2.Color))
                     {
                         // 透明☆（＾～＾）
-                        stone.Visibility = Visibility.Hidden;
+                        piece1.Visibility = Visibility.Hidden;
                     }
                     else
                     {
-                        stone.Fill = new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
-                        stone.Stroke = new SolidColorBrush(Color.FromArgb(color.A, (byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B))); // 補色
-                        stone.Visibility = Visibility.Visible;
+                        piece1.Fill = new SolidColorBrush(Color.FromArgb(piece2.Color.A, piece2.Color.R, piece2.Color.G, piece2.Color.B));
+                        piece1.Stroke = new SolidColorBrush(Color.FromArgb(piece2.Color.A, (byte)(255 - piece2.Color.R), (byte)(255 - piece2.Color.G), (byte)(255 - piece2.Color.B))); // 補色
+                        piece1.Visibility = Visibility.Visible;
                     }
                 }
                 else
                 {
                     // 範囲外☆（＾～＾）
-                    stone.Visibility = Visibility.Hidden;
+                    piece1.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -85,7 +86,7 @@
                     }
                     else
                     {
-                        StoneDao.ChangeModel(appModel, ColorDto.Transparent, zShapedIndex);
+                        StoneDao.ChangeModel(appModel, new PieceDto(ColorDto.Transparent, PieceShapes.Stone), zShapedIndex);
                     }
                 });
         }

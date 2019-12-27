@@ -1,15 +1,17 @@
 ﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
     using System.Collections.Generic;
+    using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     /// <summary>
+    /// 盤というより、盤の階層のようなもの☆（＾～＾）
     /// Resize してから使ってください。
     /// </summary>
     public class BoardDto
     {
         public BoardDto()
         {
-            this.Colors = new List<ColorDto>();
+            this.Layer1 = new List<PieceDto>();
             this.Marks = new List<Mark>();
         }
 
@@ -25,7 +27,7 @@
             if (newSerialLength < this.SerialLength)
             {
                 // 短くなったのなら、リストを縮めます。
-                this.Colors.RemoveRange(newSerialLength, this.Colors.Count - newSerialLength);
+                this.Layer1.RemoveRange(newSerialLength, this.Layer1.Count - newSerialLength);
                 this.Marks.RemoveRange(newSerialLength, this.Marks.Count - newSerialLength);
             }
             else if(this.SerialLength < newSerialLength)
@@ -35,17 +37,17 @@
                 for (int i = 0; i < extend; i++)
                 {
                     // 増えたところは 空点 で☆（＾～＾）
-                    this.Colors.Add(ColorDto.Transparent); // 透明
+                    this.Layer1.Add(new PieceDto()); // 透明
                     this.Marks.Add(Mark.None);
                 }
             }
         }
 
         /// <summary>
-        /// 置いている石の色☆（＾～＾）
+        /// 置いているピース☆（＾～＾）
         /// TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
         /// </summary>
-        public List<ColorDto> Colors { get; set; }
+        public List<PieceDto> Layer1 { get; set; }
 
         /// <summary>
         /// 置いている石☆（＾～＾）

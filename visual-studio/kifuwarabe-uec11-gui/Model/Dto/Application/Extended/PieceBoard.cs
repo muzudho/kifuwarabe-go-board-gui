@@ -16,16 +16,17 @@
     {
         public PieceBoard()
         {
-            this.Pieces = new List<Ellipse>();
+            this.Pieces = new List<Shape>();
         }
 
         /// <summary>
         /// 囲碁なら石、将棋なら駒だが、一般化してピースと呼ぶことにするぜ☆（＾～＾）
         /// 並び順を保持するぜ☆（＾～＾）
+        /// 楕円なら Ellipse だが、まだ形を決めないなら Shape ☆（＾～＾）
         /// </summary>
-        private List<Ellipse> Pieces { get; set; }
+        private List<Shape> Pieces { get; set; }
 
-        public delegate void CallbackSome(Ellipse piece, int index);
+        public delegate void CallbackSome(Shape piece, int index);
         public void ForeachPiace(CallbackSome callbackSome)
         {
             var index = 0;

@@ -26,8 +26,7 @@
             // 行番号
             RowNumberView.Repaint(appModel, appView);
 
-
-            // 石
+            // 石。
             appView.PieceBoard.ForeachPiace(
                 (piece, zShapedIndex) =>
                 {
