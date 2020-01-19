@@ -11,6 +11,76 @@
         public delegate void MatchCanvasCallbackDone(IPropertyValue model, Canvas view);
         public delegate void CallbackErr(string message);
 
+        public static void CreateProperty(
+            ApplicationObjectDtoWrapper appModel,
+            RealName realName,
+            string instanceName,
+            string typeName
+            )
+        {
+            if (appModel == null)
+            {
+                throw new ArgumentNullException(nameof(appModel));
+            }
+
+            if (realName == null)
+            {
+                throw new ArgumentNullException(nameof(realName));
+            }
+
+            // TODO 型を変更☆（＾～＾）既存のものがあればタイトルは引き継ぐが、 Value はクリアーされるぜ☆（＾～＾）
+            var title = string.Empty;
+
+            {
+                appModel.RemoveProperty(
+                    realName,
+                    (old) =>
+                    {
+                        if (old != null)
+                        {
+                            title = old.Title;
+                        }
+                    },
+                    () =>
+                    {
+                    });
+            }
+
+            // 新しい型のオブジェクトに換装☆（＾～＾）
+            if (typeName == ApplicationDto.StringType)
+            {
+                var newValue = new PropertyString(title);
+                appModel.ModelChangeLogWriter.WriteLine($"new {instanceName} : {typeName}", string.Empty, newValue.ValueAsText());
+                appModel.AddProperty(realName, newValue);
+            }
+            else if (typeName == ApplicationDto.NullType)
+            {
+                // どこにも追加しないぜ☆（＾～＾）
+            }
+            else if (typeName == ApplicationDto.NumberType)
+            {
+                var newValue = new PropertyNumber(title);
+                appModel.ModelChangeLogWriter.WriteLine($"new {instanceName} : {typeName}", string.Empty, newValue.ValueAsText());
+                appModel.AddProperty(realName, newValue);
+            }
+            else if (typeName == ApplicationDto.BoolType)
+            {
+                var newValue = new PropertyBool(title);
+                appModel.ModelChangeLogWriter.WriteLine($"new {instanceName} : {typeName}", string.Empty, newValue.ValueAsText());
+                appModel.AddProperty(realName, newValue);
+            }
+            else if (typeName == ApplicationDto.StringListType)
+            {
+                var newValue = new PropertyStringList(title, new List<string>());
+                appModel.ModelChangeLogWriter.WriteLine($"new {instanceName} : {typeName}", string.Empty, newValue.ValueAsText());
+                appModel.AddProperty(realName, newValue);
+            }
+            else
+            {
+                Trace.WriteLine($"Warning         | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,15 +95,6 @@
             SetsInstructionArgumentDto args
         )
         {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (realName == null)
-            {
-                throw new ArgumentNullException(nameof(realName));
-            }
 
             if (args == null)
             {
@@ -80,58 +141,7 @@
                     break;
 
                 case "type":
-                    // TODO 型を変更☆（＾～＾）既存のものがあればタイトルは引き継ぐが、 Value はクリアーされるぜ☆（＾～＾）
-                    var title = string.Empty;
-
-                    {
-                        appModel.RemoveProperty(
-                            realName,
-                            (old) =>
-                            {
-                                if (old != null)
-                                {
-                                    title = old.Title;
-                                }
-                            },
-                            () =>
-                            {
-                            });
-                    }
-
-                    // 新しい型のオブジェクトに換装☆（＾～＾）
-                    if (args.Value == ApplicationDto.StringType)
-                    {
-                        var newValue = new PropertyString(title);
-                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
-                        appModel.AddProperty(realName, newValue);
-                    }
-                    else if (args.Value == ApplicationDto.NullType)
-                    {
-                        // どこにも追加しないぜ☆（＾～＾）
-                    }
-                    else if (args.Value == ApplicationDto.NumberType)
-                    {
-                        var newValue = new PropertyNumber(title);
-                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
-                        appModel.AddProperty(realName, newValue);
-                    }
-                    else if (args.Value == ApplicationDto.BoolType)
-                    {
-                        var newValue = new PropertyBool(title);
-                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
-                        appModel.AddProperty(realName, newValue);
-                    }
-                    else if (args.Value == ApplicationDto.StringListType)
-                    {
-                        var newValue = new PropertyStringList(title, new List<string>());
-                        appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Empty, newValue.ValueAsText());
-                        appModel.AddProperty(realName, newValue);
-                    }
-                    else
-                    {
-                        Trace.WriteLine($"Warning         | [{realName.Value}].type is fail. [{realName.Value}] is not found.");
-                    }
-
+                    CreateProperty(appModel, realName, args.Name, args.Value);
                     break;
 
                 case "visible":

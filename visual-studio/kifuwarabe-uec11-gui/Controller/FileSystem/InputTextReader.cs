@@ -86,7 +86,7 @@
                     else
                     {
                         // 特殊処理： ざっくり sleep で始まる行は、 sleep コマンドとします。
-                        if (line.TrimStart().StartsWith(InputLineParser.SleepsCommand, StringComparison.CurrentCulture))
+                        if (line.TrimStart().StartsWith(InputLineParserLv1.SleepsCommand, StringComparison.CurrentCulture))
                         {
                             sleeped = true;
                         }

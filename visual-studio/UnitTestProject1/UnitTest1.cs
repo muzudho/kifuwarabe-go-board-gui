@@ -62,7 +62,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -193,7 +193,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -277,13 +277,15 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         [TestMethod]
         public void TestIndexOfCell()
         {
-            var appModel = new ApplicationObjectDtoWrapper();
+            var appModel = new ApplicationObjectDtoWrapper
+            {
 
-            // インデックスは 左上を 0 とした Z字順。
+                // インデックスは 左上を 0 とした Z字順。
 
-            // 19路盤
-            appModel.RowSize = 19;
-            appModel.ColumnSize = 19;
+                // 19路盤
+                RowSize = 19,
+                ColumnSize = 19
+            };
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
             Assert.AreEqual(19 - 1, CellAddress.ToIndex(0, 19 - 1, appModel));
             Assert.AreEqual(19, CellAddress.ToIndex(1, 0, appModel));
@@ -334,7 +336,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -378,7 +380,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 

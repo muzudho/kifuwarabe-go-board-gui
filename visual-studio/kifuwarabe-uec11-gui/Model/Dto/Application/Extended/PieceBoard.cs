@@ -61,12 +61,14 @@
                 // var row = i / appModel.ColumnSize;
                 // var column = i % appModel.ColumnSize;
 
-                var piece = new Ellipse();
-                piece.Name = $"stone{i}";
-                piece.Width = 10;
-                piece.Height = 10;
-                piece.StrokeThickness = 1.5;
-                piece.Visibility = Visibility.Hidden;
+                var piece = new Ellipse
+                {
+                    Name = $"stone{i}",
+                    Width = 10,
+                    Height = 10,
+                    StrokeThickness = 1.5,
+                    Visibility = Visibility.Hidden
+                };
                 Panel.SetZIndex(piece, (int)ZOrder.Stone);
 
                 // とりあえず黒石にして作っておこうぜ☆（＾～＾）

@@ -213,10 +213,10 @@
         private void TickForFile()
         {
             // input.txt読取。
-            InputLineDao.Read(this.Model, this, (text) =>
+            InputLineParserLv2.Read(this.Model, this, (text) =>
             {
                 // 1行ずつ解析☆（＾～＾）
-                InputLineDao.ParseLine(
+                InputLineParserLv2.ParseLine(
                     this.Model,
                     text,
                     (inputLineModelController) =>

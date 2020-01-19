@@ -244,8 +244,10 @@
         {
             Trace.WriteLine($"json input      | {json}");
 
-            var option1 = new JsonSerializerOptions();
-            option1.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            var option1 = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
 
             var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationDto), option1) as ApplicationDto;
             Trace.WriteLine($"ColumnSize      | {newModel.ColumnSize}");
@@ -264,11 +266,13 @@
 
         public string ToJson()
         {
-            var option = new JsonSerializerOptions();
+            var option = new JsonSerializerOptions
+            {
 
-            // JSON は JavaScript 由来だろ☆（＾～＾） JavaScript に合わせようぜ☆（＾～＾）
-            // camelCase
-            option.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                // JSON は JavaScript 由来だろ☆（＾～＾） JavaScript に合わせようぜ☆（＾～＾）
+                // camelCase
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
 
             // インデントしようぜ☆（＾～＾）
             // option.WriteIndented = true;

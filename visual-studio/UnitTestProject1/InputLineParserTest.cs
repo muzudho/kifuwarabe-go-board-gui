@@ -17,7 +17,7 @@
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) =>
@@ -43,7 +43,7 @@
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) =>
                 {
                     Assert.AreEqual("alias", aliasInstruction.Command);
@@ -80,11 +80,11 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) =>
                 {
@@ -112,7 +112,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
@@ -139,7 +139,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
@@ -167,7 +167,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
@@ -204,11 +204,11 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
@@ -245,11 +245,11 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
@@ -277,7 +277,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
                 .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })

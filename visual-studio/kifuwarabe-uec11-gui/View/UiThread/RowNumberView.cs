@@ -70,8 +70,10 @@
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var number = row + 1;
-                var label = new Label();
-                label.Name = $"rowLabel{number}";
+                var label = new Label
+                {
+                    Name = $"rowLabel{number}"
+                };
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
                 appView.RowLabels.Add(label);
                 appView.canvas.Children.Add(label);

@@ -15,7 +15,7 @@
 
             var line = @"alias top2 = ply sasite";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -52,7 +52,7 @@
 
             var line = @"# This is a comment line.";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -87,7 +87,7 @@
 
             var line = "info This is a information.";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -122,7 +122,7 @@
 
             var line = @"json {""uso"":800}";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -163,12 +163,12 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             foreach (var line1 in text.Split(Environment.NewLine))
             {
-                InputLineDao.ParseLine(appModel, line1, (inputLineModelController) => { });
+                InputLineParserLv2.ParseLine(appModel, line1, (inputLineModelController) => { });
             }
 
             var line = @"put black to K10";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(
@@ -210,13 +210,13 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line1 in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line1, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line1, (inputLineModelController) => { });
                 }
             }
 
             var line = @"set top2.title = バナナ";
 
-            InputLineDao.ParseLine(appModel, line,
+            InputLineParserLv2.ParseLine(appModel, line,
                 (inputLineModelController) =>
                 {
                     inputLineModelController.ThenAlias(

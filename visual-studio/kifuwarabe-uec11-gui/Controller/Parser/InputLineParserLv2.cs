@@ -9,11 +9,11 @@
     /// <summary>
     /// メイン・ウィンドウがでかくなるから　こっちへ切り離すぜ☆（＾～＾）
     /// </summary>
-    public class InputLineDao
+    public class InputLineParserLv2
     {
         /// <summary>
         /// </summary>
-        private InputLineDao(ApplicationObjectDtoWrapper appModel, string line)
+        private InputLineParserLv2(ApplicationObjectDtoWrapper appModel, string line)
         {
             this.AppModel = appModel;
             this.Line = line;
@@ -81,7 +81,7 @@
         private SetsInstructionArgumentDto SetsArg { get; set; }
         private SleepsInstructionArgumentDto SleepsArg { get; set; }
 
-        public delegate void CallbackDone(InputLineDao inputLineModelController);
+        public delegate void CallbackDone(InputLineParserLv2 inputLineModelController);
         public static void ParseLine(ApplicationObjectDtoWrapper appModel, string line, CallbackDone callbackDone)
         {
             if (appModel == null)
@@ -99,9 +99,9 @@
                 throw new ArgumentNullException(nameof(callbackDone));
             }
 
-            var instance = new InputLineDao(appModel, line);
+            var instance = new InputLineParserLv2(appModel, line);
 
-            new InputLineParser()
+            new InputLineParserLv1()
                 .AppendCallbackOnAliasCommand((aliasInstruction) =>
                 {
                     var args = (AliasArgumentDto)aliasInstruction.Argument;
@@ -187,6 +187,15 @@
                 .AppendCallbackOnNewsCommand((newsInstruction) =>
                 {
                     Trace.WriteLine($"Warning         | Unimplemented newsInstruction.");
+
+                    // 引数を取ろうぜ☆（＾～＾）
+                    var args1 = (NewsInstructionArgumentDto)newsInstruction.Argument;
+
+                    // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                    var realName = appModel.GetObjectRealName(args1.InstanceName);
+
+                    // プロパティが無くても働く☆（＾～＾）
+                    PropertyDao.CreateProperty(appModel, realName, args1.InstanceName, args1.TypeName);
                 })
                 .AppendCallbackOnPutsCommand((putsInstruction) =>
                     {
@@ -222,7 +231,7 @@
                     })
                 .AppendCallbackOnSetsCommand((setsInstruction) =>
                     {
-                        // モデルに値をセットしようぜ☆（＾～＾）
+                        // 引数を取ろうぜ☆（＾～＾）
                         var args1 = (SetsInstructionArgumentDto)setsInstruction.Argument;
 
                         // エイリアスが設定されていれば変換するぜ☆（＾～＾）
@@ -288,7 +297,7 @@
             callbackDone(instance);
         }
 
-        public InputLineDao ThenAlias(AliasViewCallback aliasViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenAlias(AliasViewCallback aliasViewCallback, NoneCallback noneCallback)
         {
             if (aliasViewCallback == null)
             {
@@ -312,7 +321,7 @@
             return this;
         }
 
-        public InputLineDao ThenComment(CommentViewCallback commentViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenComment(CommentViewCallback commentViewCallback, NoneCallback noneCallback)
         {
             if (commentViewCallback == null)
             {
@@ -336,7 +345,7 @@
             return this;
         }
 
-        public InputLineDao ThenInfo(InfoViewCallback infoViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenInfo(InfoViewCallback infoViewCallback, NoneCallback noneCallback)
         {
             if (infoViewCallback == null)
             {
@@ -368,7 +377,7 @@
             return this;
         }
 
-        public InputLineDao ThenJson(JsonViewCallback jsonViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenJson(JsonViewCallback jsonViewCallback, NoneCallback noneCallback)
         {
             if (jsonViewCallback == null)
             {
@@ -392,7 +401,7 @@
             return this;
         }
 
-        public InputLineDao ThenPut(PutsViewCallback putsViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenPut(PutsViewCallback putsViewCallback, NoneCallback noneCallback)
         {
             if (putsViewCallback == null)
             {
@@ -416,7 +425,7 @@
             return this;
         }
 
-        public InputLineDao ThenSet(SetsViewCallback setsViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenSet(SetsViewCallback setsViewCallback, NoneCallback noneCallback)
         {
             if (setsViewCallback == null)
             {
@@ -440,7 +449,7 @@
             return this;
         }
 
-        public InputLineDao ThenSleep(SleepsViewCallback sleepsViewCallback, NoneCallback noneCallback)
+        public InputLineParserLv2 ThenSleep(SleepsViewCallback sleepsViewCallback, NoneCallback noneCallback)
         {
             if (sleepsViewCallback == null)
             {

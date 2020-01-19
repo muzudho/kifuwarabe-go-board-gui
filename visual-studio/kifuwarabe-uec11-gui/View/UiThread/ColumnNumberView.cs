@@ -72,8 +72,10 @@
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
-                var label = new Label();
-                label.Name = $"columnLabel{column + 1}";
+                var label = new Label
+                {
+                    Name = $"columnLabel{column + 1}"
+                };
                 Panel.SetZIndex(label, (int)ZOrder.LineNumber);
                 appView.ColumnLabels.Add(label);
                 appView.canvas.Children.Add(label);

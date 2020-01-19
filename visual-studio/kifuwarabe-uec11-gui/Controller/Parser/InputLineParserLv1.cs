@@ -10,7 +10,7 @@
     /// 
     /// 行番号など、変更可能な部分も予め知ってないとパースはできないぜ☆（＾～＾）
     /// </summary>
-    public class InputLineParser
+    public class InputLineParserLv1
     {
         public delegate void NoneCallback();
         public delegate void CommentCallback(string commentLine);
@@ -35,83 +35,83 @@
         public static string InfoCommand => "info";
 
         private CommandCallback callbackOnAliasCommand;
-        public InputLineParser AppendCallbackOnAliasCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnAliasCommand(CommandCallback callback)
         {
             this.callbackOnAliasCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnBoardCommand;
-        public InputLineParser AppendCallbackOnBoardCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnBoardCommand(CommandCallback callback)
         {
             this.callbackOnBoardCommand = callback;
             return this;
         }
 
         private CommentCallback callbackOnCommentCommand;
-        public InputLineParser AppendCallbackOnCommentCommand(CommentCallback callback)
+        public InputLineParserLv1 AppendCallbackOnCommentCommand(CommentCallback callback)
         {
             this.callbackOnCommentCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnExitsCommand;
-        public InputLineParser AppendCallbackOnExitsCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnExitsCommand(CommandCallback callback)
         {
             this.callbackOnExitsCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnInfoCommand;
-        public InputLineParser AppendCallbackOnInfoCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnInfoCommand(CommandCallback callback)
         {
             this.callbackOnInfoCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnJsonCommand;
-        public InputLineParser AppendCallbackOnJsonCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnJsonCommand(CommandCallback callback)
         {
             this.callbackOnJsonCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnNewsCommand;
-        public InputLineParser AppendCallbackOnNewsCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnNewsCommand(CommandCallback callback)
         {
             this.callbackOnNewsCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnPutsCommand;
-        public InputLineParser AppendCallbackOnPutsCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnPutsCommand(CommandCallback callback)
         {
             this.callbackOnPutsCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnSetsCommand;
-        public InputLineParser AppendCallbackOnSetsCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnSetsCommand(CommandCallback callback)
         {
             this.callbackOnSetsCommand = callback;
             return this;
         }
 
         private CommandCallback callbackOnSleepsCommand;
-        public InputLineParser AppendCallbackOnSleepsCommand(CommandCallback callback)
+        public InputLineParserLv1 AppendCallbackOnSleepsCommand(CommandCallback callback)
         {
             this.callbackOnSleepsCommand = callback;
             return this;
         }
 
         private NoneCallback callbackOnNoneCommand;
-        public InputLineParser AppendCallbackOnNoneCommand(NoneCallback callback)
+        public InputLineParserLv1 AppendCallbackOnNoneCommand(NoneCallback callback)
         {
             this.callbackOnNoneCommand = callback;
             return this;
         }
 
-        public InputLineParser()
+        public InputLineParserLv1()
         {
         }
 
@@ -163,7 +163,7 @@
                         curr,
                         (commandName, curr) =>
                         {
-                            if (commandName.Text == InputLineParser.AliasCommand)
+                            if (commandName.Text == InputLineParserLv1.AliasCommand)
                             {
                                 curr = AliasInstructionArgumentParser.Parse(
                                     line,
@@ -180,7 +180,7 @@
                                         return curr;
                                     });
                             }
-                            else if (commandName.Text == InputLineParser.BoardCommand)
+                            else if (commandName.Text == InputLineParserLv1.BoardCommand)
                             {
                                 curr = BoardInstructionArgumentParser.Parse(
                                     line,
@@ -207,12 +207,12 @@
                                         return curr;
                                     });
                             }
-                            else if (commandName.Text == InputLineParser.ExitsCommand)
+                            else if (commandName.Text == InputLineParserLv1.ExitsCommand)
                             {
                                 Trace.WriteLine($"Info    | Arg {commandName.Text}");
                                 this.callbackOnExitsCommand?.Invoke(new Instruction(commandName.Text, null));
                             }
-                            else if (commandName.Text == InputLineParser.InfoCommand)
+                            else if (commandName.Text == InputLineParserLv1.InfoCommand)
                             {
                                 InfoInstructionArgumentDto argument;
                                 (argument, curr) = InfoInstructionArgumentParser.Parse(line, curr);
@@ -226,7 +226,7 @@
                                     this.callbackOnInfoCommand?.Invoke(new Instruction(commandName.Text, argument));
                                 }
                             }
-                            else if (commandName.Text == InputLineParser.JsonCommand)
+                            else if (commandName.Text == InputLineParserLv1.JsonCommand)
                             {
                                 JsonInstructionArgumentDto argument;
                                 (argument, curr) = JsonInstructionArgumentParser.Parse(line, curr);
@@ -241,7 +241,7 @@
                                     this.callbackOnJsonCommand?.Invoke(new Instruction(commandName.Text, argument));
                                 }
                             }
-                            else if (commandName.Text == InputLineParser.NewsCommand)
+                            else if (commandName.Text == InputLineParserLv1.NewsCommand)
                             {
                                 curr = NewsInstructionArgumentParser.Parse(
                                     line,
@@ -261,7 +261,7 @@
                                         return curr;
                                     });
                             }
-                            else if (commandName.Text == InputLineParser.PutsCommand)
+                            else if (commandName.Text == InputLineParserLv1.PutsCommand)
                             {
                                 curr = PutsInstructionArgumentParser.Parse(
                                     line,
@@ -289,7 +289,7 @@
                                         return curr;
                                     });
                             }
-                            else if (commandName.Text == InputLineParser.SetsCommand)
+                            else if (commandName.Text == InputLineParserLv1.SetsCommand)
                             {
                                 curr = SetsInstructionArgumentParser.Parse(
                                     line,
@@ -309,7 +309,7 @@
                                         return curr;
                                     });
                             }
-                            else if (commandName.Text == InputLineParser.SleepsCommand)
+                            else if (commandName.Text == InputLineParserLv1.SleepsCommand)
                             {
                                 curr = SleepsInstructionArgumentParser.Parse(
                                     line,

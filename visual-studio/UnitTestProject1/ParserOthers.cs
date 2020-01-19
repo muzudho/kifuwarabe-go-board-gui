@@ -78,7 +78,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -116,7 +116,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -185,7 +185,7 @@ info バナナ食うか☆（＾～＾）？";
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -235,7 +235,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -481,7 +481,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -551,7 +551,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -782,7 +782,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -817,7 +817,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 

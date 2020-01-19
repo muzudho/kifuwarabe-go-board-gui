@@ -86,10 +86,12 @@
                 var row = i / appModel.ColumnSize;
                 var column = i % appModel.ColumnSize;
 
-                var star = new Ellipse();
-                star.Name = $"star{i}";
-                star.Width = 1;
-                star.Height = 1;
+                var star = new Ellipse
+                {
+                    Name = $"star{i}",
+                    Width = 1,
+                    Height = 1
+                };
                 Panel.SetZIndex(star, (int)ZOrder.Star);
 
                 // 黒丸で☆（＾～＾）

@@ -89,7 +89,7 @@
                 var text = @"set my-visible.type = bool";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController)=> { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController)=> { });
                 }
             }
 
@@ -108,7 +108,7 @@
                 var text = @"set my-age.type = number";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -127,7 +127,7 @@
                 var text = @"set my-name.type = string";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -146,7 +146,7 @@
                 var text = @"set my-array.type = string-list";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -170,7 +170,7 @@
 set my-visible.value = true";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -193,7 +193,7 @@ set my-visible.value = true";
 set my-age.value = 39";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -216,7 +216,7 @@ set my-age.value = 39";
 set my-name.value = warabemoti";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -240,7 +240,7 @@ set my-name.value = warabemoti";
 set my-array.value = ""a"",""b"",""c""";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -267,7 +267,7 @@ set my-array.value = ""a"",""b"",""c""";
 set my-visible = true";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -290,7 +290,7 @@ set my-visible = true";
 set my-age = 39";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -313,7 +313,7 @@ set my-age = 39";
 set my-name = warabemoti";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -337,7 +337,7 @@ set my-name = warabemoti";
 set my-array = ""a"",""b"",""c""";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -368,7 +368,7 @@ set top2.value = 2
 
             foreach (var line in text.Split(Environment.NewLine))
             {
-                InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+                InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
             }
 
             var plyAliasName = new AliasName("ply");
@@ -406,7 +406,7 @@ set top2.value = 2
             Assert.AreEqual("top2", realName2.Value);
 
             var line = "alias top2 = ply";
-            InputLineDao.ParseLine(appModel, line, (inputLineModelController) => { });
+            InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
 
             var plyAliasName = new AliasName("ply");
             var realName3 = appModel.GetObjectRealName(plyAliasName.Value);

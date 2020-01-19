@@ -3,42 +3,30 @@
     /// <summary>
     /// 次のようなコマンド☆（＾～＾）
     /// 
-    /// `set b-name = Kifuwarabe`
-    /// `set b-name.visible = true`
+    /// `new b-name : string`
     /// 
     /// 構造としては
     /// 
-    /// `set {name}.{property} = {value}`
+    /// `new {instance-name} : {type-name}`
     /// 
-    /// だぜ☆（＾～＾）`.{property}` が省略されている場合、`.value` を補うぜ☆（＾～＾）
-    /// しかし☆
-    /// 
-    /// `set b-name = 1.5`
-    /// 
-    /// イコールの後ろにドットが現れたら嫌だよな☆（＾～＾）
+    /// だぜ☆（＾～＾）
     /// </summary>
     public class NewsInstructionArgumentDto
     {
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string Name { get; private set; }
+        public string InstanceName { get; private set; }
 
         /// <summary>
         /// 前後の空白はトリムするぜ☆（＾～＾）
         /// </summary>
-        public string Property { get; private set; }
+        public string TypeName { get; private set; }
 
-        /// <summary>
-        /// 前後の空白はトリムするぜ☆（＾～＾）
-        /// </summary>
-        public string Value { get; private set; }
-
-        public NewsInstructionArgumentDto(string name, string property, string value)
+        public NewsInstructionArgumentDto(string instanceName, string typeName)
         {
-            this.Name = name;
-            this.Property = property;
-            this.Value = value;
+            this.InstanceName = instanceName;
+            this.TypeName = typeName;
         }
 
         /// <summary>
@@ -47,7 +35,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.Name}.{this.Property} = {this.Value}";
+            return $"{this.InstanceName} = {this.TypeName}";
         }
     }
 }
