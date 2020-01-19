@@ -33,7 +33,7 @@
                 appView.PieceBoard.ForeachPiace(
                     (piece, zShapedIndex) =>
                     {
-                        StoneView.Repaint(appModel, layerIndex, zShapedIndex, piece);
+                        PieceView.Repaint(appModel, layerIndex, zShapedIndex, piece);
                     });
             }
 

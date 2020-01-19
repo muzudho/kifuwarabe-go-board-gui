@@ -36,6 +36,14 @@
             var paddingLeft = appView.board.Width * 0.05;
             var paddingTop = appView.board.Height * 0.05;
 
+            // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+            var offsetTopRate = 0.0;
+
+            if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
+            {
+                offsetTopRate = 0.5;
+            }
+
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
                 var rowNumbers = appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value;
@@ -53,9 +61,10 @@
                     label.FontSize = columnInterval * 0.9;
                     label.Width = columnInterval * 1.8;
                     label.Height = rowInterval * 1.8;
+
                     // 盤☆（＾～＾）
                     Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row);
+                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row + label.Height * offsetTopRate);
                 }
             }
         }

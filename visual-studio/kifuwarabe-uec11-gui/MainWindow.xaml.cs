@@ -194,7 +194,7 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
-            StoneView.FitSizeToWindow(this.Model, this);
+            PieceView.FitSizeToWindow(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
             ColumnNumberView.Repaint(this.Model, this);

@@ -9,10 +9,10 @@
     using KifuwarabeGoBoardGui.Model.Dto;
     using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
-    public static class StoneView
+    public static class PieceView
     {
         /// <summary>
-        /// 石ならEllipse型☆（＾～＾）
+        /// ピースの描画☆（＾～＾）
         /// </summary>
         /// <param name="appModel"></param>
         /// <param name="zShapedIndex"></param>
@@ -55,7 +55,7 @@
         }
 
         /// <summary>
-        /// 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
+        /// ピースをウィンドウ・サイズに合わせようぜ☆（＾～＾）？
         /// </summary>
         public static void FitSizeToWindow(ApplicationObjectDtoWrapper appModel, MainWindow appView)
         {
@@ -67,6 +67,16 @@
             if (appView == null)
             {
                 throw new ArgumentNullException(nameof(appView));
+            }
+
+            // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+            var offsetLeftRate = 0.0;
+            var offsetTopRate = 0.0;
+
+            if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
+            {
+                offsetLeftRate = 0.5;
+                offsetTopRate = 0.5;
             }
 
             // TODO レイヤー番号。
@@ -83,8 +93,8 @@
                             piece.Width = appView.board.Width / appModel.GetColumnDiv() * 0.8;
                             piece.Height = appView.board.Height / appModel.GetRowDiv() * 0.8;
 
-                            Canvas.SetLeft(piece, left - piece.Width / 2);
-                            Canvas.SetTop(piece, top - piece.Height / 2);
+                            Canvas.SetLeft(piece, left - piece.Width / 2 + piece.Width * offsetLeftRate);
+                            Canvas.SetTop(piece, top - piece.Height / 2 + piece.Height * offsetTopRate);
                         });
                     }
                     else

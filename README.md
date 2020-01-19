@@ -26,6 +26,12 @@ info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 * ![Image](./doc/example-script/script-3.png)  [Example-3 Star-Background](./doc/example-script/script-3.txt)
 * ![Image](./doc/example-script/script-4.png)  [Example-4 Star-Background-Colored](./doc/example-script/script-4.txt)
 
+# Shogi extend
+
+WIP. 将棋にも対応できるように拡張しようぜ☆（＾～＾）
+
+[Shogi extend](./doc/shogi-extend.md)
+
 # Output JSON
 
 コマンドを全部 GUI が処理すると最後に `./output.json` を出力する☆（＾～＾） 仕様は 決まってないぜ☆（＾～＾）実装の気分☆（＾～＾）

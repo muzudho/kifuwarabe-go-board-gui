@@ -3,6 +3,17 @@
     using System;
     using KifuwarabeGoBoardGui.Model.Dto;
 
+    /// <summary>
+    /// board 構文☆（＾～＾）
+    /// 
+    /// board 5 .....
+    /// board 4 .....
+    /// board 3 .....
+    /// board 2 .....
+    /// board 1 .....
+    /// #       12345
+    /// 
+    /// </summary>
     public static class BoardInstructionArgumentParser
     {
         /// <summary>

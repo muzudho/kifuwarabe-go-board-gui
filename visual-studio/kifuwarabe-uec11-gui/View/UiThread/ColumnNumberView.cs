@@ -24,6 +24,14 @@
 
             var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
 
+            // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+            var offsetLeftRate = 0.0;
+
+            if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
+            {
+                offsetLeftRate = 0.5;
+            }
+
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
                 var label = appView.ColumnLabels[column];
@@ -56,8 +64,9 @@
                     label.FontSize = columnInterval * 0.9;
                     label.Width = columnInterval * 1.8;
                     label.Height = rowInterval * 1.8;
+
                     // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
-                    Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen));
+                    Canvas.SetLeft(label, boardLeft + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen) + label.Width * offsetLeftRate);
                     Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * appModel.RowSize);
                 }
             }
