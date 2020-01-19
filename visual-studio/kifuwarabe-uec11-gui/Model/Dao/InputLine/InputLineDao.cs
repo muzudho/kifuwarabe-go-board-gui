@@ -101,10 +101,8 @@
 
             var instance = new InputLineDao(appModel, line);
 
-            InputLineParser.ParseByLine(
-                line,
-                appModel,
-                (aliasInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) =>
                 {
                     var args = (AliasArgumentDto)aliasInstruction.Argument;
                     // Trace.WriteLine($"Info            | Alias1 RealName=[{args.RealName.Value}] args=[{args.ToDisplay()}]");
@@ -119,8 +117,8 @@
                     }
                     // Trace.WriteLine($"Info            | Alias3 {aliasInstruction.Command} RealName={args.RealName.Value} args=[{args.ToDisplay()}]");
                     instance.AliasInstruction = aliasInstruction;
-                },
-                (boardInstruction) =>
+                })
+                .AppendCallbackOnBoardCommand((boardInstruction) =>
                 {
                     var args = (BoardArgumentDto)boardInstruction.Argument;
                     int zShapedIndex = CellAddress.ToIndex(args.RowAddress.NumberO0, 0, appModel);
@@ -158,17 +156,17 @@
                                 break;
                         }
                     }
-                },
-                (commentLine) =>
+                })
+                .AppendCallbackOnCommentCommand((commentLine) =>
                 {
                     instance.CommentLine = commentLine;
-                },
-                (exitsInstruction) =>
+                })
+                .AppendCallbackOnExitsCommand((exitsInstruction) =>
                 {
                     // このアプリケーションを終了します。
                     System.Windows.Application.Current.Shutdown();
-                },
-                (infoInstruction) =>
+                })
+                .AppendCallbackOnInfoCommand((infoInstruction) =>
                 {
                     // `set info = banana` のシンタックス・シュガーだぜ☆（＾～＾）
 
@@ -178,112 +176,114 @@
                     // 改行コードに対応☆（＾～＾）ただし 垂直タブ（めったに使わんだろ） は除去☆（＾～＾）
                     var text = MainWindow.SoluteNewline(args.Text);
                     instance.AppModel.AddString(ApplicationDto.InfoRealName, new PropertyString("", text));
-                },
-                (jsonInstruction) =>
+                })
+                .AppendCallbackOnJsonCommand((jsonInstruction) =>
                 {
                     var args = (JsonInstructionArgumentDto)jsonInstruction.Argument;
                     Trace.WriteLine($"Json            | {jsonInstruction.Command} args.Json.Length={args.Json.Length}");
 
                     instance.JsonAppModel = new ApplicationObjectDtoWrapper(ApplicationDto.Parse(args.Json));
-                },
-                (putsInstruction) =>
+                })
+                .AppendCallbackOnNewsCommand((newsInstruction) =>
                 {
-                    // モデルに値をセットしようぜ☆（＾～＾）
-                    var args1 = (PutsInstructionArgumentDto)putsInstruction.Argument;
+                    Trace.WriteLine($"Warning         | Unimplemented newsInstruction.");
+                })
+                .AppendCallbackOnPutsCommand((putsInstruction) =>
+                    {
+                        // モデルに値をセットしようぜ☆（＾～＾）
+                        var args1 = (PutsInstructionArgumentDto)putsInstruction.Argument;
 
-                    // TODO レイヤー番号。
-                    var layerIndex = 0;
+                        // TODO レイヤー番号。
+                        var layerIndex = 0;
 
-                    // TODO 色名から色オブジェクトへ変換☆（＾～＾）
-                    ColorDao.CreateColor(
-                        appModel,
-                        args1.ColorName,
-                        (colorDto) =>
-                        {
-                            var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
-                            // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
-                            foreach (var cellRange in args2.Destination.CellRanges)
+                        // TODO 色名から色オブジェクトへ変換☆（＾～＾）
+                        ColorDao.CreateColor(
+                            appModel,
+                            args1.ColorName,
+                            (colorDto) =>
                             {
-                                foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                var args2 = (PutsInstructionArgumentDto)putsInstruction.Argument;
+                                // インデックスの並びは、内部的には Z字方向式 だぜ☆（＾～＾）
+                                foreach (var cellRange in args2.Destination.CellRanges)
                                 {
-                                    PieceDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), layerIndex, zShapedIndex);
+                                    foreach (var zShapedIndex in cellRange.ToIndexes(appModel))
+                                    {
+                                        PieceDao.ChangeModel(appModel, new PieceDto(colorDto, PieceShapes.Stone), layerIndex, zShapedIndex);
+                                    }
                                 }
-                            }
 
-                            // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                            instance.PutsArg = args1;
-                        },
-                        (err) =>
+                                // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                                instance.PutsArg = args1;
+                            },
+                            (err) =>
+                            {
+                                Trace.WriteLine($"Error   | Catch.199. {err}");
+                            });
+                    })
+                .AppendCallbackOnSetsCommand((setsInstruction) =>
+                    {
+                        // モデルに値をセットしようぜ☆（＾～＾）
+                        var args1 = (SetsInstructionArgumentDto)setsInstruction.Argument;
+
+                        // エイリアスが設定されていれば変換するぜ☆（＾～＾）
+                        var realName = appModel.GetObjectRealName(args1.Name);
+
+                        // これが参照渡しになっているつもりだが……☆（＾～＾）
+                        appModel.MatchPropertyOption(
+                            realName,
+                            (propModel) =>
+                            {
+                                // .typeプロパティなら、propModelはヌルで構わない。
+                                PropertyDao.ChangeModel(appModel, realName, propModel, args1);
+                            },
+                            () =>
+                            {
+                                // モデルが無くても .typeプロパティ は働く☆（＾～＾）
+                                PropertyDao.ChangeModel(appModel, realName, null, args1);
+                            });
+
+                        // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
+                        // 列番号☆（＾～＾）
+                        if (realName.Value == ApplicationDto.ColumnNumbersRealName.Value)
                         {
-                            Trace.WriteLine($"Error   | Catch.199. {err}");
-                        });
-                },
-                (setsInstruction) =>
-                {
-                    // モデルに値をセットしようぜ☆（＾～＾）
-                    var args1 = (SetsInstructionArgumentDto)setsInstruction.Argument;
-
-                    // エイリアスが設定されていれば変換するぜ☆（＾～＾）
-                    var realName = appModel.GetObjectRealName(args1.Name);
-
-                    // これが参照渡しになっているつもりだが……☆（＾～＾）
-                    appModel.MatchPropertyOption(
-                        realName,
-                        (propModel) =>
+                            Trace.WriteLine($"Info    | Column numbers change model.");
+                            ColumnNumbersDao.ChangeModel(appModel, args1);
+                        }
+                        // 行番号☆（＾～＾）
+                        else if (realName.Value == ApplicationDto.RowNumbersRealName.Value)
                         {
-                            // .typeプロパティなら、propModelはヌルで構わない。
-                            PropertyDao.ChangeModel(appModel, realName, propModel, args1);
-                        },
-                        () =>
+                            Trace.WriteLine($"Info    | Row numbers change model.");
+                            RowNumbersDao.ChangeModel(appModel, args1);
+                        }
+                        // 盤上の星☆（＾～＾）
+                        else if (realName.Value == ApplicationDto.StarsRealName.Value)
                         {
-                            // モデルが無くても .typeプロパティ は働く☆（＾～＾）
-                            PropertyDao.ChangeModel(appModel, realName, null, args1);
-                        });
+                            Trace.WriteLine($"Info    | Stars change model.");
+                            StarsDao.ChangeModel(appModel, args1);
+                        }
 
-                    // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
-                    // 列番号☆（＾～＾）
-                    if (realName.Value == ApplicationDto.ColumnNumbersRealName.Value)
+                        // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                        instance.SetsArg = args1;
+                    })
+                .AppendCallbackOnSleepsCommand(
+                    (sleepsInstruction) =>
                     {
-                        Trace.WriteLine($"Info    | Column numbers change model.");
-                        ColumnNumbersDao.ChangeModel(appModel, args1);
-                    }
-                    // 行番号☆（＾～＾）
-                    else if (realName.Value == ApplicationDto.RowNumbersRealName.Value)
-                    {
-                        Trace.WriteLine($"Info    | Row numbers change model.");
-                        RowNumbersDao.ChangeModel(appModel, args1);
-                    }
-                    // 盤上の星☆（＾～＾）
-                    else if (realName.Value == ApplicationDto.StarsRealName.Value)
-                    {
-                        Trace.WriteLine($"Info    | Stars change model.");
-                        StarsDao.ChangeModel(appModel, args1);
-                    }
+                        // プロパティ☆（＾～＾）
+                        var args1 = (SleepsInstructionArgumentDto)sleepsInstruction.Argument;
 
-                    // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                    instance.SetsArg = args1;
-                },
-                (sleepsInstruction) =>
-                {
-                    // プロパティ☆（＾～＾）
-                    var args1 = (SleepsInstructionArgumentDto)sleepsInstruction.Argument;
+                        // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                        instance.SleepsArg = args1;
 
-                    // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
-                    instance.SleepsArg = args1;
-
-                    // UIタイマーの方で操作することにした☆（＾～＾）
-                    /*
-                    // 指定ミリ秒待機☆（＾～＾）
-                    Task.Run(async () =>
-                    {
-                        await Task.Delay(args1.MilliSeconds).ConfigureAwait(false);
-                    }).Wait();
-                    */
-                },
-                () =>
-                {
-                    // 何もしないぜ☆（＾～＾）
-                });
+                        // UIタイマーの方で操作することにした☆（＾～＾）
+                        /*
+                        // 指定ミリ秒待機☆（＾～＾）
+                        Task.Run(async () =>
+                        {
+                            await Task.Delay(args1.MilliSeconds).ConfigureAwait(false);
+                        }).Wait();
+                        */
+                    })
+                .ParseByLine(line, appModel);
 
             callbackDone(instance);
         }

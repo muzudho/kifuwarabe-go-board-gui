@@ -17,23 +17,22 @@
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                "# This is a comment.",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) =>
                 {
                     Assert.AreEqual("# This is a comment.", commentLine);
-                },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine("# This is a comment.", appModel);
         }
 
         /// <summary>
@@ -44,25 +43,24 @@
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                "alias top2 = ply sasite",
-                appModel,
-                (aliasInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) =>
                 {
                     Assert.AreEqual("alias", aliasInstruction.Command);
                     Assert.IsTrue(aliasInstruction.Argument is AliasArgumentDto);
                     Assert.AreEqual("top2 = ply sasite", ((AliasArgumentDto)aliasInstruction.Argument).ToDisplay());
-                },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine("alias top2 = ply sasite", appModel);
         }
 
         /// <summary>
@@ -86,25 +84,24 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            InputLineParser.ParseByLine(
-                "board 19 ...................",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) =>
                 {
                     Assert.AreEqual("board", boardInstruction.Command);
                     Assert.IsTrue(boardInstruction.Argument is BoardArgumentDto);
                     Assert.AreEqual("19 ...................", ((BoardArgumentDto)boardInstruction.Argument).ToDisplay(appModel));
-                },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine("board 19 ...................", appModel);
         }
 
         /// <summary>
@@ -115,24 +112,23 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                "exit",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) =>
                 {
                     Assert.AreEqual("exit", exitsInstruction.Command);
                     // 引数なし
-                },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine("exit", appModel);
         }
 
         /// <summary>
@@ -143,25 +139,24 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                "info This is a my banana!",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) =>
                 {
                     Assert.AreEqual("info", infoInstruction.Command);
                     Assert.IsTrue(infoInstruction.Argument is InfoInstructionArgumentDto);
                     Assert.AreEqual("This is a my banana!", ((InfoInstructionArgumentDto)infoInstruction.Argument).ToDisplay());
-                },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine("info This is a my banana!", appModel);
         }
 
         /// <summary>
@@ -172,25 +167,24 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                @"json {""uso"":800}",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) =>
                 {
                     Assert.AreEqual("json", jsonInstruction.Command);
                     Assert.IsTrue(jsonInstruction.Argument is JsonInstructionArgumentDto);
                     Assert.AreEqual(@"{""uso"":800}", ((JsonInstructionArgumentDto)jsonInstruction.Argument).ToDisplay());
-                },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine(@"json {""uso"":800}", appModel);
         }
 
         /// <summary>
@@ -214,25 +208,24 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            InputLineParser.ParseByLine(
-                @"put black to K10",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) =>
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) =>
                 {
                     Assert.AreEqual("put", putsInstruction.Command);
                     Assert.IsTrue(putsInstruction.Argument is PutsInstructionArgumentDto);
                     Assert.AreEqual("black to K10", ((PutsInstructionArgumentDto)putsInstruction.Argument).ToDisplay(appModel));
-                },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+                })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine(@"put black to K10", appModel);
         }
 
         /// <summary>
@@ -256,25 +249,24 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            InputLineParser.ParseByLine(
-                @"set b-name.visible = true",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) =>
-                {
-                    Assert.AreEqual("set", setsInstruction.Command);
-                    Assert.IsTrue(setsInstruction.Argument is SetsInstructionArgumentDto);
-                    Assert.AreEqual("b-name.visible = true", ((SetsInstructionArgumentDto)setsInstruction.Argument).ToDisplay());
-                },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () => { Assert.Fail(); }
-                );
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) =>
+                    {
+                        Assert.AreEqual("set", setsInstruction.Command);
+                        Assert.IsTrue(setsInstruction.Argument is SetsInstructionArgumentDto);
+                        Assert.AreEqual("b-name.visible = true", ((SetsInstructionArgumentDto)setsInstruction.Argument).ToDisplay());
+                    })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(() => { Assert.Fail(); })
+                .ParseByLine(@"set b-name.visible = true", appModel);
         }
 
         /// <summary>
@@ -285,23 +277,23 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         {
             var appModel = new ApplicationObjectDtoWrapper();
 
-            InputLineParser.ParseByLine(
-                @"わはは☆ｍ９（＾▽＾）！",
-                appModel,
-                (aliasInstruction) => { Assert.Fail(); },
-                (boardInstruction) => { Assert.Fail(); },
-                (commentLine) => { Assert.Fail(); },
-                (exitsInstruction) => { Assert.Fail(); },
-                (infoInstruction) => { Assert.Fail(); },
-                (jsonInstruction) => { Assert.Fail(); },
-                (putsInstruction) => { Assert.Fail(); },
-                (setsInstruction) => { Assert.Fail(); },
-                (sleepsInstruction) => { Assert.Fail(); },
-                () =>
-                {
-                    // 成功☆（＾～＾）
-                }
-                );
+            new InputLineParser()
+                .AppendCallbackOnAliasCommand((aliasInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnBoardCommand((boardInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnCommentCommand((commentLine) => { Assert.Fail(); })
+                .AppendCallbackOnExitsCommand((exitsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnInfoCommand((infoInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnJsonCommand((jsonInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNewsCommand((newsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnPutsCommand((putsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSetsCommand((setsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnSleepsCommand((sleepsInstruction) => { Assert.Fail(); })
+                .AppendCallbackOnNoneCommand(
+                    () =>
+                    {
+                        // 成功☆（＾～＾）
+                    })
+                .ParseByLine(@"わはは☆ｍ９（＾▽＾）！", appModel);
         }
     }
 }

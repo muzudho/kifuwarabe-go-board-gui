@@ -20,6 +20,7 @@
         private static string BoardCommand => "board";
         private static string ExitsCommand => "exit";
         private static string JsonCommand => "json";
+        private static string NewsCommand => "new";
         private static string PutsCommand => "put";
         private static string SetsCommand => "set";
         public static string SleepsCommand => "sleep";
@@ -33,81 +34,93 @@
         /// </summary>
         public static string InfoCommand => "info";
 
-        public List<Instruction> Instructions { get; private set; }
-
-        public InputLineParser(List<Instruction> instructions)
+        private CommandCallback callbackOnAliasCommand;
+        public InputLineParser AppendCallbackOnAliasCommand(CommandCallback callback)
         {
-            this.Instructions = instructions;
+            this.callbackOnAliasCommand = callback;
+            return this;
         }
 
-        public static void ParseByLine(
-            string line,
-            ApplicationObjectDtoWrapper appModel,
-            CommandCallback aliasCommandCallback,
-            CommandCallback boardCommandCallback,
-            CommentCallback commentCallback,
-            CommandCallback exitsCommandCallback,
-            CommandCallback infoCommandCallback,
-            CommandCallback jsonCommandCallback,
-            CommandCallback putsCommandCallback,
-            CommandCallback setsCommandCallback,
-            CommandCallback sleepsCommandCallback,
-            NoneCallback noneCallback)
+        private CommandCallback callbackOnBoardCommand;
+        public InputLineParser AppendCallbackOnBoardCommand(CommandCallback callback)
         {
-            if (commentCallback == null)
-            {
-                throw new ArgumentNullException(nameof(commentCallback));
-            }
+            this.callbackOnBoardCommand = callback;
+            return this;
+        }
 
-            if (aliasCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(aliasCommandCallback));
-            }
+        private CommentCallback callbackOnCommentCommand;
+        public InputLineParser AppendCallbackOnCommentCommand(CommentCallback callback)
+        {
+            this.callbackOnCommentCommand = callback;
+            return this;
+        }
 
-            if (boardCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(boardCommandCallback));
-            }
+        private CommandCallback callbackOnExitsCommand;
+        public InputLineParser AppendCallbackOnExitsCommand(CommandCallback callback)
+        {
+            this.callbackOnExitsCommand = callback;
+            return this;
+        }
 
-            if (exitsCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(exitsCommandCallback));
-            }
+        private CommandCallback callbackOnInfoCommand;
+        public InputLineParser AppendCallbackOnInfoCommand(CommandCallback callback)
+        {
+            this.callbackOnInfoCommand = callback;
+            return this;
+        }
 
-            if (infoCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(infoCommandCallback));
-            }
+        private CommandCallback callbackOnJsonCommand;
+        public InputLineParser AppendCallbackOnJsonCommand(CommandCallback callback)
+        {
+            this.callbackOnJsonCommand = callback;
+            return this;
+        }
 
-            if (jsonCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(jsonCommandCallback));
-            }
+        private CommandCallback callbackOnNewsCommand;
+        public InputLineParser AppendCallbackOnNewsCommand(CommandCallback callback)
+        {
+            this.callbackOnNewsCommand = callback;
+            return this;
+        }
 
-            if (putsCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(putsCommandCallback));
-            }
+        private CommandCallback callbackOnPutsCommand;
+        public InputLineParser AppendCallbackOnPutsCommand(CommandCallback callback)
+        {
+            this.callbackOnPutsCommand = callback;
+            return this;
+        }
 
-            if (setsCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(setsCommandCallback));
-            }
+        private CommandCallback callbackOnSetsCommand;
+        public InputLineParser AppendCallbackOnSetsCommand(CommandCallback callback)
+        {
+            this.callbackOnSetsCommand = callback;
+            return this;
+        }
 
-            if (sleepsCommandCallback == null)
-            {
-                throw new ArgumentNullException(nameof(sleepsCommandCallback));
-            }
+        private CommandCallback callbackOnSleepsCommand;
+        public InputLineParser AppendCallbackOnSleepsCommand(CommandCallback callback)
+        {
+            this.callbackOnSleepsCommand = callback;
+            return this;
+        }
 
-            if (noneCallback == null)
-            {
-                throw new ArgumentNullException(nameof(noneCallback));
-            }
+        private NoneCallback callbackOnNoneCommand;
+        public InputLineParser AppendCallbackOnNoneCommand(NoneCallback callback)
+        {
+            this.callbackOnNoneCommand = callback;
+            return this;
+        }
 
+        public InputLineParser()
+        {
+        }
+
+        public void ParseByLine(string line, ApplicationObjectDtoWrapper appModel)
+        {
             // 空行は無視☆（＾～＾）
             if (string.IsNullOrWhiteSpace(line))
             {
-                noneCallback();
+                this.callbackOnNoneCommand?.Invoke();
                 return;
             }
 
@@ -135,7 +148,7 @@
                 (commentSymbol, curr) =>
                 {
                     // 行頭が `#` なら、その行は読み飛ばせだぜ☆（＾～＾）
-                    commentCallback(line);
+                    this.callbackOnCommentCommand?.Invoke(line);
                     return curr;
                 },
                 () =>
@@ -158,7 +171,7 @@
                                     (argument, curr) =>
                                     {
                                         Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
-                                        aliasCommandCallback(new Instruction(commandName.Text, argument));
+                                        this.callbackOnAliasCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         return curr;
                                     },
                                     () =>
@@ -182,7 +195,7 @@
                                         else
                                         {
                                             Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
-                                            boardCommandCallback(new Instruction(commandName.Text, argument));
+                                            this.callbackOnBoardCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         }
 
                                         return curr;
@@ -197,7 +210,7 @@
                             else if (commandName.Text == InputLineParser.ExitsCommand)
                             {
                                 Trace.WriteLine($"Info    | Arg {commandName.Text}");
-                                exitsCommandCallback(new Instruction(commandName.Text, null));
+                                this.callbackOnExitsCommand?.Invoke(new Instruction(commandName.Text, null));
                             }
                             else if (commandName.Text == InputLineParser.InfoCommand)
                             {
@@ -210,7 +223,7 @@
                                 else
                                 {
                                     Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
-                                    infoCommandCallback(new Instruction(commandName.Text, argument));
+                                    this.callbackOnInfoCommand?.Invoke(new Instruction(commandName.Text, argument));
                                 }
                             }
                             else if (commandName.Text == InputLineParser.JsonCommand)
@@ -224,8 +237,29 @@
                                 else
                                 {
                                     Trace.WriteLine($"Arg     | {commandName.Text} {argument.ToDisplay()}");
-                                    jsonCommandCallback(new Instruction(commandName.Text, argument));
+
+                                    this.callbackOnJsonCommand?.Invoke(new Instruction(commandName.Text, argument));
                                 }
+                            }
+                            else if (commandName.Text == InputLineParser.NewsCommand)
+                            {
+                                curr = NewsInstructionArgumentParser.Parse(
+                                    line,
+                                    curr,
+                                    (argument, curr) =>
+                                    {
+                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+
+                                        this.callbackOnNewsCommand?.Invoke(new Instruction(commandName.Text, argument));
+
+                                        return curr;
+                                    },
+                                    () =>
+                                    {
+                                        // パース失敗☆（＾～＾）
+                                        Trace.WriteLine($"Error   | {line}");
+                                        return curr;
+                                    });
                             }
                             else if (commandName.Text == InputLineParser.PutsCommand)
                             {
@@ -242,7 +276,8 @@
                                         else
                                         {
                                             Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
-                                            putsCommandCallback(new Instruction(commandName.Text, argument));
+
+                                            this.callbackOnPutsCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         }
 
                                         return curr;
@@ -262,7 +297,9 @@
                                     (argument, curr) =>
                                     {
                                         Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
-                                        setsCommandCallback(new Instruction(commandName.Text, argument));
+
+                                        this.callbackOnSetsCommand?.Invoke(new Instruction(commandName.Text, argument));
+
                                         return curr;
                                     },
                                     () =>
@@ -280,7 +317,9 @@
                                     (argument, curr) =>
                                     {
                                         Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
-                                        sleepsCommandCallback(new Instruction(commandName.Text, argument));
+
+                                        this.callbackOnSleepsCommand?.Invoke(new Instruction(commandName.Text, argument));
+
                                         return curr;
                                     },
                                     () =>
@@ -305,9 +344,9 @@
                         });
                 });
 
-            if (instructions == null)
+            if (instructions == null && this.callbackOnNoneCommand != null)
             {
-                noneCallback();
+                this.callbackOnNoneCommand();
             }
         }
     }
