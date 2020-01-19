@@ -19,6 +19,16 @@
         public static string StringListType = "string-list";
 
         /// <summary>
+        /// 線の交点の上に石を置きます。
+        /// </summary>
+        public static string Intersection => "intersection";
+
+        /// <summary>
+        /// マスの上に駒を置きます。
+        /// </summary>
+        public static string Square => "square";
+
+        /// <summary>
         /// リアルネームは、後ろに Canvas を付けてXMLタグ名に使う☆（＾～＾）キャメルケース☆（＾～＾） top2 なら top2Canvas だぜ☆（＾～＾）
         /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
@@ -40,6 +50,8 @@
         public static RealName Left4RealName => new RealName("left4");
 
         public static RealName MoveMarkerRealName => new RealName("moveMarker");
+
+        public static RealName PieceLocationRealName => new RealName("piece-location");
 
         public static RealName Right1RealName => new RealName("right1");
 
@@ -71,6 +83,9 @@
         /// </summary>
         public ApplicationDto()
         {
+            // 最新バージョン
+            this.Version = "20200119-2136";
+
             this.Board = new BoardDto();
             this.ObjectRealName = new Dictionary<string, string>();
 
@@ -91,11 +106,8 @@
 
             this.Strings = new Dictionary<string, PropertyString>()
             {
-                /*
-                // 'info' は最初から文字列型として使用可能☆（＾～＾） GUIの画面上にメッセージを表示するぜ☆（＾～＾）
-                // 改行は "\n" にだけ対応☆（＾～＾） 代わりに "\v" （垂直タブ）は使えなくなった☆（＾～＾）
-                {InfoRealName.Value, new PropertyString(string.Empty, string.Empty) },
-                */
+                // 初期値は囲碁☆（＾～＾） 交点の上に石を置くぜ☆（＾～＾） 将棋なら 'square' ☆（＾～＾）
+                {PieceLocationRealName.Value, new PropertyString("#piece-location", Intersection) },
             };
 
             this.StringLists = new Dictionary<string, PropertyStringList>()
@@ -141,10 +153,13 @@
             };
 
             // 盤のサイズ
-            this.Board.Resize(this.RowSize, this.ColumnSize);
+            this.Board.Resize(this.GetRowSize(), this.GetColumnSize());
         }
 
-        public string Version => "20191222-1011";
+        /// <summary>
+        /// このJSONの仕様☆（＾～＾）
+        /// </summary>
+        public string Version { get; set; }
 
         /// <summary>
         /// 盤☆（＾～＾）
@@ -176,28 +191,24 @@
         /// </summary>
         public Dictionary<string, PropertyStringList> StringLists { get; set; }
 
-        public int RowSize
+        public int GetRowSize()
         {
-            get
-            {
-                return (int)this.Numbers[RowSizeRealName.Value].Value;
-            }
-            set
-            {
-                this.Numbers[RowSizeRealName.Value].Value = value;
-            }
+            return (int) this.Numbers[RowSizeRealName.Value].Value;
         }
 
-        public int ColumnSize
+        public void SetRowSize(int value)
         {
-            get
-            {
-                return (int)this.Numbers[ColumnSizeRealName.Value].Value;
-            }
-            set
-            {
-                this.Numbers[ColumnSizeRealName.Value].Value = value;
-            }
+            this.Numbers[RowSizeRealName.Value].Value = value;
+        }
+
+        public int GetColumnSize()
+        {
+            return (int)this.Numbers[ColumnSizeRealName.Value].Value;
+        }
+
+        public void SetColumnSize(int value)
+        {
+            this.Numbers[ColumnSizeRealName.Value].Value = value;
         }
 
         /// <summary>
@@ -205,7 +216,7 @@
         /// </summary>
         public int GetRowDiv()
         {
-            return RowSize + MainWindow.SignLen + 1;
+            return GetRowSize() + MainWindow.SignLen + 1;
         }
 
         /// <summary>
@@ -213,7 +224,7 @@
         /// </summary>
         public int GetColumnDiv()
         {
-            return ColumnSize + MainWindow.SignLen + 1;
+            return GetColumnSize() + MainWindow.SignLen + 1;
         }
 
         /// <summary>
@@ -221,7 +232,7 @@
         /// </summary>
         public int GetRowLastO0()
         {
-            return RowSize - 1;
+            return GetRowSize() - 1;
         }
 
         /// <summary>
@@ -229,7 +240,7 @@
         /// </summary>
         public int GetColumnLastO0()
         {
-            return ColumnSize - 1;
+            return GetColumnSize() - 1;
         }
 
         /// <summary>
@@ -237,7 +248,7 @@
         /// </summary>
         public int GetCellCount()
         {
-            return RowSize * ColumnSize;
+            return GetRowSize() * GetColumnSize();
         }
 
         public static ApplicationDto Parse(string json)
@@ -250,8 +261,8 @@
             };
 
             var newModel = JsonSerializer.Deserialize(json, typeof(ApplicationDto), option1) as ApplicationDto;
-            Trace.WriteLine($"ColumnSize      | {newModel.ColumnSize}");
-            Trace.WriteLine($"RowSize         | {newModel.RowSize}");
+            Trace.WriteLine($"ColumnSize      | {newModel.GetColumnSize()}");
+            Trace.WriteLine($"RowSize         | {newModel.GetRowSize()}");
 
             /*
             {

@@ -64,11 +64,11 @@
         {
             get
             {
-                return this.ApplicationObjectModel.RowSize;
+                return this.ApplicationObjectModel.GetRowSize();
             }
             set
             {
-                this.ApplicationObjectModel.RowSize = value;
+                this.ApplicationObjectModel.SetRowSize(value);
             }
         }
 
@@ -76,11 +76,11 @@
         {
             get
             {
-                return this.ApplicationObjectModel.ColumnSize;
+                return this.ApplicationObjectModel.GetColumnSize();
             }
             set
             {
-                this.ApplicationObjectModel.ColumnSize = value;
+                this.ApplicationObjectModel.SetColumnSize(value);
             }
         }
 

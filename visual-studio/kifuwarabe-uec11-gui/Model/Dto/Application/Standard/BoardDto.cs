@@ -1,6 +1,5 @@
 ﻿namespace KifuwarabeGoBoardGui.Model.Dto
 {
-    using System.Collections.Generic;
     using KifuwarabeGoBoardGui.Model.Dto.Application.Standard;
 
     /// <summary>

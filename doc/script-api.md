@@ -27,10 +27,15 @@
 `input.txt` に以下のテキストをベタっと貼り付けて、保存しろだぜ☆（＾～＾）
 
 ```
+# script☆（＾～＾）
 #----------------------------------------
 # 盤設定☆（＾～＾）
 
-# set するときは type を最初に指定する必要があるぜ☆（＾～＾）
+# 囲碁は交点に石を置くぜ☆（＾～＾）
+# 値を set する前に new で名前と型を決めろだぜ☆（＾～＾）
+new piece-location : string
+set piece-location = intersection
+
 new row-size : number
 set row-size = 19
 
@@ -175,7 +180,13 @@ set move = D16
 Example:
 
 ```
-# 変数は、 type を最初に決める必要があるぜ☆（＾～＾）
+# script☆（＾～＾）
+
+# 囲碁は交点に石を置くぜ☆（＾～＾）
+# 値を set する前に new で名前と型を決めろだぜ☆（＾～＾）
+new piece-location : string
+set piece-location = intersection
+
 new row-size : number
 set row-size = 15
 

@@ -258,8 +258,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         public void TestReadJson()
         {
             var appModel = ApplicationDto.Parse("{\"numbers\":{\"row-size\":{\"value\":15},\"column-size\":{\"value\":13}}}");
-            Assert.AreEqual(15, appModel.RowSize);
-            Assert.AreEqual(13, appModel.ColumnSize);
+            Assert.AreEqual(15, appModel.GetRowSize());
+            Assert.AreEqual(13, appModel.GetColumnSize());
         }
 
         /// <summary>
