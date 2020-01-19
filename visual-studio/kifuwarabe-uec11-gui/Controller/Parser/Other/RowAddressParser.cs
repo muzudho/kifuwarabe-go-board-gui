@@ -43,7 +43,7 @@
             }
 
             // 複数桁の数字☆（＾～＾）
-            var figures = 0;
+            int figures;
             {
                 if (int.TryParse(text[start].ToString(CultureInfo.CurrentCulture), out int outRow))
                 {

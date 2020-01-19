@@ -13,7 +13,7 @@ namespace UnitTestProject1
     public class UnitTest1
     {
         /// <summary>
-        /// ŠÈ’P‚ÈÀs™iO`Oj
+        /// ç°¡å˜ãªå®Ÿè¡Œâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void Test1()
@@ -21,7 +21,7 @@ namespace UnitTestProject1
             var appModel = new ApplicationObjectDtoWrapper();
 
             /*
-            // ŠÈ’P‚ÈÀs™iO`Oj
+            // ç°¡å˜ãªå®Ÿè¡Œâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             var builder = new StringBuilder();
             builder.Append("[");
             for (int i=0; i<100; i++)
@@ -33,7 +33,7 @@ namespace UnitTestProject1
             // */
 
             //*
-            // ŠÈ’P‚ÈÀs™iO`Oj
+            // ç°¡å˜ãªå®Ÿè¡Œâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             var builder = new StringBuilder();
             builder.Append("[");
             for (int i = 0; i < appModel.ColumnSize; i++)
@@ -46,7 +46,7 @@ namespace UnitTestProject1
         }
 
         /// <summary>
-        /// ‘Û®ˆÍŒé‚ÌƒZƒ‹”Ô’n•\‹L‚ğƒeƒXƒg™iO`Oj
+        /// å›½éš›å¼å›²ç¢ã®ã‚»ãƒ«ç•ªåœ°è¡¨è¨˜ã‚’ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestInternationalCellAddress()
@@ -54,9 +54,10 @@ namespace UnitTestProject1
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"
-# ‘ÛˆÍŒé‚Å‚Í I—ñ‚Í–³‚¢‚ñ‚¾‚º™iO`Oj
+                var text = @"# å›½éš›å›²ç¢ã§ã¯ Iåˆ—ã¯ç„¡ã„ã‚“ã ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -66,10 +67,10 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            // ‚Æ‚è‚ ‚¦‚¸‚±‚ÌƒeƒXƒg‚ÌƒXƒ^[ƒg‚Í0‚É‘µ‚¦‚Ä‚¨‚±‚¤™iO`Oj
+            // ã¨ã‚Šã‚ãˆãšã“ã®ãƒ†ã‚¹ãƒˆã®ã‚¹ã‚¿ãƒ¼ãƒˆã¯0ã«æƒãˆã¦ãŠã“ã†â˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             var start = 0;
 
-            // 2Œ…™iO`Oj
+            // 2æ¡â˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             var list1 = new List<string>()
             {
                 "A1","B2","C3","D4","E5","F6","G7","H8","J9"
@@ -99,7 +100,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                     }));
             }
 
-            // 3Œ…™iO`Oj
+            // 3æ¡â˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             var list2 = new List<string>()
             {
                 "K10",
@@ -136,7 +137,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                     }));
             }
 
-            // ‘å•¶šE¬•¶š‚Í‹æ•Ê‚·‚é‚º™iO`Oj‰ŠúƒZƒbƒg‚Ì—ñ”Ô†‚É¬•¶š‚Í–³‚¢‚º™iO`Oj
+            // å¤§æ–‡å­—ãƒ»å°æ–‡å­—ã¯åŒºåˆ¥ã™ã‚‹ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰åˆæœŸã‚»ãƒƒãƒˆã®åˆ—ç•ªå·ã«å°æ–‡å­—ã¯ç„¡ã„ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             Assert.AreEqual(start, CellAddressParser.Parse(
                 "a1",
                 start,
@@ -156,7 +157,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                     return start;
                 }));
 
-            // ‘å•¶šE¬•¶š‚Í‹æ•Ê‚·‚é‚º™iO`Oj
+            // å¤§æ–‡å­—ãƒ»å°æ–‡å­—ã¯åŒºåˆ¥ã™ã‚‹ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
             Assert.AreEqual(3, CellAddressParser.Parse(
                 "T19",
                 start,
@@ -178,7 +179,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
         }
 
         /// <summary>
-        /// ‘Û®ˆÍŒé‚Ì—ñ”Ô†‚ÌƒeƒXƒg™iO`Oj
+        /// å›½éš›å¼å›²ç¢ã®åˆ—ç•ªå·ã®ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestInternationalColumnAddress()
@@ -186,8 +187,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"
-# ‘ÛˆÍŒé‚Å‚Í I—ñ‚Í–³‚¢‚ñ‚¾‚º™iO`Oj
+                var text = @"# å›½éš›å›²ç¢ã§ã¯ Iåˆ—ã¯ç„¡ã„ã‚“ã ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
 
@@ -239,19 +240,19 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
                 appModel,
                 (matched, curr) =>
                 {
-                    // •s³‰ğ™iO`Oj
+                    // ä¸æ­£è§£â˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
                     Assert.Fail();
                     return curr;
                 },
                 () =>
                 {
-                    // ³‰ğ™iO¤Oj
+                    // æ­£è§£â˜†ï¼ˆï¼¾â–½ï¼¾ï¼‰
                     return start;
                 });
         }
 
         /// <summary>
-        /// JSON‚Ì“ÇƒeƒXƒg™iO`Oj
+        /// JSONã®èª­è¾¼ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestReadJson()
@@ -262,7 +263,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         }
 
         /// <summary>
-        /// JSON‚Ì“ÇƒeƒXƒg™iO`Oj
+        /// JSONã®èª­è¾¼ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestReadStarsJson()
@@ -272,7 +273,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         }
 
         /// <summary>
-        /// ƒZƒ‹‚ÌƒCƒ“ƒfƒbƒNƒX‚ÌƒeƒXƒg™iO`Oj
+        /// ã‚»ãƒ«ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestIndexOfCell()
@@ -280,9 +281,9 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper
             {
 
-                // ƒCƒ“ƒfƒbƒNƒX‚Í ¶ã‚ğ 0 ‚Æ‚µ‚½ Zš‡B
+                // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯ å·¦ä¸Šã‚’ 0 ã¨ã—ãŸ Zå­—é †ã€‚
 
-                // 19˜H”Õ
+                // 19è·¯ç›¤
                 RowSize = 19,
                 ColumnSize = 19
             };
@@ -292,7 +293,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(19 * (19 - 1), CellAddress.ToIndex(19 - 1, 0, appModel));
             Assert.AreEqual(20 * (19 - 1), CellAddress.ToIndex(19 - 1, 19 - 1, appModel));
 
-            // 15˜H”Õ
+            // 15è·¯ç›¤
             appModel.RowSize = 15;
             appModel.ColumnSize = 15;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
@@ -301,7 +302,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(15 * (15 - 1), CellAddress.ToIndex(15 - 1, 0, appModel));
             Assert.AreEqual(16 * (15 - 1), CellAddress.ToIndex(15 - 1, 15 - 1, appModel));
 
-            // 13˜H”Õ
+            // 13è·¯ç›¤
             appModel.RowSize = 13;
             appModel.ColumnSize = 13;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
@@ -310,7 +311,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             Assert.AreEqual(13 * (13 - 1), CellAddress.ToIndex(13 - 1, 0, appModel));
             Assert.AreEqual(14 * (13 - 1), CellAddress.ToIndex(13 - 1, 13 - 1, appModel));
 
-            // 9˜H”Õ
+            // 9è·¯ç›¤
             appModel.RowSize = 9;
             appModel.ColumnSize = 9;
             Assert.AreEqual(0, CellAddress.ToIndex(0, 0, appModel));
@@ -321,7 +322,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         }
 
         /// <summary>
-        /// —ñ”Ô†‚ÌƒeƒXƒg™iO`Oj
+        /// åˆ—ç•ªå·ã®ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestColumnNumbers()
@@ -329,18 +330,28 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"
-# ‘ÛˆÍŒé‚Å‚Í I—ñ‚Í–³‚¢‚ñ‚¾‚º™iO`Oj
+                var text = @"# å›½éš›å›²ç¢ã§ã¯ Iåˆ—ã¯ç„¡ã„ã‚“ã ãœâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
+                Trace.WriteLine($"Debug   | text=[{text}]");
 
-                foreach (var line in text.Split(Environment.NewLine))
+                var lines = text.Split(Environment.NewLine);
+                Trace.WriteLine($"Debug   | lines.Length=[{lines.Length}]");
+
+                foreach (var line in lines)
                 {
+                    Trace.WriteLine($"Debug   | line=[{line}]");
                     InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
             var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
+            Trace.WriteLine($"Debug   | columnNumbers.Count=[{columnNumbers.Count}]");
+            foreach (var item in columnNumbers)
+            {
+                Trace.WriteLine($"Debug   | item=[{item}]");
+            }
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));
@@ -365,7 +376,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
         }
 
         /// <summary>
-        /// s”Ô†‚ÌƒeƒXƒg™iO`Oj
+        /// è¡Œç•ªå·ã®ãƒ†ã‚¹ãƒˆâ˜†ï¼ˆï¼¾ï½ï¼¾ï¼‰
         /// </summary>
         [TestMethod]
         public void TestRowNumbers()
@@ -373,7 +384,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set row-numbers.type = string-list
+                var text = @"new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 # set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""9"", ""8"", ""7"", ""6"", ""5"", ""4"", ""3"", ""2"", ""1""
 ";
@@ -384,7 +395,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
                 }
             }
 
-            // “Áêˆ—B
+            // ç‰¹æ®Šå‡¦ç†ã€‚
             var rowNumbers = appModel.GetRowNumbersTrimed();
 
             Assert.AreEqual(0, rowNumbers.IndexOf("19"));

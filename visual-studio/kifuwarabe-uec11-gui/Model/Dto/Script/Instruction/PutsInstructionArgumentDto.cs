@@ -38,7 +38,7 @@
         /// <returns></returns>
         public string ToDisplay(ApplicationObjectDtoWrapper appModel)
         {
-            return $"{this.ColorName} to {this.Destination.ToDisplay(appModel)}";
+            return $"{this.ColorName.Source} to {this.Destination.ToDisplay(appModel)}";
         }
     }
 }

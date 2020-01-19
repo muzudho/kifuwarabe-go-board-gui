@@ -8,17 +8,17 @@
 #   +---------------+-----------------------------------+
 
 # 盤設定☆（＾～＾）
-set row-size.type = number
+new row-size : number
 set row-size = 10
 
-set column-size.type = number
+new column-size : number
 set column-size = 10
 
-set column-numbers.type = string-list
+new column-numbers : string-list
 set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
 
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
-set row-numbers.type = string-list
+new row-numbers : string-list
 set row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
 # 星は要らね☆（＾～＾）

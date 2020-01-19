@@ -34,13 +34,14 @@
 
         public static InputTextReader OpenOrCreate(string file)
         {
-            var instance = new InputTextReader(file);
-
-            instance.FileStreamR = new System.IO.FileStream(
+            var instance = new InputTextReader(file)
+            {
+                FileStreamR = new System.IO.FileStream(
                 file,
                 FileMode.OpenOrCreate,
                 FileAccess.Read,
-                FileShare.ReadWrite);
+                FileShare.ReadWrite)
+            };
             // Encoding.UTF8 を指定すると BOM付きUTF8、無指定だと BOM無しUTF8 だぜ☆（＾～＾）
             instance.StreamReader = new System.IO.StreamReader(instance.FileStreamR);
 

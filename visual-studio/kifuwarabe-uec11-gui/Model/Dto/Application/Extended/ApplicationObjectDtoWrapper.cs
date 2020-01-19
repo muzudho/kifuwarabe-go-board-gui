@@ -18,12 +18,7 @@
 
         public ApplicationObjectDtoWrapper(ApplicationDto applicationObjectModel)
         {
-            if (applicationObjectModel == null)
-            {
-                throw new ArgumentNullException(nameof(applicationObjectModel));
-            }
-
-            this.ApplicationObjectModel = applicationObjectModel;
+            this.ApplicationObjectModel = applicationObjectModel ?? throw new ArgumentNullException(nameof(applicationObjectModel));
 
             // 盤ラッパー☆（＾～＾）
             this.Board = new BoardDtoWrapper(this.ApplicationObjectModel.Board);

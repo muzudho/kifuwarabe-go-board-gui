@@ -72,7 +72,9 @@
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -110,7 +112,9 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -180,7 +184,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
 
             {
-                var text = @"set info.type = string
+                var text = @"new info : string
 info バナナ食うか☆（＾～＾）？";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -229,7 +233,9 @@ info バナナ食うか☆（＾～＾）？";
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -472,10 +478,10 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-set column-numbers.type = string-list
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 
-set row-numbers.type = string-list
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -545,7 +551,9 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
@@ -777,6 +785,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
+new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
 
@@ -811,7 +820,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"
+                var text = @"new row-numbers : string-list
 set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 

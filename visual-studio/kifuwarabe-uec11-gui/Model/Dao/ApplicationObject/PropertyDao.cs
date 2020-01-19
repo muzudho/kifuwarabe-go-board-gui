@@ -86,7 +86,7 @@
         /// </summary>
         /// <param name="appModel"></param>
         /// <param name="realName"></param>
-        /// <param name="propModel">.typeプロパティを最初に設定するときはヌルで構わない。</param>
+        /// <param name="propModel"></param>
         /// <param name="args"></param>
         public static void ChangeModel(
             ApplicationObjectDtoWrapper appModel,
@@ -138,10 +138,6 @@
                         ((PropertyStringList)propModel).Title = newValue;
                     }
 
-                    break;
-
-                case "type":
-                    CreateProperty(appModel, realName, args.Name, args.Value);
                     break;
 
                 case "visible":

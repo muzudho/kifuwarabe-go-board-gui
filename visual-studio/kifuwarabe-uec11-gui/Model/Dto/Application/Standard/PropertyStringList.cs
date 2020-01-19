@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     /// 値テキストがあって、表示・非表示を切り替えられるものは　これだぜ☆（＾～＾）
@@ -43,9 +44,11 @@
             {
                 // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
                 var token = columns[i].Trim();
+                Trace.WriteLine($"Debug   | PropertyStringList.FromString token=[{token}]");
+
                 if (1 < token.Length)
                 {
-                    columns[i] = token.Substring(1, token.Length - 2);
+                    columns[i] = token[1..^1];
                 }
             }
 

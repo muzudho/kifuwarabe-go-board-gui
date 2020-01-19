@@ -116,7 +116,6 @@
         {
             var grid = this.grid;
             var board = this.board;
-            var moveMarker = this.moveMarker;
 
             // Trace.WriteLine($"サイズチェンジ 横幅={window.Width} 縦幅={window.Height} グリッド {grid.RenderSize.Width}, {grid.RenderSize.Height}");
 
@@ -391,8 +390,10 @@
             // タテ線をヨコに並べるぜ☆（＾～＾）
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
-                var line = new Line();
-                line.Name = $"verticalLine{column}";
+                var line = new Line
+                {
+                    Name = $"verticalLine{column}"
+                };
                 Canvas.SetLeft(line, 0);
                 Canvas.SetTop(line, 0);
                 line.Width = grid.RenderSize.Width;
@@ -413,8 +414,10 @@
             // ヨコ線をタテに並べるぜ☆（＾～＾）
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var line = new Line();
-                line.Name = $"horizontalLine{row}";
+                var line = new Line
+                {
+                    Name = $"horizontalLine{row}"
+                };
                 Canvas.SetLeft(line, 0);
                 Canvas.SetTop(line, 0);
                 line.Width = grid.RenderSize.Width;

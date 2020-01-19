@@ -68,6 +68,7 @@
         public delegate void AliasViewCallback(Instruction aliasInstruction);
         public delegate void InfoViewCallback(string infoLine);
         public delegate void JsonViewCallback(ApplicationObjectDtoWrapper jsonAppModel);
+        public delegate void NewsViewCallback(NewsInstructionArgumentDto newsArgs);
         public delegate void PutsViewCallback(PutsInstructionArgumentDto putsArgs);
         public delegate void SetsViewCallback(SetsInstructionArgumentDto setsArgs);
         public delegate void SleepsViewCallback(SleepsInstructionArgumentDto sleepsArgs);
@@ -77,6 +78,7 @@
         private Instruction AliasInstruction { get; set; }
         private string CommentLine { get; set; }
         private ApplicationObjectDtoWrapper JsonAppModel { get; set; }
+        private NewsInstructionArgumentDto NewsArg { get; set; }
         private PutsInstructionArgumentDto PutsArg { get; set; }
         private SetsInstructionArgumentDto SetsArg { get; set; }
         private SleepsInstructionArgumentDto SleepsArg { get; set; }
@@ -186,16 +188,17 @@
                 })
                 .AppendCallbackOnNewsCommand((newsInstruction) =>
                 {
-                    Trace.WriteLine($"Warning         | Unimplemented newsInstruction.");
-
                     // 引数を取ろうぜ☆（＾～＾）
                     var args1 = (NewsInstructionArgumentDto)newsInstruction.Argument;
 
                     // エイリアスが設定されていれば変換するぜ☆（＾～＾）
                     var realName = appModel.GetObjectRealName(args1.InstanceName);
 
-                    // プロパティが無くても働く☆（＾～＾）
+                    // プロパティを作成するぜ☆（＾～＾）
                     PropertyDao.CreateProperty(appModel, realName, args1.InstanceName, args1.TypeName);
+
+                    // ビューの更新は、呼び出し元でしろだぜ☆（＾～＾）
+                    instance.NewsArg = args1;
                 })
                 .AppendCallbackOnPutsCommand((putsInstruction) =>
                     {
@@ -236,19 +239,18 @@
 
                         // エイリアスが設定されていれば変換するぜ☆（＾～＾）
                         var realName = appModel.GetObjectRealName(args1.Name);
+                        Trace.WriteLine($"Debug   | Sets command. args1.Name=[{args1.Name}] realName=[{realName}]");
 
                         // これが参照渡しになっているつもりだが……☆（＾～＾）
                         appModel.MatchPropertyOption(
                             realName,
                             (propModel) =>
                             {
-                                // .typeプロパティなら、propModelはヌルで構わない。
                                 PropertyDao.ChangeModel(appModel, realName, propModel, args1);
                             },
                             () =>
                             {
-                                // モデルが無くても .typeプロパティ は働く☆（＾～＾）
-                                PropertyDao.ChangeModel(appModel, realName, null, args1);
+                                Trace.WriteLine($"Warnig  | Property not found. name=[{args1.Name}]");
                             });
 
                         // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
@@ -396,6 +398,30 @@
             else
             {
                 jsonViewCallback(this.JsonAppModel);
+            }
+
+            return this;
+        }
+
+        public InputLineParserLv2 ThenNew(NewsViewCallback newsViewCallback, NoneCallback noneCallback)
+        {
+            if (newsViewCallback == null)
+            {
+                throw new ArgumentNullException(nameof(newsViewCallback));
+            }
+
+            if (noneCallback == null)
+            {
+                throw new ArgumentNullException(nameof(noneCallback));
+            }
+
+            if (this.NewsArg == null)
+            {
+                noneCallback();
+            }
+            else
+            {
+                newsViewCallback(this.NewsArg);
             }
 
             return this;

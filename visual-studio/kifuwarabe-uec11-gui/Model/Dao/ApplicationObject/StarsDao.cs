@@ -29,7 +29,7 @@
                         var token = cellAddresses[i].Trim();
                         if (1 < token.Length)
                         {
-                            cellAddresses[i] = token.Substring(1, token.Length - 2);
+                            cellAddresses[i] = token[1..^1];
                         }
                     }
 

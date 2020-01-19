@@ -40,7 +40,7 @@
             if (-1 < next)
             {
                 // 一致。
-                var word = text.Substring(start, next - start);
+                var word = text[start..next];
                 return someCallback(new WordUpToDelimiter(word), next);
             }
 

@@ -86,10 +86,10 @@
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-visible.type = bool";
+                var text = @"new my-visible : bool";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
-                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController)=> { });
+                    InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
@@ -105,7 +105,7 @@
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-age.type = number";
+                var text = @"new my-age : number";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
                     InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
@@ -124,7 +124,7 @@
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-name.type = string";
+                var text = @"new my-name : string";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
                     InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
@@ -143,7 +143,7 @@
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-array.type = string-list";
+                var text = @"new my-array : string-list";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
                     InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
@@ -166,7 +166,7 @@
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-visible.type = bool
+                var text = @"new my-visible : bool
 set my-visible.value = true";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -189,7 +189,7 @@ set my-visible.value = true";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-age.type = number
+                var text = @"new my-age : number
 set my-age.value = 39";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -212,7 +212,7 @@ set my-age.value = 39";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-name.type = string
+                var text = @"new my-name : string
 set my-name.value = warabemoti";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -236,7 +236,7 @@ set my-name.value = warabemoti";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-array.type = string-list
+                var text = @"new my-array : string-list
 set my-array.value = ""a"",""b"",""c""";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -263,7 +263,7 @@ set my-array.value = ""a"",""b"",""c""";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-visible.type = bool
+                var text = @"new my-visible : bool
 set my-visible = true";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -286,7 +286,7 @@ set my-visible = true";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-age.type = number
+                var text = @"new my-age : number
 set my-age = 39";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -309,7 +309,7 @@ set my-age = 39";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-name.type = string
+                var text = @"new my-name : string
 set my-name = warabemoti";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -333,7 +333,7 @@ set my-name = warabemoti";
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"set my-array.type = string-list
+                var text = @"new my-array : string-list
 set my-array = ""a"",""b"",""c""";
                 foreach (var line in text.Split(Environment.NewLine))
                 {
@@ -361,7 +361,7 @@ set my-array = ""a"",""b"",""c""";
 
             var text = @"
 alias top2 = ply
-set top2.type = number
+new top2 : number
 set top2.title = 手目
 set top2.value = 2
 ";

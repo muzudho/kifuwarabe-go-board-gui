@@ -12,7 +12,7 @@
 
 ```
 # えっ、お前らまだ　コンピューター囲碁プログラミング始めないの☆（＾ｑ＾）？
-set info.type = string
+new info : string
 info こんなに便利な GUI がフリーなのに☆（＾～＾）！？
 ```
 

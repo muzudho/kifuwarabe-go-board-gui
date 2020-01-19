@@ -35,7 +35,7 @@
         /// <returns></returns>
         public string ToDisplay()
         {
-            return $"{this.InstanceName} = {this.TypeName}";
+            return $"{this.InstanceName} : {this.TypeName}";
         }
     }
 }
