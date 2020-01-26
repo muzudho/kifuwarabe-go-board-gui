@@ -170,7 +170,7 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay()}");
                                         this.callbackOnAliasCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         return curr;
                                     },
@@ -194,7 +194,7 @@
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
                                             this.callbackOnBoardCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         }
 
@@ -209,7 +209,7 @@
                             }
                             else if (commandName.Text == InputLineParserLv1.ExitsCommand)
                             {
-                                Trace.WriteLine($"Info    | Arg {commandName.Text}");
+                                // Trace.WriteLine($"Trace   | Arg {commandName.Text}");
                                 this.callbackOnExitsCommand?.Invoke(new Instruction(commandName.Text, null));
                             }
                             else if (commandName.Text == InputLineParserLv1.InfoCommand)
@@ -222,7 +222,7 @@
                                 }
                                 else
                                 {
-                                    Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                    // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay()}");
                                     this.callbackOnInfoCommand?.Invoke(new Instruction(commandName.Text, argument));
                                 }
                             }
@@ -248,7 +248,7 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay()}");
 
                                         this.callbackOnNewsCommand?.Invoke(new Instruction(commandName.Text, argument));
 
@@ -275,7 +275,7 @@
                                         }
                                         else
                                         {
-                                            Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
+                                            // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay(appModel)}");
 
                                             this.callbackOnPutsCommand?.Invoke(new Instruction(commandName.Text, argument));
                                         }
@@ -296,7 +296,7 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay()}");
 
                                         this.callbackOnSetsCommand?.Invoke(new Instruction(commandName.Text, argument));
 
@@ -316,7 +316,7 @@
                                     curr,
                                     (argument, curr) =>
                                     {
-                                        Trace.WriteLine($"Info    | Arg {commandName.Text} {argument.ToDisplay()}");
+                                        // Trace.WriteLine($"Trace   | Arg {commandName.Text} {argument.ToDisplay()}");
 
                                         this.callbackOnSleepsCommand?.Invoke(new Instruction(commandName.Text, argument));
 

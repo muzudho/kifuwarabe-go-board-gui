@@ -50,7 +50,7 @@
             }
 
             var oneChar = text[start].ToString(CultureInfo.CurrentCulture);
-            var index = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value.IndexOf(oneChar);
+            var index = appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value.IndexOf(oneChar);
 
             if (index < 0)
             {

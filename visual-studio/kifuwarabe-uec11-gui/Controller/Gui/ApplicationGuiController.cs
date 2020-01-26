@@ -22,7 +22,7 @@
 
             // 列番号
             {
-                var boardLeftTop = ColumnNumberView.GetBoardLeftTop(appView);
+                var boardLeftTop = BoardView.GetBoardLeftTop(appView);
 
                 // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
                 var offsetLeftRate = 0.0;
@@ -32,14 +32,14 @@
                     offsetLeftRate = 0.5;
                 }
 
-                boardLeftTop.Offset(ColumnNumberView.GetLabelWidth(appModel, appView) * offsetLeftRate, 0);
+                boardLeftTop.Offset(BoardView.GetLabelWidth(appModel, appView) * offsetLeftRate, 0);
 
                 ColumnNumberView.Repaint(appModel, appView, boardLeftTop);
             }
 
             // 行番号
             {
-                var boardLeftTop = RowNumberView.GetBoardLeftTop(appView);
+                var boardLeftTop = BoardView.GetBoardLeftTop(appView);
 
                 // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
                 var offsetTopRate = 0.0;
@@ -49,7 +49,7 @@
                     offsetTopRate = 0.5;
                 }
 
-                boardLeftTop.Offset(0, RowNumberView.GetLabelHeight(appModel, appView) * offsetTopRate);
+                boardLeftTop.Offset(0, BoardView.GetLabelHeight(appModel, appView) * offsetTopRate);
 
                 RowNumberView.Repaint(appModel, appView, boardLeftTop);
             }

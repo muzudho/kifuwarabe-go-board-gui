@@ -55,10 +55,10 @@ namespace UnitTestProject1
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -188,8 +188,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -331,8 +331,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
 
                 var lines = text.Split(Environment.NewLine);
@@ -343,7 +343,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
                 }
             }
 
-            var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
+            var columnNumbers = appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value;
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));
@@ -376,9 +376,9 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
-# set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""9"", ""8"", ""7"", ""6"", ""5"", ""4"", ""3"", ""2"", ""1""
+                var text = @"new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+# set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""9"", ""8"", ""7"", ""6"", ""5"", ""4"", ""3"", ""2"", ""1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))

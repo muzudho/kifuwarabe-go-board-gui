@@ -43,12 +43,12 @@ set column-type = number
 set column-size = 19
 
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+new line-column-numbers : string-list
+set line-column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
 
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
-new row-numbers : string-list
-set row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+new line-row-numbers : string-list
+set line-row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
 # 盤上の星☆（＾～＾）
 new stars : string-list
@@ -193,12 +193,12 @@ set row-size = 15
 new column-size : number
 set column-size = 15
 
-new column-numbers : string-list
-set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
+new line-column-numbers : string-list
+set line-column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
 
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
-new row-numbers : string-list
-set row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+new line-row-numbers : string-list
+set line-row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
 new stars : string-list
 set stars = "d4", "l4", "h8", "d12", "l12"
@@ -461,20 +461,20 @@ set komi.visible = false
 効くやつ、効かないやつがあるのは実装が適当だからだぜ☆（＾～＾）
 
 
-| alias          | Description         |
-| -------------- | ------------------- |
-| ply            | 何手目              |
-| move           | 最後の着手          |
-| b-name         | 先手（黒番）の氏名  |
-| b-time         | 黒の持ち時間        |
-| b-hama         | 黒のアゲハマ        |
-| w-name         | 後手（白番）の氏名  |
-| w-time         | 白の持ち時間        |
-| w-hama         | 白のアゲハマ        |
-| komi           | 白のコミ            |
-| row-numbers    | 行番号☆（＾～＾）   |
-| column-numbers | 列番号☆（＾～＾）   |
-| stars          | 盤上の星☆（＾～＾） |
+| alias               | Description         |
+| ------------------- | ------------------- |
+| ply                 | 何手目              |
+| move                | 最後の着手          |
+| b-name              | 先手（黒番）の氏名  |
+| b-time              | 黒の持ち時間        |
+| b-hama              | 黒のアゲハマ        |
+| w-name              | 後手（白番）の氏名  |
+| w-time              | 白の持ち時間        |
+| w-hama              | 白のアゲハマ        |
+| komi                | 白のコミ            |
+| line-row-numbers    | 行番号☆（＾～＾）   |
+| line-column-numbers | 列番号☆（＾～＾）   |
+| stars               | 盤上の星☆（＾～＾） |
 
 
 # 盤面の入力☆（＾～＾）

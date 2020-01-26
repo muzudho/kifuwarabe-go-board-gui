@@ -72,10 +72,10 @@
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -112,10 +112,10 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -233,10 +233,10 @@ info バナナ食うか☆（＾～＾）？";
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -478,11 +478,11 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             {
                 var text = @"# 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -551,10 +551,10 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
-new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -785,8 +785,8 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
             {
                 var text = @"
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
+new line-column-numbers : string-list
+set line-column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -797,7 +797,7 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 
             Assert.AreEqual(
                 @"""A"",""B"",""C"",""D"",""E"",""F"",""G"",""H"",""J"",""K"",""L"",""M"",""N"",""O"",""P"",""Q"",""R"",""S"",""T""",
-                appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).ValueAsText());
+                appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).ValueAsText());
         }
 
         /*
@@ -820,8 +820,8 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
             var appModel = new ApplicationObjectDtoWrapper();
 
             {
-                var text = @"new row-numbers : string-list
-set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
+                var text = @"new line-row-numbers : string-list
+set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12"", ""11"", ""10"", ""  9"", ""  8"", ""  7"", ""  6"", ""  5"", ""  4"", ""  3"", ""  2"", ""  1""
 ";
 
                 foreach (var line in text.Split(Environment.NewLine))
@@ -832,7 +832,7 @@ set row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", ""12""
 
             Assert.AreEqual(
                 @"""19"",""18"",""17"",""16"",""15"",""14"",""13"",""12"",""11"",""10"",""  9"",""  8"",""  7"",""  6"",""  5"",""  4"",""  3"",""  2"",""  1""",
-                appModel.GetStringList(ApplicationDto.RowNumbersRealName).ValueAsText());
+                appModel.GetStringList(ApplicationDto.LineRowNumbersRealName).ValueAsText());
 
             int start;
 

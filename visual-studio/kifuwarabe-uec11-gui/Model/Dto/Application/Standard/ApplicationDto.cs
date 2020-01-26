@@ -33,8 +33,6 @@
         /// エイリアスは、打鍵しやすい名前だぜ☆（＾～＾）
         /// UIオブジェクトの名前☆（＾～＾）　画面から見て　上、右、左に並んでるぜ☆（＾～＾）
         /// </summary>
-        public static RealName ColumnNumbersRealName => new RealName("column-numbers");
-
         public static RealName ColumnSizeRealName => new RealName("column-size");
 
         public static RealName InfoRealName => new RealName("info");
@@ -49,6 +47,9 @@
 
         public static RealName Left4RealName => new RealName("left4");
 
+        public static RealName LineColumnNumbersRealName => new RealName("line-column-numbers");
+        public static RealName LineRowNumbersRealName => new RealName("line-row-numbers");
+
         public static RealName MoveMarkerRealName => new RealName("moveMarker");
 
         public static RealName PieceLocationRealName => new RealName("piece-location");
@@ -58,8 +59,6 @@
         public static RealName Right2RealName => new RealName("right2");
 
         public static RealName Right3RealName => new RealName("right3");
-
-        public static RealName RowNumbersRealName => new RealName("row-numbers");
 
         public static RealName RowSizeRealName => new RealName("row-size");
 
@@ -115,9 +114,9 @@
                 // 各列番号☆（＾～＾）
                 // I列がない☆（＾～＾）棋譜に I1 I11 I17 とか書かれたら字が汚くて読めなくなるのだろう☆（＾～＾）
                 {
-                    ColumnNumbersRealName.Value,
+                    LineColumnNumbersRealName.Value,
                     new PropertyStringList(
-                        $"#{ColumnNumbersRealName.Value}",
+                        $"#{LineColumnNumbersRealName.Value}",
                         new List<string>(){
                             /* "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" */
                         }
@@ -129,9 +128,9 @@
                 // 1桁の数は、文字位置の調整がうまく行かないので勘で調整☆（＾～＾）盤の上側から順に並べろだぜ☆（＾～＾）
                 // TODO JSONをデシリアライズできる方法が分かれば private アクセスにしたいが……☆（＾～＾）
                 {
-                    RowNumbersRealName.Value,
+                    LineRowNumbersRealName.Value,
                     new PropertyStringList(
-                        $"#{RowNumbersRealName.Value}",
+                        $"#{LineRowNumbersRealName.Value}",
                         new List<string>(){
                             /* "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1" */
                         }

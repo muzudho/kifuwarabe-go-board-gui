@@ -254,21 +254,21 @@
 
                         // というか、一般プロパティじゃない可能性があるぜ☆（＾～＾）
                         // 列番号☆（＾～＾）
-                        if (realName.Value == ApplicationDto.ColumnNumbersRealName.Value)
+                        if (realName.Value == ApplicationDto.LineColumnNumbersRealName.Value)
                         {
-                            Trace.WriteLine($"Info    | Column numbers change model.");
+                            // Trace.WriteLine($"Trace   | Column numbers change model.");
                             ColumnNumbersDao.ChangeModel(appModel, args1);
                         }
                         // 行番号☆（＾～＾）
-                        else if (realName.Value == ApplicationDto.RowNumbersRealName.Value)
+                        else if (realName.Value == ApplicationDto.LineRowNumbersRealName.Value)
                         {
-                            Trace.WriteLine($"Info    | Row numbers change model.");
+                            // Trace.WriteLine($"Trace   | Row numbers change model.");
                             RowNumbersDao.ChangeModel(appModel, args1);
                         }
                         // 盤上の星☆（＾～＾）
                         else if (realName.Value == ApplicationDto.StarsRealName.Value)
                         {
-                            Trace.WriteLine($"Info    | Stars change model.");
+                            // Trace.WriteLine($"Trace   | Stars change model.");
                             StarsDao.ChangeModel(appModel, args1);
                         }
 

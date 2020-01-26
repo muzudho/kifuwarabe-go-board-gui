@@ -21,17 +21,17 @@
             {
                 case "value": // thru
                 case "":
-                    var oldValue = appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value;
+                    var oldValue = appModel.GetStringList(ApplicationDto.LineRowNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
 
                     // 特殊処理
                     {
-                        appModel.GetStringList(ApplicationDto.RowNumbersRealName).SetAfterSetsValueCallback(appModel.TrimRowNumbers);
+                        appModel.GetStringList(ApplicationDto.LineRowNumbersRealName).SetAfterSetsValueCallback(appModel.TrimRowNumbers);
                     }
 
                     // イベント・ハンドラーを起こすぜ☆（＾～＾）
-                    appModel.GetStringList(ApplicationDto.RowNumbersRealName).Value = newValue;
+                    appModel.GetStringList(ApplicationDto.LineRowNumbersRealName).Value = newValue;
                     break;
             }
         }

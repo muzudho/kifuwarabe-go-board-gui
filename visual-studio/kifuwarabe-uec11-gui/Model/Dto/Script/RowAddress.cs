@@ -31,7 +31,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var rowNumbers = model.GetStringList(ApplicationDto.RowNumbersRealName).Value;
+            var rowNumbers = model.GetStringList(ApplicationDto.LineRowNumbersRealName).Value;
 
             if (this.NumberO0 < 0 || rowNumbers.Count <= this.NumberO0)
             {

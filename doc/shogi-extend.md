@@ -22,13 +22,13 @@ set column-type = number
 set column-size = 10
 
 # 列番号☆（＾～＾）
-new column-numbers : string-list
-set column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1", "z"
+new line-column-numbers : string-list
+set line-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1", "z"
 
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
 # 入力時のキータイピングにも使う☆（＾～＾） USI に合わせとけだぜ☆（＾～＾）
-new row-numbers : string-list
-set row-numbers = "  A", "  B", "  C", "  D", "  E", "  F", "  G", "  H", "  I", "  Z"
+new line-row-numbers : string-list
+set line-row-numbers = "  A", "  B", "  C", "  D", "  E", "  F", "  G", "  H", "  I", "  Z"
 
 # 盤上の星☆（＾～＾） あくまで符号は線を指している☆（＾～＾） ややこしい☆（＾～＾）
 # TODO でも表示されてないな☆（＾～＾）　なんでだろな☆（＾～＾）

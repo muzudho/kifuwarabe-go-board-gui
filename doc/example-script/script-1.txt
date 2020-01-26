@@ -20,12 +20,12 @@ set row-size = 10
 new column-size : number
 set column-size = 10
 
-new column-numbers : string-list
-set column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
+new line-column-numbers : string-list
+set line-column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
 
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
-new row-numbers : string-list
-set row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+new line-row-numbers : string-list
+set line-row-numbers = "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
 # 星は要らね☆（＾～＾）
 

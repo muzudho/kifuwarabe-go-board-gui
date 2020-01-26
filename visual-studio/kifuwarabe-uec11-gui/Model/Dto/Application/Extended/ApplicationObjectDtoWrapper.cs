@@ -27,9 +27,9 @@
 
             // 特殊処理
             {
-                this.GetStringList(ApplicationDto.RowNumbersRealName).SetAfterSetsValueCallback(this.TrimRowNumbers);
+                this.GetStringList(ApplicationDto.LineRowNumbersRealName).SetAfterSetsValueCallback(this.TrimRowNumbers);
                 // イベント・ハンドラーを起こすぜ☆（＾～＾）
-                this.GetStringList(ApplicationDto.RowNumbersRealName).Value = this.GetStringList(ApplicationDto.RowNumbersRealName).Value;
+                this.GetStringList(ApplicationDto.LineRowNumbersRealName).Value = this.GetStringList(ApplicationDto.LineRowNumbersRealName).Value;
             }
 
             // モデル変更のログを書き込むやつ☆（＾～＾）

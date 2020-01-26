@@ -12,45 +12,6 @@
     public static class ColumnNumberView
     {
         /// <summary>
-        /// 盤の左上座標。
-        /// </summary>
-        /// <param name="appView"></param>
-        /// <returns></returns>
-        public static Point GetBoardLeftTop(MainWindow appView)
-        {
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            // 昔でいう呼び方で Client area は WPF では grid.RenderSize らしい（＾ｑ＾）
-            // 短い方の一辺を求めようぜ☆（＾～＾）ぴったり枠にくっつくと窮屈なんで 0.95 掛けで☆（＾～＾）
-            var shortenEdge = System.Math.Min(appView.grid.RenderSize.Width, appView.grid.RenderSize.Height) * 0.95;
-
-            // センターを求めようぜ☆（＾～＾）
-            var centerX = appView.grid.RenderSize.Width / 2;
-            var centerY = appView.grid.RenderSize.Height / 2;
-
-            return new Point(centerX - shortenEdge / 2, centerY - shortenEdge / 2);
-        }
-
-        public static double GetLabelWidth(ApplicationObjectDtoWrapper appModel, MainWindow appView)
-        {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
-            if (appView == null)
-            {
-                throw new ArgumentNullException(nameof(appView));
-            }
-
-            var columnInterval = appView.board.Width / appModel.GetColumnDiv();
-            return columnInterval * 1.8;
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="appModel"></param>
@@ -68,7 +29,7 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
+            var columnNumbers = appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value;
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
@@ -90,7 +51,7 @@
 
                     label.Visibility = Visibility.Visible;
                     label.FontSize = columnInterval * 0.9;
-                    label.Width = ColumnNumberView.GetLabelWidth(appModel, appView);
+                    label.Width = BoardView.GetLabelWidth(appModel, appView);
                     label.Height = rowInterval * 1.8;
 
                     // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）

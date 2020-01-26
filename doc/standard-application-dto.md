@@ -8,35 +8,35 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 ## Property type
 
-|name           |description                |
-|---------------|---------------------------|
-|null           |Use to erase.              |
-|bool           |true or false.             |
-|number         |double type.               |
-|string         |string.                    |
-|string-list    |Example: "a", "b", "c"     |
+| name        | description            |
+| ----------- | ---------------------- |
+| null        | Use to erase.          |
+| bool        | true or false.         |
+| number      | double type.           |
+| string      | string.                |
+| string-list | Example: "a", "b", "c" |
 
 ## Embeded UI name
 
-|name           |description|
-|---------------|-----------|
-|column-numbers |           |
-|column-size    |           |
-|info           |           |
-|interval-msec  |           |
-|left1          |           |
-|left2          |           |
-|left3          |           |
-|left4          |           |
-|moveMarker     |WIP.       |
-|right1         |           |
-|right2         |           |
-|right3         |           |
-|row-numbers    |           |
-|row-size       |           |
-|stars          |           |
-|top1           |           |
-|top2           |           |
+| name                | description |
+| ------------------- | ----------- |
+| line-column-numbers |             |
+| column-size         |             |
+| info                |             |
+| interval-msec       |             |
+| left1               |             |
+| left2               |             |
+| left3               |             |
+| left4               |             |
+| moveMarker          | WIP.        |
+| right1              |             |
+| right2              |             |
+| right3              |             |
+| line-row-numbers    |             |
+| row-size            |             |
+| stars               |             |
+| top1                |             |
+| top2                |             |
 
 
 ## メソッド
@@ -49,11 +49,11 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 ## プロパティ
 
-|name         |type       |
-|-------------|-----------|
-|RowSize      |int        |
-|ColumnSize   |int        |
-|Stones       |List<Stone>|
+| name       | type        |
+| ---------- | ----------- |
+| RowSize    | int         |
+| ColumnSize | int         |
+| Stones     | List<Stone> |
 
 
 # Color
@@ -66,11 +66,11 @@ C# と Rust でデータ構造を共通化させるための仕様だぜ☆（�
 
 ## プロパティ
 
-|name         |type       |
-|-------------|-----------|
-|Title        |title      |
-|Value        |bool       |
-|Visible      |bool       |
+| name    | type  |
+| ------- | ----- |
+| Title   | title |
+| Value   | bool  |
+| Visible | bool  |
 
 ## メソッド
 

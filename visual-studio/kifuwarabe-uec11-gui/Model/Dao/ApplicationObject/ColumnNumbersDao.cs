@@ -21,10 +21,10 @@
             {
                 case "value": // thru
                 case "":
-                    var oldValue = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
+                    var oldValue = appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value;
                     var newValue = PropertyStringList.FromString(args.Value);
                     appModel.ModelChangeLogWriter.WriteLine($"{args.Name}.{args.Property}", string.Join(' ', oldValue), string.Join(' ', newValue));
-                    appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value = newValue;
+                    appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value = newValue;
                     break;
             }
         }

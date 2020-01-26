@@ -30,7 +30,7 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var columnNumbers = model.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
+            var columnNumbers = model.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value;
 
             if (this.NumberO0 < 0 || columnNumbers.Count <= this.NumberO0)
             {

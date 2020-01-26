@@ -198,7 +198,7 @@
 
             // 列番号を描こうぜ☆（＾～＾）？
             {
-                var boardLeftTop = ColumnNumberView.GetBoardLeftTop(this);
+                var boardLeftTop = BoardView.GetBoardLeftTop(this);
 
                 // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
                 var offsetLeftRate = 0.0;
@@ -208,14 +208,14 @@
                     offsetLeftRate = 0.5;
                 }
 
-                boardLeftTop.Offset(ColumnNumberView.GetLabelWidth(this.Model, this) * offsetLeftRate, 0);
+                boardLeftTop.Offset(BoardView.GetLabelWidth(this.Model, this) * offsetLeftRate, 0);
 
                 ColumnNumberView.Repaint(this.Model, this, boardLeftTop);
             }
 
             // 行番号を描こうぜ☆（＾～＾）？
             {
-                var boardLeftTop = RowNumberView.GetBoardLeftTop(this);
+                var boardLeftTop = BoardView.GetBoardLeftTop(this);
 
                 // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
                 var offsetTopRate = 0.0;
@@ -225,7 +225,7 @@
                     offsetTopRate = 0.5;
                 }
 
-                boardLeftTop.Offset(0, RowNumberView.GetLabelHeight(this.Model, this) * offsetTopRate);
+                boardLeftTop.Offset(0, BoardView.GetLabelHeight(this.Model, this) * offsetTopRate);
 
                 RowNumberView.Repaint(this.Model, this, boardLeftTop);
             }
@@ -258,7 +258,7 @@
                     }).ThenComment(
                                 (commentLine) =>
                     {
-                        Trace.WriteLine($"Info    | Comment=[{commentLine}].");
+                        // Trace.WriteLine($"Trace   | Comment=[{commentLine}].");
                     },
                                 () =>
                     {
