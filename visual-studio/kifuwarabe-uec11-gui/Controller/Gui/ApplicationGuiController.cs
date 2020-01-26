@@ -21,10 +21,38 @@
             }
 
             // 列番号
-            ColumnNumberView.Repaint(appModel, appView);
+            {
+                var boardLeftTop = ColumnNumberView.GetBoardLeftTop(appView);
+
+                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+                var offsetLeftRate = 0.0;
+
+                if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
+                {
+                    offsetLeftRate = 0.5;
+                }
+
+                boardLeftTop.Offset(ColumnNumberView.GetLabelWidth(appModel, appView) * offsetLeftRate, 0);
+
+                ColumnNumberView.Repaint(appModel, appView, boardLeftTop);
+            }
 
             // 行番号
-            RowNumberView.Repaint(appModel, appView);
+            {
+                var boardLeftTop = RowNumberView.GetBoardLeftTop(appView);
+
+                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+                var offsetTopRate = 0.0;
+
+                if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
+                {
+                    offsetTopRate = 0.5;
+                }
+
+                boardLeftTop.Offset(0, RowNumberView.GetLabelHeight(appModel, appView) * offsetTopRate);
+
+                RowNumberView.Repaint(appModel, appView, boardLeftTop);
+            }
 
             // 石。
             {

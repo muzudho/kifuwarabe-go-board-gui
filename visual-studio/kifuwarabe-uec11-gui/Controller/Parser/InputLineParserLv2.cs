@@ -239,7 +239,6 @@
 
                         // エイリアスが設定されていれば変換するぜ☆（＾～＾）
                         var realName = appModel.GetObjectRealName(args1.Name);
-                        Trace.WriteLine($"Debug   | Sets command. args1.Name=[{args1.Name}] realName=[{realName}]");
 
                         // これが参照渡しになっているつもりだが……☆（＾～＾）
                         appModel.MatchPropertyOption(

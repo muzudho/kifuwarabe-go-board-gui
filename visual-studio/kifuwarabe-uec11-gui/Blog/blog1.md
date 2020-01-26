@@ -14,3 +14,6 @@ Actual	:	<"19","18","17","16","15","14","13","12","11","10","  9","  8","  7"," 
 	* [ ] put to の方がいいか。
 		* [ ] stones の 0:空点、1:黒、2:白 は変えることになる？ colors ？
 
+# 2020-01-26
+
+* [ ] PieceLocationRealName を廃止して、 LineRowNumber, TileRowNumber を導入するか？

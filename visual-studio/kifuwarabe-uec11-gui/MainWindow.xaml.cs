@@ -196,11 +196,39 @@
             // 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
             PieceView.FitSizeToWindow(this.Model, this);
 
-            // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberView.Repaint(this.Model, this);
+            // 列番号を描こうぜ☆（＾～＾）？
+            {
+                var boardLeftTop = ColumnNumberView.GetBoardLeftTop(this);
 
-            // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberView.Repaint(this.Model, this);
+                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+                var offsetLeftRate = 0.0;
+
+                if (ApplicationDto.Square == this.Model.GetString(ApplicationDto.PieceLocationRealName).Value)
+                {
+                    offsetLeftRate = 0.5;
+                }
+
+                boardLeftTop.Offset(ColumnNumberView.GetLabelWidth(this.Model, this) * offsetLeftRate, 0);
+
+                ColumnNumberView.Repaint(this.Model, this, boardLeftTop);
+            }
+
+            // 行番号を描こうぜ☆（＾～＾）？
+            {
+                var boardLeftTop = RowNumberView.GetBoardLeftTop(this);
+
+                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
+                var offsetTopRate = 0.0;
+
+                if (ApplicationDto.Square == this.Model.GetString(ApplicationDto.PieceLocationRealName).Value)
+                {
+                    offsetTopRate = 0.5;
+                }
+
+                boardLeftTop.Offset(0, RowNumberView.GetLabelHeight(this.Model, this) * offsetTopRate);
+
+                RowNumberView.Repaint(this.Model, this, boardLeftTop);
+            }
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
             StarView.Repaint(this.Model, this);

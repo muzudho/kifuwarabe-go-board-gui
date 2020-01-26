@@ -7,13 +7,13 @@
 
     public static class RowNumberView
     {
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView)
+        /// <summary>
+        /// 盤の左上座標。
+        /// </summary>
+        /// <param name="appView"></param>
+        /// <returns></returns>
+        public static Point GetBoardLeftTop(MainWindow appView)
         {
-            if (appModel == null)
-            {
-                throw new ArgumentNullException(nameof(appModel));
-            }
-
             if (appView == null)
             {
                 throw new ArgumentNullException(nameof(appView));
@@ -27,22 +27,48 @@
             var centerX = appView.grid.RenderSize.Width / 2;
             var centerY = appView.grid.RenderSize.Height / 2;
 
-            // 盤☆（＾～＾）
-            var boardLeft = centerX - shortenEdge / 2;
-            var boardTop = centerY - shortenEdge / 2;
+            return new Point(centerX - shortenEdge / 2, centerY - shortenEdge / 2);
+        }
 
+        public static double GetLabelHeight(ApplicationObjectDtoWrapper appModel, MainWindow appView)
+        {
+            if (appModel == null)
+            {
+                throw new ArgumentNullException(nameof(appModel));
+            }
+
+            if (appView == null)
+            {
+                throw new ArgumentNullException(nameof(appView));
+            }
+
+            var rowInterval = appView.board.Height / appModel.GetRowDiv();
+            return rowInterval * 1.8; ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appModel"></param>
+        /// <param name="appView"></param>
+        /// <param name="boardLeftTop">盤の左上座標</param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop)
+        {
+            if (appModel == null)
+            {
+                throw new ArgumentNullException(nameof(appModel));
+            }
+
+            if (appView == null)
+            {
+                throw new ArgumentNullException(nameof(appView));
+            }
+
+            // 盤☆（＾～＾）
             var columnInterval = appView.board.Width / appModel.GetColumnDiv();
             var rowInterval = appView.board.Height / appModel.GetRowDiv();
             var paddingLeft = appView.board.Width * 0.05;
             var paddingTop = appView.board.Height * 0.05;
-
-            // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
-            var offsetTopRate = 0.0;
-
-            if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
-            {
-                offsetTopRate = 0.5;
-            }
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
@@ -63,8 +89,8 @@
                     label.Height = rowInterval * 1.8;
 
                     // 盤☆（＾～＾）
-                    Canvas.SetLeft(label, boardLeft + paddingLeft - label.Width / 2 + columnInterval * 0);
-                    Canvas.SetTop(label, boardTop + paddingTop - label.Height / 2 + rowInterval * row + label.Height * offsetTopRate);
+                    Canvas.SetLeft(label, boardLeftTop.X + paddingLeft - label.Width / 2 + columnInterval * 0);
+                    Canvas.SetTop(label, boardLeftTop.Y + paddingTop - label.Height / 2 + rowInterval * row);
                 }
             }
         }

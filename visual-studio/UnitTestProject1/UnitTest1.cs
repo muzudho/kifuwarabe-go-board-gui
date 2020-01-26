@@ -334,24 +334,16 @@ set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J
 new column-numbers : string-list
 set column-numbers = ""A"", ""B"", ""C"", ""D"", ""E"", ""F"", ""G"", ""H"", ""J"", ""K"", ""L"", ""M"", ""N"", ""O"", ""P"", ""Q"", ""R"", ""S"", ""T""
 ";
-                Trace.WriteLine($"Debug   | text=[{text}]");
 
                 var lines = text.Split(Environment.NewLine);
-                Trace.WriteLine($"Debug   | lines.Length=[{lines.Length}]");
 
                 foreach (var line in lines)
                 {
-                    Trace.WriteLine($"Debug   | line=[{line}]");
                     InputLineParserLv2.ParseLine(appModel, line, (inputLineModelController) => { });
                 }
             }
 
             var columnNumbers = appModel.GetStringList(ApplicationDto.ColumnNumbersRealName).Value;
-            Trace.WriteLine($"Debug   | columnNumbers.Count=[{columnNumbers.Count}]");
-            foreach (var item in columnNumbers)
-            {
-                Trace.WriteLine($"Debug   | item=[{item}]");
-            }
 
             Assert.AreEqual(0, columnNumbers.IndexOf("A"));
             Assert.AreEqual(1, columnNumbers.IndexOf("B"));

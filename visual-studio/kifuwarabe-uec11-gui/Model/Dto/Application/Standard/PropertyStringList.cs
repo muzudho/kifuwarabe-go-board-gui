@@ -44,7 +44,6 @@
             {
                 // ダブル・クォーテーションに挟まれているという前提だぜ☆（＾～＾）
                 var token = columns[i].Trim();
-                Trace.WriteLine($"Debug   | PropertyStringList.FromString token=[{token}]");
 
                 if (1 < token.Length)
                 {
