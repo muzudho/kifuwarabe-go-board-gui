@@ -21,6 +21,7 @@ set row-size = 10
 set column-type = number
 set column-size = 10
 
+# 線の列番号
 # 列番号☆（＾～＾）
 new line-column-numbers : string-list
 set line-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1", "z"
@@ -29,6 +30,13 @@ set line-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1", "z"
 # 入力時のキータイピングにも使う☆（＾～＾） USI に合わせとけだぜ☆（＾～＾）
 new line-row-numbers : string-list
 set line-row-numbers = "  A", "  B", "  C", "  D", "  E", "  F", "  G", "  H", "  I", "  Z"
+
+# 面の列番号
+new tile-column-numbers : string-list
+set tile-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1"
+
+new tile-row-numbers : string-list
+set tile-row-numbers = "  i", "  h", "  g", "  f", "  e", "  d", "  c", "  b", "  a"
 
 # 盤上の星☆（＾～＾） あくまで符号は線を指している☆（＾～＾） ややこしい☆（＾～＾）
 # TODO でも表示されてないな☆（＾～＾）　なんでだろな☆（＾～＾）

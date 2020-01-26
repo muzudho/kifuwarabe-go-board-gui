@@ -42,6 +42,7 @@ set row-size = 19
 set column-type = number
 set column-size = 19
 
+# 線の列番号
 # 国際囲碁では I列は無いんだぜ☆（＾～＾）
 new line-column-numbers : string-list
 set line-column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
@@ -49,6 +50,13 @@ set line-column-numbers = "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L",
 # 特殊：　行番号だけ、右寄せの代わりに　前スペースを入れていい☆（＾～＾）
 new line-row-numbers : string-list
 set line-row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
+
+# 面の列番号
+new tile-column-numbers : string-list
+set tile-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1"
+
+new tile-row-numbers : string-list
+set tile-row-numbers = "  i", "  h", "  g", "  f", "  e", "  d", "  c", "  b", "  a"
 
 # 盤上の星☆（＾～＾）
 new stars : string-list
@@ -193,6 +201,7 @@ set row-size = 15
 new column-size : number
 set column-size = 15
 
+# 線の列番号
 new line-column-numbers : string-list
 set line-column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"
 
@@ -200,6 +209,14 @@ set line-column-numbers = "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
 new line-row-numbers : string-list
 set line-row-numbers = "15", "14", "13", "12", "11", "10", "  9", "  8", "  7", "  6", "  5", "  4", "  3", "  2", "  1"
 
+# 面の列番号
+new tile-column-numbers : string-list
+set tile-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1"
+
+new tile-row-numbers : string-list
+set tile-row-numbers = "  i", "  h", "  g", "  f", "  e", "  d", "  c", "  b", "  a"
+
+# 星
 new stars : string-list
 set stars = "d4", "l4", "h8", "d12", "l12"
 

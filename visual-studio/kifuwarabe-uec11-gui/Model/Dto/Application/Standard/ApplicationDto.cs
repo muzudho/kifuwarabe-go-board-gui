@@ -64,6 +64,9 @@
 
         public static RealName StarsRealName => new RealName("stars");
 
+        public static RealName TileColumnNumbersRealName => new RealName("tile-column-numbers");
+        public static RealName TileRowNumbersRealName => new RealName("tile-row-numbers");
+
         public static RealName Top1RealName => new RealName("top1");
         public static RealName MoveRealName => new RealName("top1");
 

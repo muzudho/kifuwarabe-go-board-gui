@@ -13,7 +13,8 @@
         /// <param name="appModel"></param>
         /// <param name="appView"></param>
         /// <param name="boardLeftTop">盤の左上座標</param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop)
+        /// <param name="rowNumbersStringList"></param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList rowNumbersStringList)
         {
             if (appModel == null)
             {
@@ -25,6 +26,13 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
+            if (rowNumbersStringList == null)
+            {
+                throw new ArgumentNullException(nameof(rowNumbersStringList));
+            }
+
+            var rowNumbers = rowNumbersStringList.Value;
+
             // 盤☆（＾～＾）
             var columnInterval = appView.board.Width / appModel.GetColumnDiv();
             var rowInterval = appView.board.Height / appModel.GetRowDiv();
@@ -33,7 +41,6 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var rowNumbers = appModel.GetStringList(ApplicationDto.LineRowNumbersRealName).Value;
                 if (rowNumbers.Count <= row || appModel.RowSize <= row)
                 {
                     // 範囲外アクセス。

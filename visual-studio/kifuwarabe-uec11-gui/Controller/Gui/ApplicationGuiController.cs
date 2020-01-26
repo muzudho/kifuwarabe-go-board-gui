@@ -20,7 +20,7 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            // 列番号
+            // 線の列番号
             {
                 var boardLeftTop = BoardView.GetBoardLeftTop(appView);
 
@@ -34,10 +34,10 @@
 
                 boardLeftTop.Offset(BoardView.GetLabelWidth(appModel, appView) * offsetLeftRate, 0);
 
-                ColumnNumberView.Repaint(appModel, appView, boardLeftTop);
+                ColumnNumberView.Repaint(appModel, appView, boardLeftTop, appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName));
             }
 
-            // 行番号
+            // 線の行番号
             {
                 var boardLeftTop = BoardView.GetBoardLeftTop(appView);
 
@@ -51,7 +51,7 @@
 
                 boardLeftTop.Offset(0, BoardView.GetLabelHeight(appModel, appView) * offsetTopRate);
 
-                RowNumberView.Repaint(appModel, appView, boardLeftTop);
+                RowNumberView.Repaint(appModel, appView, boardLeftTop, appModel.GetStringList(ApplicationDto.LineRowNumbersRealName));
             }
 
             // 石。

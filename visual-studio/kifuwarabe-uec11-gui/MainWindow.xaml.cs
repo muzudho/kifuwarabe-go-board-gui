@@ -210,7 +210,7 @@
 
                 boardLeftTop.Offset(BoardView.GetLabelWidth(this.Model, this) * offsetLeftRate, 0);
 
-                ColumnNumberView.Repaint(this.Model, this, boardLeftTop);
+                ColumnNumberView.Repaint(this.Model, this, boardLeftTop, this.Model.GetStringList(ApplicationDto.LineColumnNumbersRealName));
             }
 
             // 行番号を描こうぜ☆（＾～＾）？
@@ -227,7 +227,7 @@
 
                 boardLeftTop.Offset(0, BoardView.GetLabelHeight(this.Model, this) * offsetTopRate);
 
-                RowNumberView.Repaint(this.Model, this, boardLeftTop);
+                RowNumberView.Repaint(this.Model, this, boardLeftTop, this.Model.GetStringList(ApplicationDto.LineRowNumbersRealName));
             }
 
             // １９路盤の星を描こうぜ☆（＾～＾）？

@@ -17,7 +17,8 @@
         /// <param name="appModel"></param>
         /// <param name="appView"></param>
         /// <param name="boardLeftTop">盤の左上座標</param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop)
+        /// <param name="columnNumbersStringList"></param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList columnNumbersStringList)
         {
             if (appModel == null)
             {
@@ -29,7 +30,12 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
-            var columnNumbers = appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName).Value;
+            if (columnNumbersStringList == null)
+            {
+                throw new ArgumentNullException(nameof(columnNumbersStringList));
+            }
+
+            var columnNumbers = columnNumbersStringList.Value;
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
