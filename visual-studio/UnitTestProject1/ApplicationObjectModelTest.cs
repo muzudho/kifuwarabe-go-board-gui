@@ -93,7 +93,7 @@
                 }
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfBooleans(new RealName("my-visible")));
+            Assert.IsTrue(appModel.HasBoolean(new RealName("my-visible")));
         }
 
         /// <summary>
@@ -112,7 +112,7 @@
                 }
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfNumbers(new RealName("my-age")));
+            Assert.IsTrue(appModel.HasNumber(new RealName("my-age")));
         }
 
         /// <summary>
@@ -131,7 +131,7 @@
                 }
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfStrings(new RealName("my-name")));
+            Assert.IsTrue(appModel.HasString(new RealName("my-name")));
         }
 
         /// <summary>
@@ -150,7 +150,7 @@
                 }
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfStringLists(new RealName("my-array")));
+            Assert.IsTrue(appModel.HasStringList(new RealName("my-array")));
         }
     }
 
@@ -398,7 +398,7 @@ set top2.value = 2
             var appModel = new ApplicationObjectDtoWrapper();
 
             var top2RealName = new RealName("top2");
-            Assert.IsFalse(appModel.ContainsKeyOfNumbers(top2RealName));
+            Assert.IsFalse(appModel.HasNumber(top2RealName));
 
             var realName2 = appModel.GetObjectRealName(top2RealName.Value);
 
@@ -427,10 +427,10 @@ set top2.value = 2
             var appModel = new ApplicationObjectDtoWrapper();
 
             var plyRealName = new RealName("top2");
-            Assert.IsFalse(appModel.ContainsKeyOfNumbers(plyRealName));
+            Assert.IsFalse(appModel.HasNumber(plyRealName));
 
             appModel.AddProperty(plyRealName, new PropertyNumber("手目"));
-            Assert.IsTrue(appModel.ContainsKeyOfNumbers(plyRealName));
+            Assert.IsTrue(appModel.HasNumber(plyRealName));
 
             appModel.RemoveProperty(
                 plyRealName,
@@ -454,10 +454,10 @@ set top2.value = 2
             var appModel = new ApplicationObjectDtoWrapper();
 
             var infoRealName = new RealName("info");
-            Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsFalse(appModel.HasString(infoRealName));
 
             appModel.AddProperty(infoRealName, new PropertyString("#info", "Hello, world!"));
-            Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsTrue(appModel.HasString(infoRealName));
 
             // 消してもいいけど困るだけだぜ☆（＾～＾）
             appModel.RemoveProperty(

@@ -53,10 +53,10 @@ set line-row-numbers = "19", "18", "17", "16", "15", "14", "13", "12", "11", "10
 
 # 面の列番号
 new tile-column-numbers : string-list
-set tile-column-numbers = "9", "8", "7", "6", "5", "4", "3", "2", "1"
+set tile-column-numbers = "18", "17", "16", "15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"
 
 new tile-row-numbers : string-list
-set tile-row-numbers = "  i", "  h", "  g", "  f", "  e", "  d", "  c", "  b", "  a"
+set tile-row-numbers = "  a", "  b", "  c", "  d", "  e", "  f", "  g", "  h", "  i", "  j", "  k", "  l", "  m", "  n", "  o", "  p", "  q", "  r"
 
 # 盤上の星☆（＾～＾）
 new stars : string-list

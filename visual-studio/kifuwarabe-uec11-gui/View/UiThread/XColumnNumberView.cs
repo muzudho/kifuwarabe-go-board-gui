@@ -1,6 +1,7 @@
 ﻿namespace KifuwarabeGoBoardGui.View
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeGoBoardGui.Model.Dto;
@@ -9,7 +10,7 @@
     /// 列番号☆（＾～＾）
     /// 交点に合わせるタイプと、マスに合わせるタイプの２通りがあるぜ☆（＾～＾）
     /// </summary>
-    public static class ColumnNumberView
+    public static class XColumnNumberView
     {
         /// <summary>
         /// 
@@ -18,7 +19,9 @@
         /// <param name="appView"></param>
         /// <param name="boardLeftTop">盤の左上座標</param>
         /// <param name="columnNumbersStringList"></param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList columnNumbersStringList)
+        /// <param name="foregroundBrush"></param>
+        /// <param name="columnLabels"></param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList columnNumbersStringList, System.Windows.Media.Brush foregroundBrush, List<Label> columnLabels)
         {
             if (appModel == null)
             {
@@ -35,11 +38,16 @@
                 throw new ArgumentNullException(nameof(columnNumbersStringList));
             }
 
+            if (columnLabels == null)
+            {
+                throw new ArgumentNullException(nameof(columnLabels));
+            }
+
             var columnNumbers = columnNumbersStringList.Value;
 
-            for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
+            for (var column = 0; column < columnLabels.Count; column++)
             {
-                var label = appView.ColumnLabels[column];
+                var label = columnLabels[column];
                 if (columnNumbers.Count <= column || appModel.ColumnSize <= column)
                 {
                     // 範囲外アクセス。
@@ -56,9 +64,11 @@
                     var rowInterval = appView.board.Height / appModel.GetRowDiv();
 
                     label.Visibility = Visibility.Visible;
-                    label.FontSize = columnInterval * 0.9;
+                    // 0.9倍がちょうどいいんだが☆（＾～＾）
+                    label.FontSize = columnInterval * 0.65;
                     label.Width = BoardView.GetLabelWidth(appModel, appView);
                     label.Height = rowInterval * 1.8;
+                    label.Foreground = foregroundBrush;
 
                     // 文字位置の調整は　良い方法がないので勘で調整☆（＾～＾）
                     Canvas.SetLeft(label, boardLeftTop.X + paddingLeft * 1.05 - label.Width / 3 + columnInterval * 1.01 * (column + MainWindow.SignLen));
@@ -76,13 +86,28 @@
 
             for (var column = 0; column < HyperParameter.MaxColumnSize; column++)
             {
-                var label = new Label
+                // 面の列
+                if (column < HyperParameter.MaxColumnSize - 1)
                 {
-                    Name = $"columnLabel{column + 1}"
-                };
-                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                appView.ColumnLabels.Add(label);
-                appView.canvas.Children.Add(label);
+                    var label = new Label
+                    {
+                        Name = $"tileColumnLabel{column + 1}"
+                    };
+                    Panel.SetZIndex(label, (int)ZOrder.LineNumber);
+                    appView.TileColumnLabels.Add(label);
+                    appView.canvas.Children.Add(label);
+                }
+
+                // 線の列
+                {
+                    var label = new Label
+                    {
+                        Name = $"lineColumnLabel{column + 1}"
+                    };
+                    Panel.SetZIndex(label, (int)ZOrder.LineNumber);
+                    appView.LineColumnLabels.Add(label);
+                    appView.canvas.Children.Add(label);
+                }
             }
         }
     }

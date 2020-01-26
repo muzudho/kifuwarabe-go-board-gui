@@ -159,22 +159,22 @@
             }
         }
 
-        public bool ContainsKeyOfBooleans(RealName realName)
+        public bool HasBoolean(RealName realName)
         {
             return this.ApplicationObjectModel.Booleans.ContainsKey(realName.Value);
         }
 
-        public bool ContainsKeyOfNumbers(RealName realName)
+        public bool HasNumber(RealName realName)
         {
             return this.ApplicationObjectModel.Numbers.ContainsKey(realName.Value);
         }
 
-        public bool ContainsKeyOfStrings(RealName realName)
+        public bool HasString(RealName realName)
         {
             return this.ApplicationObjectModel.Strings.ContainsKey(realName.Value);
         }
 
-        public bool ContainsKeyOfStringLists(RealName realName)
+        public bool HasStringList(RealName realName)
         {
             return this.ApplicationObjectModel.StringLists.ContainsKey(realName.Value);
         }
@@ -248,19 +248,19 @@
             NoneModelCallback noneCallback
         )
         {
-            if (this.ContainsKeyOfBooleans(realName))
+            if (this.HasBoolean(realName))
             {
                 someCallback(this.GetBool(realName));
             }
-            else if (this.ContainsKeyOfNumbers(realName))
+            else if (this.HasNumber(realName))
             {
                 someCallback(this.GetNumber(realName));
             }
-            else if (this.ContainsKeyOfStrings(realName))
+            else if (this.HasString(realName))
             {
                 someCallback(this.GetString(realName));
             }
-            else if (this.ContainsKeyOfStringLists(realName))
+            else if (this.HasStringList(realName))
             {
                 someCallback(this.GetStringList(realName));
             }
@@ -299,19 +299,19 @@
                 throw new ArgumentNullException(nameof(stringListCallback));
             }
 
-            if (this.ContainsKeyOfBooleans(realName))
+            if (this.HasBoolean(realName))
             {
                 boolCallback(this.GetBool(realName));
             }
-            else if (this.ContainsKeyOfNumbers(realName))
+            else if (this.HasNumber(realName))
             {
                 numberCallback(this.GetNumber(realName));
             }
-            else if (this.ContainsKeyOfStrings(realName))
+            else if (this.HasString(realName))
             {
                 stringCallback(this.GetString(realName));
             }
-            else if (this.ContainsKeyOfStringLists(realName))
+            else if (this.HasStringList(realName))
             {
                 stringListCallback(this.GetStringList(realName));
             }
@@ -364,25 +364,25 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            if (this.ContainsKeyOfStrings(realName))
+            if (this.HasString(realName))
             {
                 var old = this.GetString(realName);
                 this.RemoveString(realName);
                 someCallback(old);
             }
-            else if (this.ContainsKeyOfNumbers(realName))
+            else if (this.HasNumber(realName))
             {
                 var old = this.GetNumber(realName);
                 this.RemoveNumber(realName);
                 someCallback(old);
             }
-            else if (this.ContainsKeyOfBooleans(realName))
+            else if (this.HasBoolean(realName))
             {
                 var old = this.GetBool(realName);
                 this.RemoveBool(realName);
                 someCallback(old);
             }
-            else if (this.ContainsKeyOfStringLists(realName))
+            else if (this.HasStringList(realName))
             {
                 var old = this.GetStringList(realName);
                 this.RemoveStringList(realName);
@@ -414,19 +414,19 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            if (this.ContainsKeyOfStrings(realName))
+            if (this.HasString(realName))
             {
                 someCallback(this.GetString(realName));
             }
-            else if (this.ContainsKeyOfNumbers(realName))
+            else if (this.HasNumber(realName))
             {
                 someCallback(this.GetNumber(realName));
             }
-            else if (this.ContainsKeyOfBooleans(realName))
+            else if (this.HasBoolean(realName))
             {
                 someCallback(this.GetBool(realName));
             }
-            else if (this.ContainsKeyOfStringLists(realName))
+            else if (this.HasStringList(realName))
             {
                 someCallback(this.GetStringList(realName));
             }
@@ -442,10 +442,10 @@
         /// <returns></returns>
         public bool ContainsKeyOfProperty(RealName realName)
         {
-            return this.ContainsKeyOfStrings(realName) ||
-                this.ContainsKeyOfNumbers(realName) ||
-                this.ContainsKeyOfBooleans(realName) ||
-                this.ContainsKeyOfStringLists(realName);
+            return this.HasString(realName) ||
+                this.HasNumber(realName) ||
+                this.HasBoolean(realName) ||
+                this.HasStringList(realName);
         }
 
         /// <summary>

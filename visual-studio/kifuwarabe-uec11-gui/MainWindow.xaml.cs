@@ -65,10 +65,13 @@
 
 
         public List<Shape> Marks { get; private set; }
-
         public List<Ellipse> Stars { get; private set; }
-        public List<Label> RowLabels { get; private set; }
-        public List<Label> ColumnLabels { get; private set; }
+
+        public List<Label> LineRowLabels { get; private set; }
+        public List<Label> LineColumnLabels { get; private set; }
+        public List<Label> TileRowLabels { get; private set; }
+        public List<Label> TileColumnLabels { get; private set; }
+
         private Random Random { get; set; }
 
         /// <summary>
@@ -90,8 +93,11 @@
             this.Marks = new List<Shape>();
 
             this.Stars = new List<Ellipse>();
-            this.RowLabels = new List<Label>();
-            this.ColumnLabels = new List<Label>();
+
+            this.LineRowLabels = new List<Label>();
+            this.LineColumnLabels = new List<Label>();
+            this.TileRowLabels = new List<Label>();
+            this.TileColumnLabels = new List<Label>();
 
             // 乱数のタネは固定しておいた方がデバッグしやすいぜ☆（＾～＾）
             this.Random = new Random(0);
@@ -114,6 +120,9 @@
         /// </summary>
         public void FitSizeToWindow()
         {
+            var appModel = this.Model;
+            var appView = this;
+
             var grid = this.grid;
             var board = this.board;
 
@@ -194,47 +203,25 @@
             // Trace.WriteLine($"verticalLine0 ({verticalLine0.X1}, {verticalLine0.Y1})  ({verticalLine0.X2}, {verticalLine0.Y2})");
 
             // 石をウィンドウ・サイズに合わせようぜ☆（＾～＾）？
-            PieceView.FitSizeToWindow(this.Model, this);
+            PieceView.FitSizeToWindow(appModel, appView);
 
-            // 列番号を描こうぜ☆（＾～＾）？
-            {
-                var boardLeftTop = BoardView.GetBoardLeftTop(this);
+            // 面の列番号
+            TileColumnNumbersView.Repaint(appModel, appView);
 
-                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
-                var offsetLeftRate = 0.0;
+            // 面の行番号
+            TileRowNumbersView.Repaint(appModel, appView);
 
-                if (ApplicationDto.Square == this.Model.GetString(ApplicationDto.PieceLocationRealName).Value)
-                {
-                    offsetLeftRate = 0.5;
-                }
+            // 線の列番号
+            LineColumnNumbersView.Repaint(appModel, appView);
 
-                boardLeftTop.Offset(BoardView.GetLabelWidth(this.Model, this) * offsetLeftRate, 0);
-
-                ColumnNumberView.Repaint(this.Model, this, boardLeftTop, this.Model.GetStringList(ApplicationDto.LineColumnNumbersRealName));
-            }
-
-            // 行番号を描こうぜ☆（＾～＾）？
-            {
-                var boardLeftTop = BoardView.GetBoardLeftTop(this);
-
-                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
-                var offsetTopRate = 0.0;
-
-                if (ApplicationDto.Square == this.Model.GetString(ApplicationDto.PieceLocationRealName).Value)
-                {
-                    offsetTopRate = 0.5;
-                }
-
-                boardLeftTop.Offset(0, BoardView.GetLabelHeight(this.Model, this) * offsetTopRate);
-
-                RowNumberView.Repaint(this.Model, this, boardLeftTop, this.Model.GetStringList(ApplicationDto.LineRowNumbersRealName));
-            }
+            // 線の行番号
+            LineRowNumbersView.Repaint(appModel, appView);
 
             // １９路盤の星を描こうぜ☆（＾～＾）？
-            StarView.Repaint(this.Model, this);
+            StarView.Repaint(appModel, appView);
 
             // 最後の着手点を描こうぜ☆（＾～＾）？
-            MoveMarkerView.Repaint(this.Model, this);
+            MoveMarkerView.Repaint(appModel, appView);
         }
 
         private void TickForFile()
@@ -477,10 +464,10 @@
             MarkView.Initialize(this.Model, this);
 
             // 列の符号を描こうぜ☆（＾～＾）？
-            ColumnNumberView.Initialize(this);
+            XColumnNumberView.Initialize(this);
 
             // 行の番号を描こうぜ☆（＾～＾）？
-            RowNumberView.Initialize(this);
+            XRowNumberView.Initialize(this);
 
             // 着手のマーカー☆（＾～＾）
             Panel.SetZIndex(moveMarker, (int)ZOrder.MoveMarker);

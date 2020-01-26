@@ -358,7 +358,7 @@
                 throw new ArgumentNullException(nameof(noneCallback));
             }
 
-            if (this.AppModel.ContainsKeyOfStrings(ApplicationDto.InfoRealName))
+            if (this.AppModel.HasString(ApplicationDto.InfoRealName))
             {
                 var infoProperty = this.AppModel.GetString(ApplicationDto.InfoRealName);
                 if (infoProperty == null)

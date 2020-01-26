@@ -1,11 +1,12 @@
 ﻿namespace KifuwarabeGoBoardGui.View
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
     using KifuwarabeGoBoardGui.Model.Dto;
 
-    public static class RowNumberView
+    public static class XRowNumberView
     {
         /// <summary>
         /// 
@@ -14,7 +15,9 @@
         /// <param name="appView"></param>
         /// <param name="boardLeftTop">盤の左上座標</param>
         /// <param name="rowNumbersStringList"></param>
-        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList rowNumbersStringList)
+        /// <param name="foregroundBrush"></param>
+        /// <param name="rowLabels"></param>
+        public static void Repaint(ApplicationObjectDtoWrapper appModel, MainWindow appView, Point boardLeftTop, PropertyStringList rowNumbersStringList, System.Windows.Media.Brush foregroundBrush, List<Label> rowLabels)
         {
             if (appModel == null)
             {
@@ -31,6 +34,11 @@
                 throw new ArgumentNullException(nameof(rowNumbersStringList));
             }
 
+            if (rowLabels == null)
+            {
+                throw new ArgumentNullException(nameof(rowLabels));
+            }
+
             var rowNumbers = rowNumbersStringList.Value;
 
             // 盤☆（＾～＾）
@@ -39,22 +47,24 @@
             var paddingLeft = appView.board.Width * 0.05;
             var paddingTop = appView.board.Height * 0.05;
 
-            for (var row = 0; row < HyperParameter.MaxRowSize; row++)
+            for (var row = 0; row < rowLabels.Count; row++)
             {
+                var label = rowLabels[row];
+
                 if (rowNumbers.Count <= row || appModel.RowSize <= row)
                 {
                     // 範囲外アクセス。
-                    var label = appView.RowLabels[row];
                     label.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    var label = appView.RowLabels[row];
                     label.Content = rowNumbers[row];
                     label.Visibility = Visibility.Visible;
-                    label.FontSize = columnInterval * 0.9;
+                    // 0.9倍がちょうどいいんだが☆（＾～＾）
+                    label.FontSize = columnInterval * 0.65;
                     label.Width = columnInterval * 1.8;
                     label.Height = rowInterval * 1.8;
+                    label.Foreground = foregroundBrush;
 
                     // 盤☆（＾～＾）
                     Canvas.SetLeft(label, boardLeftTop.X + paddingLeft - label.Width / 2 + columnInterval * 0);
@@ -72,14 +82,30 @@
 
             for (var row = 0; row < HyperParameter.MaxRowSize; row++)
             {
-                var number = row + 1;
-                var label = new Label
+                // 面の行
+                if (row < HyperParameter.MaxRowSize - 1)
                 {
-                    Name = $"rowLabel{number}"
-                };
-                Panel.SetZIndex(label, (int)ZOrder.LineNumber);
-                appView.RowLabels.Add(label);
-                appView.canvas.Children.Add(label);
+                    var number = row + 1;
+                    var label = new Label
+                    {
+                        Name = $"tileRowLabel{number}"
+                    };
+                    Panel.SetZIndex(label, (int)ZOrder.LineNumber);
+                    appView.TileRowLabels.Add(label);
+                    appView.canvas.Children.Add(label);
+                }
+
+                // 線の行
+                {
+                    var number = row + 1;
+                    var label = new Label
+                    {
+                        Name = $"lineRowLabel{number}"
+                    };
+                    Panel.SetZIndex(label, (int)ZOrder.LineNumber);
+                    appView.LineRowLabels.Add(label);
+                    appView.canvas.Children.Add(label);
+                }
             }
         }
     }

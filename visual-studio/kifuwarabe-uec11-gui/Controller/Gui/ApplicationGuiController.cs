@@ -20,39 +20,17 @@
                 throw new ArgumentNullException(nameof(appView));
             }
 
+            // 面の列番号
+            TileColumnNumbersView.Repaint(appModel, appView);
+
+            // 面の行番号
+            TileRowNumbersView.Repaint(appModel, appView);
+
             // 線の列番号
-            {
-                var boardLeftTop = BoardView.GetBoardLeftTop(appView);
-
-                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
-                var offsetLeftRate = 0.0;
-
-                if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
-                {
-                    offsetLeftRate = 0.5;
-                }
-
-                boardLeftTop.Offset(BoardView.GetLabelWidth(appModel, appView) * offsetLeftRate, 0);
-
-                ColumnNumberView.Repaint(appModel, appView, boardLeftTop, appModel.GetStringList(ApplicationDto.LineColumnNumbersRealName));
-            }
+            LineColumnNumbersView.Repaint(appModel, appView);
 
             // 線の行番号
-            {
-                var boardLeftTop = BoardView.GetBoardLeftTop(appView);
-
-                // 交点の上に合わせるなら 0、マスの中央に合わせるなら 0.5。 
-                var offsetTopRate = 0.0;
-
-                if (ApplicationDto.Square == appModel.GetString(ApplicationDto.PieceLocationRealName).Value)
-                {
-                    offsetTopRate = 0.5;
-                }
-
-                boardLeftTop.Offset(0, BoardView.GetLabelHeight(appModel, appView) * offsetTopRate);
-
-                RowNumberView.Repaint(appModel, appView, boardLeftTop, appModel.GetStringList(ApplicationDto.LineRowNumbersRealName));
-            }
+            LineRowNumbersView.Repaint(appModel, appView);
 
             // 石。
             {

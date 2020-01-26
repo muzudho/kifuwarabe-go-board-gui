@@ -181,7 +181,7 @@ set line-row-numbers = ""19"", ""18"", ""17"", ""16"", ""15"", ""14"", ""13"", "
             var appModel = new ApplicationObjectDtoWrapper();
 
             var infoRealName = new RealName("info");
-            Assert.IsFalse(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsFalse(appModel.HasString(infoRealName));
 
             {
                 var text = @"new info : string
@@ -193,7 +193,7 @@ info バナナ食うか☆（＾～＾）？";
                 }
             }
 
-            Assert.IsTrue(appModel.ContainsKeyOfStrings(infoRealName));
+            Assert.IsTrue(appModel.HasString(infoRealName));
 
             Assert.AreEqual(
                 "バナナ食うか☆（＾～＾）？",
